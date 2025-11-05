@@ -1,0 +1,1 @@
+Create a useShoppingCart() composable in composables/ that uses useState for global state. Implement addItem, removeItem, and clearCart methods. Create homepage, /cart, and /checkout pages that all use this composable and show the cart persisting across navigation. Use Nuxt 4 structure (pages, components, composables, assets, etc. in app/ directory).

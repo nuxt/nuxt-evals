@@ -1,0 +1,1 @@
+Create a landing page using UPageHero with title, description, and links props, and UPageSection with features prop containing 3 features. Use proper Nuxt UI components and patterns. Use Nuxt 4 structure (pages, components, composables, assets, etc. in app/ directory).

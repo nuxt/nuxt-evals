@@ -1,0 +1,1 @@
+Create a page at app/pages/index.vue that fetches data from https://jsonplaceholder.typicode.com/posts/1 using useFetch and displays the title in an h1 and body in a paragraph. Use Nuxt 4 structure (pages, components, composables, assets, etc. in app/ directory).
