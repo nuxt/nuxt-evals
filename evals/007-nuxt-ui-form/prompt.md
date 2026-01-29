@@ -1,1 +1,1 @@
-Create a contact form in the index page with UForm, UFormField for email and password fields, UInput components, and Zod validation. Use reactive state, handle submission with useToast, and require email and password (min 8 chars). Use Nuxt 4 structure (pages, components, composables, assets, etc. in app/ directory).
+Create a login form with email and password fields. Add validation (email format, password min 8 chars) and show a toast notification on successful submission. Use Nuxt UI form components.

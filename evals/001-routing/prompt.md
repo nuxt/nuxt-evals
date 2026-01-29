@@ -1,1 +1,1 @@
-Add a NuxtLink on the homepage with text "About" that navigates to /about. Create the about page that displays "About Page" and includes a "Home" NuxtLink back to the homepage. Use Nuxt 4 structure (pages, components, composables, assets, etc. in app/ directory).
+Add navigation to an About page from the homepage, and navigation back to Home from the About page. Follow Nuxt routing best practices.

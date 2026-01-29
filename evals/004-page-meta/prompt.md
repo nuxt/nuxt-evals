@@ -1,1 +1,1 @@
-Create homepage with title "Welcome Home", /about page with title "About Us" using a custom "special" layout (create layouts/special.vue), and /blog/[slug] page with dynamic title "Blog: {slug}" using useHead(). Use definePageMeta for layout assignment on the about page. Use Nuxt 4 structure (pages, components, composables, assets, etc. in app/ directory).
+Create a homepage with title "Welcome Home", an about page with title "About Us" using a custom layout, and a dynamic blog post page at /blog/[slug] with dynamic title based on the slug.

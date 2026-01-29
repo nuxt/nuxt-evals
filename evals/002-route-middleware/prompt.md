@@ -1,1 +1,1 @@
-Create a route middleware in middleware/auth.ts that checks if a user is authenticated (hardcoded to false) and redirects to /login using navigateTo(). Create /login and /dashboard pages, and apply the middleware to /dashboard using definePageMeta. Use Nuxt 4 structure (pages, components, composables, assets, etc. in app/ directory).
+Create an authentication middleware that protects a dashboard page. Unauthenticated users should be redirected to a login page. For testing, hardcode the auth check to always return false.
