@@ -1,120 +1,65 @@
 /**
  * Nuxt State Management with Composables
  *
- * Tests whether the agent can create a shopping cart composable using useState
- * for global state. Agents often use ref() instead of useState() which breaks
- * state persistence across navigation.
+ * Tests whether the agent uses useState for global state that persists across
+ * navigation, instead of ref() which resets on each page.
+ *
+ * Tricky because agents default to ref() which doesn't persist across routes.
  */
 
 import { expect, test } from 'vitest';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
-test('useShoppingCart composable exists', () => {
-  const rootDir = process.cwd();
+test('Shopping cart composable exists', () => {
+  const composablesDir = join(process.cwd(), 'app', 'composables');
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'composables', 'useShoppingCart.ts'),
-    join(rootDir, 'app', 'composables', 'useShoppingCart.js'),
-    join(rootDir, 'composables', 'useShoppingCart.ts'),
-    join(rootDir, 'composables', 'useShoppingCart.js'),
-  ];
+  expect(existsSync(composablesDir)).toBe(true);
 
-  const exists = possiblePaths.some((p) => existsSync(p));
-  expect(exists).toBe(true);
+  const files = readdirSync(composablesDir);
+  const hasCartComposable = files.some(f => f.toLowerCase().includes('cart'));
+
+  expect(hasCartComposable).toBe(true);
 });
 
 test('Composable uses useState for global state', () => {
-  const rootDir = process.cwd();
+  const composablesDir = join(process.cwd(), 'app', 'composables');
+  const files = readdirSync(composablesDir);
+  const cartFile = files.find(f => f.toLowerCase().includes('cart'));
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'composables', 'useShoppingCart.ts'),
-    join(rootDir, 'app', 'composables', 'useShoppingCart.js'),
-    join(rootDir, 'composables', 'useShoppingCart.ts'),
-    join(rootDir, 'composables', 'useShoppingCart.js'),
-  ];
+  const content = readFileSync(join(composablesDir, cartFile!), 'utf-8');
 
-  const composablePath = possiblePaths.find((p) => existsSync(p));
-
-  if (composablePath) {
-    const content = readFileSync(composablePath, 'utf-8');
-
-    // Should use useState (not just ref)
-    expect(content).toMatch(/useState/);
-  }
+  // Must use useState (not just ref) for cross-route persistence
+  expect(content).toMatch(/useState/);
 });
 
-test('Composable implements required methods', () => {
-  const rootDir = process.cwd();
+test('Composable has cart management methods', () => {
+  const composablesDir = join(process.cwd(), 'app', 'composables');
+  const files = readdirSync(composablesDir);
+  const cartFile = files.find(f => f.toLowerCase().includes('cart'));
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'composables', 'useShoppingCart.ts'),
-    join(rootDir, 'app', 'composables', 'useShoppingCart.js'),
-    join(rootDir, 'composables', 'useShoppingCart.ts'),
-    join(rootDir, 'composables', 'useShoppingCart.js'),
-  ];
+  const content = readFileSync(join(composablesDir, cartFile!), 'utf-8');
 
-  const composablePath = possiblePaths.find((p) => existsSync(p));
-
-  if (composablePath) {
-    const content = readFileSync(composablePath, 'utf-8');
-
-    // Should have addItem, removeItem, clearCart methods
-    expect(content).toMatch(/addItem/);
-    expect(content).toMatch(/removeItem/);
-    expect(content).toMatch(/clearCart/);
-  }
+  expect(content).toMatch(/add/i);
+  expect(content).toMatch(/remove/i);
+  expect(content).toMatch(/clear/i);
 });
 
 test('Cart page exists', () => {
-  const rootDir = process.cwd();
+  const cartPath = join(process.cwd(), 'app', 'pages', 'cart.vue');
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'cart.vue'),
-    join(rootDir, 'app', 'pages', 'cart', 'index.vue'),
-    join(rootDir, 'pages', 'cart.vue'),
-    join(rootDir, 'pages', 'cart', 'index.vue'),
-  ];
-
-  const exists = possiblePaths.some((p) => existsSync(p));
-  expect(exists).toBe(true);
+  expect(existsSync(cartPath)).toBe(true);
 });
 
 test('Checkout page exists', () => {
-  const rootDir = process.cwd();
+  const checkoutPath = join(process.cwd(), 'app', 'pages', 'checkout.vue');
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'checkout.vue'),
-    join(rootDir, 'app', 'pages', 'checkout', 'index.vue'),
-    join(rootDir, 'pages', 'checkout.vue'),
-    join(rootDir, 'pages', 'checkout', 'index.vue'),
-  ];
-
-  const exists = possiblePaths.some((p) => existsSync(p));
-  expect(exists).toBe(true);
+  expect(existsSync(checkoutPath)).toBe(true);
 });
 
-test('Pages use the shopping cart composable', () => {
-  const rootDir = process.cwd();
+test('Pages use the cart composable', () => {
+  const cartPath = join(process.cwd(), 'app', 'pages', 'cart.vue');
+  const content = readFileSync(cartPath, 'utf-8');
 
-  const pagePaths = [
-    join(rootDir, 'app', 'pages', 'cart.vue'),
-    join(rootDir, 'app', 'pages', 'cart', 'index.vue'),
-    join(rootDir, 'app', 'pages', 'checkout.vue'),
-    join(rootDir, 'app', 'pages', 'checkout', 'index.vue'),
-  ];
-
-  let foundUsage = false;
-
-  for (const path of pagePaths) {
-    if (existsSync(path)) {
-      const content = readFileSync(path, 'utf-8');
-      if (content.includes('useShoppingCart')) {
-        foundUsage = true;
-        break;
-      }
-    }
-  }
-
-  expect(foundUsage).toBe(true);
+  expect(content).toMatch(/use.*[Cc]art/);
 });

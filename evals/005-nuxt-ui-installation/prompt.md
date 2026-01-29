@@ -1,1 +1,1 @@
-Install and configure Nuxt UI in this Nuxt application. Add the module, create the CSS file with proper imports, configure nuxt.config.ts, and wrap the app with UApp component. Use Nuxt 4 structure (pages, components, composables, assets, etc. in app/ directory).
+Install and configure Nuxt UI in this application. Ensure the app is properly set up to use Nuxt UI components.

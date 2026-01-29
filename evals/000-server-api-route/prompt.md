@@ -1,1 +1,1 @@
-Create an API route handler in server/api/ that returns "Hello world" and update the homepage to fetch and display this data using useFetch or useAsyncData. Use Nuxt 4 structure (pages, components, composables, assets, etc. in app/ directory).
+Create an API route that returns a greeting message and display it on the homepage. Follow Nuxt best practices for data fetching.

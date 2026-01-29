@@ -1,88 +1,77 @@
 /**
  * Nuxt UI Installation
  *
- * Tests whether the agent can properly install and configure Nuxt UI.
- * Agents often miss steps like CSS imports, UApp wrapper, or module config.
+ * Tests whether the agent properly installs and configures Nuxt UI with all
+ * required setup steps (module, CSS imports, UApp wrapper).
+ *
+ * Tricky because agents often miss steps like the CSS imports or UApp wrapper
+ * which is required for Toast, Tooltip, and Programmatic Overlays to work.
  */
 
 import { expect, test } from 'vitest';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
-test('Nuxt UI module is configured', () => {
-  const rootDir = process.cwd();
+function findFile(...paths: string[]): string | undefined {
+  return paths.find(p => existsSync(p));
+}
 
-  const configPath = join(rootDir, 'nuxt.config.ts');
+test('Nuxt UI module is configured in nuxt.config', () => {
+  const configPath = join(process.cwd(), 'nuxt.config.ts');
+  const content = readFileSync(configPath, 'utf-8');
 
-  if (existsSync(configPath)) {
-    const content = readFileSync(configPath, 'utf-8');
-
-    // Should have @nuxt/ui in modules
-    expect(content).toMatch(/@nuxt\/ui/);
-  }
-});
-
-test('CSS file with proper imports exists', () => {
-  const rootDir = process.cwd();
-
-  const possiblePaths = [
-    join(rootDir, 'app', 'assets', 'css', 'main.css'),
-    join(rootDir, 'app', 'assets', 'main.css'),
-    join(rootDir, 'assets', 'css', 'main.css'),
-    join(rootDir, 'assets', 'main.css'),
-  ];
-
-  const cssPath = possiblePaths.find((p) => existsSync(p));
-
-  // CSS file should exist
-  expect(cssPath).toBeDefined();
-
-  if (cssPath) {
-    const content = readFileSync(cssPath, 'utf-8');
-
-    // Should have tailwind imports
-    expect(content).toMatch(/@import|@tailwind/);
-  }
-});
-
-test('App is wrapped with UApp component', () => {
-  const rootDir = process.cwd();
-
-  const appVuePath = join(rootDir, 'app', 'app.vue');
-
-  if (existsSync(appVuePath)) {
-    const content = readFileSync(appVuePath, 'utf-8');
-
-    // Should use UApp component
-    expect(content).toMatch(/UApp/);
-  }
+  expect(content).toMatch(/@nuxt\/ui/);
 });
 
 test('Package.json has @nuxt/ui dependency', () => {
-  const rootDir = process.cwd();
+  const packagePath = join(process.cwd(), 'package.json');
+  const content = readFileSync(packagePath, 'utf-8');
+  const pkg = JSON.parse(content);
 
-  const packagePath = join(rootDir, 'package.json');
+  const hasNuxtUI = pkg.dependencies?.['@nuxt/ui'] || pkg.devDependencies?.['@nuxt/ui'];
+  expect(hasNuxtUI).toBeTruthy();
+});
 
-  if (existsSync(packagePath)) {
-    const content = readFileSync(packagePath, 'utf-8');
-    const pkg = JSON.parse(content);
+test('CSS file exists with required imports', () => {
+  const cssPath = findFile(
+    join(process.cwd(), 'app', 'assets', 'css', 'main.css'),
+    join(process.cwd(), 'app', 'assets', 'main.css'),
+    join(process.cwd(), 'assets', 'css', 'main.css'),
+    join(process.cwd(), 'assets', 'main.css'),
+  );
 
-    const hasNuxtUI =
-      pkg.dependencies?.['@nuxt/ui'] || pkg.devDependencies?.['@nuxt/ui'];
+  expect(cssPath).toBeDefined();
 
-    expect(hasNuxtUI).toBeTruthy();
-  }
+  const content = readFileSync(cssPath!, 'utf-8');
+
+  // Should have tailwindcss import
+  expect(content).toMatch(/@import.*tailwindcss|@tailwind/);
+
+  // Should have @nuxt/ui import
+  expect(content).toMatch(/@import.*@nuxt\/ui/);
 });
 
 test('CSS is configured in nuxt.config', () => {
-  const rootDir = process.cwd();
+  const configPath = join(process.cwd(), 'nuxt.config.ts');
+  const content = readFileSync(configPath, 'utf-8');
 
-  const configPath = join(rootDir, 'nuxt.config.ts');
+  // Should have css configuration with ~/assets/css/main.css pattern
+  expect(content).toMatch(/css\s*:\s*\[/);
+  expect(content).toMatch(/~\/assets\/css\/main\.css|assets\/css\/main\.css/);
+});
 
-  if (existsSync(configPath)) {
-    const content = readFileSync(configPath, 'utf-8');
+test('App is wrapped with UApp component', () => {
+  const appVuePath = join(process.cwd(), 'app', 'app.vue');
+  const content = readFileSync(appVuePath, 'utf-8');
 
-    // Should have css configuration
-    expect(content).toMatch(/css.*main\.css|css:\s*\[/);
-  }
+  // UApp is required for Toast, Tooltip, and Programmatic Overlays
+  expect(content).toMatch(/<UApp/);
+});
+
+test('Nuxt UI is in modules array', () => {
+  const configPath = join(process.cwd(), 'nuxt.config.ts');
+  const content = readFileSync(configPath, 'utf-8');
+
+  // Should be in modules array
+  expect(content).toMatch(/modules\s*:\s*\[[\s\S]*@nuxt\/ui/);
 });

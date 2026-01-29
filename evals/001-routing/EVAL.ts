@@ -1,115 +1,93 @@
 /**
  * Nuxt Routing with NuxtLink
  *
- * Tests whether the agent can implement client-side navigation using NuxtLink.
- * Agents often use regular <a> tags instead of NuxtLink or try to import it.
+ * Tests whether the agent uses NuxtLink for client-side navigation instead of
+ * regular anchor tags. Also tests proper page creation in the pages directory.
+ *
+ * Tricky because agents often use <a href=""> instead of <NuxtLink to="">.
  */
 
 import { expect, test } from 'vitest';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
+function findFile(...paths: string[]): string | undefined {
+  return paths.find(p => existsSync(p));
+}
+
 test('About page exists', () => {
-  const rootDir = process.cwd();
+  const aboutPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'about.vue'),
+    join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
+    join(process.cwd(), 'pages', 'about.vue'),
+    join(process.cwd(), 'pages', 'about', 'index.vue'),
+  );
 
-  // Check for about page in various locations
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'about.vue'),
-    join(rootDir, 'app', 'pages', 'about', 'index.vue'),
-    join(rootDir, 'pages', 'about.vue'),
-    join(rootDir, 'pages', 'about', 'index.vue'),
-  ];
-
-  const aboutPageExists = possiblePaths.some((p) => existsSync(p));
-  expect(aboutPageExists).toBe(true);
+  expect(aboutPath).toBeDefined();
 });
 
-test('About page displays correct content', () => {
-  const rootDir = process.cwd();
+test('About page displays content', () => {
+  const aboutPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'about.vue'),
+    join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
+    join(process.cwd(), 'pages', 'about.vue'),
+    join(process.cwd(), 'pages', 'about', 'index.vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'about.vue'),
-    join(rootDir, 'app', 'pages', 'about', 'index.vue'),
-    join(rootDir, 'pages', 'about.vue'),
-    join(rootDir, 'pages', 'about', 'index.vue'),
-  ];
+  const content = readFileSync(aboutPath!, 'utf-8');
 
-  const aboutPagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (aboutPagePath) {
-    const content = readFileSync(aboutPagePath, 'utf-8');
-    expect(content).toMatch(/About Page/i);
-  }
+  expect(content).toMatch(/<template>/);
+  expect(content).toMatch(/[Aa]bout/);
 });
 
-test('Homepage has NuxtLink to about page', () => {
-  const rootDir = process.cwd();
+test('Homepage uses NuxtLink for navigation', () => {
+  // Check both app.vue and pages/index.vue
+  const homePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'app.vue'),
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
+  const content = readFileSync(homePath!, 'utf-8');
 
-  const homePath = possiblePaths.find((p) => existsSync(p));
-
-  if (homePath) {
-    const content = readFileSync(homePath, 'utf-8');
-
-    // Should use NuxtLink component
-    expect(content).toMatch(/NuxtLink/);
-
-    // Should link to /about
-    expect(content).toMatch(/to=["']\/about["']/);
-
-    // Should have "About" text
-    expect(content).toMatch(/About/);
-  }
+  // Should use NuxtLink, not <a>
+  expect(content).toMatch(/<NuxtLink/);
+  expect(content).toMatch(/to=["']\/about["']/);
 });
 
-test('About page has NuxtLink back to home', () => {
-  const rootDir = process.cwd();
+test('About page uses NuxtLink to navigate home', () => {
+  const aboutPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'about.vue'),
+    join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
+    join(process.cwd(), 'pages', 'about.vue'),
+    join(process.cwd(), 'pages', 'about', 'index.vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'about.vue'),
-    join(rootDir, 'app', 'pages', 'about', 'index.vue'),
-    join(rootDir, 'pages', 'about.vue'),
-    join(rootDir, 'pages', 'about', 'index.vue'),
-  ];
+  const content = readFileSync(aboutPath!, 'utf-8');
 
-  const aboutPagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (aboutPagePath) {
-    const content = readFileSync(aboutPagePath, 'utf-8');
-
-    // Should use NuxtLink
-    expect(content).toMatch(/NuxtLink/);
-
-    // Should link to home
-    expect(content).toMatch(/to=["']\/["']/);
-
-    // Should have "Home" text
-    expect(content).toMatch(/Home/);
-  }
+  expect(content).toMatch(/<NuxtLink/);
+  expect(content).toMatch(/to=["']\/["']/);
 });
 
-test('Does not use regular anchor tags for navigation', () => {
-  const rootDir = process.cwd();
+test('Does not use anchor tags for internal navigation', () => {
+  const homePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'app.vue'),
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'app', 'pages', 'about.vue'),
-    join(rootDir, 'app', 'pages', 'about', 'index.vue'),
-  ];
+  const aboutPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'about.vue'),
+    join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
+  );
 
-  for (const path of possiblePaths) {
-    if (existsSync(path)) {
-      const content = readFileSync(path, 'utf-8');
+  const homeContent = readFileSync(homePath!, 'utf-8');
 
-      // Should NOT use <a href="/about"> or <a href="/">
-      const hasAnchorForInternalNav = /<a\s+[^>]*href=["']\/(?:about)?["'][^>]*>/i.test(content);
-      expect(hasAnchorForInternalNav).toBe(false);
-    }
+  // Should NOT use <a href="/..."> for internal links
+  expect(homeContent).not.toMatch(/<a[^>]*href=["']\/about["']/);
+
+  if (aboutPath) {
+    const aboutContent = readFileSync(aboutPath, 'utf-8');
+    expect(aboutContent).not.toMatch(/<a[^>]*href=["']\/["']/);
   }
 });

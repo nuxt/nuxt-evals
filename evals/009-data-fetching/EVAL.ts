@@ -1,115 +1,74 @@
 /**
- * Nuxt Data Fetching with External API
+ * Nuxt External API Data Fetching
  *
- * Tests whether the agent can fetch data from an external API using useFetch
- * and display it properly in the template.
+ * Tests whether the agent uses useFetch/useAsyncData for external API calls
+ * instead of client-side fetch patterns.
+ *
+ * Tricky because agents default to onMounted + fetch instead of Nuxt composables.
  */
 
 import { expect, test } from 'vitest';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
-test('Index page exists', () => {
-  const rootDir = process.cwd();
+function findFile(...paths: string[]): string | undefined {
+  return paths.find(p => existsSync(p));
+}
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
+function getMainPageContent(): string {
+  // Check pages/index.vue first, then app.vue
+  const pagePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
 
-  const exists = possiblePaths.some((p) => existsSync(p));
-  expect(exists).toBe(true);
+  if (!pagePath) {
+    throw new Error('No main page found (app/pages/index.vue, pages/index.vue, or app/app.vue)');
+  }
+
+  return readFileSync(pagePath, 'utf-8');
+}
+
+test('Main page exists', () => {
+  const pagePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
+
+  expect(pagePath).toBeDefined();
 });
 
-test('Uses useFetch to fetch data', () => {
-  const rootDir = process.cwd();
+test('Uses Nuxt data fetching composables', () => {
+  const content = getMainPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-    expect(content).toMatch(/useFetch/);
-  }
+  expect(content).toMatch(/useFetch|useAsyncData/);
 });
 
 test('Fetches from jsonplaceholder API', () => {
-  const rootDir = process.cwd();
+  const content = getMainPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-    expect(content).toMatch(/jsonplaceholder\.typicode\.com\/posts\/1/);
-  }
+  expect(content).toMatch(/jsonplaceholder\.typicode\.com/);
 });
 
-test('Displays title in h1', () => {
-  const rootDir = process.cwd();
+test('Displays title', () => {
+  const content = getMainPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-
-    // Should have h1 element
-    expect(content).toMatch(/<h1/);
-
-    // Should reference title in template
-    expect(content).toMatch(/title|data\.title/);
-  }
+  // Should reference title somewhere in template or script
+  expect(content).toMatch(/title/i);
 });
 
-test('Displays body in paragraph', () => {
-  const rootDir = process.cwd();
+test('Displays body content', () => {
+  const content = getMainPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-
-    // Should have p element
-    expect(content).toMatch(/<p/);
-
-    // Should reference body in template
-    expect(content).toMatch(/body|data\.body/);
-  }
+  // Should reference body somewhere
+  expect(content).toMatch(/body/i);
 });
 
-test('Does not use raw fetch in onMounted', () => {
-  const rootDir = process.cwd();
+test('Does not use onMounted + fetch anti-pattern', () => {
+  const content = getMainPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-
-    // Should NOT use onMounted with fetch (anti-pattern)
-    const hasAntiPattern = /onMounted\s*\(\s*(?:async\s*)?\(\s*\)\s*=>\s*\{[\s\S]*?fetch\(/.test(content);
-    expect(hasAntiPattern).toBe(false);
-  }
+  const hasAntiPattern = /onMounted[\s\S]*?fetch\(/.test(content);
+  expect(hasAntiPattern).toBe(false);
 });

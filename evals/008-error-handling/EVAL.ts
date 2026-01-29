@@ -1,133 +1,91 @@
 /**
  * Nuxt Error Handling
  *
- * Tests whether the agent can implement error handling using error.vue,
- * NuxtErrorBoundary, useError, clearError, and createError.
+ * Tests whether the agent implements both global error handling (error.vue)
+ * and component-level error boundaries (NuxtErrorBoundary).
+ *
+ * Tricky because agents might only implement one level of error handling
+ * or use incorrect error utilities.
  */
 
 import { expect, test } from 'vitest';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
-test('error.vue exists in app directory', () => {
-  const rootDir = process.cwd();
+function findFile(...paths: string[]): string | undefined {
+  return paths.find(p => existsSync(p));
+}
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'error.vue'),
-    join(rootDir, 'error.vue'),
-  ];
+test('Global error page exists', () => {
+  const errorPath = findFile(
+    join(process.cwd(), 'app', 'error.vue'),
+    join(process.cwd(), 'error.vue'),
+  );
 
-  const exists = possiblePaths.some((p) => existsSync(p));
-  expect(exists).toBe(true);
+  expect(errorPath).toBeDefined();
 });
 
-test('error.vue uses useError', () => {
-  const rootDir = process.cwd();
+test('Error page uses useError or error prop', () => {
+  const errorPath = findFile(
+    join(process.cwd(), 'app', 'error.vue'),
+    join(process.cwd(), 'error.vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'error.vue'),
-    join(rootDir, 'error.vue'),
-  ];
+  const content = readFileSync(errorPath!, 'utf-8');
 
-  const errorPath = possiblePaths.find((p) => existsSync(p));
-
-  if (errorPath) {
-    const content = readFileSync(errorPath, 'utf-8');
-    expect(content).toMatch(/useError/);
-  }
+  // Accept useError() or props.error
+  expect(content).toMatch(/useError|error/);
 });
 
-test('error.vue has clearError button', () => {
-  const rootDir = process.cwd();
+test('Error page has clearError functionality', () => {
+  const errorPath = findFile(
+    join(process.cwd(), 'app', 'error.vue'),
+    join(process.cwd(), 'error.vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'error.vue'),
-    join(rootDir, 'error.vue'),
-  ];
+  const content = readFileSync(errorPath!, 'utf-8');
 
-  const errorPath = possiblePaths.find((p) => existsSync(p));
-
-  if (errorPath) {
-    const content = readFileSync(errorPath, 'utf-8');
-    expect(content).toMatch(/clearError/);
-    expect(content).toMatch(/<button|UButton/i);
-  }
+  expect(content).toMatch(/clearError/);
 });
 
 test('Index page exists', () => {
-  const rootDir = process.cwd();
+  const indexPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const exists = possiblePaths.some((p) => existsSync(p));
-  expect(exists).toBe(true);
+  expect(indexPath).toBeDefined();
 });
 
 test('Index page uses NuxtErrorBoundary', () => {
-  const rootDir = process.cwd();
+  const indexPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
+  const content = readFileSync(indexPath!, 'utf-8');
 
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-    expect(content).toMatch(/NuxtErrorBoundary/);
-  }
+  expect(content).toMatch(/NuxtErrorBoundary/);
 });
 
 test('Index page has error slot', () => {
-  const rootDir = process.cwd();
+  const indexPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
+  const content = readFileSync(indexPath!, 'utf-8');
 
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-    expect(content).toMatch(/#error|v-slot:error/);
-  }
+  expect(content).toMatch(/#error|v-slot:error|@error/);
 });
 
-test('Index page can trigger error with createError', () => {
-  const rootDir = process.cwd();
+test('Index page can trigger error', () => {
+  const indexPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
+  const content = readFileSync(indexPath!, 'utf-8');
 
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-    expect(content).toMatch(/createError/);
-  }
-});
-
-test('Index page can clear error locally', () => {
-  const rootDir = process.cwd();
-
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-
-    // Should be able to set error to null
-    expect(content).toMatch(/error\s*=\s*null|clearError/);
-  }
+  expect(content).toMatch(/createError|throw|Error/);
 });

@@ -1,120 +1,90 @@
 /**
  * Nuxt Page Meta and Layouts
  *
- * Tests whether the agent can use definePageMeta, useHead, and custom layouts.
- * Agents often confuse page meta with head meta or place layouts in wrong directories.
+ * Tests whether the agent correctly uses definePageMeta for layouts and
+ * useHead for dynamic page titles.
+ *
+ * Tricky because agents confuse page meta with head meta or place layouts
+ * in wrong directories.
  */
 
 import { expect, test } from 'vitest';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
-test('Homepage exists with correct title', () => {
-  const rootDir = process.cwd();
+function findFile(...paths: string[]): string | undefined {
+  return paths.find(p => existsSync(p));
+}
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
+test('Homepage exists with title', () => {
+  const indexPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+  );
 
-  const homePath = possiblePaths.find((p) => existsSync(p));
-  expect(homePath).toBeDefined();
+  expect(indexPath).toBeDefined();
 
-  if (homePath) {
-    const content = readFileSync(homePath, 'utf-8');
-    expect(content).toMatch(/Welcome Home/i);
-  }
+  const content = readFileSync(indexPath!, 'utf-8');
+  expect(content).toMatch(/Welcome Home/i);
 });
 
-test('About page exists with special layout', () => {
-  const rootDir = process.cwd();
+test('About page exists with custom layout', () => {
+  const aboutPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'about.vue'),
+    join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
+    join(process.cwd(), 'pages', 'about.vue'),
+    join(process.cwd(), 'pages', 'about', 'index.vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'about.vue'),
-    join(rootDir, 'app', 'pages', 'about', 'index.vue'),
-    join(rootDir, 'pages', 'about.vue'),
-    join(rootDir, 'pages', 'about', 'index.vue'),
-  ];
-
-  const aboutPath = possiblePaths.find((p) => existsSync(p));
   expect(aboutPath).toBeDefined();
 
-  if (aboutPath) {
-    const content = readFileSync(aboutPath, 'utf-8');
-
-    // Should have About Us title
-    expect(content).toMatch(/About Us/i);
-
-    // Should use definePageMeta with special layout
-    expect(content).toMatch(/definePageMeta/);
-    expect(content).toMatch(/layout.*special|layout:\s*['"]special['"]/);
-  }
+  const content = readFileSync(aboutPath!, 'utf-8');
+  expect(content).toMatch(/definePageMeta/);
+  expect(content).toMatch(/layout/);
 });
 
-test('Special layout exists', () => {
-  const rootDir = process.cwd();
+test('Custom layout exists in layouts directory', () => {
+  const layoutsDir = findFile(
+    join(process.cwd(), 'app', 'layouts'),
+    join(process.cwd(), 'layouts'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'layouts', 'special.vue'),
-    join(rootDir, 'layouts', 'special.vue'),
-  ];
+  expect(layoutsDir).toBeDefined();
 
-  const exists = possiblePaths.some((p) => existsSync(p));
-  expect(exists).toBe(true);
+  const files = readdirSync(layoutsDir!);
+  expect(files.length).toBeGreaterThan(0);
 });
 
-test('Special layout has slot for content', () => {
-  const rootDir = process.cwd();
+test('Layout has slot for content', () => {
+  const layoutsDir = findFile(
+    join(process.cwd(), 'app', 'layouts'),
+    join(process.cwd(), 'layouts'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'layouts', 'special.vue'),
-    join(rootDir, 'layouts', 'special.vue'),
-  ];
+  const files = readdirSync(layoutsDir!);
+  const layoutFile = files.find(f => f.endsWith('.vue'));
 
-  const layoutPath = possiblePaths.find((p) => existsSync(p));
-
-  if (layoutPath) {
-    const content = readFileSync(layoutPath, 'utf-8');
-    expect(content).toMatch(/<slot/);
-  }
+  const content = readFileSync(join(layoutsDir!, layoutFile!), 'utf-8');
+  expect(content).toMatch(/<slot/);
 });
 
-test('Blog slug page exists with dynamic title', () => {
-  const rootDir = process.cwd();
+test('Dynamic blog page exists', () => {
+  const blogSlugPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'blog', '[slug].vue'),
+    join(process.cwd(), 'pages', 'blog', '[slug].vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'blog', '[slug].vue'),
-    join(rootDir, 'pages', 'blog', '[slug].vue'),
-  ];
-
-  const blogPath = possiblePaths.find((p) => existsSync(p));
-  expect(blogPath).toBeDefined();
-
-  if (blogPath) {
-    const content = readFileSync(blogPath, 'utf-8');
-
-    // Should use useHead for dynamic title
-    expect(content).toMatch(/useHead/);
-
-    // Should reference slug in title
-    expect(content).toMatch(/Blog/i);
-  }
+  expect(blogSlugPath).toBeDefined();
 });
 
-test('Blog page uses route params for slug', () => {
-  const rootDir = process.cwd();
+test('Blog page uses useHead for dynamic title', () => {
+  const blogSlugPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'blog', '[slug].vue'),
+    join(process.cwd(), 'pages', 'blog', '[slug].vue'),
+  );
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'blog', '[slug].vue'),
-    join(rootDir, 'pages', 'blog', '[slug].vue'),
-  ];
+  const content = readFileSync(blogSlugPath!, 'utf-8');
 
-  const blogPath = possiblePaths.find((p) => existsSync(p));
-
-  if (blogPath) {
-    const content = readFileSync(blogPath, 'utf-8');
-
-    // Should use useRoute or route.params for slug
-    expect(content).toMatch(/useRoute|route\.params|params\.slug/);
-  }
+  expect(content).toMatch(/useHead/);
+  expect(content).toMatch(/useRoute|route|slug/);
 });

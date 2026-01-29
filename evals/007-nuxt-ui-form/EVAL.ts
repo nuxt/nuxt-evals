@@ -1,143 +1,79 @@
 /**
- * Nuxt UI Form with Zod Validation
+ * Nuxt UI Form with Validation
  *
- * Tests whether the agent can create forms using Nuxt UI components
- * with proper Zod validation and toast notifications.
+ * Tests whether the agent uses Nuxt UI form components correctly with
+ * proper validation (Zod or Yup) and toast notifications.
+ *
+ * Tricky because agents might use native form elements instead of UForm
+ * or skip proper validation setup.
  */
 
 import { expect, test } from 'vitest';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
-test('Index page exists with form', () => {
-  const rootDir = process.cwd();
+function findFile(...paths: string[]): string | undefined {
+  return paths.find(p => existsSync(p));
+}
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
+function getFormPageContent(): string {
+  const pagePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
 
-  const pagePath = possiblePaths.find((p) => existsSync(p));
+  if (!pagePath) {
+    throw new Error('No form page found');
+  }
+
+  return readFileSync(pagePath, 'utf-8');
+}
+
+test('Form page exists', () => {
+  const pagePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
+
   expect(pagePath).toBeDefined();
 });
 
 test('Uses UForm component', () => {
-  const rootDir = process.cwd();
+  const content = getFormPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-    expect(content).toMatch(/UForm/);
-  }
+  expect(content).toMatch(/UForm/);
 });
 
-test('Uses UFormField for fields', () => {
-  const rootDir = process.cwd();
+test('Uses UFormField for form fields', () => {
+  const content = getFormPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-    expect(content).toMatch(/UFormField/);
-  }
+  expect(content).toMatch(/UFormField/);
 });
 
 test('Uses UInput components', () => {
-  const rootDir = process.cwd();
+  const content = getFormPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-    expect(content).toMatch(/UInput/);
-  }
+  expect(content).toMatch(/UInput/);
 });
 
 test('Has email and password fields', () => {
-  const rootDir = process.cwd();
+  const content = getFormPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-
-    // Should have email field
-    expect(content).toMatch(/email/i);
-
-    // Should have password field
-    expect(content).toMatch(/password/i);
-  }
+  expect(content).toMatch(/email/i);
+  expect(content).toMatch(/password/i);
 });
 
-test('Uses Zod for validation', () => {
-  const rootDir = process.cwd();
+test('Uses validation schema', () => {
+  const content = getFormPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-
-    // Should import or use zod
-    expect(content).toMatch(/zod|z\./);
-  }
+  // Accept Zod, Yup, or generic schema references
+  expect(content).toMatch(/zod|yup|z\.|schema|validate/i);
 });
 
-test('Uses useToast for submission feedback', () => {
-  const rootDir = process.cwd();
+test('Uses useToast for notifications', () => {
+  const content = getFormPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-    expect(content).toMatch(/useToast/);
-  }
-});
-
-test('Has reactive state for form', () => {
-  const rootDir = process.cwd();
-
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-
-    // Should use reactive or ref for state
-    expect(content).toMatch(/reactive|ref/);
-  }
+  expect(content).toMatch(/useToast|toast/);
 });

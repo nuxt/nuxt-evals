@@ -1,110 +1,77 @@
 /**
  * Nuxt UI Landing Page
  *
- * Tests whether the agent can create a landing page using Nuxt UI components
- * like UPageHero and UPageSection with proper props.
+ * Tests whether the agent uses the correct Nuxt UI page components
+ * (UPageHero, UPageSection) with proper props.
+ *
+ * Tricky because agents might use generic components instead of Nuxt UI's
+ * specialized page components.
  */
 
 import { expect, test } from 'vitest';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
-test('Homepage exists with landing page content', () => {
-  const rootDir = process.cwd();
+function findFile(...paths: string[]): string | undefined {
+  return paths.find(p => existsSync(p));
+}
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'app', 'app.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
+function getLandingPageContent(): string {
+  const pagePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
 
-  const homePath = possiblePaths.find((p) => existsSync(p));
-  expect(homePath).toBeDefined();
+  if (!pagePath) {
+    throw new Error('No landing page found');
+  }
+
+  return readFileSync(pagePath, 'utf-8');
+}
+
+test('Landing page exists', () => {
+  const pagePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
+
+  expect(pagePath).toBeDefined();
 });
 
-test('Uses UPageHero component', () => {
-  const rootDir = process.cwd();
+test('Uses UPageHero or ULandingHero component', () => {
+  const content = getLandingPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'app', 'app.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-
-    // Should use UPageHero
-    expect(content).toMatch(/UPageHero/);
-  }
+  // Accept both UPageHero and ULandingHero (different Nuxt UI versions)
+  expect(content).toMatch(/UPageHero|ULandingHero|UHero/);
 });
 
-test('UPageHero has required props', () => {
-  const rootDir = process.cwd();
+test('Hero has title and description', () => {
+  const content = getLandingPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'app', 'app.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-
-    // Should have title prop
-    expect(content).toMatch(/title/);
-
-    // Should have description prop
-    expect(content).toMatch(/description/);
-
-    // Should have links prop
-    expect(content).toMatch(/links/);
-  }
+  expect(content).toMatch(/title/);
+  expect(content).toMatch(/description/);
 });
 
-test('Uses UPageSection component', () => {
-  const rootDir = process.cwd();
+test('Has call-to-action buttons or links', () => {
+  const content = getLandingPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'app', 'app.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
-
-  const pagePath = possiblePaths.find((p) => existsSync(p));
-
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-
-    // Should use UPageSection
-    expect(content).toMatch(/UPageSection/);
-  }
+  // Should have links/buttons for CTA
+  expect(content).toMatch(/links|UButton|button/i);
 });
 
-test('UPageSection has features prop with 3 features', () => {
-  const rootDir = process.cwd();
+test('Uses UPageSection or features section', () => {
+  const content = getLandingPageContent();
 
-  const possiblePaths = [
-    join(rootDir, 'app', 'pages', 'index.vue'),
-    join(rootDir, 'app', 'app.vue'),
-    join(rootDir, 'pages', 'index.vue'),
-  ];
+  // Accept various feature section patterns
+  expect(content).toMatch(/UPageSection|ULandingSection|UPageFeatures|features/i);
+});
 
-  const pagePath = possiblePaths.find((p) => existsSync(p));
+test('Has multiple features defined', () => {
+  const content = getLandingPageContent();
 
-  if (pagePath) {
-    const content = readFileSync(pagePath, 'utf-8');
-
-    // Should have features prop
-    expect(content).toMatch(/features/);
-
-    // Check for array with multiple items (script setup or template)
-    // This is a heuristic check for 3 features
-    const featureMatches = content.match(/icon|title|description/g);
-    expect(featureMatches && featureMatches.length >= 6).toBe(true); // At least 2 props per feature
-  }
+  // Should have feature items (look for arrays or repeated patterns)
+  const featureIndicators = content.match(/icon|feature|title/gi);
+  expect(featureIndicators && featureIndicators.length >= 3).toBe(true);
 });

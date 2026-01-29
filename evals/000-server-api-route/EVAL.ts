@@ -1,107 +1,59 @@
 /**
  * Nuxt API Route and Data Fetching
  *
- * Tests whether the agent can create API routes in Nuxt and implement proper
- * data fetching patterns. Agents often make mistakes like placing API routes
- * in wrong directories or using client-side fetch instead of Nuxt composables.
+ * Tests whether the agent creates API routes in the correct location and uses
+ * Nuxt's data fetching composables instead of client-side fetch patterns.
+ *
+ * Tricky because agents often place API routes in wrong directories or use
+ * onMounted + fetch instead of useFetch/useAsyncData.
  */
 
 import { expect, test } from 'vitest';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 test('API route exists in server/api directory', () => {
-  const rootDir = process.cwd();
-  const serverApiDir = join(rootDir, 'server', 'api');
+  const serverApiDir = join(process.cwd(), 'server', 'api');
 
-  // server/api directory should exist
   expect(existsSync(serverApiDir)).toBe(true);
 
-  // Check for hello.ts or hello.js file
-  const helloTsPath = join(serverApiDir, 'hello.ts');
-  const helloJsPath = join(serverApiDir, 'hello.js');
-  const helloExists = existsSync(helloTsPath) || existsSync(helloJsPath);
+  const files = readdirSync(serverApiDir);
+  const hasApiRoute = files.some(f => f.endsWith('.ts') || f.endsWith('.js'));
 
-  expect(helloExists).toBe(true);
+  expect(hasApiRoute).toBe(true);
 });
 
 test('API route uses defineEventHandler', () => {
-  const rootDir = process.cwd();
-  const helloTsPath = join(rootDir, 'server', 'api', 'hello.ts');
-  const helloJsPath = join(rootDir, 'server', 'api', 'hello.js');
+  const serverApiDir = join(process.cwd(), 'server', 'api');
+  const files = readdirSync(serverApiDir);
+  const apiFile = files.find(f => f.endsWith('.ts') || f.endsWith('.js'));
 
-  const filePath = existsSync(helloTsPath) ? helloTsPath : helloJsPath;
+  const content = readFileSync(join(serverApiDir, apiFile!), 'utf-8');
 
-  if (existsSync(filePath)) {
-    const content = readFileSync(filePath, 'utf-8');
-
-    // Should use defineEventHandler
-    expect(content).toMatch(/defineEventHandler/);
-
-    // Should return hello: 'world' or similar
-    expect(content).toMatch(/hello/i);
-  }
+  expect(content).toMatch(/defineEventHandler/);
 });
 
 test('Frontend uses Nuxt data fetching composables', () => {
-  const rootDir = process.cwd();
+  const appVuePath = join(process.cwd(), 'app', 'app.vue');
+  const content = readFileSync(appVuePath, 'utf-8');
 
-  // Check app.vue or pages/index.vue
-  const appVuePath = join(rootDir, 'app', 'app.vue');
-  const indexPagePath = join(rootDir, 'app', 'pages', 'index.vue');
-
-  let frontendContent = '';
-
-  if (existsSync(appVuePath)) {
-    frontendContent = readFileSync(appVuePath, 'utf-8');
-  } else if (existsSync(indexPagePath)) {
-    frontendContent = readFileSync(indexPagePath, 'utf-8');
-  }
-
-  // Should use useFetch or useAsyncData (not raw fetch)
-  const usesNuxtComposables = /useFetch|useAsyncData|\$fetch/.test(frontendContent);
-  expect(usesNuxtComposables).toBe(true);
-
-  // Should reference the API endpoint
-  expect(frontendContent).toMatch(/\/api\/hello|api\/hello/);
+  // Should use useFetch, useAsyncData, or $fetch (not raw fetch in onMounted)
+  expect(content).toMatch(/useFetch|useAsyncData|\$fetch/);
 });
 
-test('Frontend displays the API data', () => {
-  const rootDir = process.cwd();
+test('Frontend does not use onMounted + fetch anti-pattern', () => {
+  const appVuePath = join(process.cwd(), 'app', 'app.vue');
+  const content = readFileSync(appVuePath, 'utf-8');
 
-  const appVuePath = join(rootDir, 'app', 'app.vue');
-  const indexPagePath = join(rootDir, 'app', 'pages', 'index.vue');
-
-  let frontendContent = '';
-
-  if (existsSync(appVuePath)) {
-    frontendContent = readFileSync(appVuePath, 'utf-8');
-  } else if (existsSync(indexPagePath)) {
-    frontendContent = readFileSync(indexPagePath, 'utf-8');
-  }
-
-  // Should have template that displays data
-  expect(frontendContent).toMatch(/<template>/);
-
-  // Should reference data in template (data.hello or similar)
-  expect(frontendContent).toMatch(/data|hello/i);
-});
-
-test('No raw fetch in useEffect/onMounted pattern', () => {
-  const rootDir = process.cwd();
-
-  const appVuePath = join(rootDir, 'app', 'app.vue');
-  const indexPagePath = join(rootDir, 'app', 'pages', 'index.vue');
-
-  let frontendContent = '';
-
-  if (existsSync(appVuePath)) {
-    frontendContent = readFileSync(appVuePath, 'utf-8');
-  } else if (existsSync(indexPagePath)) {
-    frontendContent = readFileSync(indexPagePath, 'utf-8');
-  }
-
-  // Should NOT use onMounted with fetch (anti-pattern in Nuxt)
-  const hasAntiPattern = /onMounted\s*\(\s*(?:async\s*)?\(\s*\)\s*=>\s*\{[\s\S]*?fetch\(/.test(frontendContent);
+  // Should NOT use onMounted with fetch
+  const hasAntiPattern = /onMounted[\s\S]*?fetch\(/.test(content);
   expect(hasAntiPattern).toBe(false);
+});
+
+test('Frontend displays the fetched data', () => {
+  const appVuePath = join(process.cwd(), 'app', 'app.vue');
+  const content = readFileSync(appVuePath, 'utf-8');
+
+  // Should have template with data binding
+  expect(content).toMatch(/<template>[\s\S]*\{\{[\s\S]*\}\}[\s\S]*<\/template>/);
 });
