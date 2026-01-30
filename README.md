@@ -37,7 +37,7 @@ Each eval is a self-contained Nuxt.js project in `evals/`:
 
 ```
 evals/000-server-api-route/
-├── prompt.md          # task given to the agent
+├── PROMPT.md          # task given to the agent
 ├── EVAL.ts            # vitest assertions (withheld from the agent)
 ├── package.json       # Nuxt.js project manifest
 ├── nuxt.config.ts
@@ -49,7 +49,7 @@ evals/000-server-api-route/
 
 | File | Purpose |
 |------|---------|
-| `prompt.md` | The task prompt sent to the agent |
+| `PROMPT.md` | The task prompt sent to the agent |
 | `EVAL.ts` | Test file run after the agent finishes (withheld from agent) |
 | `package.json` | Must have `"type": "module"` and a `"build"` script |
 | Everything else | Source files the agent can see and modify |
@@ -62,7 +62,7 @@ The framework automatically:
 ## Adding a new eval
 
 1. Create a directory under `evals/` (e.g., `evals/010-my-eval/`)
-2. Add `prompt.md` with the task description
+2. Add `PROMPT.md` with the task description
 3. Add `EVAL.ts` with vitest assertions
 4. Add `package.json` with `"type": "module"` and `"build": "nuxt build"`
 5. Add the Nuxt.js source files the agent starts with
