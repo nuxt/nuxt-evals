@@ -2,8 +2,13 @@
   "name": "nuxt-evals",
   "private": true,
   "type": "module",
+  "scripts": {
+    "eval:all": "agent-eval cc",
+    "eval:opencode-kimi": "agent-eval opencode-kimi",
+    "eval:nuxt-ui": "agent-eval nuxt-ui-only"
+  },
   "devDependencies": {
-    "@vercel/agent-eval": "^0.0.4",
+    "@vercel/agent-eval": "^0.0.8",
     "typescript": "^5.6.0"
   }
 }
