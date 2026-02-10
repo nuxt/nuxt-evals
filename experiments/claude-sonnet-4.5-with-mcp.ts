@@ -1,14 +1,13 @@
 import type { ExperimentConfig } from '@vercel/agent-eval';
 
-/**
- * Run evals with MCP server configuration
- */
 const config: ExperimentConfig = {
   agent: 'claude-code',
   model: 'sonnet',
   scripts: ['build'],
   runs: 2,
   earlyExit: true,
+  timeout: 1200,
+  sandbox: 'vercel',
 
   setup: async (sandbox) => {
     await sandbox.runCommand('claude', [

@@ -9,37 +9,52 @@ pnpm install
 cp .env.example .env   # requires VERCEL_OIDC_TOKEN and AI_GATEWAY_API_KEY
 ```
 
-## Usage
+## Scripts
+
+### `pnpm run eval`
+
+Runs agent evaluations.
 
 ```bash
-# Dry run — validate all 10 fixtures load correctly
-npx agent-eval cc --dry
-
-# Run all evals
-npx agent-eval cc
-
-# Smoke test — run a single eval (000-server-api-route)
-npx agent-eval cc-smoke
-
-# Run with Nuxt MCP servers (provides documentation access)
-npx agent-eval cc-with-mcp
+pnpm run eval                          # Run all experiments
+pnpm run eval -- claude-opus-4.6       # Run a specific experiment
+pnpm run eval:smoke                    # Run smoke test (1 eval per experiment)
+pnpm run eval:dry                      # Preview what would run
 ```
 
-Experiment configs live in `experiments/`:
+### `pnpm run export-results`
 
-- **`cc.ts`** — runs all evals with Claude Code via Vercel AI Gateway
-- **`cc-smoke.ts`** — runs only `000-server-api-route` for quick validation
-- **`cc-with-mcp.ts`** — runs all evals with Nuxt & Nuxt UI MCP servers
+Exports clean results to `agent-results.json`.
+
+```bash
+pnpm run export-results                          # Export from all experiments
+pnpm run export-results -- claude-opus-4.6       # Export specific experiment
+```
+
+## Models
+
+| Experiment | Agent | Model |
+|------------|-------|-------|
+| `claude-opus-4.6` | `claude-code` | (default) |
+| `claude-sonnet-4.5` | `claude-code` | `sonnet` |
+| `deepseek-v3.2` | `opencode` | `vercel/deepseek/deepseek-v3.2` |
+| `devstral-2` | `opencode` | `vercel/mistral/devstral-2` |
+| `gemini-3-pro-preview` | `opencode` | `vercel/google/gemini-3-pro-preview` |
+| `gpt-5.2-codex` | `opencode` | `vercel/openai/gpt-5.2-codex` |
+| `kat-coder-pro-v1` | `opencode` | `vercel/kwaipilot/kat-coder-pro-v1` |
+| `minimax-m2.1` | `opencode` | `vercel/minimax/minimax-m2.1` |
+| `claude-sonnet-4.5-with-mcp` | `claude-code` | `sonnet` + Nuxt MCP servers |
+| `claude-opus-4.6-nuxt-ui-only` | `claude-code` | (default, Nuxt UI evals only) |
 
 ## Eval structure
 
-Each eval is a self-contained Nuxt.js project in `evals/`:
+Each eval is a self-contained Nuxt project in `evals/`:
 
 ```
 evals/000-server-api-route/
 ├── PROMPT.md          # task given to the agent
 ├── EVAL.ts            # vitest assertions (withheld from the agent)
-├── package.json       # Nuxt.js project manifest
+├── package.json       # Nuxt project manifest
 ├── nuxt.config.ts
 ├── tsconfig.json
 ├── eslint.config.mjs
@@ -54,19 +69,20 @@ evals/000-server-api-route/
 | `package.json` | Must have `"type": "module"` and a `"build"` script |
 | Everything else | Source files the agent can see and modify |
 
-The framework automatically:
-- Withholds `EVAL.ts` and `*.test.ts`/`*.test.tsx` from the agent
-- Creates a vitest config in the sandbox
-- Runs `EVAL.ts` via `npx vitest run EVAL.ts` to score the result
-
 ## Adding a new eval
 
 1. Create a directory under `evals/` (e.g., `evals/010-my-eval/`)
 2. Add `PROMPT.md` with the task description
 3. Add `EVAL.ts` with vitest assertions
 4. Add `package.json` with `"type": "module"` and `"build": "nuxt build"`
-5. Add the Nuxt.js source files the agent starts with
-6. Verify: `npx agent-eval cc --dry`
+5. Add the Nuxt source files the agent starts with
+6. Run `pnpm run eval` — it will automatically run the new eval for all models
+
+## Adding a new model
+
+1. Create a config in `experiments/` (e.g., `experiments/my-model.ts`)
+2. Add the display name to `MODEL_NAMES` in `scripts/export-results.ts`
+3. Run `pnpm run eval` — it will automatically run all evals for the new model
 
 ## Current evals
 
@@ -85,4 +101,4 @@ The framework automatically:
 
 ## License
 
-MIT
+See [LICENSE](LICENSE).
