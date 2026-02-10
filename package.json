@@ -3,13 +3,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "eval:all": "agent-eval cc",
-    "eval:opus-4.6": "agent-eval cc-opus-4.6",
-    "eval:opencode-kimi": "agent-eval opencode-kimi",
-    "eval:nuxt-ui": "agent-eval nuxt-ui-only"
+    "eval": "agent-eval",
+    "eval:smoke": "agent-eval --smoke",
+    "eval:dry": "agent-eval --dry",
+    "export-results": "tsx scripts/export-results.ts"
   },
   "devDependencies": {
-    "@vercel/agent-eval": "^0.4.1",
-    "typescript": "^5.9.3"
+    "tsx": "^4.19.0",
+    "typescript": "^5.9.3",
+    "@types/node": "^25.2.3"
+  },
+  "dependencies": {
+    "@vercel/agent-eval": "^0.4.1"
   }
 }
