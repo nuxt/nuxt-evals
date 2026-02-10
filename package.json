@@ -4,11 +4,12 @@
   "type": "module",
   "scripts": {
     "eval:all": "agent-eval cc",
+    "eval:opus-4.6": "agent-eval cc-opus-4.6",
     "eval:opencode-kimi": "agent-eval opencode-kimi",
     "eval:nuxt-ui": "agent-eval nuxt-ui-only"
   },
   "devDependencies": {
-    "@vercel/agent-eval": "^0.0.8",
-    "typescript": "^5.6.0"
+    "@vercel/agent-eval": "^0.4.1",
+    "typescript": "^5.9.3"
   }
 }
