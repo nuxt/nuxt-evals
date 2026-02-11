@@ -1,0 +1,1 @@
+Create a dashboard page that displays a user profile and their posts side by side. Fetch both from https://jsonplaceholder.typicode.com/users/1 and https://jsonplaceholder.typicode.com/users/1/posts in parallel (not sequentially). Display the user's name and email alongside their list of post titles. Follow Nuxt data fetching best practices.

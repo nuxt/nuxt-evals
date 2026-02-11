@@ -1,0 +1,1 @@
+Create a reusable AppCard component that accepts title, description, and icon props. Use it on the homepage to display 3 feature cards. The component should be auto-imported without manual import statements. Follow Nuxt component best practices.

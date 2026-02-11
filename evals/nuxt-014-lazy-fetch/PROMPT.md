@@ -1,0 +1,1 @@
+Create a page that loads a list of posts from https://jsonplaceholder.typicode.com/posts. The data should load lazily (non-blocking) so the page renders immediately with a loading state. Display a loading indicator while data is being fetched and the list of post titles once loaded. Follow Nuxt data fetching best practices.

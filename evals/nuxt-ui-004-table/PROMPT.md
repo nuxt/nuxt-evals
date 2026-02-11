@@ -1,0 +1,1 @@
+Create a users management page that displays a table of users with columns for name, email, and role. Include sample data for at least 5 users. Add a search input to filter users. Use Nuxt UI components.

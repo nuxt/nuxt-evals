@@ -1,11 +1,12 @@
 /**
  * Nuxt UI Landing Page
  *
- * Tests whether the agent uses the correct Nuxt UI page components
- * (UPageHero, UPageSection) with proper props.
+ * Tests whether the agent uses the correct Nuxt UI v4 page components
+ * (UPageHero, UPageSection) with proper props like `links` and `features`.
  *
  * Tricky because agents might use generic components instead of Nuxt UI's
- * specialized page components.
+ * specialized page components, or use non-existent component names from
+ * older versions (ULandingHero, ULandingSection).
  */
 
 import { expect, test } from 'vitest';
@@ -40,11 +41,11 @@ test('Landing page exists', () => {
   expect(pagePath).toBeDefined();
 });
 
-test('Uses UPageHero or ULandingHero component', () => {
+test('Uses UPageHero component', () => {
   const content = getLandingPageContent();
 
-  // Accept both UPageHero and ULandingHero (different Nuxt UI versions)
-  expect(content).toMatch(/UPageHero|ULandingHero|UHero/);
+  // UPageHero is the correct v4 component for hero sections
+  expect(content).toMatch(/UPageHero/);
 });
 
 test('Hero has title and description', () => {
@@ -54,24 +55,32 @@ test('Hero has title and description', () => {
   expect(content).toMatch(/description/);
 });
 
-test('Has call-to-action buttons or links', () => {
+test('Hero has call-to-action links', () => {
   const content = getLandingPageContent();
 
-  // Should have links/buttons for CTA
-  expect(content).toMatch(/links|UButton|button/i);
+  // UPageHero accepts a :links prop for CTA buttons (preferred v4 pattern)
+  // Also accept UButton as standalone CTA approach
+  expect(content).toMatch(/:links|links=|UButton/);
 });
 
-test('Uses UPageSection or features section', () => {
+test('Uses UPageSection for features', () => {
   const content = getLandingPageContent();
 
-  // Accept various feature section patterns
-  expect(content).toMatch(/UPageSection|ULandingSection|UPageFeatures|features/i);
+  // UPageSection is the correct v4 component for content sections
+  expect(content).toMatch(/UPageSection/);
 });
 
-test('Has multiple features defined', () => {
+test('Features section has feature items', () => {
   const content = getLandingPageContent();
 
-  // Should have feature items (look for arrays or repeated patterns)
-  const featureIndicators = content.match(/icon|feature|title/gi);
-  expect(featureIndicators && featureIndicators.length >= 3).toBe(true);
+  // UPageSection accepts a :features prop with array of { title, description, icon }
+  // Also accept UPageFeature or manual feature items within UPageSection
+  expect(content).toMatch(/:features|features=|UPageFeature/);
+});
+
+test('Features have icons', () => {
+  const content = getLandingPageContent();
+
+  // Features should have icons (i-lucide-* or similar Iconify names)
+  expect(content).toMatch(/i-[a-z]+-[a-z]+|icon/i);
 });

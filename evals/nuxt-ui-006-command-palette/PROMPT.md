@@ -1,0 +1,1 @@
+Create a page with a command palette that can be opened with Cmd+K (or Ctrl+K). The palette should have groups for "Pages" (Home, About, Contact) and "Actions" (Toggle theme, Sign out). Each item should have an icon and label. Use Nuxt UI components and composables.

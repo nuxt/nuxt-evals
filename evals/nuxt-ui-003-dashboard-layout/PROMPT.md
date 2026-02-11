@@ -1,0 +1,1 @@
+Create a dashboard layout with a collapsible sidebar containing navigation items (Home, Users, Settings) and a main content area. The sidebar should use proper Nuxt UI dashboard components. Add a dashboard home page that uses the layout. Use Nuxt UI components.

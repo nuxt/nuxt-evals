@@ -1,0 +1,1 @@
+Create a multi-page website with proper SEO. The homepage should have a title, description, and Open Graph tags. Add a blog post page at /blog/[slug] with dynamic SEO meta based on the slug. Follow Nuxt SEO best practices.

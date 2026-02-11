@@ -1,0 +1,1 @@
+Create a page with a list of items and an "Add Item" button. Clicking the button should open a modal with a form to add a new item (name and description fields). The modal should have proper title, body, and footer sections with Cancel and Save buttons. Use Nuxt UI components.

@@ -1,0 +1,1 @@
+Create two API routes: /api/users and /api/users/[id]. Both should use a shared server utility function that returns user data. Place the shared logic in the server/utils directory so it is auto-imported. Follow Nuxt server best practices.

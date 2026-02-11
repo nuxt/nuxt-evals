@@ -1,11 +1,12 @@
 /**
  * Nuxt UI Form with Validation
  *
- * Tests whether the agent uses Nuxt UI form components correctly with
- * proper validation (Zod or Yup) and toast notifications.
+ * Tests whether the agent uses Nuxt UI v4 form components correctly with
+ * Standard Schema validation (Zod, Valibot, Yup) and toast notifications.
  *
- * Tricky because agents might use native form elements instead of UForm
- * or skip proper validation setup.
+ * Tricky because agents might use native form elements instead of UForm,
+ * skip the :schema/:state props pattern, or use v-model on UForm instead
+ * of reactive() state with :state binding.
  */
 
 import { expect, test } from 'vitest';
@@ -43,13 +44,35 @@ test('Form page exists', () => {
 test('Uses UForm component', () => {
   const content = getFormPageContent();
 
-  expect(content).toMatch(/UForm/);
+  expect(content).toMatch(/<UForm/);
+});
+
+test('UForm has :schema and :state bindings', () => {
+  const content = getFormPageContent();
+
+  // v4 pattern: <UForm :schema="schema" :state="state" @submit="onSubmit">
+  expect(content).toMatch(/:schema/);
+  expect(content).toMatch(/:state/);
+});
+
+test('UForm has @submit handler', () => {
+  const content = getFormPageContent();
+
+  // UForm validates before emitting @submit — state is valid inside handler
+  expect(content).toMatch(/@submit/);
 });
 
 test('Uses UFormField for form fields', () => {
   const content = getFormPageContent();
 
   expect(content).toMatch(/UFormField/);
+});
+
+test('UFormField has name prop', () => {
+  const content = getFormPageContent();
+
+  // name prop is required for validation to work with UFormField
+  expect(content).toMatch(/UFormField[\s\S]*?name=/);
 });
 
 test('Uses UInput components', () => {
@@ -65,11 +88,18 @@ test('Has email and password fields', () => {
   expect(content).toMatch(/password/i);
 });
 
-test('Uses validation schema', () => {
+test('Uses validation schema (Zod, Valibot, or Yup)', () => {
   const content = getFormPageContent();
 
-  // Accept Zod, Yup, or generic schema references
-  expect(content).toMatch(/zod|yup|z\.|schema|validate/i);
+  // Standard Schema: Zod (z.object), Valibot (v.object), Yup (yup.object)
+  expect(content).toMatch(/z\.\s*object|v\.\s*object|yup\.\s*object|schema/i);
+});
+
+test('Uses reactive state', () => {
+  const content = getFormPageContent();
+
+  // v4 best practice: reactive<Partial<Schema>>({ ... })
+  expect(content).toMatch(/reactive/);
 });
 
 test('Uses useToast for notifications', () => {
