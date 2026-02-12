@@ -96,31 +96,29 @@ evals/nuxt-000-server-api-route/
 | nuxt-003-state-composables | State management with useState composable |
 | nuxt-004-page-meta | Page meta, useHead, and custom layouts |
 | nuxt-005-error-handling | Error handling with NuxtErrorBoundary |
-| nuxt-006-data-fetching | External API data fetching with useFetch |
-| nuxt-007-seo-meta | SEO with useSeoMeta and Open Graph tags |
-| nuxt-008-runtime-config | Runtime config with public vs private keys |
-| nuxt-009-plugins | Plugins with defineNuxtPlugin and provide pattern |
-| nuxt-010-route-validation | Route parameter validation with definePageMeta validate |
-| nuxt-011-app-config | App config with defineAppConfig and useAppConfig |
-| nuxt-012-components | Auto-imported components from components/ directory |
-| nuxt-013-server-utils | Shared server utilities in server/utils/ |
-| nuxt-014-lazy-fetch | Lazy data fetching with status-based loading states |
-| nuxt-015-computed-url | Reactive data fetching with computed URLs |
-| nuxt-016-parallel-fetch | Parallel data fetching with useAsyncData + Promise.all |
+| nuxt-006-seo-meta | SEO with useSeoMeta and Open Graph tags |
+| nuxt-007-runtime-config | Runtime config with public vs private keys |
+| nuxt-008-plugins | Plugins with defineNuxtPlugin and provide pattern |
+| nuxt-009-route-validation | Route parameter validation with definePageMeta validate |
+| nuxt-010-app-config | App config with defineAppConfig and useAppConfig |
+| nuxt-011-server-utils | Shared server utilities in server/utils/ |
+| nuxt-012-lazy-fetch | Lazy data fetching with status-based loading states |
+| nuxt-013-computed-url | Reactive data fetching with computed URLs |
+| nuxt-014-parallel-fetch | Parallel data fetching with useAsyncData + Promise.all |
 
 ### Nuxt UI
 
 | Eval | Tests |
 |------|-------|
 | nuxt-ui-000-installation | Nuxt UI installation and configuration |
-| nuxt-ui-001-landing-page | Landing page with UPageHero/UPageSection |
-| nuxt-ui-002-form | Forms with UForm, Zod validation, useToast |
-| nuxt-ui-003-dashboard-layout | Dashboard layout with UDashboardGroup/Sidebar/Panel |
-| nuxt-ui-004-table | Data table with UTable, columns, and search |
-| nuxt-ui-005-modal | Modal overlay with UModal and v-model:open |
-| nuxt-ui-006-command-palette | Command palette with UCommandPalette and keyboard shortcuts |
-| nuxt-ui-007-theming | Theming with app.config.ts colors and semantic utilities |
-| nuxt-ui-008-page-shell | Page shell with UHeader/UMain/UFooter and UNavigationMenu |
+| nuxt-ui-001-theming | Theming with app.config.ts colors and semantic utilities |
+| nuxt-ui-002-page-shell | Page shell with UHeader/UMain/UFooter and UNavigationMenu |
+| nuxt-ui-003-landing-page | Landing page with UPageHero/UPageSection |
+| nuxt-ui-004-dashboard-layout | Dashboard layout with UDashboardGroup/Sidebar/Panel |
+| nuxt-ui-005-form | Forms with UForm, Zod validation, useToast |
+| nuxt-ui-006-table | Data table with UTable, columns, and search |
+| nuxt-ui-007-modal | Modal overlay with UModal and v-model:open |
+| nuxt-ui-008-command-palette | Command palette with UCommandPalette and keyboard shortcuts |
 | nuxt-ui-009-dropdown-menu | Dropdown menu with grouped items, icons, and onSelect |
 
 ## License

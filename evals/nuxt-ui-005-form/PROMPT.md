@@ -1,0 +1,1 @@
+Create a login form with email and password fields using Nuxt UI's form components. Use schema-based validation with Zod (email format, password min 8 chars). The form should use a validation schema and reactive state binding. Wrap each input in Nuxt UI's form field component with a name prop for validation. Show a toast notification on successful submission.

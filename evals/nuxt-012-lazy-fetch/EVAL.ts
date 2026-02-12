@@ -2,7 +2,7 @@
  * Nuxt Lazy Data Fetching
  *
  * Tests whether the agent uses lazy data fetching (lazy: true or useLazyFetch)
- * with proper loading state handling via the status return value.
+ * with proper loading state handling via the built-in status/pending return values.
  *
  * Tricky because agents often block navigation with default useFetch (no lazy),
  * use a manual ref for loading state instead of the built-in status, or
@@ -54,11 +54,13 @@ test('Fetches from jsonplaceholder API', () => {
   expect(content).toMatch(/jsonplaceholder\.typicode\.com/);
 });
 
-test('Uses status for loading state', () => {
+test('Uses built-in loading state from composable', () => {
   const content = getPageContent();
 
-  // Should destructure status from the composable (not create a manual loading ref)
-  expect(content).toMatch(/status/);
+  // Should destructure status or pending from the composable (not create a manual loading ref)
+  // status is a string ref ('idle' | 'pending' | 'success' | 'error')
+  // pending is a computed boolean (equivalent to status === 'pending')
+  expect(content).toMatch(/status|pending/);
 });
 
 test('Template handles pending state', () => {

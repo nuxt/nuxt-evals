@@ -1,1 +1,1 @@
-Install and configure Nuxt UI in this application. Ensure the app is properly set up to use Nuxt UI components.
+Install and configure @nuxt/ui in this Nuxt application. The setup has multiple required steps: adding the module, creating a CSS file with the necessary imports (both Tailwind CSS and Nuxt UI), registering the CSS in nuxt.config.ts, and wrapping the app in the required root component for toasts and overlays to work. Make sure all steps are completed.
