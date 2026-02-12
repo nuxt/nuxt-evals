@@ -82,8 +82,8 @@ test('Has user data with required fields', () => {
 test('Has at least 5 data items', () => {
   const content = getPageContent();
 
-  // Count email-like patterns to verify sufficient data rows
-  const emailMatches = content.match(/@/g);
+  // Count email-like patterns (user@domain.tld) to verify sufficient data rows
+  const emailMatches = content.match(/[\w.-]+@[\w.-]+\.\w+/g);
   expect(emailMatches && emailMatches.length >= 5).toBe(true);
 });
 

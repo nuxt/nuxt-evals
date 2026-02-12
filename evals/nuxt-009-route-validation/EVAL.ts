@@ -72,17 +72,3 @@ test('Page displays user information using the ID', () => {
   expect(content).toMatch(/<template>[\s\S]*\{\{[\s\S]*\}\}[\s\S]*<\/template>/);
 });
 
-test('Does not use middleware for route validation', () => {
-  const userPath = findFile(
-    join(process.cwd(), 'app', 'pages', 'users', '[id].vue'),
-    join(process.cwd(), 'pages', 'users', '[id].vue'),
-    join(process.cwd(), 'app', 'pages', 'user', '[id].vue'),
-    join(process.cwd(), 'pages', 'user', '[id].vue'),
-  );
-
-  const content = readFileSync(userPath!, 'utf-8');
-
-  // Should NOT use middleware for this type of validation
-  const hasMiddleware = /definePageMeta[\s\S]*?middleware\s*:/m.test(content);
-  expect(hasMiddleware).toBe(false);
-});

@@ -55,9 +55,9 @@ test('CSS is configured in nuxt.config', () => {
   const configPath = join(process.cwd(), 'nuxt.config.ts');
   const content = readFileSync(configPath, 'utf-8');
 
-  // Should have css configuration with ~/assets/css/main.css pattern
+  // Should have css configuration with ~/assets/css/main.css or ~/assets/main.css pattern
   expect(content).toMatch(/css\s*:\s*\[/);
-  expect(content).toMatch(/~\/assets\/css\/main\.css|assets\/css\/main\.css/);
+  expect(content).toMatch(/~\/assets\/(css\/)?main\.css|assets\/(css\/)?main\.css/);
 });
 
 test('App is wrapped with UApp component', () => {

@@ -33,8 +33,8 @@ test('Error page uses useError or error prop', () => {
 
   const content = readFileSync(errorPath!, 'utf-8');
 
-  // Accept useError() or props.error
-  expect(content).toMatch(/useError|error/);
+  // Accept useError() or defineProps with error
+  expect(content).toMatch(/useError|defineProps|props\.error|error\.statusCode|error\.message/);
 });
 
 test('Error page has clearError functionality', () => {

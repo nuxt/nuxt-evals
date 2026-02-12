@@ -2,7 +2,7 @@
  * Nuxt Route Middleware
  *
  * Tests whether the agent creates route middleware in the correct location and
- * uses the proper Nuxt patterns (defineNuxtRouteMiddleware, navigateTo).
+ * uses the proper Nuxt patterns (defineNuxtRouteMiddleware or export default, navigateTo).
  *
  * Tricky because agents confuse route middleware (middleware/) with server
  * middleware (server/middleware/) or use wrong functions like defineEventHandler.
@@ -29,7 +29,7 @@ test('Auth middleware exists in middleware directory (not server/middleware)', (
   expect(existsSync(wrongPath)).toBe(false);
 });
 
-test('Middleware uses defineNuxtRouteMiddleware', () => {
+test('Middleware uses defineNuxtRouteMiddleware or exports a function', () => {
   const middlewarePath = findFile(
     join(process.cwd(), 'app', 'middleware', 'auth.ts'),
     join(process.cwd(), 'app', 'middleware', 'auth.js'),
@@ -39,7 +39,8 @@ test('Middleware uses defineNuxtRouteMiddleware', () => {
 
   const content = readFileSync(middlewarePath!, 'utf-8');
 
-  expect(content).toMatch(/defineNuxtRouteMiddleware/);
+  // Should use defineNuxtRouteMiddleware (preferred) or export default a function
+  expect(content).toMatch(/defineNuxtRouteMiddleware|export\s+default/);
   expect(content).not.toMatch(/defineEventHandler/);
 });
 

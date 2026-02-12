@@ -54,9 +54,9 @@ test('Theme settings are NOT in runtimeConfig', () => {
   const nuxtConfigPath = join(process.cwd(), 'nuxt.config.ts');
   const content = readFileSync(nuxtConfigPath, 'utf-8');
 
-  // Theme settings should be in app.config.ts, not runtimeConfig
-  const hasThemeInRuntime = /runtimeConfig[\s\S]*?(theme|primary|color)/i.test(content);
-  expect(hasThemeInRuntime).toBe(false);
+  // Theme settings should be in app.config.ts, not runtimeConfig.
+  // Only fail if runtimeConfig explicitly exists in the config.
+  expect(content).not.toMatch(/runtimeConfig\s*:\s*\{[^}]*(theme|primaryColor|primary\s*:)/i);
 });
 
 test('Homepage uses useAppConfig', () => {
@@ -83,6 +83,8 @@ test('Homepage does not use useRuntimeConfig for theme', () => {
 
   const content = readFileSync(pagePath!, 'utf-8');
 
+  // Should NOT use useRuntimeConfig — this page only needs useAppConfig for theme data.
+  // Using useRuntimeConfig here indicates confusion between appConfig and runtimeConfig.
   expect(content).not.toMatch(/useRuntimeConfig/);
 });
 

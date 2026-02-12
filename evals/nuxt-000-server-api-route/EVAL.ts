@@ -12,6 +12,10 @@ import { expect, test } from 'vitest';
 import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
+function findFile(...paths: string[]): string | undefined {
+  return paths.find(p => existsSync(p));
+}
+
 test('API route exists in server/api directory', () => {
   const serverApiDir = join(process.cwd(), 'server', 'api');
 
@@ -34,16 +38,26 @@ test('API route uses defineEventHandler', () => {
 });
 
 test('Frontend uses Nuxt data fetching composables', () => {
-  const appVuePath = join(process.cwd(), 'app', 'app.vue');
-  const content = readFileSync(appVuePath, 'utf-8');
+  const pagePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
+
+  expect(pagePath).toBeDefined();
+
+  const content = readFileSync(pagePath!, 'utf-8');
 
   // Should use useFetch, useAsyncData, or $fetch (not raw fetch in onMounted)
   expect(content).toMatch(/useFetch|useAsyncData|\$fetch/);
 });
 
 test('Frontend does not use onMounted + fetch anti-pattern', () => {
-  const appVuePath = join(process.cwd(), 'app', 'app.vue');
-  const content = readFileSync(appVuePath, 'utf-8');
+  const pagePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
+
+  const content = readFileSync(pagePath!, 'utf-8');
 
   // Should NOT use onMounted with fetch
   const hasAntiPattern = /onMounted[\s\S]*?fetch\(/.test(content);
@@ -51,8 +65,12 @@ test('Frontend does not use onMounted + fetch anti-pattern', () => {
 });
 
 test('Frontend displays the fetched data', () => {
-  const appVuePath = join(process.cwd(), 'app', 'app.vue');
-  const content = readFileSync(appVuePath, 'utf-8');
+  const pagePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
+
+  const content = readFileSync(pagePath!, 'utf-8');
 
   // Should have template with data binding
   expect(content).toMatch(/<template>[\s\S]*\{\{[\s\S]*\}\}[\s\S]*<\/template>/);

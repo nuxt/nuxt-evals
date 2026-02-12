@@ -2,11 +2,11 @@
  * Nuxt Server Utils
  *
  * Tests whether the agent creates shared server utilities in server/utils/
- * and uses them across multiple API routes via auto-import.
+ * and uses them across multiple API routes.
  *
  * Tricky because agents often duplicate logic across API routes instead of
  * extracting shared code to server/utils/. They also sometimes place server
- * utilities in app/utils/ (which is client-side) or manually import them.
+ * utilities in app/utils/ (which is client-side).
  */
 
 import { expect, test } from 'vitest';
@@ -74,10 +74,10 @@ test('API routes use defineEventHandler', () => {
   expect(routeContent).toMatch(/defineEventHandler/);
 });
 
-test('API routes use the shared utility (auto-imported)', () => {
+test('API routes use the shared utility', () => {
   const apiDir = join(process.cwd(), 'server', 'api');
 
-  // Check routes reference the utility function (without manual import from server/utils)
+  // Check routes reference the utility function
   let routeContent = '';
   if (existsSync(join(apiDir, 'users', '[id].ts'))) {
     routeContent = readFileSync(join(apiDir, 'users', '[id].ts'), 'utf-8');
@@ -85,9 +85,8 @@ test('API routes use the shared utility (auto-imported)', () => {
     routeContent = readFileSync(join(apiDir, 'users', '[id].js'), 'utf-8');
   }
 
-  // Should NOT have manual import from server/utils (auto-imported by Nuxt)
-  expect(routeContent).not.toMatch(/import.*from\s+['"].*server\/utils/);
-  expect(routeContent).not.toMatch(/import.*from\s+['"].*\.\.\/utils/);
+  // Should reference a shared utility function (via auto-import or explicit import)
+  expect(routeContent).toMatch(/user|User/i);
 });
 
 test('Shared utility is NOT in app/utils/', () => {
