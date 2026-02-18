@@ -1,5 +1,5 @@
 /**
- * Export eval results to JSON format
+ * Export eval results to JSON format for nuxt.com/evals
  *
  * Reads results (with built-in classifications from agent-eval) and
  * exports clean results to agent-results.json.
@@ -8,7 +8,7 @@
  *   pnpm run export-results [experiments...]
  *   pnpm run export-results  # exports from all experiments
  *
- * Output: agent-results.json
+ * Output: agent-results.json (copy to nuxt/nuxt.com repo)
  */
 
 import { readdir, readFile, writeFile, stat } from 'node:fs/promises';
@@ -18,10 +18,6 @@ interface SummaryJson {
   totalRuns: number;
   passedRuns: number;
   meanDuration: number;
-  classification?: {
-    failureType: 'model' | 'infra' | 'timeout';
-    failureReason: string;
-  };
   valid?: boolean;
 }
 
@@ -32,8 +28,6 @@ interface AgentResult {
     duration: number;
     evalPath: string;
     timestamp: string;
-    failureType?: 'model' | 'infra' | 'timeout';
-    failureReason?: string;
   };
 }
 
@@ -59,6 +53,7 @@ const MODEL_NAMES: Record<string, string> = {
   'devstral-2': 'Devstral 2',
   'gemini-3-pro-preview': 'Gemini 3 Pro Preview',
   'gpt-5.2-codex': 'GPT 5.2 Codex',
+  'gpt-5.3-codex-xhigh': 'GPT 5.3 Codex (xhigh)',
   'kat-coder-pro-v1': 'Kat Coder Pro V1',
   'minimax-m2.1': 'Minimax M2.1',
 };
@@ -67,6 +62,8 @@ const HARNESS_NAMES: Record<string, string> = {
   'claude-code': 'Claude Code',
   'codex': 'Codex',
   'vercel-ai-gateway/opencode': 'OpenCode',
+  'cursor': 'Cursor',
+  'gemini': 'Gemini CLI',
 };
 
 const TIMESTAMP_RE = /^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.\d+Z$/;
@@ -198,7 +195,7 @@ async function main(): Promise<void> {
           // Skip invalid results (infra/timeout failures)
           if (summary.valid === false) continue;
 
-          const result: AgentResult = {
+          agentResults.push({
             evalPath: evalDir,
             result: {
               success: summary.passedRuns > 0,
@@ -206,15 +203,7 @@ async function main(): Promise<void> {
               evalPath: evalDir,
               timestamp: parseTimestamp(timestamp),
             },
-          };
-
-          // Include classification if present
-          if (summary.classification) {
-            result.result.failureType = summary.classification.failureType;
-            result.result.failureReason = summary.classification.failureReason;
-          }
-
-          agentResults.push(result);
+          });
           seenEvals.add(evalDir);
         } catch {
           // Skip evals without valid summary
@@ -237,26 +226,18 @@ async function main(): Promise<void> {
       agentHarness,
     });
 
-    if (exportedData.results[modelName]) {
-      exportedData.results[modelName].push(
-        ...agentResults.sort((a, b) => a.evalPath.localeCompare(b.evalPath))
-      );
-    } else {
-      exportedData.results[modelName] = agentResults.sort((a, b) =>
-        a.evalPath.localeCompare(b.evalPath)
-      );
-    }
+    exportedData.results[experiment] = agentResults.sort((a, b) =>
+      a.evalPath.localeCompare(b.evalPath)
+    );
   }
 
   // Count stats
   let totalSuccess = 0;
-  let totalModel = 0;
   let totalResults = 0;
   for (const results of Object.values(exportedData.results)) {
     for (const r of results) {
       totalResults++;
       if (r.result.success) totalSuccess++;
-      else if (r.result.failureType === 'model') totalModel++;
     }
   }
 
@@ -265,7 +246,7 @@ async function main(): Promise<void> {
 
   console.log('\n' + '-'.repeat(60));
   console.log(`Exported to: ${outputPath}`);
-  console.log(`Total: ${totalResults} | Pass: ${totalSuccess} | Model failures: ${totalModel}`);
+  console.log(`Total: ${totalResults} | Pass: ${totalSuccess} | Fail: ${totalResults - totalSuccess}`);
   console.log('-'.repeat(60));
 }
 
