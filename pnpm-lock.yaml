@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@vercel/agent-eval':
-        specifier: ^0.7.0
-        version: 0.7.0
+        specifier: ^0.8.0
+        version: 0.8.0
     devDependencies:
       '@types/node':
         specifier: ^25.2.3
@@ -284,8 +284,8 @@ packages:
   '@types/node@25.2.3':
     resolution: {integrity: sha512-m0jEgYlYz+mDJZ2+F4v8D1AyQb+QzsNqRuI7xg1VQX/KlKS0qT9r1Mo16yo5F/MtifXFgaofIFsdFMox2SxIbQ==}
 
-  '@vercel/agent-eval@0.7.0':
-    resolution: {integrity: sha512-ZLJZnZm7utZeP2i6KIqt7zxlSWyQgZTPXdiqDacxYWC6Zyxm5KYpTYP/PjYQt9qbGh0DGUx+FVQibFo735U4Gw==}
+  '@vercel/agent-eval@0.8.0':
+    resolution: {integrity: sha512-Efv6EPUUBc0I0fkw5964O4rGxGDS/j6vYJ2IspZ5sFVdrLdDlqI1llJdkTvuc+cg4EuqXsOhEQhJlaNG9eZ8zQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -558,6 +558,10 @@ packages:
     resolution: {integrity: sha512-wrAwOeXp1RRMFfQY8Sy7VaGVmPocaLwSFOYCGKSyo8qmJ+/yaafCl5BCA1IQZWqFSRBrKDYFeR9d/VyQzfH/jg==}
     engines: {node: '>= 6.0'}
 
+  p-limit@6.2.0:
+    resolution: {integrity: sha512-kuUqqHNUqoIWp/c467RI4X6mmyuojY5jGutNU0wVTmEOOfcuwLqyMVoAi9MKi2Ak+5i9+nhmrK4ufZE8069kHA==}
+    engines: {node: '>=18'}
+
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
 
@@ -727,6 +731,10 @@ packages:
   yargs@17.7.2:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
     engines: {node: '>=12'}
+
+  yocto-queue@1.2.2:
+    resolution: {integrity: sha512-4LCcse/U2MHZ63HAJVE+v71o7yOdIe4cZ70Wpf8D/IyjDKYQLV5GD46B+hSTjJsvV5PztjvHoU580EftxjDZFQ==}
+    engines: {node: '>=12.20'}
 
   zod@3.24.4:
     resolution: {integrity: sha512-OdqJE9UDRPwWsrHjLN2F8bPxvwJBK22EHLWtanu0LSYr5YqzsaaW3RMgmjwr8Rypg5k+meEJdSPXJZXE/yqOMg==}
@@ -911,7 +919,7 @@ snapshots:
     dependencies:
       undici-types: 7.16.0
 
-  '@vercel/agent-eval@0.7.0':
+  '@vercel/agent-eval@0.8.0':
     dependencies:
       '@ai-sdk/anthropic': 1.2.12(zod@3.25.76)
       '@vercel/sandbox': 1.4.1
@@ -924,6 +932,7 @@ snapshots:
       jiti: 2.6.1
       log-update: 6.1.0
       minimatch: 10.1.2
+      p-limit: 6.2.0
       tar-stream: 3.1.7
       zod: 3.25.76
     transitivePeerDependencies:
@@ -1204,6 +1213,10 @@ snapshots:
 
   os-paths@4.4.0: {}
 
+  p-limit@6.2.0:
+    dependencies:
+      yocto-queue: 1.2.2
+
   package-json-from-dist@1.0.1: {}
 
   path-key@3.1.1: {}
@@ -1402,6 +1415,8 @@ snapshots:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
+
+  yocto-queue@1.2.2: {}
 
   zod@3.24.4: {}
 
