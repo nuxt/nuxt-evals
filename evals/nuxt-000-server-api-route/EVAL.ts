@@ -22,7 +22,7 @@ test('API route exists in server/api directory', () => {
   expect(existsSync(serverApiDir)).toBe(true);
 
   const files = readdirSync(serverApiDir);
-  const hasApiRoute = files.some(f => f.endsWith('.ts') || f.endsWith('.js'));
+  const hasApiRoute = files.some(f => f.endsWith('.ts'));
 
   expect(hasApiRoute).toBe(true);
 });
@@ -30,7 +30,9 @@ test('API route exists in server/api directory', () => {
 test('API route uses defineEventHandler', () => {
   const serverApiDir = join(process.cwd(), 'server', 'api');
   const files = readdirSync(serverApiDir);
-  const apiFile = files.find(f => f.endsWith('.ts') || f.endsWith('.js'));
+  const apiFile = files.find(f => f.endsWith('.ts'));
+
+  expect(apiFile).toBeDefined();
 
   const content = readFileSync(join(serverApiDir, apiFile!), 'utf-8');
 
@@ -57,6 +59,8 @@ test('Frontend does not use onMounted + fetch anti-pattern', () => {
     join(process.cwd(), 'app', 'app.vue'),
   );
 
+  expect(pagePath).toBeDefined();
+
   const content = readFileSync(pagePath!, 'utf-8');
 
   // Should NOT use onMounted with fetch
@@ -69,6 +73,8 @@ test('Frontend displays the fetched data', () => {
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
+
+  expect(pagePath).toBeDefined();
 
   const content = readFileSync(pagePath!, 'utf-8');
 

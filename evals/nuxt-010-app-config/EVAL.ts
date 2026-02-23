@@ -32,6 +32,8 @@ test('app.config.ts uses defineAppConfig', () => {
     join(process.cwd(), 'app.config.ts'),
   );
 
+  expect(configPath).toBeDefined();
+
   const content = readFileSync(configPath!, 'utf-8');
 
   expect(content).toMatch(/defineAppConfig/);
@@ -42,6 +44,8 @@ test('app.config.ts defines theme configuration', () => {
     join(process.cwd(), 'app', 'app.config.ts'),
     join(process.cwd(), 'app.config.ts'),
   );
+
+  expect(configPath).toBeDefined();
 
   const content = readFileSync(configPath!, 'utf-8');
 
@@ -81,6 +85,8 @@ test('Homepage does not use useRuntimeConfig for theme', () => {
     join(process.cwd(), 'app', 'app.vue'),
   );
 
+  expect(pagePath).toBeDefined();
+
   const content = readFileSync(pagePath!, 'utf-8');
 
   // Should NOT use useRuntimeConfig — this page only needs useAppConfig for theme data.
@@ -94,6 +100,8 @@ test('Homepage displays config values', () => {
     join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
+
+  expect(pagePath).toBeDefined();
 
   const content = readFileSync(pagePath!, 'utf-8');
 

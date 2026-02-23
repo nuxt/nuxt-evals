@@ -36,6 +36,8 @@ test('Page uses definePageMeta with validate', () => {
     join(process.cwd(), 'pages', 'user', '[id].vue'),
   );
 
+  expect(userPath).toBeDefined();
+
   const content = readFileSync(userPath!, 'utf-8');
 
   // Should use definePageMeta with validate
@@ -51,6 +53,8 @@ test('Validation checks for numeric ID', () => {
     join(process.cwd(), 'pages', 'user', '[id].vue'),
   );
 
+  expect(userPath).toBeDefined();
+
   const content = readFileSync(userPath!, 'utf-8');
 
   // Should validate that ID is numeric (Number, parseInt, isNaN, regex, etc.)
@@ -64,6 +68,8 @@ test('Page displays user information using the ID', () => {
     join(process.cwd(), 'app', 'pages', 'user', '[id].vue'),
     join(process.cwd(), 'pages', 'user', '[id].vue'),
   );
+
+  expect(userPath).toBeDefined();
 
   const content = readFileSync(userPath!, 'utf-8');
 

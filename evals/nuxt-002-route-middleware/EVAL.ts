@@ -19,9 +19,7 @@ function findFile(...paths: string[]): string | undefined {
 test('Auth middleware exists in middleware directory (not server/middleware)', () => {
   const middlewarePath = findFile(
     join(process.cwd(), 'app', 'middleware', 'auth.ts'),
-    join(process.cwd(), 'app', 'middleware', 'auth.js'),
     join(process.cwd(), 'middleware', 'auth.ts'),
-    join(process.cwd(), 'middleware', 'auth.js'),
   );
   const wrongPath = join(process.cwd(), 'server', 'middleware', 'auth.ts');
 
@@ -32,10 +30,10 @@ test('Auth middleware exists in middleware directory (not server/middleware)', (
 test('Middleware uses defineNuxtRouteMiddleware or exports a function', () => {
   const middlewarePath = findFile(
     join(process.cwd(), 'app', 'middleware', 'auth.ts'),
-    join(process.cwd(), 'app', 'middleware', 'auth.js'),
     join(process.cwd(), 'middleware', 'auth.ts'),
-    join(process.cwd(), 'middleware', 'auth.js'),
   );
+
+  expect(middlewarePath).toBeDefined();
 
   const content = readFileSync(middlewarePath!, 'utf-8');
 
@@ -47,10 +45,10 @@ test('Middleware uses defineNuxtRouteMiddleware or exports a function', () => {
 test('Middleware uses navigateTo for redirect', () => {
   const middlewarePath = findFile(
     join(process.cwd(), 'app', 'middleware', 'auth.ts'),
-    join(process.cwd(), 'app', 'middleware', 'auth.js'),
     join(process.cwd(), 'middleware', 'auth.ts'),
-    join(process.cwd(), 'middleware', 'auth.js'),
   );
+
+  expect(middlewarePath).toBeDefined();
 
   const content = readFileSync(middlewarePath!, 'utf-8');
 

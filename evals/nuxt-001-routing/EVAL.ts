@@ -34,6 +34,8 @@ test('About page displays content', () => {
     join(process.cwd(), 'pages', 'about', 'index.vue'),
   );
 
+  expect(aboutPath).toBeDefined();
+
   const content = readFileSync(aboutPath!, 'utf-8');
 
   expect(content).toMatch(/<template>/);
@@ -41,12 +43,13 @@ test('About page displays content', () => {
 });
 
 test('Homepage uses NuxtLink for navigation', () => {
-  // Check both app.vue and pages/index.vue
   const homePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
+
+  expect(homePath).toBeDefined();
 
   const content = readFileSync(homePath!, 'utf-8');
 
@@ -62,6 +65,8 @@ test('About page uses NuxtLink to navigate home', () => {
     join(process.cwd(), 'pages', 'about.vue'),
     join(process.cwd(), 'pages', 'about', 'index.vue'),
   );
+
+  expect(aboutPath).toBeDefined();
 
   const content = readFileSync(aboutPath!, 'utf-8');
 
@@ -79,7 +84,11 @@ test('Does not use anchor tags for internal navigation', () => {
   const aboutPath = findFile(
     join(process.cwd(), 'app', 'pages', 'about.vue'),
     join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
+    join(process.cwd(), 'pages', 'about.vue'),
+    join(process.cwd(), 'pages', 'about', 'index.vue'),
   );
+
+  expect(homePath).toBeDefined();
 
   const homeContent = readFileSync(homePath!, 'utf-8');
 

@@ -19,24 +19,18 @@ function findFile(...paths: string[]): string | undefined {
 }
 
 function getAppConfigContent(): string | undefined {
-  const configPath = findFile(
-    join(process.cwd(), 'app.config.ts'),
-    join(process.cwd(), 'app.config.js'),
-  );
+  const configPath = join(process.cwd(), 'app.config.ts');
 
-  if (!configPath) return undefined;
+  if (!existsSync(configPath)) return undefined;
 
   return readFileSync(configPath, 'utf-8');
 }
 
 function getNuxtConfigContent(): string {
-  const configPath = findFile(
-    join(process.cwd(), 'nuxt.config.ts'),
-    join(process.cwd(), 'nuxt.config.js'),
-  );
+  const configPath = join(process.cwd(), 'nuxt.config.ts');
 
-  if (!configPath) {
-    throw new Error('No nuxt.config found');
+  if (!existsSync(configPath)) {
+    throw new Error('No nuxt.config.ts found');
   }
 
   return readFileSync(configPath, 'utf-8');

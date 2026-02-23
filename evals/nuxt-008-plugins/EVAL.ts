@@ -26,7 +26,7 @@ test('Plugin exists in plugins directory', () => {
   expect(pluginsDir).toBeDefined();
 
   const files = readdirSync(pluginsDir!);
-  const hasPlugin = files.some(f => f.endsWith('.ts') || f.endsWith('.js'));
+  const hasPlugin = files.some(f => f.endsWith('.ts'));
 
   expect(hasPlugin).toBe(true);
 });
@@ -37,8 +37,12 @@ test('Plugin uses defineNuxtPlugin', () => {
     join(process.cwd(), 'plugins'),
   );
 
+  expect(pluginsDir).toBeDefined();
+
   const files = readdirSync(pluginsDir!);
-  const pluginFile = files.find(f => f.endsWith('.ts') || f.endsWith('.js'));
+  const pluginFile = files.find(f => f.endsWith('.ts'));
+
+  expect(pluginFile).toBeDefined();
 
   const content = readFileSync(join(pluginsDir!, pluginFile!), 'utf-8');
 
@@ -51,8 +55,12 @@ test('Plugin provides utilities via nuxtApp.provide or return provide', () => {
     join(process.cwd(), 'plugins'),
   );
 
+  expect(pluginsDir).toBeDefined();
+
   const files = readdirSync(pluginsDir!);
-  const pluginFile = files.find(f => f.endsWith('.ts') || f.endsWith('.js'));
+  const pluginFile = files.find(f => f.endsWith('.ts'));
+
+  expect(pluginFile).toBeDefined();
 
   const content = readFileSync(join(pluginsDir!, pluginFile!), 'utf-8');
 
@@ -66,8 +74,12 @@ test('Plugin has date formatting functionality', () => {
     join(process.cwd(), 'plugins'),
   );
 
+  expect(pluginsDir).toBeDefined();
+
   const files = readdirSync(pluginsDir!);
-  const pluginFile = files.find(f => f.endsWith('.ts') || f.endsWith('.js'));
+  const pluginFile = files.find(f => f.endsWith('.ts'));
+
+  expect(pluginFile).toBeDefined();
 
   const content = readFileSync(join(pluginsDir!, pluginFile!), 'utf-8');
 
@@ -80,8 +92,12 @@ test('Plugin has currency formatting functionality', () => {
     join(process.cwd(), 'plugins'),
   );
 
+  expect(pluginsDir).toBeDefined();
+
   const files = readdirSync(pluginsDir!);
-  const pluginFile = files.find(f => f.endsWith('.ts') || f.endsWith('.js'));
+  const pluginFile = files.find(f => f.endsWith('.ts'));
+
+  expect(pluginFile).toBeDefined();
 
   const content = readFileSync(join(pluginsDir!, pluginFile!), 'utf-8');
 
@@ -109,6 +125,8 @@ test('Homepage displays formatted values', () => {
     join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
+
+  expect(pagePath).toBeDefined();
 
   const content = readFileSync(pagePath!, 'utf-8');
 

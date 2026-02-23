@@ -31,6 +31,8 @@ test('Error page uses useError or error prop', () => {
     join(process.cwd(), 'error.vue'),
   );
 
+  expect(errorPath).toBeDefined();
+
   const content = readFileSync(errorPath!, 'utf-8');
 
   // Accept useError() or defineProps with error
@@ -42,6 +44,8 @@ test('Error page has clearError functionality', () => {
     join(process.cwd(), 'app', 'error.vue'),
     join(process.cwd(), 'error.vue'),
   );
+
+  expect(errorPath).toBeDefined();
 
   const content = readFileSync(errorPath!, 'utf-8');
 
@@ -63,6 +67,8 @@ test('Index page uses NuxtErrorBoundary', () => {
     join(process.cwd(), 'pages', 'index.vue'),
   );
 
+  expect(indexPath).toBeDefined();
+
   const content = readFileSync(indexPath!, 'utf-8');
 
   expect(content).toMatch(/NuxtErrorBoundary/);
@@ -74,6 +80,8 @@ test('Index page has error slot', () => {
     join(process.cwd(), 'pages', 'index.vue'),
   );
 
+  expect(indexPath).toBeDefined();
+
   const content = readFileSync(indexPath!, 'utf-8');
 
   expect(content).toMatch(/#error|v-slot:error|@error/);
@@ -84,6 +92,8 @@ test('Index page can trigger error', () => {
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'pages', 'index.vue'),
   );
+
+  expect(indexPath).toBeDefined();
 
   const content = readFileSync(indexPath!, 'utf-8');
 

@@ -35,14 +35,10 @@ test('Nuxt Content module is configured in nuxt.config', () => {
 });
 
 test('Content config file exists with collection definition', () => {
-  const configPath = findFile(
-    join(process.cwd(), 'content.config.ts'),
-    join(process.cwd(), 'content.config.js'),
-  );
+  const configPath = join(process.cwd(), 'content.config.ts');
+  expect(existsSync(configPath)).toBe(true);
 
-  expect(configPath).toBeDefined();
-
-  const content = readFileSync(configPath!, 'utf-8');
+  const content = readFileSync(configPath, 'utf-8');
 
   expect(content).toMatch(/defineContentConfig/);
   expect(content).toMatch(/defineCollection/);

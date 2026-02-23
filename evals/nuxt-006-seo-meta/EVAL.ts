@@ -31,6 +31,8 @@ test('Homepage uses useSeoMeta or useHead for SEO tags', () => {
     join(process.cwd(), 'pages', 'index.vue'),
   );
 
+  expect(indexPath).toBeDefined();
+
   const content = readFileSync(indexPath!, 'utf-8');
 
   // Should use useSeoMeta (preferred) or useHead for SEO
@@ -43,6 +45,8 @@ test('Homepage sets title and description', () => {
     join(process.cwd(), 'pages', 'index.vue'),
   );
 
+  expect(indexPath).toBeDefined();
+
   const content = readFileSync(indexPath!, 'utf-8');
 
   expect(content).toMatch(/title/);
@@ -54,6 +58,8 @@ test('Homepage sets Open Graph tags', () => {
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'pages', 'index.vue'),
   );
+
+  expect(indexPath).toBeDefined();
 
   const content = readFileSync(indexPath!, 'utf-8');
 
@@ -79,6 +85,8 @@ test('Blog page uses useSeoMeta or useHead with dynamic values', () => {
     join(process.cwd(), 'app', 'pages', 'blog', '[...slug].vue'),
     join(process.cwd(), 'pages', 'blog', '[...slug].vue'),
   );
+
+  expect(blogPath).toBeDefined();
 
   const content = readFileSync(blogPath!, 'utf-8');
 

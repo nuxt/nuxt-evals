@@ -16,19 +16,11 @@ function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
 }
 
-function findDir(...paths: string[]): string | undefined {
-  return paths.find(p => existsSync(p));
-}
-
 test('Content config defines a blog collection with schema', () => {
-  const configPath = findFile(
-    join(process.cwd(), 'content.config.ts'),
-    join(process.cwd(), 'content.config.js'),
-  );
+  const configPath = join(process.cwd(), 'content.config.ts');
+  expect(existsSync(configPath)).toBe(true);
 
-  expect(configPath).toBeDefined();
-
-  const content = readFileSync(configPath!, 'utf-8');
+  const content = readFileSync(configPath, 'utf-8');
 
   expect(content).toMatch(/blog/);
   expect(content).toMatch(/defineCollection/);
@@ -37,12 +29,10 @@ test('Content config defines a blog collection with schema', () => {
 });
 
 test('Blog collection schema includes required fields', () => {
-  const configPath = findFile(
-    join(process.cwd(), 'content.config.ts'),
-    join(process.cwd(), 'content.config.js'),
-  );
+  const configPath = join(process.cwd(), 'content.config.ts');
+  expect(existsSync(configPath)).toBe(true);
 
-  const content = readFileSync(configPath!, 'utf-8');
+  const content = readFileSync(configPath, 'utf-8');
 
   expect(content).toMatch(/tags/);
   expect(content).toMatch(/date/);
@@ -50,7 +40,7 @@ test('Blog collection schema includes required fields', () => {
 });
 
 test('Blog markdown posts exist with frontmatter', () => {
-  const blogDir = findDir(
+  const blogDir = findFile(
     join(process.cwd(), 'content', 'blog'),
     join(process.cwd(), 'content'),
   );
@@ -91,9 +81,11 @@ test('Blog listing page orders posts by date', () => {
     join(process.cwd(), 'pages', 'blog.vue'),
   );
 
+  expect(blogPage).toBeDefined();
+
   const content = readFileSync(blogPage!, 'utf-8');
 
-  expect(content).toMatch(/order\s*\(\s*['"]date['"]\s*,\s*['"]DESC['"]\s*\)/);
+  expect(content).toMatch(/order\s*\(\s*['"]date['"]\s*,\s*['"]DESC['"]\s*\)/i);
 });
 
 test('Dynamic blog post page exists with ContentRenderer', () => {

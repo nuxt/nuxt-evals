@@ -17,19 +17,11 @@ function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
 }
 
-function findDir(...paths: string[]): string | undefined {
-  return paths.find(p => existsSync(p));
-}
-
 test('Content config defines a team collection with type data', () => {
-  const configPath = findFile(
-    join(process.cwd(), 'content.config.ts'),
-    join(process.cwd(), 'content.config.js'),
-  );
+  const configPath = join(process.cwd(), 'content.config.ts');
+  expect(existsSync(configPath)).toBe(true);
 
-  expect(configPath).toBeDefined();
-
-  const content = readFileSync(configPath!, 'utf-8');
+  const content = readFileSync(configPath, 'utf-8');
 
   expect(content).toMatch(/team/);
   expect(content).toMatch(/defineCollection/);
@@ -38,12 +30,10 @@ test('Content config defines a team collection with type data', () => {
 });
 
 test('Team collection has schema with required fields', () => {
-  const configPath = findFile(
-    join(process.cwd(), 'content.config.ts'),
-    join(process.cwd(), 'content.config.js'),
-  );
+  const configPath = join(process.cwd(), 'content.config.ts');
+  expect(existsSync(configPath)).toBe(true);
 
-  const content = readFileSync(configPath!, 'utf-8');
+  const content = readFileSync(configPath, 'utf-8');
 
   expect(content).toMatch(/schema/);
   expect(content).toMatch(/name/);
@@ -52,7 +42,7 @@ test('Team collection has schema with required fields', () => {
 });
 
 test('Team member JSON files exist', () => {
-  const teamDir = findDir(
+  const teamDir = findFile(
     join(process.cwd(), 'content', 'team'),
     join(process.cwd(), 'content'),
   );
@@ -64,10 +54,12 @@ test('Team member JSON files exist', () => {
 });
 
 test('Team member files have required fields', () => {
-  const teamDir = findDir(
+  const teamDir = findFile(
     join(process.cwd(), 'content', 'team'),
     join(process.cwd(), 'content'),
   );
+
+  expect(teamDir).toBeDefined();
 
   const files = readdirSync(teamDir!).filter(f => f.endsWith('.json') || f.endsWith('.yml') || f.endsWith('.yaml'));
   const firstFile = readFileSync(join(teamDir!, files[0]), 'utf-8');
@@ -100,6 +92,8 @@ test('Team page renders member data', () => {
     join(process.cwd(), 'pages', 'team.vue'),
     join(process.cwd(), 'pages', 'team', 'index.vue'),
   );
+
+  expect(teamPage).toBeDefined();
 
   const content = readFileSync(teamPage!, 'utf-8');
 

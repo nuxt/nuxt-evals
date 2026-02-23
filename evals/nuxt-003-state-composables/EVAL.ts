@@ -11,16 +11,12 @@ import { expect, test } from 'vitest';
 import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
-function findDir(...paths: string[]): string | undefined {
-  return paths.find(p => existsSync(p));
-}
-
 function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
 }
 
 function getComposablesDir(): string {
-  const dir = findDir(
+  const dir = findFile(
     join(process.cwd(), 'app', 'composables'),
     join(process.cwd(), 'composables'),
   );

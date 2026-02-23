@@ -61,8 +61,12 @@ test('Layout has slot for content', () => {
     join(process.cwd(), 'layouts'),
   );
 
+  expect(layoutsDir).toBeDefined();
+
   const files = readdirSync(layoutsDir!);
   const layoutFile = files.find(f => f.endsWith('.vue'));
+
+  expect(layoutFile).toBeDefined();
 
   const content = readFileSync(join(layoutsDir!, layoutFile!), 'utf-8');
   expect(content).toMatch(/<slot/);
@@ -82,6 +86,8 @@ test('Blog page uses useHead for dynamic title', () => {
     join(process.cwd(), 'app', 'pages', 'blog', '[slug].vue'),
     join(process.cwd(), 'pages', 'blog', '[slug].vue'),
   );
+
+  expect(blogSlugPath).toBeDefined();
 
   const content = readFileSync(blogSlugPath!, 'utf-8');
 

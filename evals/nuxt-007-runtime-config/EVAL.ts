@@ -82,6 +82,8 @@ test('Frontend accesses public config correctly', () => {
     join(process.cwd(), 'app', 'app.vue'),
   );
 
+  expect(pagePath).toBeDefined();
+
   const content = readFileSync(pagePath!, 'utf-8');
 
   // Should access config.public
@@ -94,7 +96,7 @@ test('API route exists and uses runtime config', () => {
   expect(existsSync(serverApiDir)).toBe(true);
 
   const files = readdirSync(serverApiDir);
-  const apiFile = files.find(f => f.endsWith('.ts') || f.endsWith('.js'));
+  const apiFile = files.find(f => f.endsWith('.ts'));
 
   expect(apiFile).toBeDefined();
 

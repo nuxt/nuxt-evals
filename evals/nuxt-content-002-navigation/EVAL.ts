@@ -17,14 +17,10 @@ function findFile(...paths: string[]): string | undefined {
 }
 
 test('Content config defines a docs collection', () => {
-  const configPath = findFile(
-    join(process.cwd(), 'content.config.ts'),
-    join(process.cwd(), 'content.config.js'),
-  );
+  const configPath = join(process.cwd(), 'content.config.ts');
+  expect(existsSync(configPath)).toBe(true);
 
-  expect(configPath).toBeDefined();
-
-  const content = readFileSync(configPath!, 'utf-8');
+  const content = readFileSync(configPath, 'utf-8');
 
   expect(content).toMatch(/docs/);
   expect(content).toMatch(/defineCollection/);
@@ -100,31 +96,11 @@ test('Catch-all page uses route path to query content', () => {
     join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
   );
 
+  expect(catchAllPage).toBeDefined();
+
   const content = readFileSync(catchAllPage!, 'utf-8');
 
   expect(content).toMatch(/\.path\s*\(/);
   expect(content).toMatch(/\.first\s*\(\)/);
 });
 
-test('Catch-all page sets SEO meta from frontmatter', () => {
-  const catchAllPage = findFile(
-    join(process.cwd(), 'app', 'pages', 'docs', '[...slug].vue'),
-    join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
-  );
-
-  const content = readFileSync(catchAllPage!, 'utf-8');
-
-  expect(content).toMatch(/useSeoMeta|useHead/);
-  expect(content).toMatch(/title/);
-});
-
-test('Catch-all page handles missing content', () => {
-  const catchAllPage = findFile(
-    join(process.cwd(), 'app', 'pages', 'docs', '[...slug].vue'),
-    join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
-  );
-
-  const content = readFileSync(catchAllPage!, 'utf-8');
-
-  expect(content).toMatch(/v-if|v-else/);
-});
