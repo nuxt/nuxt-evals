@@ -9,11 +9,49 @@
  */
 
 import { expect, test } from 'vitest';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
+}
+
+function getAllVueContents(): string {
+  const dirs = [
+    join(process.cwd(), 'app', 'layouts'),
+    join(process.cwd(), 'layouts'),
+    join(process.cwd(), 'app', 'components'),
+    join(process.cwd(), 'components'),
+  ];
+
+  const files: string[] = [];
+
+  for (const dir of dirs) {
+    if (existsSync(dir)) {
+      for (const f of readdirSync(dir)) {
+        if (f.endsWith('.vue')) files.push(join(dir, f));
+      }
+    }
+  }
+
+  const catchAll = findFile(
+    join(process.cwd(), 'app', 'pages', 'docs', '[...slug].vue'),
+    join(process.cwd(), 'app', 'pages', 'docs', '[slug].vue'),
+    join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
+    join(process.cwd(), 'pages', 'docs', '[slug].vue'),
+  );
+  if (catchAll) files.push(catchAll);
+
+  return files.map(p => readFileSync(p, 'utf-8')).join('\n');
+}
+
+function findCatchAllPage(): string | undefined {
+  return findFile(
+    join(process.cwd(), 'app', 'pages', 'docs', '[...slug].vue'),
+    join(process.cwd(), 'app', 'pages', 'docs', '[slug].vue'),
+    join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
+    join(process.cwd(), 'pages', 'docs', '[slug].vue'),
+  );
 }
 
 test('Content config defines a docs collection', () => {
@@ -28,59 +66,20 @@ test('Content config defines a docs collection', () => {
 });
 
 test('Navigation component or layout uses queryCollectionNavigation', () => {
-  const candidates = [
-    join(process.cwd(), 'app', 'layouts', 'default.vue'),
-    join(process.cwd(), 'app', 'layouts', 'docs.vue'),
-    join(process.cwd(), 'layouts', 'default.vue'),
-    join(process.cwd(), 'layouts', 'docs.vue'),
-    join(process.cwd(), 'app', 'components', 'Sidebar.vue'),
-    join(process.cwd(), 'app', 'components', 'Navigation.vue'),
-    join(process.cwd(), 'app', 'components', 'DocsSidebar.vue'),
-    join(process.cwd(), 'app', 'components', 'AppSidebar.vue'),
-    join(process.cwd(), 'components', 'Sidebar.vue'),
-    join(process.cwd(), 'components', 'Navigation.vue'),
-    join(process.cwd(), 'app', 'pages', 'docs', '[...slug].vue'),
-    join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
-  ];
-
-  const allContents = candidates
-    .filter(p => existsSync(p))
-    .map(p => readFileSync(p, 'utf-8'))
-    .join('\n');
+  const allContents = getAllVueContents();
 
   expect(allContents).toMatch(/queryCollectionNavigation/);
 });
 
 test('Navigation renders links from the navigation tree', () => {
-  const candidates = [
-    join(process.cwd(), 'app', 'layouts', 'default.vue'),
-    join(process.cwd(), 'app', 'layouts', 'docs.vue'),
-    join(process.cwd(), 'layouts', 'default.vue'),
-    join(process.cwd(), 'layouts', 'docs.vue'),
-    join(process.cwd(), 'app', 'components', 'Sidebar.vue'),
-    join(process.cwd(), 'app', 'components', 'Navigation.vue'),
-    join(process.cwd(), 'app', 'components', 'DocsSidebar.vue'),
-    join(process.cwd(), 'app', 'components', 'AppSidebar.vue'),
-    join(process.cwd(), 'components', 'Sidebar.vue'),
-    join(process.cwd(), 'components', 'Navigation.vue'),
-    join(process.cwd(), 'app', 'pages', 'docs', '[...slug].vue'),
-    join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
-  ];
-
-  const allContents = candidates
-    .filter(p => existsSync(p))
-    .map(p => readFileSync(p, 'utf-8'))
-    .join('\n');
+  const allContents = getAllVueContents();
 
   expect(allContents).toMatch(/v-for/);
   expect(allContents).toMatch(/NuxtLink|nuxt-link/);
 });
 
 test('Catch-all page exists for rendering doc content', () => {
-  const catchAllPage = findFile(
-    join(process.cwd(), 'app', 'pages', 'docs', '[...slug].vue'),
-    join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
-  );
+  const catchAllPage = findCatchAllPage();
 
   expect(catchAllPage).toBeDefined();
 
@@ -91,10 +90,7 @@ test('Catch-all page exists for rendering doc content', () => {
 });
 
 test('Catch-all page uses route path to query content', () => {
-  const catchAllPage = findFile(
-    join(process.cwd(), 'app', 'pages', 'docs', '[...slug].vue'),
-    join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
-  );
+  const catchAllPage = findCatchAllPage();
 
   expect(catchAllPage).toBeDefined();
 
