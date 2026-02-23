@@ -11,34 +11,56 @@ import { expect, test } from 'vitest';
 import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
+function findDir(...paths: string[]): string | undefined {
+  return paths.find(p => existsSync(p));
+}
+
+function findFile(...paths: string[]): string | undefined {
+  return paths.find(p => existsSync(p));
+}
+
+function getComposablesDir(): string {
+  const dir = findDir(
+    join(process.cwd(), 'app', 'composables'),
+    join(process.cwd(), 'composables'),
+  );
+
+  if (!dir) {
+    throw new Error('No composables directory found');
+  }
+
+  return dir;
+}
+
+function getCartComposableContent(): string {
+  const dir = getComposablesDir();
+  const files = readdirSync(dir);
+  const cartFile = files.find(f => f.toLowerCase().includes('cart'));
+
+  if (!cartFile) {
+    throw new Error('No cart composable found');
+  }
+
+  return readFileSync(join(dir, cartFile), 'utf-8');
+}
+
 test('Shopping cart composable exists', () => {
-  const composablesDir = join(process.cwd(), 'app', 'composables');
-
-  expect(existsSync(composablesDir)).toBe(true);
-
-  const files = readdirSync(composablesDir);
+  const dir = getComposablesDir();
+  const files = readdirSync(dir);
   const hasCartComposable = files.some(f => f.toLowerCase().includes('cart'));
 
   expect(hasCartComposable).toBe(true);
 });
 
 test('Composable uses useState for global state', () => {
-  const composablesDir = join(process.cwd(), 'app', 'composables');
-  const files = readdirSync(composablesDir);
-  const cartFile = files.find(f => f.toLowerCase().includes('cart'));
-
-  const content = readFileSync(join(composablesDir, cartFile!), 'utf-8');
+  const content = getCartComposableContent();
 
   // Must use useState (not just ref) for cross-route persistence
   expect(content).toMatch(/useState/);
 });
 
 test('Composable has cart management methods', () => {
-  const composablesDir = join(process.cwd(), 'app', 'composables');
-  const files = readdirSync(composablesDir);
-  const cartFile = files.find(f => f.toLowerCase().includes('cart'));
-
-  const content = readFileSync(join(composablesDir, cartFile!), 'utf-8');
+  const content = getCartComposableContent();
 
   expect(content).toMatch(/add/i);
   expect(content).toMatch(/remove/i);
@@ -46,20 +68,32 @@ test('Composable has cart management methods', () => {
 });
 
 test('Cart page exists', () => {
-  const cartPath = join(process.cwd(), 'app', 'pages', 'cart.vue');
+  const cartPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'cart.vue'),
+    join(process.cwd(), 'pages', 'cart.vue'),
+  );
 
-  expect(existsSync(cartPath)).toBe(true);
+  expect(cartPath).toBeDefined();
 });
 
 test('Checkout page exists', () => {
-  const checkoutPath = join(process.cwd(), 'app', 'pages', 'checkout.vue');
+  const checkoutPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'checkout.vue'),
+    join(process.cwd(), 'pages', 'checkout.vue'),
+  );
 
-  expect(existsSync(checkoutPath)).toBe(true);
+  expect(checkoutPath).toBeDefined();
 });
 
 test('Pages use the cart composable', () => {
-  const cartPath = join(process.cwd(), 'app', 'pages', 'cart.vue');
-  const content = readFileSync(cartPath, 'utf-8');
+  const cartPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'cart.vue'),
+    join(process.cwd(), 'pages', 'cart.vue'),
+  );
+
+  expect(cartPath).toBeDefined();
+
+  const content = readFileSync(cartPath!, 'utf-8');
 
   expect(content).toMatch(/use.*[Cc]art/);
 });
