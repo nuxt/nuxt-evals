@@ -46,13 +46,13 @@ interface ExportedData {
 
 const MODEL_NAMES: Record<string, string> = {
   'claude-opus-4.6': 'Claude Opus 4.6',
-  'claude-opus-4.6-nuxt-ui-only': 'Claude Opus 4.6 (Nuxt UI only)',
   'claude-sonnet-4.5': 'Claude Sonnet 4.5',
   'claude-sonnet-4.5-with-mcp': 'Claude Sonnet 4.5 + MCP',
+  'cursor-composer-1.5': 'Cursor Composer 1.5',
   'deepseek-v3.2': 'DeepSeek V3.2',
   'devstral-2': 'Devstral 2',
   'gemini-3-pro-preview': 'Gemini 3 Pro Preview',
-  'gpt-5.2-codex': 'GPT 5.2 Codex',
+  'gemini-3-pro-preview-gemini-cli': 'Gemini 3 Pro Preview',
   'gpt-5.3-codex-xhigh': 'GPT 5.3 Codex (xhigh)',
   'kat-coder-pro-v1': 'Kat Coder Pro V1',
   'minimax-m2.1': 'Minimax M2.1',

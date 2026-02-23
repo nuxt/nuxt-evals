@@ -1,8 +1,8 @@
 import type { ExperimentConfig } from '@vercel/agent-eval';
 
 const config: ExperimentConfig = {
-  agent: 'claude-code',
-  model: 'claude-opus-4-6',
+  agent: 'gemini',
+  model: 'gemini-3-pro-preview',
   scripts: ['build'],
   runs: 2,
   earlyExit: true,

@@ -37,14 +37,15 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 |------------|-------|-------|
 | `claude-opus-4.6` | `claude-code` | (default) |
 | `claude-sonnet-4.5` | `claude-code` | `sonnet` |
+| `cursor-composer-1.5` | `cursor` | `composer-1.5` |
 | `deepseek-v3.2` | `opencode` | `vercel/deepseek/deepseek-v3.2` |
 | `devstral-2` | `opencode` | `vercel/mistral/devstral-2` |
 | `gemini-3-pro-preview` | `opencode` | `vercel/google/gemini-3-pro-preview` |
-| `gpt-5.2-codex` | `opencode` | `vercel/openai/gpt-5.2-codex` |
+| `gemini-3-pro-preview-gemini-cli` | `gemini` | `gemini-3-pro-preview` |
+| `gpt-5.3-codex-xhigh` | `codex` | `gpt-5.3-codex-api-preview?reasoningEffort=xhigh` |
 | `kat-coder-pro-v1` | `opencode` | `vercel/kwaipilot/kat-coder-pro-v1` |
 | `minimax-m2.1` | `opencode` | `vercel/minimax/minimax-m2.1` |
-| `claude-sonnet-4.5-with-mcp` | `claude-code` | `sonnet` + Nuxt MCP servers |
-| `claude-opus-4.6-nuxt-ui-only` | `claude-code` | (default, Nuxt UI evals only) |
+| `claude-sonnet-4.5-with-mcp` | `claude-code` | `claude-sonnet-4-5` + Nuxt MCP servers |
 
 ## Eval structure
 
