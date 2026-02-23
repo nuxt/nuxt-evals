@@ -102,6 +102,15 @@ evals/nuxt-000-server-api-route/
 | nuxt-013-computed-url | Reactive data fetching with computed URLs |
 | nuxt-014-parallel-fetch | Parallel data fetching with useAsyncData + Promise.all |
 
+### Nuxt Content
+
+| Eval | Tests |
+|------|-------|
+| nuxt-content-000-installation | Nuxt Content installation, content.config.ts, queryCollection, ContentRenderer |
+| nuxt-content-001-blog | Blog with collection schema (Zod), frontmatter, date ordering |
+| nuxt-content-002-navigation | Documentation site with sidebar navigation from content tree |
+| nuxt-content-003-data-collection | Data collection (type "data") with JSON files for structured records |
+
 ### Nuxt UI
 
 | Eval | Tests |
