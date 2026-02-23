@@ -6,5 +6,10 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/eslint',
     '@nuxt/test-utils/module'
-  ]
+  ],
+  content: {
+    experimental: {
+      sqliteConnector: 'native'
+    }
+  }
 })
