@@ -18,12 +18,24 @@ function findFile(...paths: string[]): string | undefined {
 }
 
 function getPageContent(): string {
-  const pagePath = findFile(
+  const candidates = [
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'pages', 'users.vue'),
+    join(process.cwd(), 'pages', 'users.vue'),
+    join(process.cwd(), 'app', 'pages', 'users', 'index.vue'),
+    join(process.cwd(), 'pages', 'users', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
-  );
+  ];
 
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) {
+      const content = readFileSync(candidate, 'utf-8');
+      if (content.includes('UTable')) return content;
+    }
+  }
+
+  const pagePath = findFile(...candidates);
   if (!pagePath) {
     throw new Error('No page found');
   }
@@ -35,6 +47,10 @@ test('Page exists', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'pages', 'users.vue'),
+    join(process.cwd(), 'pages', 'users.vue'),
+    join(process.cwd(), 'app', 'pages', 'users', 'index.vue'),
+    join(process.cwd(), 'pages', 'users', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 

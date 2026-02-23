@@ -86,8 +86,8 @@ test('Frontend accesses public config correctly', () => {
 
   const content = readFileSync(pagePath!, 'utf-8');
 
-  // Should access config.public
-  expect(content).toMatch(/config\.public|runtimeConfig\.public/);
+  // Should access config.public (via variable or inline)
+  expect(content).toMatch(/config\.public|runtimeConfig\.public|useRuntimeConfig\(\)\.public/);
 });
 
 test('API route exists and uses runtime config', () => {

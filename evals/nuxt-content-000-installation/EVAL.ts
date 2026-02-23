@@ -61,6 +61,8 @@ test('Page uses queryCollection (not old v2 queryContent)', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'pages', '[...slug].vue'),
+    join(process.cwd(), 'pages', '[...slug].vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -77,6 +79,8 @@ test('Page uses ContentRenderer to display content', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'pages', '[...slug].vue'),
+    join(process.cwd(), 'pages', '[...slug].vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 

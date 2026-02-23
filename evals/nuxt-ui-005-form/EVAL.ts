@@ -18,12 +18,24 @@ function findFile(...paths: string[]): string | undefined {
 }
 
 function getFormPageContent(): string {
-  const pagePath = findFile(
+  const candidates = [
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'pages', 'login.vue'),
+    join(process.cwd(), 'pages', 'login.vue'),
+    join(process.cwd(), 'app', 'pages', 'login', 'index.vue'),
+    join(process.cwd(), 'pages', 'login', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
-  );
+  ];
 
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) {
+      const content = readFileSync(candidate, 'utf-8');
+      if (content.includes('UForm')) return content;
+    }
+  }
+
+  const pagePath = findFile(...candidates);
   if (!pagePath) {
     throw new Error('No form page found');
   }
@@ -35,6 +47,10 @@ test('Form page exists', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'pages', 'login.vue'),
+    join(process.cwd(), 'pages', 'login.vue'),
+    join(process.cwd(), 'app', 'pages', 'login', 'index.vue'),
+    join(process.cwd(), 'pages', 'login', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 

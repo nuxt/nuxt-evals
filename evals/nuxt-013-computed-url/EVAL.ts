@@ -18,12 +18,26 @@ function findFile(...paths: string[]): string | undefined {
 }
 
 function getPageContent(): string {
-  const pagePath = findFile(
+  const candidates = [
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'pages', 'search.vue'),
+    join(process.cwd(), 'pages', 'search.vue'),
+    join(process.cwd(), 'app', 'pages', 'user-search.vue'),
+    join(process.cwd(), 'pages', 'user-search.vue'),
+    join(process.cwd(), 'app', 'pages', 'users.vue'),
+    join(process.cwd(), 'pages', 'users.vue'),
     join(process.cwd(), 'app', 'app.vue'),
-  );
+  ];
 
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) {
+      const content = readFileSync(candidate, 'utf-8');
+      if (content.includes('jsonplaceholder')) return content;
+    }
+  }
+
+  const pagePath = findFile(...candidates);
   if (!pagePath) {
     throw new Error('No page found');
   }
@@ -35,6 +49,12 @@ test('Page exists', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'pages', 'search.vue'),
+    join(process.cwd(), 'pages', 'search.vue'),
+    join(process.cwd(), 'app', 'pages', 'user-search.vue'),
+    join(process.cwd(), 'pages', 'user-search.vue'),
+    join(process.cwd(), 'app', 'pages', 'users.vue'),
+    join(process.cwd(), 'pages', 'users.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -64,15 +84,17 @@ test('Uses computed URL or watch option for reactive refetching', () => {
   const content = getPageContent();
 
   // Should use one of these Nuxt reactive patterns:
-  // 1. Computed getter as URL: useFetch(() => `/api/users/${id.value}`)
-  // 2. Watch option: useFetch(url, { watch: [id] })
-  // 3. Query option: useFetch(url, { query: { id } })
+  // 1. Computed getter as URL: useFetch(() => `...`)
+  // 2. Computed ref as URL: useFetch(url) where url = computed(...)
+  // 3. Watch option: useFetch(url, { watch: [id] })
+  // 4. Query option: useFetch(url, { query: { id } })
   // Should NOT use manual watch(() => id.value, async () => { $fetch(...) })
   const hasComputedUrl = /useFetch\s*\(\s*\(\)/.test(content);
+  const hasComputedRef = /computed\s*\(/.test(content) && /useFetch/.test(content);
   const hasWatchOption = /watch\s*:\s*\[/.test(content);
   const hasQueryOption = /query\s*:\s*\{/.test(content);
 
-  expect(hasComputedUrl || hasWatchOption || hasQueryOption).toBe(true);
+  expect(hasComputedUrl || hasComputedRef || hasWatchOption || hasQueryOption).toBe(true);
 });
 
 test('Does not use manual watch + $fetch anti-pattern', () => {

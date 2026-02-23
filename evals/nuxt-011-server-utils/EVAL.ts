@@ -50,34 +50,45 @@ test('Users list API route exists', () => {
 
   const hasUsersRoute = findFile(
     join(apiDir, 'users.ts'),
+    join(apiDir, 'users.get.ts'),
     join(apiDir, 'users', 'index.ts'),
+    join(apiDir, 'users', 'index.get.ts'),
   );
 
   expect(hasUsersRoute).toBeDefined();
 });
 
 test('Single user API route exists', () => {
-  const singleRoute = join(process.cwd(), 'server', 'api', 'users', '[id].ts');
+  const singleRoute = findFile(
+    join(process.cwd(), 'server', 'api', 'users', '[id].ts'),
+    join(process.cwd(), 'server', 'api', 'users', '[id].get.ts'),
+  );
 
-  expect(existsSync(singleRoute)).toBe(true);
+  expect(singleRoute).toBeDefined();
 });
 
 test('API routes use defineEventHandler', () => {
-  const singleRoute = join(process.cwd(), 'server', 'api', 'users', '[id].ts');
+  const singleRoute = findFile(
+    join(process.cwd(), 'server', 'api', 'users', '[id].ts'),
+    join(process.cwd(), 'server', 'api', 'users', '[id].get.ts'),
+  );
 
-  expect(existsSync(singleRoute)).toBe(true);
+  expect(singleRoute).toBeDefined();
 
-  const content = readFileSync(singleRoute, 'utf-8');
+  const content = readFileSync(singleRoute!, 'utf-8');
 
   expect(content).toMatch(/defineEventHandler/);
 });
 
 test('API routes use the shared utility', () => {
-  const singleRoute = join(process.cwd(), 'server', 'api', 'users', '[id].ts');
+  const singleRoute = findFile(
+    join(process.cwd(), 'server', 'api', 'users', '[id].ts'),
+    join(process.cwd(), 'server', 'api', 'users', '[id].get.ts'),
+  );
 
-  expect(existsSync(singleRoute)).toBe(true);
+  expect(singleRoute).toBeDefined();
 
-  const content = readFileSync(singleRoute, 'utf-8');
+  const content = readFileSync(singleRoute!, 'utf-8');
 
   expect(content).toMatch(/user|User/i);
 });
