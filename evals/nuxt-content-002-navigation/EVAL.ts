@@ -34,12 +34,7 @@ function getAllVueContents(): string {
     }
   }
 
-  const catchAll = findFile(
-    join(process.cwd(), 'app', 'pages', 'docs', '[...slug].vue'),
-    join(process.cwd(), 'app', 'pages', 'docs', '[slug].vue'),
-    join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
-    join(process.cwd(), 'pages', 'docs', '[slug].vue'),
-  );
+  const catchAll = findCatchAllPage();
   if (catchAll) files.push(catchAll);
 
   return files.map(p => readFileSync(p, 'utf-8')).join('\n');
@@ -48,9 +43,15 @@ function getAllVueContents(): string {
 function findCatchAllPage(): string | undefined {
   return findFile(
     join(process.cwd(), 'app', 'pages', 'docs', '[...slug].vue'),
+    join(process.cwd(), 'app', 'pages', 'docs', '[[...slug]].vue'),
     join(process.cwd(), 'app', 'pages', 'docs', '[slug].vue'),
     join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
+    join(process.cwd(), 'pages', 'docs', '[[...slug]].vue'),
     join(process.cwd(), 'pages', 'docs', '[slug].vue'),
+    join(process.cwd(), 'app', 'pages', '[...slug].vue'),
+    join(process.cwd(), 'app', 'pages', '[[...slug]].vue'),
+    join(process.cwd(), 'pages', '[...slug].vue'),
+    join(process.cwd(), 'pages', '[[...slug]].vue'),
   );
 }
 
