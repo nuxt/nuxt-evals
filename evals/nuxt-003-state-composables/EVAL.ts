@@ -52,6 +52,14 @@ test('Composable uses useState for global state', () => {
   expect(content).toMatch(/useState/);
 });
 
+test('Composable does not use plain ref for cart state', () => {
+  const content = getCartComposableContent();
+
+  // ref() does not persist across route navigations — useState is required
+  const usesRefForState = /(?:const|let)\s+(?:cart|items)\s*=\s*ref\s*\(/i.test(content);
+  expect(usesRefForState).toBe(false);
+});
+
 test('Composable has cart management methods', () => {
   const content = getCartComposableContent();
 
@@ -76,7 +84,7 @@ test('Checkout page exists', () => {
   expect(checkoutPath).toBeDefined();
 });
 
-test('Pages use the cart composable', () => {
+test('Cart page uses the cart composable', () => {
   const cartPath = findFile(
     join(process.cwd(), 'app', 'pages', 'cart.vue'),
   );
@@ -85,5 +93,18 @@ test('Pages use the cart composable', () => {
 
   const content = readFileSync(cartPath!, 'utf-8');
 
-  expect(content).toMatch(/use.*[Cc]art/);
+  expect(content).toMatch(/useCart\s*\(/);
+});
+
+test('Checkout page uses the cart composable', () => {
+  const checkoutPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'checkout.vue'),
+  );
+
+  expect(checkoutPath).toBeDefined();
+
+  const content = readFileSync(checkoutPath!, 'utf-8');
+
+  // Checkout must also use the shared cart composable for state to persist
+  expect(content).toMatch(/useCart\s*\(/);
 });

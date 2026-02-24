@@ -92,9 +92,17 @@ test('Uses computed URL or watch option for reactive refetching', () => {
 test('Does not use manual watch + $fetch anti-pattern', () => {
   const content = getPageContent();
 
-  // Should NOT manually watch + $fetch
-  const hasManualWatch = /watch\s*\(\s*\(\)\s*=>\s*[\w.]+\s*,\s*async\s*\(\)\s*=>\s*\{[\s\S]*?\$fetch/.test(content);
+  // Should NOT manually watch + $fetch — useFetch with a reactive URL handles this
+  const hasManualWatch = /watch\s*\([\s\S]*?\$fetch/.test(content);
   expect(hasManualWatch).toBe(false);
+});
+
+test('Does not use onMounted + $fetch anti-pattern', () => {
+  const content = getPageContent();
+
+  // Should NOT fetch inside onMounted — useFetch handles SSR + reactivity
+  const hasOnMountedFetch = /onMounted\s*\([\s\S]*?\$?fetch\s*\(/.test(content);
+  expect(hasOnMountedFetch).toBe(false);
 });
 
 test('Displays user name and email', () => {

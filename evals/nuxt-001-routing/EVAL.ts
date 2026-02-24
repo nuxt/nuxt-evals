@@ -67,6 +67,20 @@ test('About page uses NuxtLink to navigate home', () => {
   expect(content).toMatch(/to=["']\/["']/);
 });
 
+test('NuxtLink uses "to" prop (not "href")', () => {
+  const homePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
+
+  expect(homePath).toBeDefined();
+
+  const content = readFileSync(homePath!, 'utf-8');
+
+  // NuxtLink should use "to" prop, not "href"
+  expect(content).not.toMatch(/<NuxtLink[^>]*href=/);
+});
+
 test('Does not use anchor tags for internal navigation', () => {
   const homePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),

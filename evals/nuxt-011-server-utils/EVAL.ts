@@ -31,7 +31,7 @@ test('Server utils has a utility file', () => {
   expect(hasUtilFile).toBe(true);
 });
 
-test('Server utility contains user data logic', () => {
+test('Server utility exports a function with user data', () => {
   const utilsDir = join(process.cwd(), 'server', 'utils');
   const files = readdirSync(utilsDir);
   const utilFile = files.find(f => f.endsWith('.ts'));
@@ -40,6 +40,8 @@ test('Server utility contains user data logic', () => {
 
   const content = readFileSync(join(utilsDir, utilFile!), 'utf-8');
 
+  // Should export a reusable function (not just data)
+  expect(content).toMatch(/export\s+(default\s+)?function|export\s+const\s+\w+\s*=/);
   expect(content).toMatch(/user|User/i);
 });
 
@@ -80,7 +82,7 @@ test('Single user route uses defineEventHandler', () => {
   expect(content).toMatch(/defineEventHandler/);
 });
 
-test('Single user route uses the shared utility', () => {
+test('Single user route calls the shared utility', () => {
   const singleRoute = findFile(
     join(process.cwd(), 'server', 'api', 'users', '[id].ts'),
     join(process.cwd(), 'server', 'api', 'users', '[id].get.ts'),
@@ -90,7 +92,11 @@ test('Single user route uses the shared utility', () => {
 
   const content = readFileSync(singleRoute!, 'utf-8');
 
-  expect(content).toMatch(/user|User/i);
+  // Should call the shared util function (auto-imported), not inline the data
+  expect(content).toMatch(/get[A-Z]\w*\(|find[A-Z]\w*\(|fetch[A-Z]\w*\(|users|getUser/i);
+
+  // Should NOT define user data inline (that means the util isn't being used)
+  expect(content).not.toMatch(/const\s+users\s*=\s*\[/);
 });
 
 test('List route uses defineEventHandler and shared utility', () => {
@@ -106,7 +112,9 @@ test('List route uses defineEventHandler and shared utility', () => {
   const content = readFileSync(listRoute!, 'utf-8');
 
   expect(content).toMatch(/defineEventHandler/);
-  expect(content).toMatch(/user|User/i);
+
+  // Should NOT define user data inline (that means the util isn't being used)
+  expect(content).not.toMatch(/const\s+users\s*=\s*\[/);
 });
 
 test('Shared utility is NOT in app/utils/', () => {

@@ -1,12 +1,12 @@
 /**
  * Nuxt Route Validation
  *
- * Tests whether the agent uses definePageMeta's validate option to
- * validate route parameters instead of using middleware or manual checks.
+ * Tests whether the agent uses definePageMeta to validate route parameters
+ * — either via the validate option or a custom regex path constraint.
  *
  * Tricky because agents often use middleware for route validation or
  * do manual validation in setup/onMounted instead of using the built-in
- * validate option in definePageMeta.
+ * definePageMeta options (validate or path with regex).
  */
 
 import { expect, test } from 'vitest';
@@ -26,7 +26,7 @@ test('Dynamic user page exists', () => {
   expect(userPath).toBeDefined();
 });
 
-test('Page uses definePageMeta with validate', () => {
+test('Page uses definePageMeta for route validation', () => {
   const userPath = findFile(
     join(process.cwd(), 'app', 'pages', 'users', '[id].vue'),
     join(process.cwd(), 'app', 'pages', 'user', '[id].vue'),
@@ -36,9 +36,11 @@ test('Page uses definePageMeta with validate', () => {
 
   const content = readFileSync(userPath!, 'utf-8');
 
-  // Should use definePageMeta with validate
+  // Should use definePageMeta with either validate function or custom path regex
   expect(content).toMatch(/definePageMeta/);
-  expect(content).toMatch(/validate/);
+  const hasValidate = /validate\s*[:(]/.test(content);
+  const hasPathRegex = /path\s*:/.test(content);
+  expect(hasValidate || hasPathRegex).toBe(true);
 });
 
 test('Validation checks for numeric ID', () => {
@@ -51,8 +53,25 @@ test('Validation checks for numeric ID', () => {
 
   const content = readFileSync(userPath!, 'utf-8');
 
-  // Should validate that ID is numeric (Number, parseInt, isNaN, regex, etc.)
-  expect(content).toMatch(/Number|parseInt|isNaN|isFinite|\/\\d|test\(/);
+  // Should validate that ID is numeric — either via:
+  // 1. validate function: Number, parseInt, isNaN, isFinite, /\d+/.test()
+  // 2. path regex: path: '/:id(\\d+)'
+  expect(content).toMatch(/Number|parseInt|isNaN|isFinite|\\d|test\(/);
+});
+
+test('Does not use middleware for route validation', () => {
+  const userPath = findFile(
+    join(process.cwd(), 'app', 'pages', 'users', '[id].vue'),
+    join(process.cwd(), 'app', 'pages', 'user', '[id].vue'),
+  );
+
+  expect(userPath).toBeDefined();
+
+  const content = readFileSync(userPath!, 'utf-8');
+
+  // Should NOT use middleware for simple param validation —
+  // definePageMeta.validate or path regex is the right tool
+  expect(content).not.toMatch(/middleware\s*:/);
 });
 
 test('Page displays user information using the ID', () => {
