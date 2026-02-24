@@ -101,6 +101,7 @@ evals/nuxt-000-server-api-route/
 | nuxt-012-lazy-fetch | Lazy data fetching with status-based loading states |
 | nuxt-013-computed-url | Reactive data fetching with computed URLs |
 | nuxt-014-parallel-fetch | Parallel data fetching with useAsyncData + Promise.all |
+| nuxt-015-nuxt3-to-nuxt4-migration | Migrate Nuxt 3 app to Nuxt 4 directory structure and code patterns |
 
 ### Nuxt Content
 
