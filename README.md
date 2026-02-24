@@ -37,6 +37,7 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 |------------|-------|-------|
 | `claude-opus-4.6` | `claude-code` | `claude-opus-4-6` |
 | `claude-sonnet-4.5` | `claude-code` | `claude-sonnet-4-5` |
+| `claude-sonnet-4.6` | `claude-code` | `claude-sonnet-4-6` |
 | `cursor-composer-1.5` | `cursor` | `composer-1.5` |
 | `gemini-3-pro-preview` | `opencode` | `vercel/google/gemini-3-pro-preview` |
 | `gemini-3-pro-preview-gemini-cli` | `gemini` | `gemini-3-pro-preview` |

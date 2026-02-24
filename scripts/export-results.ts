@@ -47,6 +47,7 @@ interface ExportedData {
 const MODEL_NAMES: Record<string, string> = {
   'claude-opus-4.6': 'Claude Opus 4.6',
   'claude-sonnet-4.5': 'Claude Sonnet 4.5',
+  'claude-sonnet-4.6': 'Claude Sonnet 4.6',
   'cursor-composer-1.5': 'Cursor Composer 1.5',
   'gemini-3-pro-preview': 'Gemini 3 Pro Preview',
   'gemini-3-pro-preview-gemini-cli': 'Gemini 3 Pro Preview',
