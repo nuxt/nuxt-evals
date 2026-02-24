@@ -1,1 +1,0 @@
-Create a page that displays the app name from public runtime config and an API route that uses a private API key from runtime config. Define the runtime config with a public app name ("My Nuxt App") and a private API key. Follow Nuxt best practices for environment variables and runtime config.

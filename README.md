@@ -44,18 +44,23 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 
 ## Eval structure
 
-Each eval is a self-contained Nuxt project in `evals/`:
+Each eval is a self-contained Nuxt project in `evals/`. Most evals provide broken or suboptimal starter code that the agent must fix — the prompt describes a symptom without revealing the solution.
 
 ```
-evals/nuxt-000-server-api-route/
+evals/nuxt-000-fix-data-fetching/
 ├── PROMPT.md          # task given to the agent
 ├── EVAL.ts            # vitest assertions (withheld from the agent)
 ├── package.json       # Nuxt project manifest
 ├── nuxt.config.ts
 ├── tsconfig.json
 ├── eslint.config.mjs
+├── server/
+│   └── api/
+│       └── greeting.ts
 └── app/
-    └── app.vue
+    ├── app.vue
+    └── pages/
+        └── index.vue  # broken starter code the agent must fix
 ```
 
 | File | Purpose |
@@ -67,11 +72,11 @@ evals/nuxt-000-server-api-route/
 
 ## Adding a new eval
 
-1. Create a directory under `evals/` (e.g., `evals/nuxt-007-my-eval/` or `evals/nuxt-ui-003-my-eval/`)
-2. Add `PROMPT.md` with the task description
-3. Add `EVAL.ts` with vitest assertions
-4. Add `package.json` with `"type": "module"` and `"build": "nuxt build"`
-5. Add the Nuxt source files the agent starts with
+1. Create a directory under `evals/` (e.g., `evals/nuxt-015-my-eval/`)
+2. Add `PROMPT.md` with a vague, symptom-based task description (don't reveal the solution)
+3. Add broken or suboptimal starter code in `app/` for the agent to fix
+4. Add `EVAL.ts` with vitest assertions that check for the correct fix and reject anti-patterns
+5. Add `package.json` with `"type": "module"` and `"build": "nuxt build"`
 6. Run `pnpm run eval` — it will automatically run the new eval for all models
 
 ## Adding a new model
@@ -82,50 +87,45 @@ evals/nuxt-000-server-api-route/
 
 ## Current evals
 
-### Nuxt
+### Nuxt (15)
 
-| Eval | Tests |
-|------|-------|
-| nuxt-000-server-api-route | Server API route and data fetching with useFetch |
-| nuxt-001-routing | Nuxt routing with NuxtLink navigation |
-| nuxt-002-route-middleware | Route middleware for authentication |
-| nuxt-003-state-composables | State management with useState composable |
-| nuxt-004-page-meta | Page meta, useHead, and custom layouts |
-| nuxt-005-error-handling | Error handling with NuxtErrorBoundary |
-| nuxt-006-seo-meta | SEO with useSeoMeta and Open Graph tags |
-| nuxt-007-runtime-config | Runtime config with public vs private keys |
-| nuxt-008-plugins | Plugins with defineNuxtPlugin and provide pattern |
-| nuxt-009-route-validation | Route parameter validation with definePageMeta validate |
-| nuxt-010-app-config | App config with defineAppConfig and useAppConfig |
-| nuxt-011-server-utils | Shared server utilities in server/utils/ |
-| nuxt-012-lazy-fetch | Lazy data fetching with status-based loading states |
-| nuxt-013-computed-url | Reactive data fetching with computed URLs |
-| nuxt-014-parallel-fetch | Parallel data fetching with useAsyncData + Promise.all |
-| nuxt-015-nuxt3-to-nuxt4-migration | Migrate Nuxt 3 app to Nuxt 4 directory structure and code patterns |
+| Eval | Type | Tests |
+|------|------|-------|
+| nuxt-000-fix-data-fetching | fix | Replace onMounted + $fetch with useFetch |
+| nuxt-001-prefer-nuxt-link | fix | Replace `<a href>` with `<NuxtLink to>` |
+| nuxt-002-state-composables | build | State management with useState composable |
+| nuxt-003-page-meta | build | Page meta, useHead, and custom layouts |
+| nuxt-004-error-handling | build | Error handling with NuxtErrorBoundary |
+| nuxt-005-fix-seo-meta | fix | Replace useHead meta arrays with useSeoMeta |
+| nuxt-006-runtime-config | build | Runtime config with public vs private keys |
+| nuxt-007-avoid-redundant-ref | fix | Replace ref + watch with computed for derived state |
+| nuxt-008-fix-exposed-secret | fix | Move private runtimeConfig access to server API route |
+| nuxt-009-cache-api-response | fix | Replace defineEventHandler with defineCachedEventHandler |
+| nuxt-010-fix-watch-fetch | fix | Replace watch + $fetch with useFetch reactive URL |
+| nuxt-011-fix-sequential-fetching | fix | Parallelize sequential await useFetch with Promise.all |
+| nuxt-012-nuxt3-to-nuxt4-migration | fix | Migrate Nuxt 3 directory structure to Nuxt 4 |
+| nuxt-013-prefer-nuxt-image | fix | Replace raw `<img>` with NuxtImg + @nuxt/image |
+| nuxt-014-prefer-use-cookie | fix | Replace document.cookie with useCookie composable |
 
-### Nuxt Content
+### Nuxt Content (2)
 
-| Eval | Tests |
-|------|-------|
-| nuxt-content-000-installation | Nuxt Content installation, content.config.ts, queryCollection, ContentRenderer |
-| nuxt-content-001-blog | Blog with collection schema (Zod), frontmatter, date ordering |
-| nuxt-content-002-navigation | Documentation site with sidebar navigation from content tree |
-| nuxt-content-003-data-collection | Data collection (type "data") with JSON files for structured records |
+| Eval | Type | Tests |
+|------|------|-------|
+| nuxt-content-000-navigation | build | Documentation site with queryCollectionNavigation sidebar |
+| nuxt-content-001-data-collection | build | Data collection (type "data") with JSON files |
 
-### Nuxt UI
+### Nuxt UI (8)
 
-| Eval | Tests |
-|------|-------|
-| nuxt-ui-000-installation | Nuxt UI installation and configuration |
-| nuxt-ui-001-theming | Theming with app.config.ts colors and semantic utilities |
-| nuxt-ui-002-page-shell | Page shell with UHeader/UMain/UFooter and UNavigationMenu |
-| nuxt-ui-003-landing-page | Landing page with UPageHero/UPageSection |
-| nuxt-ui-004-dashboard-layout | Dashboard layout with UDashboardGroup/Sidebar/Panel |
-| nuxt-ui-005-form | Forms with UForm, Zod validation, useToast |
-| nuxt-ui-006-table | Data table with UTable, columns, and search |
-| nuxt-ui-007-modal | Modal overlay with UModal and v-model:open |
-| nuxt-ui-008-command-palette | Command palette with UCommandPalette and keyboard shortcuts |
-| nuxt-ui-009-dropdown-menu | Dropdown menu with grouped items, icons, and onSelect |
+| Eval | Type | Tests |
+|------|------|-------|
+| nuxt-ui-000-theming | build | Theming with app.config.ts colors and semantic utilities |
+| nuxt-ui-001-fix-raw-html-page | fix | Replace raw HTML with UHeader/UFooter/UPageHero/UPageSection |
+| nuxt-ui-002-dashboard-layout | build | Dashboard with UDashboardGroup/Sidebar/Panel |
+| nuxt-ui-003-fix-raw-form | fix | Replace raw form with UForm + Zod validation |
+| nuxt-ui-004-table | build | Data table with UTable, columns, and search |
+| nuxt-ui-005-modal | build | Modal overlay with UModal and v-model:open |
+| nuxt-ui-006-command-palette | build | Command palette with UCommandPalette and keyboard shortcuts |
+| nuxt-ui-007-dropdown-menu | build | Dropdown menu with grouped items, icons, and onSelect |
 
 ## License
 

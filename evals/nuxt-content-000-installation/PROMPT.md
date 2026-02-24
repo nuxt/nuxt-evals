@@ -1,1 +1,0 @@
-Install and configure @nuxt/content in this Nuxt application. Set up a content collection for pages, create a markdown content file for the homepage, and display it. The page should use Nuxt Content's query utilities and rendering component to display the markdown content. Make sure to create the content configuration file at the project root.

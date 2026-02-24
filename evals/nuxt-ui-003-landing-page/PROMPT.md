@@ -1,1 +1,0 @@
-Create a landing page using Nuxt UI's dedicated page components (not generic HTML). Add a hero section with a title, description, and call-to-action buttons. Add a features section showcasing 3 product features with titles, descriptions, and icons. Nuxt UI provides specific components designed for hero sections and page sections — use those rather than building custom layouts.

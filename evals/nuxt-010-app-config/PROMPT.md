@@ -1,1 +1,0 @@
-Create a themed application using app.config.ts. Define a theme with a primary color and site name in app.config.ts, then display them on the homepage using useAppConfig(). Add a button to toggle between two primary colors at runtime.

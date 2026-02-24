@@ -1,1 +1,0 @@
-Create a user search page with an input field. When the user types an ID, fetch the user from https://jsonplaceholder.typicode.com/users/{id} and display their name and email. The data should refetch automatically when the ID changes. Follow Nuxt data fetching best practices.

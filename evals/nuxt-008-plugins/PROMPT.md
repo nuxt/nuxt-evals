@@ -1,1 +1,0 @@
-Create a Nuxt plugin that provides a utility for formatting dates (e.g., "January 1, 2025") and currency (e.g., "$1,234.56"). Make the formatter available throughout the app via provide/inject and use it on the homepage to display a formatted date and price.
