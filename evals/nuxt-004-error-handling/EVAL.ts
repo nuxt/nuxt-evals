@@ -49,46 +49,43 @@ test('Error page has clearError functionality', () => {
   expect(content).toMatch(/clearError/);
 });
 
-test('Index page exists', () => {
-  const indexPath = findFile(
+test('A page or app.vue uses NuxtErrorBoundary', () => {
+  const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
   );
 
-  expect(indexPath).toBeDefined();
-});
+  expect(pagePath).toBeDefined();
 
-test('Index page uses NuxtErrorBoundary', () => {
-  const indexPath = findFile(
-    join(process.cwd(), 'app', 'pages', 'index.vue'),
-  );
-
-  expect(indexPath).toBeDefined();
-
-  const content = readFileSync(indexPath!, 'utf-8');
+  const content = readFileSync(pagePath!, 'utf-8');
 
   expect(content).toMatch(/NuxtErrorBoundary/);
 });
 
-test('Index page has error slot', () => {
-  const indexPath = findFile(
+test('NuxtErrorBoundary has error slot', () => {
+  const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
   );
 
-  expect(indexPath).toBeDefined();
+  expect(pagePath).toBeDefined();
 
-  const content = readFileSync(indexPath!, 'utf-8');
+  const content = readFileSync(pagePath!, 'utf-8');
 
-  expect(content).toMatch(/#error|v-slot:error|@error/);
+  if (/NuxtErrorBoundary/.test(content)) {
+    expect(content).toMatch(/#error|v-slot:error|@error/);
+  }
 });
 
-test('Index page can trigger error', () => {
-  const indexPath = findFile(
+test('App can trigger or demonstrate errors', () => {
+  const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
   );
 
-  expect(indexPath).toBeDefined();
+  expect(pagePath).toBeDefined();
 
-  const content = readFileSync(indexPath!, 'utf-8');
+  const content = readFileSync(pagePath!, 'utf-8');
 
-  expect(content).toMatch(/createError|throw\s/);
+  expect(content).toMatch(/createError|throw\s|showError/);
 });

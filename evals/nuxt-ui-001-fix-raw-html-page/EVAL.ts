@@ -105,7 +105,8 @@ test('No raw anchor tags for internal navigation', () => {
 
 test('Uses NuxtLink or UButton for CTAs', () => {
   const allContent = getAllVueFiles().join('\n');
-  expect(allContent).toMatch(/UButton|NuxtLink/);
+  // Accept explicit UButton/NuxtLink or passing links as prop to UPageHero
+  expect(allContent).toMatch(/UButton|NuxtLink|:?links\s*=/);
 });
 
 test('Still has features content', () => {

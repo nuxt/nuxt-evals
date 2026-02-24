@@ -73,8 +73,11 @@ test('Frontend accesses public config correctly', () => {
 
   const content = readFileSync(pagePath!, 'utf-8');
 
-  // Should access config.public (via variable or inline)
-  expect(content).toMatch(/config\.public|runtimeConfig\.public|useRuntimeConfig\(\)\.public/);
+  // Accept inline access (.public) or destructured ({ public: ... })
+  const hasInlineAccess = /config\.public|runtimeConfig\.public|useRuntimeConfig\(\)\.public/.test(content);
+  const hasDestructured = /\{\s*public\s*:/.test(content) && /useRuntimeConfig/.test(content);
+
+  expect(hasInlineAccess || hasDestructured).toBe(true);
 });
 
 test('API route exists and uses runtime config', () => {

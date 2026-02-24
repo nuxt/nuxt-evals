@@ -72,15 +72,14 @@ test('No raw anchor tags for internal navigation', () => {
     join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
   );
 
-  if (homePath) {
-    const content = readFileSync(homePath, 'utf-8');
-    expect(content).not.toMatch(/<a[^>]*href=["']\/[^"']*["']/);
-  }
+  expect(homePath).toBeDefined();
+  expect(aboutPath).toBeDefined();
 
-  if (aboutPath) {
-    const content = readFileSync(aboutPath, 'utf-8');
-    expect(content).not.toMatch(/<a[^>]*href=["']\/[^"']*["']/);
-  }
+  const homeContent = readFileSync(homePath!, 'utf-8');
+  expect(homeContent).not.toMatch(/<a[^>]*href=["']\/[^"']*["']/);
+
+  const aboutContent = readFileSync(aboutPath!, 'utf-8');
+  expect(aboutContent).not.toMatch(/<a[^>]*href=["']\/[^"']*["']/);
 });
 
 test('NuxtLink does not use href prop', () => {

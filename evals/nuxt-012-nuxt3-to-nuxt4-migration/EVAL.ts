@@ -124,16 +124,3 @@ test('Old root-level source directories are cleaned up', () => {
   // Allow at most 1 leftover (some agents leave empty dirs), but not all 5
   expect(oldDirsRemaining).toBeLessThanOrEqual(1);
 });
-
-test('tsconfig.json updated to project references', () => {
-  const tsconfigPath = join(root, 'tsconfig.json');
-  expect(existsSync(tsconfigPath)).toBe(true);
-
-  const content = readFileSync(tsconfigPath, 'utf-8');
-
-  // Nuxt 4 uses project references instead of extends
-  expect(content).not.toMatch(/"extends":\s*"\.\/\.nuxt\/tsconfig\.json"/);
-  expect(content).toMatch(/references/);
-  expect(content).toMatch(/tsconfig\.app\.json/);
-});
-

@@ -17,7 +17,7 @@ function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
 }
 
-test('API route uses defineCachedEventHandler', () => {
+test('API route uses a cached event handler', () => {
   const apiPath = findFile(
     join(process.cwd(), 'server', 'api', 'posts.ts'),
     join(process.cwd(), 'server', 'api', 'posts.get.ts'),
@@ -26,7 +26,8 @@ test('API route uses defineCachedEventHandler', () => {
   expect(apiPath).toBeDefined();
 
   const content = readFileSync(apiPath!, 'utf-8');
-  expect(content).toMatch(/defineCachedEventHandler/);
+  // Both defineCachedEventHandler and cachedEventHandler are valid Nitro exports
+  expect(content).toMatch(/defineCachedEventHandler|cachedEventHandler/);
 });
 
 test('API route does NOT use plain defineEventHandler', () => {
@@ -39,10 +40,10 @@ test('API route does NOT use plain defineEventHandler', () => {
 
   const content = readFileSync(apiPath!, 'utf-8');
 
-  // Should NOT have defineEventHandler (should be defineCachedEventHandler)
-  // But defineCachedEventHandler contains "defineEventHandler" as substring,
-  // so check it's not the standalone version
-  const hasPlainHandler = /(?<!defineCached)defineEventHandler/.test(content);
+  // Should NOT have plain defineEventHandler (should be cached variant)
+  // Both defineCachedEventHandler and cachedEventHandler contain "EventHandler"
+  // so we check it's not the standalone defineEventHandler
+  const hasPlainHandler = /(?<!defineCached|cached)defineEventHandler/.test(content);
   expect(hasPlainHandler).toBe(false);
 });
 
