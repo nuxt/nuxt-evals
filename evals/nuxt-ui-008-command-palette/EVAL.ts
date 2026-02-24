@@ -20,7 +20,6 @@ function findFile(...paths: string[]): string | undefined {
 function getPageContent(): string {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -34,7 +33,6 @@ function getPageContent(): string {
 test('Page exists', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -88,9 +86,9 @@ test('Has multiple groups', () => {
   expect(hasPages && hasActions).toBe(true);
 });
 
-test('Uses v-model:open for visibility control', () => {
+test('Has visibility control for the palette', () => {
   const content = getPageContent();
 
-  // v4 pattern: v-model:open (not v-if or v-show)
+  // Should use v-model:open for reactive visibility control
   expect(content).toMatch(/v-model:open/);
 });

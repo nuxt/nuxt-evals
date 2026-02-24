@@ -22,7 +22,6 @@ function findFile(...paths: string[]): string | undefined {
 function getPageContent(): string {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -36,7 +35,6 @@ function getPageContent(): string {
 test('Page exists', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 

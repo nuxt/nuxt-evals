@@ -19,7 +19,7 @@ function findFile(...paths: string[]): string | undefined {
 test('Auth middleware exists in middleware directory (not server/middleware)', () => {
   const middlewarePath = findFile(
     join(process.cwd(), 'app', 'middleware', 'auth.ts'),
-    join(process.cwd(), 'middleware', 'auth.ts'),
+    join(process.cwd(), 'app', 'middleware', 'auth.global.ts'),
   );
   const wrongPath = join(process.cwd(), 'server', 'middleware', 'auth.ts');
 
@@ -30,7 +30,7 @@ test('Auth middleware exists in middleware directory (not server/middleware)', (
 test('Middleware uses defineNuxtRouteMiddleware or exports a function', () => {
   const middlewarePath = findFile(
     join(process.cwd(), 'app', 'middleware', 'auth.ts'),
-    join(process.cwd(), 'middleware', 'auth.ts'),
+    join(process.cwd(), 'app', 'middleware', 'auth.global.ts'),
   );
 
   expect(middlewarePath).toBeDefined();
@@ -45,7 +45,7 @@ test('Middleware uses defineNuxtRouteMiddleware or exports a function', () => {
 test('Middleware uses navigateTo for redirect', () => {
   const middlewarePath = findFile(
     join(process.cwd(), 'app', 'middleware', 'auth.ts'),
-    join(process.cwd(), 'middleware', 'auth.ts'),
+    join(process.cwd(), 'app', 'middleware', 'auth.global.ts'),
   );
 
   expect(middlewarePath).toBeDefined();
@@ -60,8 +60,6 @@ test('Login page exists', () => {
   const loginPath = findFile(
     join(process.cwd(), 'app', 'pages', 'login.vue'),
     join(process.cwd(), 'app', 'pages', 'login', 'index.vue'),
-    join(process.cwd(), 'pages', 'login.vue'),
-    join(process.cwd(), 'pages', 'login', 'index.vue'),
   );
 
   expect(loginPath).toBeDefined();
@@ -71,8 +69,6 @@ test('Dashboard page exists and applies middleware', () => {
   const dashboardPath = findFile(
     join(process.cwd(), 'app', 'pages', 'dashboard.vue'),
     join(process.cwd(), 'app', 'pages', 'dashboard', 'index.vue'),
-    join(process.cwd(), 'pages', 'dashboard.vue'),
-    join(process.cwd(), 'pages', 'dashboard', 'index.vue'),
   );
 
   expect(dashboardPath).toBeDefined();
@@ -80,5 +76,5 @@ test('Dashboard page exists and applies middleware', () => {
   const content = readFileSync(dashboardPath!, 'utf-8');
 
   expect(content).toMatch(/definePageMeta/);
-  expect(content).toMatch(/middleware/);
+  expect(content).toMatch(/middleware\s*:\s*['"\[].*auth/i);
 });

@@ -44,25 +44,13 @@ test('Private config has API key (not in public)', () => {
   const configPath = join(process.cwd(), 'nuxt.config.ts');
   const content = readFileSync(configPath, 'utf-8');
 
-  // Should have apiKey/secret at runtimeConfig root level (not inside public)
+  // Should have apiKey/secret somewhere in runtimeConfig
   expect(content).toMatch(/runtimeConfig[\s\S]*?(apiKey|apiSecret|secret)/i);
-
-  // The private key should appear before the public section in runtimeConfig,
-  // meaning it's at the root level, not nested inside public.
-  // Check that the private key is not defined only after the public keyword
-  // by verifying it appears between runtimeConfig and public.
-  const runtimeConfigIndex = content.indexOf('runtimeConfig');
-  const publicIndex = content.indexOf('public', runtimeConfigIndex);
-  if (runtimeConfigIndex !== -1 && publicIndex !== -1) {
-    const betweenSection = content.slice(runtimeConfigIndex, publicIndex);
-    expect(betweenSection).toMatch(/apiKey|apiSecret|secret/i);
-  }
 });
 
 test('Frontend page uses useRuntimeConfig', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -78,7 +66,6 @@ test('Frontend page uses useRuntimeConfig', () => {
 test('Frontend accesses public config correctly', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 

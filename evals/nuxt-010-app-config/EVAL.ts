@@ -66,7 +66,6 @@ test('Theme settings are NOT in runtimeConfig', () => {
 test('Homepage uses useAppConfig', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -81,7 +80,6 @@ test('Homepage uses useAppConfig', () => {
 test('Homepage does not use useRuntimeConfig for theme', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -97,7 +95,6 @@ test('Homepage does not use useRuntimeConfig for theme', () => {
 test('Homepage displays config values', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -106,4 +103,19 @@ test('Homepage displays config values', () => {
   const content = readFileSync(pagePath!, 'utf-8');
 
   expect(content).toMatch(/<template>[\s\S]*\{\{[\s\S]*\}\}[\s\S]*<\/template>/);
+});
+
+test('Homepage has a toggle button to switch colors', () => {
+  const pagePath = findFile(
+    join(process.cwd(), 'app', 'pages', 'index.vue'),
+    join(process.cwd(), 'app', 'app.vue'),
+  );
+
+  expect(pagePath).toBeDefined();
+
+  const content = readFileSync(pagePath!, 'utf-8');
+
+  // Should have a button/click handler that toggles the primary color
+  expect(content).toMatch(/@click|v-on:click/);
+  expect(content).toMatch(/color|primary/i);
 });

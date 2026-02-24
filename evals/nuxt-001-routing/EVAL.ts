@@ -19,8 +19,6 @@ test('About page exists', () => {
   const aboutPath = findFile(
     join(process.cwd(), 'app', 'pages', 'about.vue'),
     join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
-    join(process.cwd(), 'pages', 'about.vue'),
-    join(process.cwd(), 'pages', 'about', 'index.vue'),
   );
 
   expect(aboutPath).toBeDefined();
@@ -30,8 +28,6 @@ test('About page displays content', () => {
   const aboutPath = findFile(
     join(process.cwd(), 'app', 'pages', 'about.vue'),
     join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
-    join(process.cwd(), 'pages', 'about.vue'),
-    join(process.cwd(), 'pages', 'about', 'index.vue'),
   );
 
   expect(aboutPath).toBeDefined();
@@ -45,7 +41,6 @@ test('About page displays content', () => {
 test('Homepage uses NuxtLink for navigation', () => {
   const homePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -62,8 +57,6 @@ test('About page uses NuxtLink to navigate home', () => {
   const aboutPath = findFile(
     join(process.cwd(), 'app', 'pages', 'about.vue'),
     join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
-    join(process.cwd(), 'pages', 'about.vue'),
-    join(process.cwd(), 'pages', 'about', 'index.vue'),
   );
 
   expect(aboutPath).toBeDefined();
@@ -77,15 +70,12 @@ test('About page uses NuxtLink to navigate home', () => {
 test('Does not use anchor tags for internal navigation', () => {
   const homePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
   const aboutPath = findFile(
     join(process.cwd(), 'app', 'pages', 'about.vue'),
     join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
-    join(process.cwd(), 'pages', 'about.vue'),
-    join(process.cwd(), 'pages', 'about', 'index.vue'),
   );
 
   expect(homePath).toBeDefined();

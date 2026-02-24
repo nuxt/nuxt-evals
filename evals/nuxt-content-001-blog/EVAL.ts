@@ -61,8 +61,6 @@ test('Blog listing page exists and queries collection', () => {
   const blogPage = findFile(
     join(process.cwd(), 'app', 'pages', 'blog', 'index.vue'),
     join(process.cwd(), 'app', 'pages', 'blog.vue'),
-    join(process.cwd(), 'pages', 'blog', 'index.vue'),
-    join(process.cwd(), 'pages', 'blog.vue'),
   );
 
   expect(blogPage).toBeDefined();
@@ -77,8 +75,6 @@ test('Blog listing page orders posts by date', () => {
   const blogPage = findFile(
     join(process.cwd(), 'app', 'pages', 'blog', 'index.vue'),
     join(process.cwd(), 'app', 'pages', 'blog.vue'),
-    join(process.cwd(), 'pages', 'blog', 'index.vue'),
-    join(process.cwd(), 'pages', 'blog.vue'),
   );
 
   expect(blogPage).toBeDefined();
@@ -92,8 +88,6 @@ test('Dynamic blog post page exists with ContentRenderer', () => {
   const postPage = findFile(
     join(process.cwd(), 'app', 'pages', 'blog', '[...slug].vue'),
     join(process.cwd(), 'app', 'pages', 'blog', '[slug].vue'),
-    join(process.cwd(), 'pages', 'blog', '[...slug].vue'),
-    join(process.cwd(), 'pages', 'blog', '[slug].vue'),
   );
 
   expect(postPage).toBeDefined();

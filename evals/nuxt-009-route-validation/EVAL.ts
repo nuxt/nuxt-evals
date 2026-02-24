@@ -20,9 +20,7 @@ function findFile(...paths: string[]): string | undefined {
 test('Dynamic user page exists', () => {
   const userPath = findFile(
     join(process.cwd(), 'app', 'pages', 'users', '[id].vue'),
-    join(process.cwd(), 'pages', 'users', '[id].vue'),
     join(process.cwd(), 'app', 'pages', 'user', '[id].vue'),
-    join(process.cwd(), 'pages', 'user', '[id].vue'),
   );
 
   expect(userPath).toBeDefined();
@@ -31,9 +29,7 @@ test('Dynamic user page exists', () => {
 test('Page uses definePageMeta with validate', () => {
   const userPath = findFile(
     join(process.cwd(), 'app', 'pages', 'users', '[id].vue'),
-    join(process.cwd(), 'pages', 'users', '[id].vue'),
     join(process.cwd(), 'app', 'pages', 'user', '[id].vue'),
-    join(process.cwd(), 'pages', 'user', '[id].vue'),
   );
 
   expect(userPath).toBeDefined();
@@ -48,9 +44,7 @@ test('Page uses definePageMeta with validate', () => {
 test('Validation checks for numeric ID', () => {
   const userPath = findFile(
     join(process.cwd(), 'app', 'pages', 'users', '[id].vue'),
-    join(process.cwd(), 'pages', 'users', '[id].vue'),
     join(process.cwd(), 'app', 'pages', 'user', '[id].vue'),
-    join(process.cwd(), 'pages', 'user', '[id].vue'),
   );
 
   expect(userPath).toBeDefined();
@@ -64,9 +58,7 @@ test('Validation checks for numeric ID', () => {
 test('Page displays user information using the ID', () => {
   const userPath = findFile(
     join(process.cwd(), 'app', 'pages', 'users', '[id].vue'),
-    join(process.cwd(), 'pages', 'users', '[id].vue'),
     join(process.cwd(), 'app', 'pages', 'user', '[id].vue'),
-    join(process.cwd(), 'pages', 'user', '[id].vue'),
   );
 
   expect(userPath).toBeDefined();

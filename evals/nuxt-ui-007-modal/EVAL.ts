@@ -20,7 +20,6 @@ function findFile(...paths: string[]): string | undefined {
 function getPageContent(): string {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -34,7 +33,6 @@ function getPageContent(): string {
 test('Page exists', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -94,4 +92,19 @@ test('Does not use native dialog or custom modal', () => {
 
   // Should NOT use native <dialog> element
   expect(content).not.toMatch(/<dialog[\s>]/);
+});
+
+test('Has a list of items displayed', () => {
+  const content = getPageContent();
+
+  // Should display a list of items with v-for
+  expect(content).toMatch(/v-for/);
+});
+
+test('Has Cancel and Save buttons in the modal', () => {
+  const content = getPageContent();
+
+  // Should have Cancel and Save (or similar) action buttons
+  expect(content).toMatch(/[Cc]ancel/);
+  expect(content).toMatch(/[Ss]ave|[Aa]dd|[Ss]ubmit/);
 });

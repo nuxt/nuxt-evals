@@ -19,7 +19,6 @@ function findFile(...paths: string[]): string | undefined {
 test('Homepage exists', () => {
   const indexPath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
   );
 
   expect(indexPath).toBeDefined();
@@ -28,7 +27,6 @@ test('Homepage exists', () => {
 test('Homepage uses useSeoMeta or useHead for SEO tags', () => {
   const indexPath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
   );
 
   expect(indexPath).toBeDefined();
@@ -42,7 +40,6 @@ test('Homepage uses useSeoMeta or useHead for SEO tags', () => {
 test('Homepage sets title and description', () => {
   const indexPath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
   );
 
   expect(indexPath).toBeDefined();
@@ -56,23 +53,20 @@ test('Homepage sets title and description', () => {
 test('Homepage sets Open Graph tags', () => {
   const indexPath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
   );
 
   expect(indexPath).toBeDefined();
 
   const content = readFileSync(indexPath!, 'utf-8');
 
-  // Should have OG tags via useSeoMeta (ogTitle, ogDescription, etc.)
-  expect(content).toMatch(/og[A-Z]|ogTitle|ogDescription|ogImage/);
+  // Should have OG tags via useSeoMeta (ogTitle, ogDescription, etc.) or useHead og: meta
+  expect(content).toMatch(/ogTitle|ogDescription|ogImage|og:title|og:description|og:image/);
 });
 
 test('Dynamic blog page exists', () => {
   const blogPath = findFile(
     join(process.cwd(), 'app', 'pages', 'blog', '[slug].vue'),
-    join(process.cwd(), 'pages', 'blog', '[slug].vue'),
     join(process.cwd(), 'app', 'pages', 'blog', '[...slug].vue'),
-    join(process.cwd(), 'pages', 'blog', '[...slug].vue'),
   );
 
   expect(blogPath).toBeDefined();
@@ -81,9 +75,7 @@ test('Dynamic blog page exists', () => {
 test('Blog page uses useSeoMeta or useHead with dynamic values', () => {
   const blogPath = findFile(
     join(process.cwd(), 'app', 'pages', 'blog', '[slug].vue'),
-    join(process.cwd(), 'pages', 'blog', '[slug].vue'),
     join(process.cwd(), 'app', 'pages', 'blog', '[...slug].vue'),
-    join(process.cwd(), 'pages', 'blog', '[...slug].vue'),
   );
 
   expect(blogPath).toBeDefined();

@@ -19,7 +19,6 @@ function findFile(...paths: string[]): string | undefined {
 test('Global error page exists', () => {
   const errorPath = findFile(
     join(process.cwd(), 'app', 'error.vue'),
-    join(process.cwd(), 'error.vue'),
   );
 
   expect(errorPath).toBeDefined();
@@ -28,7 +27,6 @@ test('Global error page exists', () => {
 test('Error page uses useError or error prop', () => {
   const errorPath = findFile(
     join(process.cwd(), 'app', 'error.vue'),
-    join(process.cwd(), 'error.vue'),
   );
 
   expect(errorPath).toBeDefined();
@@ -42,7 +40,6 @@ test('Error page uses useError or error prop', () => {
 test('Error page has clearError functionality', () => {
   const errorPath = findFile(
     join(process.cwd(), 'app', 'error.vue'),
-    join(process.cwd(), 'error.vue'),
   );
 
   expect(errorPath).toBeDefined();
@@ -55,7 +52,6 @@ test('Error page has clearError functionality', () => {
 test('Index page exists', () => {
   const indexPath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
   );
 
   expect(indexPath).toBeDefined();
@@ -64,7 +60,6 @@ test('Index page exists', () => {
 test('Index page uses NuxtErrorBoundary', () => {
   const indexPath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
   );
 
   expect(indexPath).toBeDefined();
@@ -77,7 +72,6 @@ test('Index page uses NuxtErrorBoundary', () => {
 test('Index page has error slot', () => {
   const indexPath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
   );
 
   expect(indexPath).toBeDefined();
@@ -90,12 +84,11 @@ test('Index page has error slot', () => {
 test('Index page can trigger error', () => {
   const indexPath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
   );
 
   expect(indexPath).toBeDefined();
 
   const content = readFileSync(indexPath!, 'utf-8');
 
-  expect(content).toMatch(/createError|throw|Error/);
+  expect(content).toMatch(/createError|throw\s/);
 });

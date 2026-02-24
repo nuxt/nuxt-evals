@@ -44,8 +44,8 @@ test('CSS file exists with required imports', () => {
 
   const content = readFileSync(cssPath!, 'utf-8');
 
-  // Should have tailwindcss import
-  expect(content).toMatch(/@import.*tailwindcss|@tailwind/);
+  // Should have tailwindcss v4 import (not @tailwind which is v3 syntax)
+  expect(content).toMatch(/@import.*tailwindcss/);
 
   // Should have @nuxt/ui import
   expect(content).toMatch(/@import.*@nuxt\/ui/);

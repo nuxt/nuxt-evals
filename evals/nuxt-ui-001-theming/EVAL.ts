@@ -39,7 +39,6 @@ function getNuxtConfigContent(): string {
 function getPageContent(): string {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 

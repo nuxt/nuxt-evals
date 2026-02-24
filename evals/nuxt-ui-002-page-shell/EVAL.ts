@@ -18,12 +18,9 @@ function findFile(...paths: string[]): string | undefined {
 }
 
 function getAppVueContent(): string {
-  const appPath = findFile(
-    join(process.cwd(), 'app', 'app.vue'),
-    join(process.cwd(), 'app.vue'),
-  );
+  const appPath = join(process.cwd(), 'app', 'app.vue');
 
-  if (!appPath) {
+  if (!existsSync(appPath)) {
     throw new Error('No app.vue found');
   }
 
@@ -32,18 +29,16 @@ function getAppVueContent(): string {
 
 function getLayoutOrAppContent(): string {
   // Check for a default layout first
-  const layoutsDir = findFile(
-    join(process.cwd(), 'app', 'layouts'),
-    join(process.cwd(), 'layouts'),
-  );
+  const layoutsDir = join(process.cwd(), 'app', 'layouts');
+  if (!existsSync(layoutsDir)) {
+    return getAppVueContent();
+  }
 
-  if (layoutsDir) {
-    const files = readdirSync(layoutsDir);
-    const defaultLayout = files.find(f => f.startsWith('default'));
+  const files = readdirSync(layoutsDir);
+  const defaultLayout = files.find(f => f.startsWith('default'));
 
-    if (defaultLayout) {
-      return readFileSync(join(layoutsDir, defaultLayout), 'utf-8');
-    }
+  if (defaultLayout) {
+    return readFileSync(join(layoutsDir, defaultLayout), 'utf-8');
   }
 
   // Fall back to app.vue
@@ -53,7 +48,6 @@ function getLayoutOrAppContent(): string {
 function getPageContent(): string | undefined {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
   );
 
   if (!pagePath) return undefined;
@@ -121,5 +115,12 @@ test('Does not use raw HTML for main layout structure', () => {
   // Should NOT use custom <header>, <nav>, or <footer> HTML elements
   // when Nuxt UI provides UHeader, UNavigationMenu, and UFooter
   expect(content).not.toMatch(/<header[\s>]/);
+  expect(content).not.toMatch(/<nav[\s>]/);
   expect(content).not.toMatch(/<footer[\s>]/);
+});
+
+test('Homepage exists', () => {
+  const content = getPageContent();
+
+  expect(content).toBeDefined();
 });

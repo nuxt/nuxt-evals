@@ -16,66 +16,53 @@ function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
 }
 
-test('Homepage exists with title', () => {
-  const indexPath = findFile(
-    join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
-  );
+test('Homepage uses useHead or definePageMeta for page title', () => {
+  const indexPath = join(process.cwd(), 'app', 'pages', 'index.vue');
+  expect(existsSync(indexPath)).toBe(true);
 
-  expect(indexPath).toBeDefined();
-
-  const content = readFileSync(indexPath!, 'utf-8');
-  expect(content).toMatch(/Welcome Home/i);
+  const content = readFileSync(indexPath, 'utf-8');
+  expect(content).toMatch(/useHead|useSeoMeta|definePageMeta/);
 });
 
-test('About page exists with custom layout', () => {
+test('About page exists with custom layout assigned via definePageMeta', () => {
   const aboutPath = findFile(
     join(process.cwd(), 'app', 'pages', 'about.vue'),
     join(process.cwd(), 'app', 'pages', 'about', 'index.vue'),
-    join(process.cwd(), 'pages', 'about.vue'),
-    join(process.cwd(), 'pages', 'about', 'index.vue'),
   );
 
   expect(aboutPath).toBeDefined();
 
   const content = readFileSync(aboutPath!, 'utf-8');
   expect(content).toMatch(/definePageMeta/);
-  expect(content).toMatch(/layout/);
+  expect(content).toMatch(/layout\s*:\s*['"]\w+['"]/);
 });
 
 test('Custom layout exists in layouts directory', () => {
-  const layoutsDir = findFile(
-    join(process.cwd(), 'app', 'layouts'),
-    join(process.cwd(), 'layouts'),
-  );
+  const layoutsDir = join(process.cwd(), 'app', 'layouts');
 
-  expect(layoutsDir).toBeDefined();
+  expect(existsSync(layoutsDir)).toBe(true);
 
-  const files = readdirSync(layoutsDir!);
+  const files = readdirSync(layoutsDir);
   expect(files.length).toBeGreaterThan(0);
 });
 
 test('Layout has slot for content', () => {
-  const layoutsDir = findFile(
-    join(process.cwd(), 'app', 'layouts'),
-    join(process.cwd(), 'layouts'),
-  );
+  const layoutsDir = join(process.cwd(), 'app', 'layouts');
 
-  expect(layoutsDir).toBeDefined();
+  expect(existsSync(layoutsDir)).toBe(true);
 
-  const files = readdirSync(layoutsDir!);
+  const files = readdirSync(layoutsDir);
   const layoutFile = files.find(f => f.endsWith('.vue'));
 
   expect(layoutFile).toBeDefined();
 
-  const content = readFileSync(join(layoutsDir!, layoutFile!), 'utf-8');
+  const content = readFileSync(join(layoutsDir, layoutFile!), 'utf-8');
   expect(content).toMatch(/<slot/);
 });
 
 test('Dynamic blog page exists', () => {
   const blogSlugPath = findFile(
     join(process.cwd(), 'app', 'pages', 'blog', '[slug].vue'),
-    join(process.cwd(), 'pages', 'blog', '[slug].vue'),
   );
 
   expect(blogSlugPath).toBeDefined();
@@ -84,7 +71,6 @@ test('Dynamic blog page exists', () => {
 test('Blog page uses useHead for dynamic title', () => {
   const blogSlugPath = findFile(
     join(process.cwd(), 'app', 'pages', 'blog', '[slug].vue'),
-    join(process.cwd(), 'pages', 'blog', '[slug].vue'),
   );
 
   expect(blogSlugPath).toBeDefined();
@@ -93,4 +79,11 @@ test('Blog page uses useHead for dynamic title', () => {
 
   expect(content).toMatch(/useHead/);
   expect(content).toMatch(/useRoute|route|slug/);
+});
+
+test('app.vue uses NuxtLayout for layout support', () => {
+  const appPath = join(process.cwd(), 'app', 'app.vue');
+  const content = readFileSync(appPath, 'utf-8');
+
+  expect(content).toMatch(/<NuxtLayout/);
 });

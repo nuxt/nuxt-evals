@@ -18,88 +18,73 @@ function findFile(...paths: string[]): string | undefined {
 }
 
 test('Plugin exists in plugins directory', () => {
-  const pluginsDir = findFile(
-    join(process.cwd(), 'app', 'plugins'),
-    join(process.cwd(), 'plugins'),
-  );
+  const pluginsDir = join(process.cwd(), 'app', 'plugins');
 
-  expect(pluginsDir).toBeDefined();
+  expect(existsSync(pluginsDir)).toBe(true);
 
-  const files = readdirSync(pluginsDir!);
+  const files = readdirSync(pluginsDir);
   const hasPlugin = files.some(f => f.endsWith('.ts'));
 
   expect(hasPlugin).toBe(true);
 });
 
 test('Plugin uses defineNuxtPlugin', () => {
-  const pluginsDir = findFile(
-    join(process.cwd(), 'app', 'plugins'),
-    join(process.cwd(), 'plugins'),
-  );
+  const pluginsDir = join(process.cwd(), 'app', 'plugins');
 
-  expect(pluginsDir).toBeDefined();
+  expect(existsSync(pluginsDir)).toBe(true);
 
-  const files = readdirSync(pluginsDir!);
+  const files = readdirSync(pluginsDir);
   const pluginFile = files.find(f => f.endsWith('.ts'));
 
   expect(pluginFile).toBeDefined();
 
-  const content = readFileSync(join(pluginsDir!, pluginFile!), 'utf-8');
+  const content = readFileSync(join(pluginsDir, pluginFile!), 'utf-8');
 
   expect(content).toMatch(/defineNuxtPlugin/);
 });
 
 test('Plugin provides utilities via nuxtApp.provide or return provide', () => {
-  const pluginsDir = findFile(
-    join(process.cwd(), 'app', 'plugins'),
-    join(process.cwd(), 'plugins'),
-  );
+  const pluginsDir = join(process.cwd(), 'app', 'plugins');
 
-  expect(pluginsDir).toBeDefined();
+  expect(existsSync(pluginsDir)).toBe(true);
 
-  const files = readdirSync(pluginsDir!);
+  const files = readdirSync(pluginsDir);
   const pluginFile = files.find(f => f.endsWith('.ts'));
 
   expect(pluginFile).toBeDefined();
 
-  const content = readFileSync(join(pluginsDir!, pluginFile!), 'utf-8');
+  const content = readFileSync(join(pluginsDir, pluginFile!), 'utf-8');
 
   // Should provide via nuxtApp.provide() or return { provide: {} }
   expect(content).toMatch(/provide/);
 });
 
 test('Plugin has date formatting functionality', () => {
-  const pluginsDir = findFile(
-    join(process.cwd(), 'app', 'plugins'),
-    join(process.cwd(), 'plugins'),
-  );
+  const pluginsDir = join(process.cwd(), 'app', 'plugins');
 
-  expect(pluginsDir).toBeDefined();
+  expect(existsSync(pluginsDir)).toBe(true);
 
-  const files = readdirSync(pluginsDir!);
+  const files = readdirSync(pluginsDir);
   const pluginFile = files.find(f => f.endsWith('.ts'));
 
   expect(pluginFile).toBeDefined();
 
-  const content = readFileSync(join(pluginsDir!, pluginFile!), 'utf-8');
+  const content = readFileSync(join(pluginsDir, pluginFile!), 'utf-8');
 
   expect(content).toMatch(/date|Date/i);
 });
 
 test('Plugin has currency formatting functionality', () => {
-  const pluginsDir = findFile(
-    join(process.cwd(), 'app', 'plugins'),
-    join(process.cwd(), 'plugins'),
-  );
+  const pluginsDir = join(process.cwd(), 'app', 'plugins');
 
-  expect(pluginsDir).toBeDefined();
+  expect(existsSync(pluginsDir)).toBe(true);
 
-  const files = readdirSync(pluginsDir!);
+  const files = readdirSync(pluginsDir);
   const pluginFile = files.find(f => f.endsWith('.ts'));
 
   expect(pluginFile).toBeDefined();
 
-  const content = readFileSync(join(pluginsDir!, pluginFile!), 'utf-8');
+  const content = readFileSync(join(pluginsDir, pluginFile!), 'utf-8');
 
   expect(content).toMatch(/currency|Currency|price|Price/i);
 });
@@ -107,7 +92,6 @@ test('Plugin has currency formatting functionality', () => {
 test('Homepage uses the plugin via useNuxtApp', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -122,7 +106,6 @@ test('Homepage uses the plugin via useNuxtApp', () => {
 test('Homepage displays formatted values', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 

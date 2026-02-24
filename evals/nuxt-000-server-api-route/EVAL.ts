@@ -63,8 +63,8 @@ test('Frontend does not use onMounted + fetch anti-pattern', () => {
 
   const content = readFileSync(pagePath!, 'utf-8');
 
-  // Should NOT use onMounted with fetch
-  const hasAntiPattern = /onMounted[\s\S]*?fetch\(/.test(content);
+  // Should NOT use onMounted with fetch or $fetch
+  const hasAntiPattern = /onMounted[\s\S]*?(\$?fetch)\(/.test(content);
   expect(hasAntiPattern).toBe(false);
 });
 

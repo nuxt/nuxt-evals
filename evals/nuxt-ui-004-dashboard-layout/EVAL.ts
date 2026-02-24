@@ -19,12 +19,9 @@ function findFile(...paths: string[]): string | undefined {
 }
 
 function getLayoutContent(): string | undefined {
-  const layoutsDir = findFile(
-    join(process.cwd(), 'app', 'layouts'),
-    join(process.cwd(), 'layouts'),
-  );
+  const layoutsDir = join(process.cwd(), 'app', 'layouts');
 
-  if (!layoutsDir) return undefined;
+  if (!existsSync(layoutsDir)) return undefined;
 
   const files = readdirSync(layoutsDir);
   const dashboardLayout = files.find(f => f.toLowerCase().includes('dashboard'));
@@ -38,10 +35,7 @@ function getDashboardPageContent(): string | undefined {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'dashboard', 'index.vue'),
     join(process.cwd(), 'app', 'pages', 'dashboard.vue'),
-    join(process.cwd(), 'pages', 'dashboard', 'index.vue'),
-    join(process.cwd(), 'pages', 'dashboard.vue'),
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
   );
 
   if (!pagePath) return undefined;
@@ -107,4 +101,18 @@ test('Dashboard page references the dashboard layout', () => {
   // Should reference the dashboard layout via definePageMeta
   expect(content).toMatch(/definePageMeta/);
   expect(content).toMatch(/layout/);
+});
+
+test('Sidebar is collapsible', () => {
+  const content = getLayoutContent()!;
+
+  // UDashboardSidebar should have collapsible prop or collapse functionality
+  expect(content).toMatch(/collapsible|collapse/i);
+});
+
+test('Does not use raw HTML for sidebar layout', () => {
+  const content = getLayoutContent()!;
+
+  // Should NOT use custom <aside> or flex-based sidebar layouts
+  expect(content).not.toMatch(/<aside[\s>]/);
 });

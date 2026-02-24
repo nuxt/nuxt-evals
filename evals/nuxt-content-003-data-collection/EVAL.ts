@@ -73,8 +73,6 @@ test('Team page exists and queries the collection', () => {
   const teamPage = findFile(
     join(process.cwd(), 'app', 'pages', 'team.vue'),
     join(process.cwd(), 'app', 'pages', 'team', 'index.vue'),
-    join(process.cwd(), 'pages', 'team.vue'),
-    join(process.cwd(), 'pages', 'team', 'index.vue'),
   );
 
   expect(teamPage).toBeDefined();
@@ -89,8 +87,6 @@ test('Team page renders member data', () => {
   const teamPage = findFile(
     join(process.cwd(), 'app', 'pages', 'team.vue'),
     join(process.cwd(), 'app', 'pages', 'team', 'index.vue'),
-    join(process.cwd(), 'pages', 'team.vue'),
-    join(process.cwd(), 'pages', 'team', 'index.vue'),
   );
 
   expect(teamPage).toBeDefined();

@@ -20,11 +20,8 @@ function findFile(...paths: string[]): string | undefined {
 function getPageContent(): string {
   const candidates = [
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'pages', 'posts.vue'),
-    join(process.cwd(), 'pages', 'posts.vue'),
     join(process.cwd(), 'app', 'pages', 'posts', 'index.vue'),
-    join(process.cwd(), 'pages', 'posts', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   ];
 
@@ -46,11 +43,8 @@ function getPageContent(): string {
 test('Page exists', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'pages', 'posts.vue'),
-    join(process.cwd(), 'pages', 'posts.vue'),
     join(process.cwd(), 'app', 'pages', 'posts', 'index.vue'),
-    join(process.cwd(), 'pages', 'posts', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -97,7 +91,7 @@ test('Does not use manual loading ref', () => {
   const content = getPageContent();
 
   // Should NOT create a manual loading ref — use status from composable instead
-  const hasManualLoading = /const\s+loading\s*=\s*ref\(|let\s+loading\s*=\s*ref\(/i.test(content);
+  const hasManualLoading = /(?:const|let)\s+(?:is)?loading\s*=\s*ref\(/i.test(content);
   expect(hasManualLoading).toBe(false);
 });
 

@@ -20,11 +20,8 @@ function findFile(...paths: string[]): string | undefined {
 function getFormPageContent(): string {
   const candidates = [
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'pages', 'login.vue'),
-    join(process.cwd(), 'pages', 'login.vue'),
     join(process.cwd(), 'app', 'pages', 'login', 'index.vue'),
-    join(process.cwd(), 'pages', 'login', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   ];
 
@@ -46,11 +43,8 @@ function getFormPageContent(): string {
 test('Form page exists', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'pages', 'login.vue'),
-    join(process.cwd(), 'pages', 'login.vue'),
     join(process.cwd(), 'app', 'pages', 'login', 'index.vue'),
-    join(process.cwd(), 'pages', 'login', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 
@@ -104,11 +98,11 @@ test('Has email and password fields', () => {
   expect(content).toMatch(/password/i);
 });
 
-test('Uses validation schema (Zod, Valibot, or Yup)', () => {
+test('Uses Zod validation schema', () => {
   const content = getFormPageContent();
 
-  // Standard Schema: Zod (z.object), Valibot (v.object), Yup (yup.object)
-  expect(content).toMatch(/z\.\s*object|v\.\s*object|yup\.\s*object|schema/i);
+  // Prompt specifies Zod for schema-based validation
+  expect(content).toMatch(/z\.\s*object/);
 });
 
 test('Uses reactive state', () => {

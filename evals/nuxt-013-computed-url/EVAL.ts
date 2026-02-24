@@ -20,13 +20,9 @@ function findFile(...paths: string[]): string | undefined {
 function getPageContent(): string {
   const candidates = [
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'pages', 'search.vue'),
-    join(process.cwd(), 'pages', 'search.vue'),
     join(process.cwd(), 'app', 'pages', 'user-search.vue'),
-    join(process.cwd(), 'pages', 'user-search.vue'),
     join(process.cwd(), 'app', 'pages', 'users.vue'),
-    join(process.cwd(), 'pages', 'users.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   ];
 
@@ -48,13 +44,9 @@ function getPageContent(): string {
 test('Page exists', () => {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'pages', 'search.vue'),
-    join(process.cwd(), 'pages', 'search.vue'),
     join(process.cwd(), 'app', 'pages', 'user-search.vue'),
-    join(process.cwd(), 'pages', 'user-search.vue'),
     join(process.cwd(), 'app', 'pages', 'users.vue'),
-    join(process.cwd(), 'pages', 'users.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
 

@@ -16,22 +16,33 @@ function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
 }
 
+function scanVueFiles(dir: string): string[] {
+  const results: string[] = [];
+
+  if (!existsSync(dir)) return results;
+
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      results.push(...scanVueFiles(fullPath));
+    } else if (entry.name.endsWith('.vue')) {
+      results.push(fullPath);
+    }
+  }
+
+  return results;
+}
+
 function getAllVueContents(): string {
   const dirs = [
     join(process.cwd(), 'app', 'layouts'),
-    join(process.cwd(), 'layouts'),
     join(process.cwd(), 'app', 'components'),
-    join(process.cwd(), 'components'),
   ];
 
   const files: string[] = [];
 
   for (const dir of dirs) {
-    if (existsSync(dir)) {
-      for (const f of readdirSync(dir)) {
-        if (f.endsWith('.vue')) files.push(join(dir, f));
-      }
-    }
+    files.push(...scanVueFiles(dir));
   }
 
   const catchAll = findCatchAllPage();
@@ -44,14 +55,8 @@ function findCatchAllPage(): string | undefined {
   return findFile(
     join(process.cwd(), 'app', 'pages', 'docs', '[...slug].vue'),
     join(process.cwd(), 'app', 'pages', 'docs', '[[...slug]].vue'),
-    join(process.cwd(), 'app', 'pages', 'docs', '[slug].vue'),
-    join(process.cwd(), 'pages', 'docs', '[...slug].vue'),
-    join(process.cwd(), 'pages', 'docs', '[[...slug]].vue'),
-    join(process.cwd(), 'pages', 'docs', '[slug].vue'),
     join(process.cwd(), 'app', 'pages', '[...slug].vue'),
     join(process.cwd(), 'app', 'pages', '[[...slug]].vue'),
-    join(process.cwd(), 'pages', '[...slug].vue'),
-    join(process.cwd(), 'pages', '[[...slug]].vue'),
   );
 }
 

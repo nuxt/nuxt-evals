@@ -16,12 +16,9 @@ function findFile(...paths: string[]): string | undefined {
 }
 
 function getComposablesDir(): string {
-  const dir = findFile(
-    join(process.cwd(), 'app', 'composables'),
-    join(process.cwd(), 'composables'),
-  );
+  const dir = join(process.cwd(), 'app', 'composables');
 
-  if (!dir) {
+  if (!existsSync(dir)) {
     throw new Error('No composables directory found');
   }
 
@@ -66,7 +63,6 @@ test('Composable has cart management methods', () => {
 test('Cart page exists', () => {
   const cartPath = findFile(
     join(process.cwd(), 'app', 'pages', 'cart.vue'),
-    join(process.cwd(), 'pages', 'cart.vue'),
   );
 
   expect(cartPath).toBeDefined();
@@ -75,7 +71,6 @@ test('Cart page exists', () => {
 test('Checkout page exists', () => {
   const checkoutPath = findFile(
     join(process.cwd(), 'app', 'pages', 'checkout.vue'),
-    join(process.cwd(), 'pages', 'checkout.vue'),
   );
 
   expect(checkoutPath).toBeDefined();
@@ -84,7 +79,6 @@ test('Checkout page exists', () => {
 test('Pages use the cart composable', () => {
   const cartPath = findFile(
     join(process.cwd(), 'app', 'pages', 'cart.vue'),
-    join(process.cwd(), 'pages', 'cart.vue'),
   );
 
   expect(cartPath).toBeDefined();
