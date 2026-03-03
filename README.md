@@ -41,6 +41,7 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 | `cursor-composer-1.5` | `cursor` | `composer-1.5` |
 | `gemini-3-pro-preview` | `opencode` | `vercel/google/gemini-3-pro-preview` |
 | `gemini-3-pro-preview-gemini-cli` | `gemini` | `gemini-3-pro-preview` |
+| `devstral-2` | `opencode` | `vercel/mistral/devstral-2` |
 | `gpt-5.3-codex-xhigh` | `codex` | `gpt-5.3-codex-api-preview?reasoningEffort=xhigh` |
 
 ## Eval structure

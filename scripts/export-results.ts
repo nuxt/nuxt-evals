@@ -51,6 +51,7 @@ const MODEL_NAMES: Record<string, string> = {
   'cursor-composer-1.5': 'Cursor Composer 1.5',
   'gemini-3-pro-preview': 'Gemini 3 Pro Preview',
   'gemini-3-pro-preview-gemini-cli': 'Gemini 3 Pro Preview',
+  'devstral-2': 'Devstral 2',
   'gpt-5.3-codex-xhigh': 'GPT 5.3 Codex (xhigh)',
 };
 
