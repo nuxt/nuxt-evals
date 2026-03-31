@@ -10,10 +10,10 @@
   },
   "devDependencies": {
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
-    "@types/node": "^25.3.3"
+    "typescript": "^6.0.2",
+    "@types/node": "^25.5.0"
   },
   "dependencies": {
-    "@vercel/agent-eval": "^0.9.2"
+    "@vercel/agent-eval": "^0.9.5"
   }
 }
