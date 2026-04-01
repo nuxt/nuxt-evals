@@ -49,15 +49,18 @@ const MODEL_NAMES: Record<string, string> = {
   'claude-sonnet-4.5': 'Claude Sonnet 4.5',
   'claude-sonnet-4.6': 'Claude Sonnet 4.6',
   'cursor-composer-1.5': 'Cursor Composer 1.5',
+  'cursor-composer-2.0': 'Cursor Composer 2.0',
   'gemini-3-pro-preview': 'Gemini 3 Pro Preview',
   'gemini-3.1-pro-preview': 'Gemini 3.1 Pro Preview',
   'devstral-2': 'Devstral 2',
   'gpt-5.3-codex-xhigh': 'GPT 5.3 Codex (xhigh)',
+  'gpt-5.4-xhigh': 'GPT 5.4 (xhigh)',
 };
 
 const HARNESS_NAMES: Record<string, string> = {
   'claude-code': 'Claude Code',
   'codex': 'Codex',
+  'vercel-ai-gateway/codex': 'Codex',
   'vercel-ai-gateway/opencode': 'OpenCode',
   'cursor': 'Cursor',
   'gemini': 'Gemini CLI',
