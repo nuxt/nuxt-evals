@@ -13,11 +13,12 @@ cp .env.example .env   # requires VERCEL_OIDC_TOKEN and AI_GATEWAY_API_KEY
 
 ### `pnpm run eval`
 
-Runs agent evaluations.
+Runs agent evaluations with memoization. Only runs (model, eval) pairs that haven't been completed yet.
 
 ```bash
-pnpm run eval                          # Run all experiments
+pnpm run eval                          # Run only missing pairs
 pnpm run eval -- claude-opus-4.6       # Run a specific experiment
+pnpm run eval -- --force               # Re-run everything
 pnpm run eval:smoke                    # Run smoke test (1 eval per experiment)
 pnpm run eval:dry                      # Preview what would run
 ```
@@ -86,6 +87,19 @@ evals/nuxt-000-fix-data-fetching/
 1. Create a config in `experiments/` (e.g., `experiments/my-model.ts`)
 2. Add the display name to `MODEL_NAMES` in `scripts/export-results.ts`
 3. Run `pnpm run eval` — it will automatically run all evals for the new model
+
+## Publishing to nuxt.com/evals
+
+After running evals:
+
+1. Export results: `pnpm run export-results`
+2. Copy to the nuxt.com repo:
+
+```bash
+cp agent-results.json <path-to-nuxt.com>/agent-results.json
+```
+
+3. Commit and deploy the nuxt.com repo
 
 ## Current evals
 
