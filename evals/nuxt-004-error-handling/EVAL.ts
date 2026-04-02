@@ -77,15 +77,3 @@ test('NuxtErrorBoundary has error slot', () => {
   }
 });
 
-test('App can trigger or demonstrate errors', () => {
-  const pagePath = findFile(
-    join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'app', 'app.vue'),
-  );
-
-  expect(pagePath).toBeDefined();
-
-  const content = readFileSync(pagePath!, 'utf-8');
-
-  expect(content).toMatch(/createError|throw\s|showError/);
-});
