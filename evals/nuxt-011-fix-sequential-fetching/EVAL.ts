@@ -1,12 +1,14 @@
 /**
  * Fix Sequential Fetching
  *
- * Tests whether the agent parallelizes two sequential await useFetch calls
- * using useAsyncData + Promise.all.
+ * Tests whether the agent parallelizes two sequential data fetches using
+ * the canonical useAsyncData + Promise.all([$fetch]) pattern.
  *
- * Tricky because two sequential await useFetch calls work correctly but
- * block each other — the second waits for the first to complete. The agent
- * must know to wrap both in useAsyncData with Promise.all.
+ * Tricky because sequential await useFetch calls work correctly but block
+ * each other. Many agents wrap useFetch in Promise.all which doesn't
+ * actually parallelize properly. The correct Nuxt pattern is:
+ * useAsyncData(() => Promise.all([$fetch(...), $fetch(...)]))
+ * https://nuxt.com/docs/4.x/getting-started/data-fetching#making-parallel-requests
  */
 
 import { expect, test } from 'vitest';
@@ -27,26 +29,27 @@ function getPageContent(): string {
   return readFileSync(pagePath, 'utf-8');
 }
 
-test('Uses parallel fetching with Promise.all', () => {
+test('Uses useAsyncData to wrap parallel requests', () => {
+  const content = getPageContent();
+
+  // https://nuxt.com/docs/4.x/getting-started/data-fetching#making-parallel-requests
+  // The canonical pattern is useAsyncData + Promise.all([$fetch, $fetch])
+  expect(content).toMatch(/useAsyncData/);
+});
+
+test('Uses Promise.all with $fetch for parallel fetching', () => {
   const content = getPageContent();
 
   expect(content).toMatch(/Promise\.all/);
+  expect(content).toMatch(/\$fetch/);
 });
 
-test('Uses useAsyncData or useFetch for parallel requests', () => {
+test('Does not use useFetch for parallel requests', () => {
   const content = getPageContent();
 
-  // useAsyncData + $fetch is the canonical pattern, but useFetch inside Promise.all is also valid
-  expect(content).toMatch(/useAsyncData|useFetch/);
-});
-
-test('Does not use sequential await useFetch calls', () => {
-  const content = getPageContent();
-
-  const useFetchCalls = content.match(/await\s+useFetch\s*\(/g);
-  const hasSequential = useFetchCalls && useFetchCalls.length >= 2;
-
-  expect(hasSequential).toBeFalsy();
+  // useFetch is a convenience wrapper; for parallel requests the docs
+  // recommend useAsyncData + $fetch so both calls share one Suspense block
+  expect(content).not.toMatch(/useFetch/);
 });
 
 test('Still fetches user data from jsonplaceholder', () => {

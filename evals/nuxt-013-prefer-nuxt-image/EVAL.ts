@@ -74,6 +74,19 @@ test('Still displays all four images', () => {
   expect(content).toMatch(/ocean/);
 });
 
+test('Images preserve width and height to prevent CLS', () => {
+  const content = getPageContent();
+
+  // The original <img> tags have explicit width and height attributes.
+  // These must be carried over to <NuxtImg>/<NuxtPicture> to reserve
+  // layout space and prevent Cumulative Layout Shift.
+  const widthCount = (content.match(/width=["']\d+["']/g) || []).length;
+  const heightCount = (content.match(/height=["']\d+["']/g) || []).length;
+
+  expect(widthCount).toBeGreaterThanOrEqual(4);
+  expect(heightCount).toBeGreaterThanOrEqual(4);
+});
+
 test('Page still has gallery structure', () => {
   const content = getPageContent();
 

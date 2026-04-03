@@ -1,64 +1,64 @@
 {
   "metadata": {
-    "exportedAt": "2026-04-02T15:01:53.525Z",
+    "exportedAt": "2026-04-03T08:10:57.203Z",
     "experiments": [
       {
         "name": "claude-opus-4.6",
-        "timestamp": "2026-04-02T14:51:18.103Z",
+        "timestamp": "2026-04-02T20:14:43.874Z",
         "modelName": "Claude Opus 4.6",
         "agentHarness": "Claude Code"
       },
       {
         "name": "claude-sonnet-4.5",
-        "timestamp": "2026-04-02T14:51:18.118Z",
+        "timestamp": "2026-04-02T20:14:43.892Z",
         "modelName": "Claude Sonnet 4.5",
         "agentHarness": "Claude Code"
       },
       {
         "name": "claude-sonnet-4.6",
-        "timestamp": "2026-04-02T14:51:18.133Z",
+        "timestamp": "2026-04-02T20:14:43.910Z",
         "modelName": "Claude Sonnet 4.6",
         "agentHarness": "Claude Code"
       },
       {
         "name": "cursor-composer-1.5",
-        "timestamp": "2026-04-02T14:51:18.147Z",
+        "timestamp": "2026-04-02T20:14:43.926Z",
         "modelName": "Cursor Composer 1.5",
         "agentHarness": "Cursor"
       },
       {
         "name": "cursor-composer-2.0",
-        "timestamp": "2026-04-02T14:51:18.160Z",
+        "timestamp": "2026-04-02T20:14:43.942Z",
         "modelName": "Cursor Composer 2.0",
         "agentHarness": "Cursor"
       },
       {
         "name": "devstral-2",
-        "timestamp": "2026-04-02T14:51:18.175Z",
+        "timestamp": "2026-04-02T20:14:43.959Z",
         "modelName": "Devstral 2",
         "agentHarness": "OpenCode"
       },
       {
         "name": "gemini-3-pro-preview",
-        "timestamp": "2026-04-02T14:51:18.190Z",
+        "timestamp": "2026-04-02T20:14:43.974Z",
         "modelName": "Gemini 3 Pro Preview",
         "agentHarness": "Gemini CLI"
       },
       {
         "name": "gemini-3.1-pro-preview",
-        "timestamp": "2026-04-02T14:51:18.213Z",
+        "timestamp": "2026-04-02T20:14:43.990Z",
         "modelName": "Gemini 3.1 Pro Preview",
         "agentHarness": "Gemini CLI"
       },
       {
         "name": "gpt-5.3-codex-xhigh",
-        "timestamp": "2026-04-02T14:51:18.238Z",
+        "timestamp": "2026-04-03T08:00:32.409Z",
         "modelName": "GPT 5.3 Codex (xhigh)",
         "agentHarness": "Codex"
       },
       {
         "name": "gpt-5.4-xhigh",
-        "timestamp": "2026-04-02T14:51:18.255Z",
+        "timestamp": "2026-04-02T20:14:44.028Z",
         "modelName": "GPT 5.4 (xhigh)",
         "agentHarness": "Codex"
       }
@@ -88,9 +88,9 @@
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 238399.99999999997,
+          "duration": 206071,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-02-24T14:42:38.411Z"
+          "timestamp": "2026-04-02T20:14:43.874Z"
         }
       },
       {
@@ -168,10 +168,10 @@
       {
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
-          "success": true,
-          "duration": 171778,
+          "success": false,
+          "duration": 151682.75,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-02-24T14:42:38.411Z"
+          "timestamp": "2026-04-02T20:14:43.874Z"
         }
       },
       {
@@ -187,9 +187,9 @@
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
           "success": true,
-          "duration": 210207,
+          "duration": 196578,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-02-24T14:42:38.411Z"
+          "timestamp": "2026-04-02T20:14:43.874Z"
         }
       },
       {
@@ -315,9 +315,9 @@
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 272149,
+          "duration": 222421,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-02-24T14:42:38.432Z"
+          "timestamp": "2026-04-02T20:14:43.892Z"
         }
       },
       {
@@ -395,10 +395,10 @@
       {
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
-          "success": true,
-          "duration": 170987,
+          "success": false,
+          "duration": 171395.75,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-02-24T14:42:38.432Z"
+          "timestamp": "2026-04-02T20:14:43.892Z"
         }
       },
       {
@@ -414,9 +414,9 @@
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
           "success": true,
-          "duration": 170989,
+          "duration": 184596,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-02-24T14:42:38.432Z"
+          "timestamp": "2026-04-02T20:14:43.892Z"
         }
       },
       {
@@ -542,9 +542,9 @@
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 142877,
+          "duration": 213467,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-02-24T14:42:38.440Z"
+          "timestamp": "2026-04-02T20:14:43.910Z"
         }
       },
       {
@@ -622,10 +622,10 @@
       {
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
-          "success": true,
-          "duration": 249091,
+          "success": false,
+          "duration": 192526.75,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-02-24T14:42:38.440Z"
+          "timestamp": "2026-04-02T20:14:43.910Z"
         }
       },
       {
@@ -641,9 +641,9 @@
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
           "success": true,
-          "duration": 271393,
+          "duration": 202553,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-02-24T14:42:38.440Z"
+          "timestamp": "2026-04-02T20:14:43.910Z"
         }
       },
       {
@@ -769,9 +769,9 @@
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 259447.99999999997,
+          "duration": 183088,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-02-24T14:42:38.447Z"
+          "timestamp": "2026-04-02T20:14:43.926Z"
         }
       },
       {
@@ -849,10 +849,10 @@
       {
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
-          "success": true,
-          "duration": 172383,
+          "success": false,
+          "duration": 156957,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-02-24T14:42:38.447Z"
+          "timestamp": "2026-04-02T20:14:43.926Z"
         }
       },
       {
@@ -868,9 +868,9 @@
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
           "success": true,
-          "duration": 188196,
+          "duration": 169152,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-02-24T14:42:38.447Z"
+          "timestamp": "2026-04-02T20:14:43.926Z"
         }
       },
       {
@@ -996,9 +996,9 @@
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 216695,
+          "duration": 248055,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-03-31T21:05:13.358Z"
+          "timestamp": "2026-04-02T20:14:43.942Z"
         }
       },
       {
@@ -1076,10 +1076,10 @@
       {
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
-          "success": true,
-          "duration": 122036,
+          "success": false,
+          "duration": 198266.25,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-03-31T21:05:13.358Z"
+          "timestamp": "2026-04-02T20:14:43.942Z"
         }
       },
       {
@@ -1095,9 +1095,9 @@
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
           "success": true,
-          "duration": 147746,
+          "duration": 213190,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-03-31T21:05:13.358Z"
+          "timestamp": "2026-04-02T20:14:43.942Z"
         }
       },
       {
@@ -1223,9 +1223,9 @@
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 224476.6666666667,
+          "duration": 397494,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-03-03T13:07:28.853Z"
+          "timestamp": "2026-04-02T20:14:43.959Z"
         }
       },
       {
@@ -1303,10 +1303,10 @@
       {
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
-          "success": true,
-          "duration": 143576,
+          "success": false,
+          "duration": 170268.50000000003,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-03-03T13:07:28.853Z"
+          "timestamp": "2026-04-02T20:14:43.959Z"
         }
       },
       {
@@ -1322,9 +1322,9 @@
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
           "success": true,
-          "duration": 185226,
+          "duration": 201190,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-03-03T13:07:28.853Z"
+          "timestamp": "2026-04-02T20:14:43.959Z"
         }
       },
       {
@@ -1450,9 +1450,9 @@
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 492819.3333333334,
+          "duration": 221038,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-02-24T15:02:21.663Z"
+          "timestamp": "2026-04-02T20:14:43.974Z"
         }
       },
       {
@@ -1530,10 +1530,10 @@
       {
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
-          "success": true,
-          "duration": 427048,
+          "success": false,
+          "duration": 178242.5,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-02-24T15:18:49.505Z"
+          "timestamp": "2026-04-02T20:14:43.974Z"
         }
       },
       {
@@ -1549,9 +1549,9 @@
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
           "success": true,
-          "duration": 384508,
+          "duration": 210535,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-02-24T15:02:21.663Z"
+          "timestamp": "2026-04-02T20:14:43.974Z"
         }
       },
       {
@@ -1677,9 +1677,9 @@
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 439509,
+          "duration": 198626,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-03-05T13:33:58.966Z"
+          "timestamp": "2026-04-02T20:14:43.990Z"
         }
       },
       {
@@ -1757,10 +1757,10 @@
       {
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
-          "success": true,
-          "duration": 189909,
+          "success": false,
+          "duration": 400164.00000000006,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-03-05T13:33:58.966Z"
+          "timestamp": "2026-04-02T20:14:43.990Z"
         }
       },
       {
@@ -1776,9 +1776,9 @@
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
           "success": true,
-          "duration": 249444,
+          "duration": 189039,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-03-05T13:33:58.966Z"
+          "timestamp": "2026-04-02T20:14:43.990Z"
         }
       },
       {
@@ -1904,9 +1904,9 @@
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 264359,
+          "duration": 248686,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-04-02T13:31:21.986Z"
+          "timestamp": "2026-04-02T20:14:44.003Z"
         }
       },
       {
@@ -1985,9 +1985,9 @@
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
           "success": true,
-          "duration": 209243,
+          "duration": 186872,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-04-02T13:31:21.986Z"
+          "timestamp": "2026-04-02T20:14:44.003Z"
         }
       },
       {
@@ -2003,9 +2003,9 @@
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
           "success": true,
-          "duration": 260267.00000000006,
+          "duration": 197755,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-04-02T13:31:21.986Z"
+          "timestamp": "2026-04-03T08:00:32.409Z"
         }
       },
       {
@@ -2131,9 +2131,9 @@
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 382871,
+          "duration": 365787.5,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-04-02T13:47:08.539Z"
+          "timestamp": "2026-04-02T20:14:44.028Z"
         }
       },
       {
@@ -2212,9 +2212,9 @@
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
           "success": true,
-          "duration": 181318,
+          "duration": 192774,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-04-02T13:31:21.999Z"
+          "timestamp": "2026-04-02T20:14:44.028Z"
         }
       },
       {
@@ -2229,10 +2229,10 @@
       {
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
-          "success": true,
-          "duration": 430076,
+          "success": false,
+          "duration": 430993.25,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-04-02T13:47:08.539Z"
+          "timestamp": "2026-04-02T20:14:44.028Z"
         }
       },
       {

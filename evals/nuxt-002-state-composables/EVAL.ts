@@ -68,6 +68,14 @@ test('Composable has cart management methods', () => {
   expect(content).toMatch(/clear/i);
 });
 
+test('Composable has computed total or item count', () => {
+  const content = getCartComposableContent();
+
+  // A cart composable should derive totals reactively via computed(),
+  // not require consumers to calculate them manually
+  expect(content).toMatch(/computed\s*\(/);
+});
+
 test('Cart page exists', () => {
   const cartPath = findFile(
     join(process.cwd(), 'app', 'pages', 'cart.vue'),
