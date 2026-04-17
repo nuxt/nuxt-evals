@@ -14,6 +14,6 @@
     "@types/node": "^25.6.0"
   },
   "dependencies": {
-    "@vercel/agent-eval": "^0.11.0"
+    "@vercel/agent-eval": "^0.12.0"
   }
 }
