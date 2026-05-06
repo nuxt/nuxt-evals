@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@vercel/agent-eval':
-        specifier: ^0.11.0
-        version: 0.11.0
+        specifier: ^0.14.0
+        version: 0.14.0
     devDependencies:
       '@types/node':
         specifier: ^25.6.0
@@ -276,8 +276,8 @@ packages:
   '@types/node@25.6.0':
     resolution: {integrity: sha512-+qIYRKdNYJwY3vRCZMdJbPLJAtGjQBudzZzdzwQYkEPQd+PJGixUL5QfvCLDaULoLv+RhT3LDkwEfKaAkgSmNQ==}
 
-  '@vercel/agent-eval@0.11.0':
-    resolution: {integrity: sha512-9H5EpESZ8vUyaV26WteZi7NjabXttdjZFZBgCs2P+yTgcVAo/kqqIdtBBaeEYpyvOrEkR+/4V7qYTWdBdTeYBQ==}
+  '@vercel/agent-eval@0.14.0':
+    resolution: {integrity: sha512-c+zD2cJW+B47bdEBIE4blhZ88m8+b1t4BfmnrW4aPDE3H+lRg9QAp+wq+FdJZwGCL27W7TtGk4I36zBb6hZwWA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -694,6 +694,7 @@ packages:
 
   uuid@10.0.0:
     resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   which@2.0.2:
@@ -913,7 +914,7 @@ snapshots:
     dependencies:
       undici-types: 7.19.2
 
-  '@vercel/agent-eval@0.11.0':
+  '@vercel/agent-eval@0.14.0':
     dependencies:
       '@ai-sdk/anthropic': 1.2.12(zod@3.25.76)
       '@vercel/sandbox': 1.4.1
