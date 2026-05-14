@@ -46,6 +46,7 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 | `devstral-2` | `opencode` | `vercel/mistral/devstral-2` |
 | `gpt-5.3-codex-xhigh` | `codex` | `gpt-5.3-codex-api-preview?reasoningEffort=xhigh` |
 | `gpt-5.4-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.4?reasoningEffort=xhigh` |
+| `gpt-5.5-xhigh` | `codex` | `gpt-5.5?reasoningEffort=xhigh` |
 
 ## Eval structure
 
