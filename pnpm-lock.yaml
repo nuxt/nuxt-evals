@@ -267,8 +267,8 @@ packages:
   '@protobufjs/pool@1.1.0':
     resolution: {integrity: sha512-0kELaGSIDBKvcgS4zkjz1PeddatrjYcmMWOlAuAPwAeccUrPHdUqo/J6LiymHHEiJT5NrF1UVwxY14f+fy4WQw==}
 
-  '@protobufjs/utf8@1.1.0':
-    resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
+  '@protobufjs/utf8@1.1.1':
+    resolution: {integrity: sha512-oOAWABowe8EAbMyWKM0tYDKi8Yaox52D+HWZhAIJqQXbqe0xI/GV7FhLWqlEKreMkfDjshR5FKgi3mnle0h6Eg==}
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
@@ -900,7 +900,7 @@ snapshots:
 
   '@protobufjs/pool@1.1.0': {}
 
-  '@protobufjs/utf8@1.1.0': {}
+  '@protobufjs/utf8@1.1.1': {}
 
   '@standard-schema/spec@1.1.0': {}
 
@@ -1230,7 +1230,7 @@ snapshots:
       '@protobufjs/inquire': 1.1.0
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
-      '@protobufjs/utf8': 1.1.0
+      '@protobufjs/utf8': 1.1.1
       '@types/node': 25.9.1
       long: 5.3.2
 
