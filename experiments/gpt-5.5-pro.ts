@@ -1,12 +1,12 @@
 import type { ExperimentConfig } from '@vercel/agent-eval';
 
 const config: ExperimentConfig = {
-  agent: 'codex',
-  model: 'gpt-5.5?reasoningEffort=xhigh',
+  agent: 'vercel-ai-gateway/codex',
+  model: 'openai/gpt-5.5-pro',
   scripts: ['build'],
-  runs: 4,
+  runs: 1,
   earlyExit: true,
-  timeout: 720,
+  timeout: 1800,
   sandbox: 'vercel',
 };
 
