@@ -9,11 +9,11 @@
     "export-results": "tsx scripts/export-results.ts"
   },
   "devDependencies": {
-    "tsx": "^4.21.0",
-    "typescript": "^6.0.2",
-    "@types/node": "^25.6.0"
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3",
+    "@types/node": "^25.9.1"
   },
   "dependencies": {
-    "@vercel/agent-eval": "^0.11.0"
+    "@vercel/agent-eval": "^0.14.1"
   }
 }
