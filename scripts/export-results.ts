@@ -39,6 +39,7 @@ interface ExportedData {
       timestamp: string;
       modelName: string;
       agentHarness: string;
+      avgDuration?: number;
     }>;
   };
   results: Record<string, AgentResult[]>;
@@ -225,11 +226,18 @@ async function main(): Promise<void> {
     const modelName = MODEL_NAMES[experiment] || experiment;
     const agentHarness = await getAgentHarness(experiment);
 
+    // Mean run duration in seconds (durations are stored in ms)
+    const avgDuration =
+      agentResults.reduce((sum, r) => sum + r.result.duration, 0) /
+      agentResults.length /
+      1000;
+
     exportedData.metadata.experiments.push({
       name: experiment,
       timestamp: parseTimestamp(latestTimestamp),
       modelName,
       agentHarness,
+      avgDuration,
     });
 
     exportedData.results[experiment] = agentResults.sort((a, b) =>
