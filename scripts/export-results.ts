@@ -52,6 +52,7 @@ const MODEL_NAMES: Record<string, string> = {
   'claude-sonnet-4.6': 'Claude Sonnet 4.6',
   'cursor-composer-1.5': 'Cursor Composer 1.5',
   'cursor-composer-2.0': 'Cursor Composer 2.0',
+  'cursor-composer-2.5': 'Cursor Composer 2.5',
   'gemini-3-pro-preview': 'Gemini 3 Pro Preview',
   'gemini-3.1-pro-preview': 'Gemini 3.1 Pro Preview',
   'devstral-2': 'Devstral 2',

@@ -42,6 +42,7 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 | `claude-sonnet-4.6` | `claude-code` | `claude-sonnet-4-6` |
 | `cursor-composer-1.5` | `cursor` | `composer-1.5` |
 | `cursor-composer-2.0` | `cursor` | `composer-2` |
+| `cursor-composer-2.5` | `cursor` | `composer-2.5` |
 | `gemini-3-pro-preview` | `gemini` | `gemini-3-pro-preview` |
 | `gemini-3.1-pro-preview` | `gemini` | `gemini-3.1-pro-preview` |
 | `devstral-2` | `opencode` | `vercel/mistral/devstral-2` |
