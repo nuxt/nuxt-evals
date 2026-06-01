@@ -49,6 +49,7 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 | `gpt-5.3-codex-xhigh` | `codex` | `gpt-5.3-codex-api-preview?reasoningEffort=xhigh` |
 | `gpt-5.4-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.4?reasoningEffort=xhigh` |
 | `gpt-5.5-pro` | `vercel-ai-gateway/codex` | `openai/gpt-5.5-pro` |
+| `kimi-k2.5` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k2.5` |
 
 ## Eval structure
 
