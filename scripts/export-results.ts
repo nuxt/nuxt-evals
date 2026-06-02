@@ -66,6 +66,7 @@ const MODEL_NAMES: Record<string, string> = {
 
 const HARNESS_NAMES: Record<string, string> = {
   'claude-code': 'Claude Code',
+  'vercel-ai-gateway/claude-code': 'Claude Code',
   'codex': 'Codex',
   'vercel-ai-gateway/codex': 'Codex',
   'vercel-ai-gateway/opencode': 'OpenCode',

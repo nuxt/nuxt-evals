@@ -1,8 +1,8 @@
 import type { ExperimentConfig } from '@vercel/agent-eval';
 
 const config: ExperimentConfig = {
-  agent: 'claude-code',
-  model: 'claude-opus-4-8',
+  agent: 'vercel-ai-gateway/claude-code',
+  model: 'anthropic/claude-opus-4.8',
   agentOptions: {
     cliPackage: '@anthropic-ai/claude-code@next',
   },

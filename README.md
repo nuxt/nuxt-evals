@@ -38,7 +38,7 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 |------------|-------|-------|
 | `claude-opus-4.6` | `claude-code` | `claude-opus-4-6` |
 | `claude-opus-4.7` | `claude-code` | `claude-opus-4-7` |
-| `claude-opus-4.8` | `claude-code` | `claude-opus-4-8` |
+| `claude-opus-4.8` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-4.8` |
 | `claude-sonnet-4.5` | `claude-code` | `claude-sonnet-4-5` |
 | `claude-sonnet-4.6` | `claude-code` | `claude-sonnet-4-6` |
 | `cursor-composer-1.5` | `cursor` | `composer-1.5` |
