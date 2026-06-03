@@ -13,3 +13,4 @@ evals/**/output-*/.worktrees/
 .nuxt
 .nitro
 .cache
+.env*
