@@ -7,7 +7,7 @@ Guidance for agents working in this repo. This is a benchmark suite that runs co
 When asked to add a new model/experiment, do all of the following, then commit:
 
 1. **Create `experiments/<name>.ts`** with an `ExperimentConfig` default export (see conventions below).
-2. **Add a display name** to the `MODEL_NAMES` map in `scripts/export-results.ts` (e.g. `'kimi-k2.5': 'Kimi K2.5'`). Without this, exported results fall back to the raw key.
+2. **Add a display name** to the `MODEL_NAMES` map in `scripts/export-results.ts` (e.g. `'kimi-k2.6': 'Kimi K2.6'`). Without this, exported results fall back to the raw key.
 3. **Check `HARNESS_NAMES`** in `scripts/export-results.ts`. If the experiment's `agent` value isn't already a key there, add it (e.g. `'vercel-ai-gateway/opencode': 'OpenCode'`). Without this, the harness falls back to the raw `agent` string.
 4. **Add a row** to the Models table in `README.md` with `| \`<name>\` | \`<agent>\` | \`<model>\` |`.
 5. **Commit per model** with message `feat(experiments): add <name>` (one model = one commit, bundling all the file changes).
@@ -21,7 +21,7 @@ import type { ExperimentConfig } from '@vercel/agent-eval';
 
 const config: ExperimentConfig = {
   agent: 'vercel-ai-gateway/opencode',
-  model: 'vercel/moonshotai/kimi-k2.5',
+  model: 'vercel/moonshotai/kimi-k2.6',
   scripts: ['build'],
   runs: 4,
   earlyExit: true,

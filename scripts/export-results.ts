@@ -60,7 +60,7 @@ const MODEL_NAMES: Record<string, string> = {
   'gpt-5.3-codex-xhigh': 'GPT 5.3 Codex (xhigh)',
   'gpt-5.4-xhigh': 'GPT 5.4 (xhigh)',
   'gpt-5.5-pro': 'GPT 5.5 Pro',
-  'kimi-k2.5': 'Kimi K2.5',
+  'kimi-k2.6': 'Kimi K2.6',
   'minimax-m2.7': 'MiniMax M2.7',
 };
 

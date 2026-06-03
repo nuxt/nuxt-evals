@@ -2,7 +2,7 @@ import type { ExperimentConfig } from '@vercel/agent-eval';
 
 const config: ExperimentConfig = {
   agent: 'vercel-ai-gateway/opencode',
-  model: 'vercel/moonshotai/kimi-k2.5',
+  model: 'vercel/moonshotai/kimi-k2.6',
   scripts: ['build'],
   runs: 4,
   earlyExit: true,
