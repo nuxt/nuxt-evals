@@ -10,24 +10,29 @@
  */
 
 import { expect, test } from 'vitest';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
 }
 
-function getPageContent(): string {
-  const pagePath = findFile(
-    join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'app', 'app.vue'),
-  );
+// The palette may be extracted into its own component (e.g. AppCommandPalette.vue),
+// which is good practice — so scan every Vue file under app/.
+function getAllVueFiles(): string {
+  const results: string[] = [];
 
-  if (!pagePath) {
-    throw new Error('No page found');
+  function scan(dir: string) {
+    if (!existsSync(dir)) return;
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name);
+      if (entry.isDirectory()) scan(full);
+      else if (entry.name.endsWith('.vue')) results.push(readFileSync(full, 'utf-8'));
+    }
   }
 
-  return readFileSync(pagePath, 'utf-8');
+  scan(join(process.cwd(), 'app'));
+  return results.join('\n');
 }
 
 test('Page exists', () => {
@@ -40,20 +45,20 @@ test('Page exists', () => {
 });
 
 test('Uses UCommandPalette component', () => {
-  const content = getPageContent();
+  const content = getAllVueFiles();
 
   expect(content).toMatch(/UCommandPalette/);
 });
 
 test('Command palette uses :groups prop', () => {
-  const content = getPageContent();
+  const content = getAllVueFiles();
 
   // v4 pattern: <UCommandPalette :groups="groups" />
   expect(content).toMatch(/:groups/);
 });
 
 test('Groups have proper structure with id and items', () => {
-  const content = getPageContent();
+  const content = getAllVueFiles();
 
   // Groups should have id and items properties
   expect(content).toMatch(/id\s*:/);
@@ -61,7 +66,7 @@ test('Groups have proper structure with id and items', () => {
 });
 
 test('Uses defineShortcuts for Cmd+K binding', () => {
-  const content = getPageContent();
+  const content = getAllVueFiles();
 
   // Should use Nuxt UI's defineShortcuts composable (not addEventListener)
   expect(content).toMatch(/defineShortcuts/);
@@ -69,14 +74,14 @@ test('Uses defineShortcuts for Cmd+K binding', () => {
 });
 
 test('Items have labels and icons', () => {
-  const content = getPageContent();
+  const content = getAllVueFiles();
 
   expect(content).toMatch(/label\s*:/);
   expect(content).toMatch(/icon\s*:/);
 });
 
 test('Has multiple groups', () => {
-  const content = getPageContent();
+  const content = getAllVueFiles();
 
   // Should have at least 2 groups (Pages and Actions as requested)
   // Groups are objects with both id and items properties
@@ -87,7 +92,7 @@ test('Has multiple groups', () => {
 });
 
 test('Has visibility control for the palette', () => {
-  const content = getPageContent();
+  const content = getAllVueFiles();
 
   // Should use v-model:open for reactive visibility control
   expect(content).toMatch(/v-model:open/);
