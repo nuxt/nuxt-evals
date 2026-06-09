@@ -1,13 +1,13 @@
 /**
  * Fix Sequential Fetching
  *
- * Tests whether the agent parallelizes two sequential data fetches using
- * the canonical useAsyncData + Promise.all([$fetch]) pattern.
+ * Tests whether the agent parallelizes two data fetches that the starter
+ * awaits sequentially (each await blocks the next).
  *
- * Tricky because sequential await useFetch calls work correctly but block
- * each other. Many agents wrap useFetch in Promise.all which doesn't
- * actually parallelize properly. The correct Nuxt pattern is:
- * useAsyncData(() => Promise.all([$fetch(...), $fetch(...)]))
+ * Any valid parallelization is accepted: Promise.all over useFetch or $fetch,
+ * the canonical useAsyncData(() => Promise.all([$fetch, $fetch])), or multiple
+ * non-awaited useFetch/useAsyncData calls. The eval only fails solutions that
+ * keep the two requests sequentially awaited.
  * https://nuxt.com/docs/4.x/getting-started/data-fetching#making-parallel-requests
  */
 
@@ -29,27 +29,28 @@ function getPageContent(): string {
   return readFileSync(pagePath, 'utf-8');
 }
 
-test('Uses useAsyncData to wrap parallel requests', () => {
+test('Still uses a Nuxt data-fetching primitive', () => {
   const content = getPageContent();
 
+  // The fix should stay within Nuxt data fetching, not drop to raw fetch in onMounted
+  expect(content).toMatch(/useFetch|useAsyncData|useLazyFetch|useLazyAsyncData|\$fetch/);
+});
+
+test('Parallelizes the two requests', () => {
+  const content = getPageContent();
+
+  // The starter blocks by awaiting two useFetch calls one after another.
+  // Any valid parallelization fixes the stated slowness:
+  //   - Promise.all([...]) over useFetch or $fetch
+  //   - useAsyncData(() => Promise.all([$fetch, $fetch])) (the canonical pattern)
+  //   - multiple non-awaited useFetch/useAsyncData calls (Nuxt runs them concurrently)
   // https://nuxt.com/docs/4.x/getting-started/data-fetching#making-parallel-requests
-  // The canonical pattern is useAsyncData + Promise.all([$fetch, $fetch])
-  expect(content).toMatch(/useAsyncData/);
-});
+  const usesPromiseAll = /Promise\.all/.test(content);
+  const sequentialAwaits = (
+    content.match(/await\s+use(?:Lazy)?(?:Fetch|AsyncData)\s*\(/g) ?? []
+  ).length;
 
-test('Uses Promise.all with $fetch for parallel fetching', () => {
-  const content = getPageContent();
-
-  expect(content).toMatch(/Promise\.all/);
-  expect(content).toMatch(/\$fetch/);
-});
-
-test('Does not use useFetch for parallel requests', () => {
-  const content = getPageContent();
-
-  // useFetch is a convenience wrapper; for parallel requests the docs
-  // recommend useAsyncData + $fetch so both calls share one Suspense block
-  expect(content).not.toMatch(/useFetch/);
+  expect(usesPromiseAll || sequentialAwaits < 2).toBe(true);
 });
 
 test('Still fetches user data from jsonplaceholder', () => {
@@ -61,7 +62,11 @@ test('Still fetches user data from jsonplaceholder', () => {
 test('Still fetches posts data', () => {
   const content = getPageContent();
 
-  expect(content).toMatch(/jsonplaceholder\.typicode\.com\/users\/1\/posts|jsonplaceholder\.typicode\.com\/posts/);
+  // Accept a literal id, a template variable (e.g. users/${userId}/posts),
+  // or the generic /posts endpoint
+  expect(content).toMatch(
+    /jsonplaceholder\.typicode\.com\/users\/[^/'"`]+\/posts|jsonplaceholder\.typicode\.com\/posts/
+  );
 });
 
 test('Still displays user name and email', () => {
