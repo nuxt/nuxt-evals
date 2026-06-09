@@ -5,7 +5,11 @@ dist/
 .vercel
 .claude
 .DS_Store
-results/
+# Eval results: commit only summary.json (the cache fingerprints) so a new
+# contributor reuses the memoization cache; ignore the heavy transcripts/outputs.
+results/**
+!results/**/
+!results/**/summary.json
 evals/**/output-*/.worktrees/
 
 # Nuxt build outputs
