@@ -11,7 +11,7 @@
  */
 
 import { expect, test } from 'vitest';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 function findFile(...paths: string[]): string | undefined {
@@ -29,32 +29,52 @@ function getPageContent(): string {
   return readFileSync(pagePath, 'utf-8');
 }
 
+// Cookie logic may live in the page or be extracted into a composable/plugin
+// (e.g. useTheme), which is good practice — so scan the whole app/ source.
+function getSolutionContent(): string {
+  const results: string[] = [];
+
+  function scan(dir: string) {
+    if (!existsSync(dir)) return;
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name);
+      if (entry.isDirectory()) scan(full);
+      else if (/\.(vue|ts|js|mjs)$/.test(entry.name)) {
+        results.push(readFileSync(full, 'utf-8'));
+      }
+    }
+  }
+
+  scan(join(process.cwd(), 'app'));
+  return results.join('\n');
+}
+
 test('Uses useCookie composable', () => {
-  const content = getPageContent();
+  const content = getSolutionContent();
 
   expect(content).toMatch(/useCookie/);
 });
 
 test('Does not use document.cookie', () => {
-  const content = getPageContent();
+  const content = getSolutionContent();
 
   expect(content).not.toMatch(/document\.cookie/);
 });
 
 test('Does not use onMounted for cookie reading', () => {
-  const content = getPageContent();
+  const content = getSolutionContent();
 
   expect(content).not.toMatch(/onMounted/);
 });
 
 test('Does not use manual cookie parsing', () => {
-  const content = getPageContent();
+  const content = getSolutionContent();
 
   expect(content).not.toMatch(/\.split\s*\(\s*['"][;=]['"]\s*\)/);
 });
 
 test('Does not use js-cookie or cookie library', () => {
-  const content = getPageContent();
+  const content = getSolutionContent();
 
   expect(content).not.toMatch(/import.*cookie/i);
   expect(content).not.toMatch(/require.*cookie/i);
@@ -75,7 +95,7 @@ test('Theme value is reactive', () => {
 });
 
 test('Cookie persists the theme preference', () => {
-  const content = getPageContent();
+  const content = getSolutionContent();
 
-  expect(content).toMatch(/useCookie[\s\S]*theme/);
+  expect(content).toMatch(/useCookie[\s\S]*theme|theme[\s\S]*useCookie/);
 });
