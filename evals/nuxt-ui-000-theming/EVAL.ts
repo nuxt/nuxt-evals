@@ -19,9 +19,14 @@ function findFile(...paths: string[]): string | undefined {
 }
 
 function getAppConfigContent(): string | undefined {
-  const configPath = join(process.cwd(), 'app.config.ts');
+  // Nuxt 4 resolves app.config.ts relative to srcDir (app/), so that is the
+  // correct location for these fixtures. Fall back to the root for safety.
+  const configPath = findFile(
+    join(process.cwd(), 'app', 'app.config.ts'),
+    join(process.cwd(), 'app.config.ts'),
+  );
 
-  if (!existsSync(configPath)) return undefined;
+  if (!configPath) return undefined;
 
   return readFileSync(configPath, 'utf-8');
 }
