@@ -36,19 +36,19 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 
 | Experiment | Agent | Model |
 |------------|-------|-------|
-| `claude-opus-4.6` | `claude-code` | `claude-opus-4-6` |
-| `claude-opus-4.7` | `claude-code` | `claude-opus-4-7` |
+| `claude-opus-4.6` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-4.6` |
+| `claude-opus-4.7` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-4.7` |
 | `claude-opus-4.8` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-4.8` |
 | `claude-fable-5` | `vercel-ai-gateway/claude-code` | `anthropic/claude-fable-5` |
-| `claude-sonnet-4.5` | `claude-code` | `claude-sonnet-4-5` |
-| `claude-sonnet-4.6` | `claude-code` | `claude-sonnet-4-6` |
+| `claude-sonnet-4.5` | `vercel-ai-gateway/claude-code` | `anthropic/claude-sonnet-4.5` |
+| `claude-sonnet-4.6` | `vercel-ai-gateway/claude-code` | `anthropic/claude-sonnet-4.6` |
 | `cursor-composer-1.5` | `cursor` | `composer-1.5` |
 | `cursor-composer-2.0` | `cursor` | `composer-2` |
 | `cursor-composer-2.5` | `cursor` | `composer-2.5` |
 | `gemini-3-pro-preview` | `gemini` | `gemini-3-pro-preview` |
 | `gemini-3.1-pro-preview` | `gemini` | `gemini-3.1-pro-preview` |
 | `devstral-2` | `opencode` | `vercel/mistral/devstral-2` |
-| `gpt-5.3-codex-xhigh` | `codex` | `gpt-5.3-codex-api-preview?reasoningEffort=xhigh` |
+| `gpt-5.3-codex-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.3-codex?reasoningEffort=xhigh` |
 | `gpt-5.4-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.4?reasoningEffort=xhigh` |
 | `gpt-5.5-pro` | `vercel-ai-gateway/codex` | `openai/gpt-5.5-pro` |
 | `kimi-k2.6` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k2.6` |
