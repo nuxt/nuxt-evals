@@ -36,6 +36,7 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 
 | Experiment | Agent | Model |
 |------------|-------|-------|
+| `claude-fable-5` | `vercel-ai-gateway/claude-code` | `anthropic/claude-fable-5` |
 | `claude-opus-4.6` | `claude-code` | `claude-opus-4-6` |
 | `claude-opus-4.7` | `claude-code` | `claude-opus-4-7` |
 | `claude-opus-4.8` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-4.8` |
