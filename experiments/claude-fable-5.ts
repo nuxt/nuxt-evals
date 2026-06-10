@@ -3,9 +3,6 @@ import type { ExperimentConfig } from '@vercel/agent-eval';
 const config: ExperimentConfig = {
   agent: 'vercel-ai-gateway/claude-code',
   model: 'anthropic/claude-fable-5',
-  agentOptions: {
-    cliPackage: '@anthropic-ai/claude-code@next',
-  },
   scripts: ['build'],
   runs: 4,
   earlyExit: true,
