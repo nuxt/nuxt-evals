@@ -42,12 +42,10 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 | `claude-fable-5` | `vercel-ai-gateway/claude-code` | `anthropic/claude-fable-5` |
 | `claude-sonnet-4.5` | `vercel-ai-gateway/claude-code` | `anthropic/claude-sonnet-4.5` |
 | `claude-sonnet-4.6` | `vercel-ai-gateway/claude-code` | `anthropic/claude-sonnet-4.6` |
-| `cursor-composer-1.5` | `cursor` | `composer-1.5` |
 | `cursor-composer-2.0` | `cursor` | `composer-2` |
 | `cursor-composer-2.5` | `cursor` | `composer-2.5` |
 | `gemini-3-pro-preview` | `vercel-ai-gateway/opencode` | `vercel/google/gemini-3-pro-preview` |
 | `gemini-3.1-pro-preview` | `vercel-ai-gateway/opencode` | `vercel/google/gemini-3.1-pro-preview` |
-| `devstral-2` | `opencode` | `vercel/mistral/devstral-2` |
 | `gpt-5.3-codex-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.3-codex?reasoningEffort=xhigh` |
 | `gpt-5.4-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.4?reasoningEffort=xhigh` |
 | `gpt-5.5-pro` | `vercel-ai-gateway/codex` | `openai/gpt-5.5-pro` |
