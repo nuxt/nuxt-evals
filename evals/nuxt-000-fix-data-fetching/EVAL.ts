@@ -44,7 +44,8 @@ function getPageContent(): string {
 test('Page uses Nuxt data fetching composable', () => {
   const content = getPageContent();
 
-  expect(content).toMatch(/useFetch|useAsyncData/);
+  // Accept the lazy variants too (useLazyFetch / useLazyAsyncData are valid).
+  expect(content).toMatch(/use(?:Lazy)?(?:Fetch|AsyncData)/);
 });
 
 test('No component fetches data in onMounted', () => {

@@ -33,16 +33,18 @@ function getPageContent(): string {
 test('Uses useFetch or useAsyncData', () => {
   const content = getPageContent();
 
-  expect(content).toMatch(/useFetch|useAsyncData/);
+  // Accept the lazy variants too (useLazyFetch / useLazyAsyncData are valid).
+  expect(content).toMatch(/use(?:Lazy)?(?:Fetch|AsyncData)/);
 });
 
 test('Uses computed URL or reactive pattern for refetching', () => {
   const content = getPageContent();
 
-  const hasComputedUrl = /useFetch\s*(?:<[^>]*>)?\s*\(\s*\(\)\s*=>/.test(content);
-  const hasComputedRef = /computed\s*\(/.test(content) && /useFetch/.test(content);
+  // Lazy variants (useLazyFetch/useLazyAsyncData) are accepted everywhere here.
+  const hasComputedUrl = /use(?:Lazy)?Fetch\s*(?:<[^>]*>)?\s*\(\s*\(\)\s*=>/.test(content);
+  const hasComputedRef = /computed\s*\(/.test(content) && /use(?:Lazy)?(?:Fetch|AsyncData)/.test(content);
   const hasWatchOption = /watch\s*:\s*\[/.test(content);
-  const hasUseAsyncDataGetter = /useAsyncData\s*(?:<[^>]*>)?\s*\(/.test(content) && /\$fetch/.test(content);
+  const hasUseAsyncDataGetter = /use(?:Lazy)?AsyncData\s*(?:<[^>]*>)?\s*\(/.test(content) && /\$fetch/.test(content);
 
   expect(hasComputedUrl || hasComputedRef || hasWatchOption || hasUseAsyncDataGetter).toBe(true);
 });
