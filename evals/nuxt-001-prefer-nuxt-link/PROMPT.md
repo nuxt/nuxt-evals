@@ -1,1 +1,1 @@
-This app uses full page reloads for navigation. Fix it following Nuxt best practices.
+This app uses full page reloads when navigating between its pages. Fix it following Nuxt best practices so that navigation between pages happens client-side. The link out to the external website should keep working as a normal external link.

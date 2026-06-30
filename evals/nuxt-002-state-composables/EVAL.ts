@@ -2,17 +2,32 @@
  * Nuxt State Management with Composables
  *
  * Tests whether the agent uses useState for global state that persists across
- * navigation, instead of ref() which resets on each page.
+ * navigation, instead of ref() which resets on each page (and leaks across
+ * requests on the server). The shared state must be consumed in at least three
+ * places (cart, checkout, and a persistent header/products consumer) to prove
+ * it actually persists across routes.
  *
- * Tricky because agents default to ref() which doesn't persist across routes.
+ * Tricky because agents default to ref() which doesn't persist across routes,
+ * or wire the cart into a single page so persistence is never exercised.
  */
 
 import { expect, test } from 'vitest';
-import { existsSync, readFileSync, readdirSync } from 'fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
 
 function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
+}
+
+function collectVueFiles(dir: string): string[] {
+  if (!existsSync(dir)) return [];
+  const out: string[] = [];
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) out.push(...collectVueFiles(full));
+    else if (entry.endsWith('.vue')) out.push(full);
+  }
+  return out;
 }
 
 function getComposablesDir(): string {
@@ -55,8 +70,9 @@ test('Composable uses useState for global state', () => {
 test('Composable does not use plain ref for cart state', () => {
   const content = getCartComposableContent();
 
-  // ref() does not persist across route navigations — useState is required
-  const usesRefForState = /(?:const|let)\s+(?:cart|items)\s*=\s*ref\s*\(/i.test(content);
+  // ref() does not persist across route navigations and leaks across requests
+  // on the server — useState is required for the cart store.
+  const usesRefForState = /(?:const|let)\s+(?:cart|items|state|store)\s*=\s*ref\s*\(/i.test(content);
   expect(usesRefForState).toBe(false);
 });
 
@@ -68,51 +84,39 @@ test('Composable has cart management methods', () => {
   expect(content).toMatch(/clear/i);
 });
 
-test('Composable has computed total or item count', () => {
+test('Composable derives total/count via computed and returns its API', () => {
   const content = getCartComposableContent();
 
-  // A cart composable should derive totals reactively via computed(),
-  // not require consumers to calculate them manually
+  // Totals must be derived reactively via computed(), not recalculated by hand.
   expect(content).toMatch(/computed\s*\(/);
+  // A composable has to return its state/methods to be usable elsewhere.
+  expect(content).toMatch(/\breturn\b/);
 });
 
 test('Cart page exists', () => {
-  const cartPath = findFile(
-    join(process.cwd(), 'app', 'pages', 'cart.vue'),
-  );
-
-  expect(cartPath).toBeDefined();
+  expect(findFile(join(process.cwd(), 'app', 'pages', 'cart.vue'))).toBeDefined();
 });
 
 test('Checkout page exists', () => {
-  const checkoutPath = findFile(
-    join(process.cwd(), 'app', 'pages', 'checkout.vue'),
-  );
-
-  expect(checkoutPath).toBeDefined();
+  expect(findFile(join(process.cwd(), 'app', 'pages', 'checkout.vue'))).toBeDefined();
 });
 
 test('Cart page uses the cart composable', () => {
-  const cartPath = findFile(
-    join(process.cwd(), 'app', 'pages', 'cart.vue'),
-  );
-
-  expect(cartPath).toBeDefined();
-
-  const content = readFileSync(cartPath!, 'utf-8');
-
-  expect(content).toMatch(/useCart\s*\(/);
+  const cartPath = findFile(join(process.cwd(), 'app', 'pages', 'cart.vue'))!;
+  expect(readFileSync(cartPath, 'utf-8')).toMatch(/useCart\s*\(/);
 });
 
 test('Checkout page uses the cart composable', () => {
-  const checkoutPath = findFile(
-    join(process.cwd(), 'app', 'pages', 'checkout.vue'),
-  );
-
-  expect(checkoutPath).toBeDefined();
-
-  const content = readFileSync(checkoutPath!, 'utf-8');
-
+  const checkoutPath = findFile(join(process.cwd(), 'app', 'pages', 'checkout.vue'))!;
   // Checkout must also use the shared cart composable for state to persist
-  expect(content).toMatch(/useCart\s*\(/);
+  expect(readFileSync(checkoutPath, 'utf-8')).toMatch(/useCart\s*\(/);
+});
+
+test('Shared cart state is consumed in at least three places', () => {
+  const files = collectVueFiles(join(process.cwd(), 'app'));
+  const consumers = files.filter(f => /useCart\s*\(/.test(readFileSync(f, 'utf-8')));
+
+  // cart + checkout + a third consumer (e.g. a persistent header badge or the
+  // products page) proves the state genuinely persists across navigation.
+  expect(consumers.length).toBeGreaterThanOrEqual(3);
 });

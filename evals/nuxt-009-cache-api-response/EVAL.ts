@@ -2,7 +2,9 @@
  * Cache API Response
  *
  * Tests whether the agent knows to use defineCachedEventHandler to cache
- * server API responses instead of hitting the external API on every request.
+ * server API responses instead of hitting the external API on every request,
+ * with the cache option actually configured (a duration or swr) rather than
+ * just the bare option name appearing in the file.
  *
  * Tricky because the prompt just says "make it faster" — the agent must
  * infer that server-side caching with defineCachedEventHandler is the
@@ -17,57 +19,42 @@ function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
 }
 
-test('API route uses a cached event handler', () => {
+function getApiContent(): string {
   const apiPath = findFile(
     join(process.cwd(), 'server', 'api', 'posts.ts'),
     join(process.cwd(), 'server', 'api', 'posts.get.ts'),
   );
 
   expect(apiPath).toBeDefined();
+  return readFileSync(apiPath!, 'utf-8');
+}
 
-  const content = readFileSync(apiPath!, 'utf-8');
+test('API route uses a cached event handler', () => {
+  const content = getApiContent();
   // Both defineCachedEventHandler and cachedEventHandler are valid Nitro exports
   expect(content).toMatch(/defineCachedEventHandler|cachedEventHandler/);
 });
 
 test('API route does NOT use plain defineEventHandler', () => {
-  const apiPath = findFile(
-    join(process.cwd(), 'server', 'api', 'posts.ts'),
-    join(process.cwd(), 'server', 'api', 'posts.get.ts'),
-  );
+  const content = getApiContent();
 
-  expect(apiPath).toBeDefined();
-
-  const content = readFileSync(apiPath!, 'utf-8');
-
-  // Should NOT have plain defineEventHandler (should be cached variant)
-  // Both defineCachedEventHandler and cachedEventHandler contain "EventHandler"
-  // so we check it's not the standalone defineEventHandler
+  // Should be the cached variant, not the standalone defineEventHandler.
   const hasPlainHandler = /(?<!defineCached|cached)defineEventHandler/.test(content);
   expect(hasPlainHandler).toBe(false);
 });
 
-test('Cache has maxAge or swr configuration', () => {
-  const apiPath = findFile(
-    join(process.cwd(), 'server', 'api', 'posts.ts'),
-    join(process.cwd(), 'server', 'api', 'posts.get.ts'),
-  );
+test('Cache option is configured with an actual value (duration or swr)', () => {
+  const content = getApiContent();
 
-  expect(apiPath).toBeDefined();
-
-  const content = readFileSync(apiPath!, 'utf-8');
-  expect(content).toMatch(/maxAge|swr|staleMaxAge/);
+  // Not just the keyword — the option must be assigned a real value: a number
+  // (maxAge: 60), an expression (maxAge: 60 * 60), a named constant
+  // (maxAge: CACHE_TTL), or swr enabled (swr: true). A bare `maxAge` with no
+  // value, or the word in a comment, does not count.
+  expect(content).toMatch(/(?:maxAge|swr|staleMaxAge)\s*:\s*[\w(]/);
 });
 
 test('API route still fetches from jsonplaceholder', () => {
-  const apiPath = findFile(
-    join(process.cwd(), 'server', 'api', 'posts.ts'),
-    join(process.cwd(), 'server', 'api', 'posts.get.ts'),
-  );
-
-  expect(apiPath).toBeDefined();
-
-  const content = readFileSync(apiPath!, 'utf-8');
+  const content = getApiContent();
   expect(content).toMatch(/jsonplaceholder/);
 });
 

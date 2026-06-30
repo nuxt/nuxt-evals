@@ -1,1 +1,1 @@
-Create a shopping cart that persists across page navigation. Add cart, and checkout pages that share the cart state. The cart should support adding items, removing items, and clearing all items.
+Create a shopping cart that persists across page navigation. The products page should let you add items to the cart, and there should be cart and checkout pages that share the same cart state. The cart should support adding items, removing items, and clearing all items, and the current item count should be visible from a persistent header on every page.

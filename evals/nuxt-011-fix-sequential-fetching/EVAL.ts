@@ -6,8 +6,9 @@
  *
  * Any valid parallelization is accepted: Promise.all over useFetch or $fetch,
  * the canonical useAsyncData(() => Promise.all([$fetch, $fetch])), or multiple
- * non-awaited useFetch/useAsyncData calls. The eval only fails solutions that
- * keep the two requests sequentially awaited.
+ * non-awaited useFetch/useAsyncData calls. The eval fails any solution that
+ * keeps the two requests sequentially awaited — including two awaited $fetch
+ * calls (a common "fix" that is still sequential).
  * https://nuxt.com/docs/4.x/getting-started/data-fetching#making-parallel-requests
  */
 
@@ -39,18 +40,16 @@ test('Still uses a Nuxt data-fetching primitive', () => {
 test('Parallelizes the two requests', () => {
   const content = getPageContent();
 
-  // The starter blocks by awaiting two useFetch calls one after another.
-  // Any valid parallelization fixes the stated slowness:
-  //   - Promise.all([...]) over useFetch or $fetch
-  //   - useAsyncData(() => Promise.all([$fetch, $fetch])) (the canonical pattern)
-  //   - multiple non-awaited useFetch/useAsyncData calls (Nuxt runs them concurrently)
-  // https://nuxt.com/docs/4.x/getting-started/data-fetching#making-parallel-requests
+  // The starter blocks by awaiting two requests one after another. A real fix
+  // either wraps them in Promise.all, or stops awaiting them sequentially.
+  // Counting *any* awaited fetch (useFetch/useAsyncData/$fetch) closes the
+  // "two awaited $fetch calls" loophole, which is still sequential.
   const usesPromiseAll = /Promise\.all/.test(content);
-  const sequentialAwaits = (
-    content.match(/await\s+use(?:Lazy)?(?:Fetch|AsyncData)\s*\(/g) ?? []
+  const awaitedFetches = (
+    content.match(/await\s+(?:\$fetch|use(?:Lazy)?(?:Fetch|AsyncData))\s*(?:<[^>]*>)?\s*\(/g) ?? []
   ).length;
 
-  expect(usesPromiseAll || sequentialAwaits < 2).toBe(true);
+  expect(usesPromiseAll || awaitedFetches < 2).toBe(true);
 });
 
 test('Still fetches user data from jsonplaceholder', () => {

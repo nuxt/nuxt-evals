@@ -2,7 +2,8 @@
  * Avoid Redundant Ref + Watch
  *
  * Tests whether the agent replaces redundant ref() + watch() patterns
- * with computed() for derived values.
+ * with computed() for derived values. After the fix there should be no
+ * watchers at all and no extra refs mirroring values derivable from products.
  *
  * Tricky because agents often leave watch-based sync patterns in place
  * or replace them with other ref-based patterns instead of computed().
@@ -32,17 +33,21 @@ test('Uses computed for derived values', () => {
   expect(content).toMatch(/computed\s*\(/);
 });
 
-test('Does not use watch for derived values', () => {
+test('Does not use any watcher', () => {
   const content = getPageContent();
 
-  // Should NOT use watch to sync derived state
-  expect(content).not.toMatch(/watch\s*\(\s*products/);
+  // The whole point is to drop watch-based syncing in favour of computed.
+  expect(content).not.toMatch(/\bwatch(?:Effect)?\s*\(/);
 });
 
-test('Does not use separate refs for calculated values', () => {
+test('Has no extra refs beyond the products source of truth', () => {
   const content = getPageContent();
 
-  // Should NOT have ref() for values derivable from products
+  const refCount = (content.match(/(?:const|let)\s+\w+\s*=\s*ref\s*[<(]/g) ?? []).length;
+  // Only `products` should remain a ref; derived values must be computed.
+  expect(refCount).toBeLessThanOrEqual(1);
+
+  // Belt and suspenders: the known derived values must not be refs.
   expect(content).not.toMatch(/(?:const|let)\s+totalProducts\s*=\s*ref\s*\(/);
   expect(content).not.toMatch(/(?:const|let)\s+inStockCount\s*=\s*ref\s*\(/);
   expect(content).not.toMatch(/(?:const|let)\s+averagePrice\s*=\s*ref\s*\(/);
@@ -51,9 +56,8 @@ test('Does not use separate refs for calculated values', () => {
 test('Still has products as reactive state', () => {
   const content = getPageContent();
 
-  // Products should still be a ref (it's the source of truth)
   expect(content).toMatch(/products/);
-  expect(content).toMatch(/ref\s*[<(]/);
+  expect(content).toMatch(/ref\s*[<(]|reactive\s*\(/);
 });
 
 test('Still displays total count', () => {

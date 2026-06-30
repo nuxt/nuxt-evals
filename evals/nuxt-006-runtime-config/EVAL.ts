@@ -2,96 +2,125 @@
  * Nuxt Runtime Config
  *
  * Tests whether the agent correctly uses useRuntimeConfig with proper
- * separation of public vs private keys.
+ * separation of public vs private keys: the app name belongs in the public
+ * block, the secret must stay private (top-level runtimeConfig), and runtime
+ * code must read from useRuntimeConfig rather than process.env.
  *
- * Tricky because agents confuse runtimeConfig with app.config, or put
- * private keys in the public section, or use process.env directly instead
- * of the runtimeConfig pattern.
+ * Tricky because agents confuse runtimeConfig with app.config, leak the secret
+ * into the public block, or read process.env directly in app/server code.
  */
 
 import { expect, test } from 'vitest';
-import { existsSync, readFileSync, readdirSync } from 'fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
 
 function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
 }
 
-test('Runtime config is defined in nuxt.config', () => {
-  const configPath = join(process.cwd(), 'nuxt.config.ts');
-  const content = readFileSync(configPath, 'utf-8');
+function collectFiles(dir: string, exts: string[]): string[] {
+  if (!existsSync(dir)) return [];
+  const out: string[] = [];
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) out.push(...collectFiles(full, exts));
+    else if (exts.some(e => entry.endsWith(e))) out.push(full);
+  }
+  return out;
+}
 
-  expect(content).toMatch(/runtimeConfig/);
-});
+/** Extract the balanced `{ ... }` block that follows `key:`. */
+function extractBlock(content: string, key: string): string | null {
+  const m = content.match(new RegExp(key + '\\s*:\\s*\\{'));
+  if (!m || m.index === undefined) return null;
+  const start = content.indexOf('{', m.index);
+  let depth = 0;
+  for (let j = start; j < content.length; j++) {
+    if (content[j] === '{') depth++;
+    else if (content[j] === '}') {
+      depth--;
+      if (depth === 0) return content.slice(start, j + 1);
+    }
+  }
+  return null;
+}
 
-test('Runtime config has public section', () => {
-  const configPath = join(process.cwd(), 'nuxt.config.ts');
-  const content = readFileSync(configPath, 'utf-8');
+const SECRET = /api(?:Key|Secret)|secret/i;
 
-  // Should have public nested inside runtimeConfig
-  expect(content).toMatch(/runtimeConfig[\s\S]*?public/);
-});
+function getConfig(): string {
+  return readFileSync(join(process.cwd(), 'nuxt.config.ts'), 'utf-8');
+}
 
-test('Public config has app name', () => {
-  const configPath = join(process.cwd(), 'nuxt.config.ts');
-  const content = readFileSync(configPath, 'utf-8');
-
-  // Should have some app name in public config
-  expect(content).toMatch(/public[\s\S]*?(appName|name|title)/i);
-});
-
-test('Private config has API key (not in public)', () => {
-  const configPath = join(process.cwd(), 'nuxt.config.ts');
-  const content = readFileSync(configPath, 'utf-8');
-
-  // Should have apiKey/secret somewhere in runtimeConfig
-  expect(content).toMatch(/runtimeConfig[\s\S]*?(apiKey|apiSecret|secret)/i);
-});
-
-test('Frontend page uses useRuntimeConfig', () => {
-  const pagePath = findFile(
+function getPagePath(): string {
+  const p = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
+  expect(p).toBeDefined();
+  return p!;
+}
 
-  expect(pagePath).toBeDefined();
+test('Runtime config is defined in nuxt.config', () => {
+  expect(getConfig()).toMatch(/runtimeConfig/);
+});
 
-  const content = readFileSync(pagePath!, 'utf-8');
+test('Public config block exists and exposes the app name', () => {
+  const publicBlock = extractBlock(getConfig(), 'public');
 
-  // Should use useRuntimeConfig (not process.env)
+  expect(publicBlock, 'runtimeConfig.public block not found').toBeTruthy();
+  expect(publicBlock!).toMatch(/appName|name|title/i);
+});
+
+test('Secret stays private (not in the public block)', () => {
+  const config = getConfig();
+  const publicBlock = extractBlock(config, 'public');
+
+  // The secret has to exist in runtimeConfig...
+  expect(config).toMatch(SECRET);
+  // ...but it must NOT live inside the public block (that would expose it to the client).
+  expect(publicBlock, 'runtimeConfig.public block not found').toBeTruthy();
+  expect(SECRET.test(publicBlock!), 'secret key leaked into runtimeConfig.public').toBe(false);
+});
+
+test('Frontend page uses useRuntimeConfig (not process.env)', () => {
+  const content = readFileSync(getPagePath(), 'utf-8');
+
   expect(content).toMatch(/useRuntimeConfig/);
   expect(content).not.toMatch(/process\.env/);
 });
 
 test('Frontend accesses public config correctly', () => {
-  const pagePath = findFile(
-    join(process.cwd(), 'app', 'pages', 'index.vue'),
-    join(process.cwd(), 'app', 'app.vue'),
-  );
+  const content = readFileSync(getPagePath(), 'utf-8');
 
-  expect(pagePath).toBeDefined();
-
-  const content = readFileSync(pagePath!, 'utf-8');
-
-  // Accept inline access (.public) or destructured ({ public: ... })
   const hasInlineAccess = /config\.public|runtimeConfig\.public|useRuntimeConfig\(\)\.public/.test(content);
   const hasDestructured = /\{\s*public\s*:/.test(content) && /useRuntimeConfig/.test(content);
 
   expect(hasInlineAccess || hasDestructured).toBe(true);
 });
 
-test('API route exists and uses runtime config', () => {
+test('API route reads the secret from runtime config', () => {
   const serverApiDir = join(process.cwd(), 'server', 'api');
 
   expect(existsSync(serverApiDir)).toBe(true);
 
   const files = readdirSync(serverApiDir);
   const apiFile = files.find(f => f.endsWith('.ts'));
-
   expect(apiFile).toBeDefined();
 
   const content = readFileSync(join(serverApiDir, apiFile!), 'utf-8');
 
-  // Server-side should use useRuntimeConfig
   expect(content).toMatch(/useRuntimeConfig/);
+  expect(content).toMatch(SECRET);
+});
+
+test('No app or server code reads process.env directly', () => {
+  const files = [
+    ...collectFiles(join(process.cwd(), 'app'), ['.vue', '.ts']),
+    ...collectFiles(join(process.cwd(), 'server'), ['.ts']),
+  ];
+
+  for (const file of files) {
+    const content = readFileSync(file, 'utf-8');
+    expect(content, `${file} reads process.env directly`).not.toMatch(/process\.env/);
+  }
 });

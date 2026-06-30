@@ -2,7 +2,8 @@
  * Fix Watch + $fetch Anti-Pattern
  *
  * Tests whether the agent replaces the manual watch() + $fetch() + onMounted()
- * pattern with useFetch using a computed/reactive URL.
+ * pattern with useFetch using a computed/reactive URL — and keeps the loading
+ * and error states, now driven by the composable's own status/error.
  *
  * Tricky because the watch + $fetch pattern works functionally but causes
  * flicker on SSR (client-only fetch), shows stale data during navigation,
@@ -38,12 +39,6 @@ test('Uses useFetch or useAsyncData', () => {
 test('Uses computed URL or reactive pattern for refetching', () => {
   const content = getPageContent();
 
-  // Should use one of these Nuxt reactive patterns:
-  // 1. Computed getter as URL: useFetch(() => `/api/users/${id.value}`)
-  // 2. Computed ref: const url = computed(() => ...); useFetch(url)
-  // 3. Watch option: useFetch(url, { watch: [...] })
-  // 4. useAsyncData with $fetch getter
-  // Note: regex accounts for optional TypeScript generics like useFetch<User>(...)
   const hasComputedUrl = /useFetch\s*(?:<[^>]*>)?\s*\(\s*\(\)\s*=>/.test(content);
   const hasComputedRef = /computed\s*\(/.test(content) && /useFetch/.test(content);
   const hasWatchOption = /watch\s*:\s*\[/.test(content);
@@ -74,6 +69,18 @@ test('Does not use manual error ref', () => {
   const content = getPageContent();
 
   expect(content).not.toMatch(/(?:const|let)\s+error\s*=\s*ref\s*\(/);
+});
+
+test('Keeps a loading state driven by the composable (status/pending)', () => {
+  const content = getPageContent();
+
+  expect(content).toMatch(/\b(pending|status)\b/);
+});
+
+test('Keeps an error state driven by the composable', () => {
+  const content = getPageContent();
+
+  expect(content).toMatch(/\berror\b/);
 });
 
 test('Still fetches from the users API', () => {
