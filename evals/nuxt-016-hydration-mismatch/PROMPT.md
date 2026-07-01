@@ -1,0 +1,1 @@
+This page logs a hydration mismatch warning in the console, and the displayed time briefly flickers and changes right after the page loads. Fix it following Nuxt best practices, keeping the load time visible.

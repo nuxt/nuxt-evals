@@ -1,0 +1,1 @@
+The signed-in profile is shared across pages so it persists as the user navigates. It works fine locally, but in production users occasionally see another user's profile. Fix it following Nuxt best practices while keeping the profile shared across pages.
