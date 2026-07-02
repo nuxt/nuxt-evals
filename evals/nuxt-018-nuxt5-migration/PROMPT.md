@@ -1,0 +1,1 @@
+Get this Nuxt 4 app ready for Nuxt 5: opt into the Nuxt 5 compatibility version, and update the deprecated data-fetching patterns on the homepage so they follow the current API. Keep the same behavior.
