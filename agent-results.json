@@ -1,111 +1,111 @@
 {
   "metadata": {
-    "exportedAt": "2026-07-02T12:04:07.673Z",
+    "exportedAt": "2026-07-02T13:08:13.201Z",
     "experiments": [
       {
         "name": "claude-fable-5",
-        "timestamp": "2026-07-02T11:01:42.217Z",
+        "timestamp": "2026-07-02T12:48:58.293Z",
         "modelName": "Claude Fable 5",
         "agentHarness": "Claude Code",
-        "avgDuration": 288.37925925925924
+        "avgDuration": 297.8064827586207
       },
       {
         "name": "claude-opus-4.6",
-        "timestamp": "2026-07-02T11:01:42.229Z",
+        "timestamp": "2026-07-02T12:48:58.330Z",
         "modelName": "Claude Opus 4.6",
         "agentHarness": "Claude Code",
-        "avgDuration": 240.62505555555555
+        "avgDuration": 238.17772413793105
       },
       {
         "name": "claude-opus-4.7",
-        "timestamp": "2026-07-02T11:01:42.242Z",
+        "timestamp": "2026-07-02T12:48:58.356Z",
         "modelName": "Claude Opus 4.7",
         "agentHarness": "Claude Code",
-        "avgDuration": 219.2631265432099
+        "avgDuration": 217.85804885057473
       },
       {
         "name": "claude-opus-4.8",
-        "timestamp": "2026-07-02T11:01:42.253Z",
+        "timestamp": "2026-07-02T12:48:58.378Z",
         "modelName": "Claude Opus 4.8",
         "agentHarness": "Claude Code",
-        "avgDuration": 252.06248148148148
+        "avgDuration": 253.31549425287355
       },
       {
         "name": "claude-sonnet-4.5",
-        "timestamp": "2026-07-02T11:01:42.267Z",
+        "timestamp": "2026-07-02T12:48:58.393Z",
         "modelName": "Claude Sonnet 4.5",
         "agentHarness": "Claude Code",
-        "avgDuration": 242.98042901234567
+        "avgDuration": 239.2730459770115
       },
       {
         "name": "claude-sonnet-4.6",
-        "timestamp": "2026-07-02T11:01:42.277Z",
+        "timestamp": "2026-07-02T12:48:58.408Z",
         "modelName": "Claude Sonnet 4.6",
         "agentHarness": "Claude Code",
-        "avgDuration": 257.3429845679013
+        "avgDuration": 252.04502011494253
       },
       {
         "name": "cursor-composer-2.0",
-        "timestamp": "2026-07-02T11:01:42.289Z",
+        "timestamp": "2026-07-02T12:48:58.421Z",
         "modelName": "Cursor Composer 2.0",
         "agentHarness": "Cursor",
-        "avgDuration": 266.74022222222226
+        "avgDuration": 264.6118275862069
       },
       {
         "name": "cursor-composer-2.5",
-        "timestamp": "2026-07-02T11:01:42.302Z",
+        "timestamp": "2026-07-02T12:48:58.435Z",
         "modelName": "Cursor Composer 2.5",
         "agentHarness": "Cursor",
-        "avgDuration": 250.62116666666665
+        "avgDuration": 247.42987931034483
       },
       {
         "name": "gemini-3-pro-preview",
-        "timestamp": "2026-07-02T11:01:42.313Z",
+        "timestamp": "2026-07-02T12:48:58.448Z",
         "modelName": "Gemini 3 Pro Preview",
         "agentHarness": "OpenCode",
-        "avgDuration": 281.4317222222222
+        "avgDuration": 279.3991206896552
       },
       {
         "name": "gemini-3.1-pro-preview",
-        "timestamp": "2026-07-02T11:01:42.327Z",
+        "timestamp": "2026-07-02T12:48:58.460Z",
         "modelName": "Gemini 3.1 Pro Preview",
         "agentHarness": "OpenCode",
-        "avgDuration": 272.494962962963
+        "avgDuration": 282.5031379310345
       },
       {
         "name": "gpt-5.3-codex-xhigh",
-        "timestamp": "2026-07-02T11:01:42.338Z",
+        "timestamp": "2026-07-02T12:48:58.478Z",
         "modelName": "GPT 5.3 Codex (xhigh)",
         "agentHarness": "Codex",
-        "avgDuration": 274.83653395061725
+        "avgDuration": 277.71358333333336
       },
       {
         "name": "gpt-5.4-xhigh",
-        "timestamp": "2026-07-02T11:01:42.353Z",
+        "timestamp": "2026-07-02T12:48:58.498Z",
         "modelName": "GPT 5.4 (xhigh)",
         "agentHarness": "Codex",
-        "avgDuration": 295.52050308641975
+        "avgDuration": 294.38667528735624
       },
       {
         "name": "gpt-5.5-pro",
-        "timestamp": "2026-07-02T11:01:42.365Z",
+        "timestamp": "2026-07-02T12:48:58.514Z",
         "modelName": "GPT 5.5 Pro",
         "agentHarness": "Codex",
-        "avgDuration": 913.8961481481482
+        "avgDuration": 888.5776551724138
       },
       {
         "name": "kimi-k2.6",
-        "timestamp": "2026-07-02T11:01:42.377Z",
+        "timestamp": "2026-07-02T12:48:58.528Z",
         "modelName": "Kimi K2.6",
         "agentHarness": "OpenCode",
-        "avgDuration": 297.43125308641976
+        "avgDuration": 292.2845977011495
       },
       {
         "name": "minimax-m2.7",
-        "timestamp": "2026-07-02T11:01:42.391Z",
+        "timestamp": "2026-07-02T12:48:58.543Z",
         "modelName": "MiniMax M2.7",
         "agentHarness": "OpenCode",
-        "avgDuration": 196.16802777777778
+        "avgDuration": 195.47346551724138
       }
     ]
   },
@@ -262,6 +262,24 @@
           "duration": 199328,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:40:16.928Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 506060,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.293Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 344088,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.293Z"
         }
       },
       {
@@ -510,6 +528,24 @@
         }
       },
       {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 165081,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.330Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 245196.5,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.330Z"
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "result": {
           "success": true,
@@ -752,6 +788,24 @@
           "duration": 155192.66666666666,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:40:16.961Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 181020,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.356Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 216759,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.356Z"
         }
       },
       {
@@ -1000,6 +1054,24 @@
         }
       },
       {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 320657.3333333333,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.378Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 219805,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.378Z"
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "result": {
           "success": true,
@@ -1242,6 +1314,24 @@
           "duration": 159294,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:40:16.992Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": false,
+          "duration": 188325.75,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.393Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": false,
+          "duration": 190120.99999999997,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.393Z"
         }
       },
       {
@@ -1490,6 +1580,24 @@
         }
       },
       {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 183134,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.408Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 177911,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.408Z"
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "result": {
           "success": true,
@@ -1732,6 +1840,24 @@
           "duration": 173340,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:40:17.026Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 203821,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.421Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 267936,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.421Z"
         }
       },
       {
@@ -1980,6 +2106,24 @@
         }
       },
       {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 176822,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.435Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 231873,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.435Z"
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "result": {
           "success": true,
@@ -2222,6 +2366,24 @@
           "duration": 173815,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:19:28.626Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 312998,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.448Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 190920,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.448Z"
         }
       },
       {
@@ -2470,6 +2632,24 @@
         }
       },
       {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 510748,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.460Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 324479,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.460Z"
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "result": {
           "success": true,
@@ -2712,6 +2892,24 @@
           "duration": 152233,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:19:28.658Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 176896,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.478Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 456211.5,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.478Z"
         }
       },
       {
@@ -2960,6 +3158,24 @@
         }
       },
       {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 248477,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.498Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 309683,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.498Z"
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "result": {
           "success": true,
@@ -3202,6 +3418,24 @@
           "duration": 306401,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:40:17.129Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 372705,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.514Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 720851,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.514Z"
         }
       },
       {
@@ -3450,6 +3684,24 @@
         }
       },
       {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 242980,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.528Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": true,
+          "duration": 202629.5,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.528Z"
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "result": {
           "success": true,
@@ -3692,6 +3944,24 @@
           "duration": 174340,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:40:17.159Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-017-shallow-reactivity",
+        "result": {
+          "success": true,
+          "duration": 197716.99999999997,
+          "evalPath": "nuxt-017-shallow-reactivity",
+          "timestamp": "2026-07-02T12:48:58.543Z"
+        }
+      },
+      {
+        "evalPath": "nuxt-018-nuxt5-migration",
+        "result": {
+          "success": false,
+          "duration": 174476.75,
+          "evalPath": "nuxt-018-nuxt5-migration",
+          "timestamp": "2026-07-02T12:48:58.543Z"
         }
       },
       {
