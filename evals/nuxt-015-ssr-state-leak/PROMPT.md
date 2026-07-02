@@ -1,1 +1,0 @@
-Create a `useProfile` composable that holds the signed-in user's name and email and is shared across pages, with a method to update it. The home and account pages already call `useProfile()` — implement the composable so the profile stays in sync between them.

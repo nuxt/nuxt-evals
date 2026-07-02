@@ -1,111 +1,111 @@
 {
   "metadata": {
-    "exportedAt": "2026-07-02T09:54:26.567Z",
+    "exportedAt": "2026-07-02T10:05:15.219Z",
     "experiments": [
       {
         "name": "claude-fable-5",
         "timestamp": "2026-07-02T09:40:16.928Z",
         "modelName": "Claude Fable 5",
         "agentHarness": "Claude Code",
-        "avgDuration": 285.44464285714287
+        "avgDuration": 291.41092307692304
       },
       {
         "name": "claude-opus-4.6",
         "timestamp": "2026-07-02T09:40:16.948Z",
         "modelName": "Claude Opus 4.6",
         "agentHarness": "Claude Code",
-        "avgDuration": 237.089375
+        "avgDuration": 242.49298076923077
       },
       {
         "name": "claude-opus-4.7",
         "timestamp": "2026-07-02T09:40:16.961Z",
         "modelName": "Claude Opus 4.7",
         "agentHarness": "Claude Code",
-        "avgDuration": 216.41462202380953
+        "avgDuration": 220.6387467948718
       },
       {
         "name": "claude-opus-4.8",
         "timestamp": "2026-07-02T09:19:28.614Z",
         "modelName": "Claude Opus 4.8",
         "agentHarness": "Claude Code",
-        "avgDuration": 248.2357857142857
+        "avgDuration": 254.7395
       },
       {
         "name": "claude-sonnet-4.5",
         "timestamp": "2026-07-02T09:40:16.992Z",
         "modelName": "Claude Sonnet 4.5",
         "agentHarness": "Claude Code",
-        "avgDuration": 239.5732976190476
+        "avgDuration": 244.84574358974356
       },
       {
         "name": "claude-sonnet-4.6",
         "timestamp": "2026-07-02T09:40:17.006Z",
         "modelName": "Claude Sonnet 4.6",
         "agentHarness": "Claude Code",
-        "avgDuration": 253.23477083333336
+        "avgDuration": 260.25256089743596
       },
       {
         "name": "cursor-composer-2.0",
         "timestamp": "2026-07-02T09:40:17.026Z",
         "modelName": "Cursor Composer 2.0",
         "agentHarness": "Cursor",
-        "avgDuration": 263.75960714285713
+        "avgDuration": 269.20257692307695
       },
       {
         "name": "cursor-composer-2.5",
         "timestamp": "2026-07-02T09:40:17.045Z",
         "modelName": "Cursor Composer 2.5",
         "agentHarness": "Cursor",
-        "avgDuration": 246.77001785714288
+        "avgDuration": 252.04363461538463
       },
       {
         "name": "gemini-3-pro-preview",
         "timestamp": "2026-07-02T09:19:28.626Z",
         "modelName": "Gemini 3 Pro Preview",
         "agentHarness": "OpenCode",
-        "avgDuration": 277.8540178571428
+        "avgDuration": 284.62805769230766
       },
       {
         "name": "gemini-3.1-pro-preview",
         "timestamp": "2026-07-02T09:19:28.643Z",
         "modelName": "Gemini 3.1 Pro Preview",
         "agentHarness": "OpenCode",
-        "avgDuration": 269.1376785714286
+        "avgDuration": 275.1665
       },
       {
         "name": "gpt-5.3-codex-xhigh",
         "timestamp": "2026-07-02T09:19:28.658Z",
         "modelName": "GPT 5.3 Codex (xhigh)",
         "agentHarness": "Codex",
-        "avgDuration": 269.41655059523805
+        "avgDuration": 277.1134391025641
       },
       {
         "name": "gpt-5.4-xhigh",
         "timestamp": "2026-07-02T09:40:17.116Z",
         "modelName": "GPT 5.4 (xhigh)",
         "agentHarness": "Codex",
-        "avgDuration": 290.6170922619048
+        "avgDuration": 299.9346378205129
       },
       {
         "name": "gpt-5.5-pro",
         "timestamp": "2026-07-02T09:40:17.129Z",
         "modelName": "GPT 5.5 Pro",
         "agentHarness": "Codex",
-        "avgDuration": 881.8848928571429
+        "avgDuration": 924.0872307692307
       },
       {
         "name": "kimi-k2.6",
         "timestamp": "2026-07-02T09:19:28.670Z",
         "modelName": "Kimi K2.6",
         "agentHarness": "OpenCode",
-        "avgDuration": 292.58995833333336
+        "avgDuration": 302.0423782051283
       },
       {
         "name": "minimax-m2.7",
         "timestamp": "2026-07-02T09:40:17.159Z",
         "modelName": "MiniMax M2.7",
         "agentHarness": "OpenCode",
-        "avgDuration": 195.35124107142857
+        "avgDuration": 196.94433653846153
       }
     ]
   },
@@ -247,29 +247,11 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 205873,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:40:16.928Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 199328,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:16.928Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 209893,
-          "evalPath": "nuxt-017-async-data-key-collision",
           "timestamp": "2026-07-02T09:40:16.928Z"
         }
       },
@@ -501,29 +483,11 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 182099,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:40:16.948Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": false,
           "duration": 151095.50000000003,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:16.948Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 151586,
-          "evalPath": "nuxt-017-async-data-key-collision",
           "timestamp": "2026-07-02T09:40:16.948Z"
         }
       },
@@ -755,29 +719,11 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 161375,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:40:16.961Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 155192.66666666666,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:16.961Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 161627,
-          "evalPath": "nuxt-017-async-data-key-collision",
           "timestamp": "2026-07-02T09:40:16.961Z"
         }
       },
@@ -1009,30 +955,12 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 181000,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:19:28.614Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 147611,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:19:28.614Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 146375,
-          "evalPath": "nuxt-017-async-data-key-collision",
-          "timestamp": "2026-07-02T08:49:30.924Z"
         }
       },
       {
@@ -1263,29 +1191,11 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 169893,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:40:16.992Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 159294,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:16.992Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 172170,
-          "evalPath": "nuxt-017-async-data-key-collision",
           "timestamp": "2026-07-02T09:40:16.992Z"
         }
       },
@@ -1517,30 +1427,12 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 173675,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:40:17.006Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": false,
           "duration": 155195.75,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:40:17.006Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 150332,
-          "evalPath": "nuxt-017-async-data-key-collision",
-          "timestamp": "2026-07-02T08:54:38.468Z"
         }
       },
       {
@@ -1771,29 +1663,11 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 202819,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:40:17.026Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 173340,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:17.026Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 183183,
-          "evalPath": "nuxt-017-async-data-key-collision",
           "timestamp": "2026-07-02T09:40:17.026Z"
         }
       },
@@ -2025,29 +1899,11 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 186307,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:40:17.045Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 162820,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:17.045Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 170119,
-          "evalPath": "nuxt-017-async-data-key-collision",
           "timestamp": "2026-07-02T09:40:17.045Z"
         }
       },
@@ -2279,30 +2135,12 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 207940,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:19:28.626Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 173815,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:19:28.626Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 171643,
-          "evalPath": "nuxt-017-async-data-key-collision",
-          "timestamp": "2026-07-02T08:54:52.602Z"
         }
       },
       {
@@ -2533,30 +2371,12 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 207591,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:19:28.643Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 176046,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:19:28.643Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 173935,
-          "evalPath": "nuxt-017-async-data-key-collision",
-          "timestamp": "2026-07-02T08:54:52.616Z"
         }
       },
       {
@@ -2787,30 +2607,12 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 176173,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:19:28.658Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 152233,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:19:28.658Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 162541,
-          "evalPath": "nuxt-017-async-data-key-collision",
-          "timestamp": "2026-07-02T08:54:52.639Z"
         }
       },
       {
@@ -3041,29 +2843,11 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 170879,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:40:17.116Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 155133,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:17.116Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 168099,
-          "evalPath": "nuxt-017-async-data-key-collision",
           "timestamp": "2026-07-02T09:40:17.116Z"
         }
       },
@@ -3295,29 +3079,11 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 321207,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:40:17.129Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 306401,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:17.129Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 345302,
-          "evalPath": "nuxt-017-async-data-key-collision",
           "timestamp": "2026-07-02T09:40:17.129Z"
         }
       },
@@ -3549,30 +3315,12 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 165380,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:19:28.670Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 151346,
           "evalPath": "nuxt-016-hydration-mismatch",
           "timestamp": "2026-07-02T09:19:28.670Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 174037,
-          "evalPath": "nuxt-017-async-data-key-collision",
-          "timestamp": "2026-07-02T08:54:52.652Z"
         }
       },
       {
@@ -3803,29 +3551,11 @@
         }
       },
       {
-        "evalPath": "nuxt-015-ssr-state-leak",
-        "result": {
-          "success": true,
-          "duration": 159247,
-          "evalPath": "nuxt-015-ssr-state-leak",
-          "timestamp": "2026-07-02T09:40:17.159Z"
-        }
-      },
-      {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
           "duration": 174340,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:17.159Z"
-        }
-      },
-      {
-        "evalPath": "nuxt-017-async-data-key-collision",
-        "result": {
-          "success": true,
-          "duration": 190035,
-          "evalPath": "nuxt-017-async-data-key-collision",
           "timestamp": "2026-07-02T09:40:17.159Z"
         }
       },
