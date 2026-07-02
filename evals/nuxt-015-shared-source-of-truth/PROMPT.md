@@ -1,0 +1,1 @@
+The list of supported currencies and the `isSupportedCurrency` validator are duplicated — one copy in the app (`app/utils/currency.ts`) and another in the server (`server/utils/currency.ts`) — so they drift out of sync. Consolidate them into a single source of truth that both the currencies page and the `/api/convert` route use, following Nuxt conventions.
