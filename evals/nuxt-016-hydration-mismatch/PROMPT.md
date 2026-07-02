@@ -1,1 +1,1 @@
-This page logs a hydration mismatch warning in the console, and the displayed time briefly flickers and changes right after the page loads. Fix it following Nuxt best practices, keeping the load time visible.
+Add a line to the dashboard that shows the exact time the page was loaded, for example "Page loaded at: 3:42:15 PM".

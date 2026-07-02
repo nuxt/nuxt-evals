@@ -1,17 +1,19 @@
 /**
- * Fix an SSR hydration mismatch from a non-deterministic render
+ * Avoid an SSR hydration mismatch when showing the load time (constructive)
  *
- * The starter renders `new Date()` computed in <script setup>. That value is
- * produced once on the server and again (differently) on the client, so the
- * server-rendered HTML and the client render disagree — a hydration mismatch.
+ * The task asks the agent to add the page's load time — with no mention of SSR
+ * or hydration. The naive answer, `new Date()` computed in <script setup> and
+ * rendered, is produced once on the server and again (differently) on the
+ * client, so the SSR HTML and the client render disagree — a hydration mismatch.
  *
- * The fix is to make the value stable across the SSR/client boundary: compute
- * it once with useState (serialized into the payload), defer it to the client
- * with onMounted, or isolate it with <ClientOnly>.
+ * A correct answer makes the value stable across the SSR/client boundary:
+ * compute it once with useState (serialized into the payload), defer it to the
+ * client with onMounted, or isolate it with <ClientOnly>.
  *
- * Wrong-prior: models treat setup like a plain client component and leave
- * server/client-divergent values in the render — it "works" but warns and
- * flickers, which is invisible unless you watch SSR hydration.
+ * Wrong-prior: models treat setup like a plain client component and render a
+ * server/client-divergent value — it "works" but warns and flickers, invisible
+ * unless you watch SSR hydration. The prompt gives no symptom, so the model
+ * must anticipate the SSR boundary unprompted.
  */
 
 import { expect, test } from 'vitest';
@@ -31,11 +33,12 @@ function getPageContent(): string {
   return readFileSync(p, 'utf-8');
 }
 
-test('Still displays the load time', () => {
+test('Displays the load time', () => {
   const content = getPageContent();
 
+  // Something dynamic must be rendered (the task is to show the load time).
   expect(content).toMatch(/\{\{/);
-  expect(content).toMatch(/time|now/i);
+  expect(content).toMatch(/time|now|loaded|clock/i);
 });
 
 test('Uses an SSR-safe pattern (useState, onMounted, or ClientOnly)', () => {

@@ -1,1 +1,1 @@
-The signed-in profile is shared across pages so it persists as the user navigates. It works fine locally, but in production users occasionally see another user's profile. Fix it following Nuxt best practices while keeping the profile shared across pages.
+Create a `useProfile` composable that holds the signed-in user's name and email and is shared across pages, with a method to update it. The home and account pages already call `useProfile()` — implement the composable so the profile stays in sync between them.

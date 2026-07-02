@@ -10,7 +10,9 @@
  *
  * Wrong-prior: the SPA/Vue habit of a module-level reactive() store looks
  * correct and works locally (a single client), so the leak is invisible without
- * a real server handling concurrent requests.
+ * a real server handling concurrent requests. The prompt is constructive ("build
+ * a shared profile composable") and never mentions the leak, so the model must
+ * reach for useState on its own rather than the module-singleton habit.
  */
 
 import { expect, test } from 'vitest';
