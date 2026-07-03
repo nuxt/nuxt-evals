@@ -13,12 +13,23 @@
 
 import { readdir, readFile, writeFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
+import {
+  computeFingerprint,
+  discoverFixtures,
+  loadConfig,
+  type ResolvedExperimentConfig,
+} from '@vercel/agent-eval';
 
 interface SummaryJson {
   totalRuns: number;
   passedRuns: number;
   meanDuration: number;
   valid?: boolean;
+  fingerprint?: string;
+}
+
+interface RunResultJson {
+  status: string;
 }
 
 interface AgentResult {
@@ -28,6 +39,14 @@ interface AgentResult {
     duration: number;
     evalPath: string;
     timestamp: string;
+    /** passedRuns / totalRuns. Under earlyExit: true this is censored
+     * (runs stop at first pass), so it understates per-run reliability
+     * for retried evals — firstRunSuccess is the unbiased signal. */
+    passRate: number;
+    passedRuns: number;
+    totalRuns: number;
+    /** Whether run-1 passed — an unbiased per-run sample under any earlyExit mode. */
+    firstRunSuccess: boolean;
   };
 }
 
@@ -40,6 +59,10 @@ interface ExportedData {
       modelName: string;
       agentHarness: string;
       avgDuration?: number;
+      /** Fraction of evals whose first run passed (unbiased pass@1). */
+      passAt1?: number;
+      /** Mean per-eval passRate (censored under earlyExit: true). */
+      avgPassRate?: number;
     }>;
   };
   results: Record<string, AgentResult[]>;
@@ -113,18 +136,52 @@ function parseTimestamp(ts: string): string {
   return ts;
 }
 
-async function getAgentHarness(experiment: string): Promise<string> {
+/**
+ * Whether run-1 of an eval passed, from run-1/result.json.
+ * Falls back to the summary when run dirs are missing (older results):
+ * under earlyExit: true, run-1 passed iff the harness stopped after one run.
+ */
+async function getFirstRunSuccess(
+  evalDir: string,
+  summary: SummaryJson
+): Promise<boolean> {
   try {
-    const configPath = join('experiments', `${experiment}.ts`);
-    const content = await readFile(configPath, 'utf-8');
-    const match = content.match(/agent:\s*['"]([^'"]+)['"]/);
-    if (match) {
-      return HARNESS_NAMES[match[1]] || match[1];
-    }
+    const raw = await readFile(join(evalDir, 'run-1', 'result.json'), 'utf-8');
+    const result: RunResultJson = JSON.parse(raw);
+    return result.status === 'passed';
   } catch {
-    // Config file may not exist for old results
+    return summary.totalRuns === 1 && summary.passedRuns > 0;
   }
-  return 'Unknown';
+}
+
+async function loadExperimentConfig(
+  experiment: string
+): Promise<ResolvedExperimentConfig | null> {
+  try {
+    const configPath = join(process.cwd(), 'experiments', `${experiment}.ts`);
+    return await loadConfig(configPath);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Compute the current fingerprint for every eval under evals/, using the same
+ * hash as the harness (eval files + config fields that affect results).
+ * Only stored results matching these fingerprints are exported — anything
+ * else was produced by a different eval version or experiment config and
+ * must not be mixed into agent-results.json.
+ */
+function computeCurrentFingerprints(
+  config: ResolvedExperimentConfig
+): Record<string, string> {
+  const evalsDir = join(process.cwd(), 'evals');
+  const fingerprints: Record<string, string> = {};
+  // Same discovery rule as the harness: a fixture is a dir with a PROMPT.md
+  for (const evalName of discoverFixtures(evalsDir)) {
+    fingerprints[evalName] = computeFingerprint(join(evalsDir, evalName), config);
+  }
+  return fingerprints;
 }
 
 async function main(): Promise<void> {
@@ -165,6 +222,15 @@ async function main(): Promise<void> {
       continue;
     }
 
+    const config = await loadExperimentConfig(experiment);
+    if (!config) {
+      console.warn(
+        `Skipping ${experiment}: no experiments/${experiment}.ts config — cannot validate result fingerprints`
+      );
+      continue;
+    }
+    const currentFingerprints = computeCurrentFingerprints(config);
+
     // Find all timestamp directories (may be nested under model subdirs)
     const tsDirs = await findTimestampDirs(expDir);
     if (tsDirs.length === 0) continue;
@@ -181,6 +247,7 @@ async function main(): Promise<void> {
     const latestTimestamp = sortedTsDirs[0].split('/').pop()!;
     const agentResults: AgentResult[] = [];
     const seenEvals = new Set<string>();
+    const staleEvals = new Set<string>();
 
     for (const tsDir of sortedTsDirs) {
       const timestamp = tsDir.split('/').pop()!;
@@ -202,6 +269,18 @@ async function main(): Promise<void> {
           // Skip invalid results (infra/timeout failures)
           if (summary.valid === false) continue;
 
+          // Skip results whose fingerprint doesn't match the current eval
+          // content + experiment config — stale batches must never backfill.
+          if (summary.fingerprint !== currentFingerprints[evalDir]) {
+            staleEvals.add(evalDir);
+            continue;
+          }
+
+          const firstRunSuccess = await getFirstRunSuccess(
+            join(tsDir, evalDir),
+            summary
+          );
+
           agentResults.push({
             evalPath: evalDir,
             result: {
@@ -209,6 +288,13 @@ async function main(): Promise<void> {
               duration: summary.meanDuration * 1000,
               evalPath: evalDir,
               timestamp: parseTimestamp(timestamp),
+              passRate:
+                summary.totalRuns > 0
+                  ? summary.passedRuns / summary.totalRuns
+                  : 0,
+              passedRuns: summary.passedRuns,
+              totalRuns: summary.totalRuns,
+              firstRunSuccess,
             },
           });
           seenEvals.add(evalDir);
@@ -218,13 +304,26 @@ async function main(): Promise<void> {
       }
     }
 
+    const missingEvals = Object.keys(currentFingerprints).filter(
+      (e) => !seenEvals.has(e)
+    );
+    if (missingEvals.length > 0) {
+      console.warn(
+        `${experiment}: ${missingEvals.length}/${Object.keys(currentFingerprints).length} evals have no current result (stale or never run) — re-run before exporting: ${missingEvals.join(', ')}`
+      );
+    } else if (staleEvals.size > 0) {
+      console.log(
+        `${experiment}: ignored stale batches for ${staleEvals.size} evals (current results found)`
+      );
+    }
+
     if (agentResults.length === 0) {
       console.warn(`No valid results for: ${experiment}`);
       continue;
     }
 
     const modelName = MODEL_NAMES[experiment] || experiment;
-    const agentHarness = await getAgentHarness(experiment);
+    const agentHarness = HARNESS_NAMES[config.agent] || config.agent;
 
     // Mean run duration in seconds (durations are stored in ms)
     const avgDuration =
@@ -232,12 +331,21 @@ async function main(): Promise<void> {
       agentResults.length /
       1000;
 
+    const passAt1 =
+      agentResults.filter((r) => r.result.firstRunSuccess).length /
+      agentResults.length;
+    const avgPassRate =
+      agentResults.reduce((sum, r) => sum + r.result.passRate, 0) /
+      agentResults.length;
+
     exportedData.metadata.experiments.push({
       name: experiment,
       timestamp: parseTimestamp(latestTimestamp),
       modelName,
       agentHarness,
       avgDuration,
+      passAt1,
+      avgPassRate,
     });
 
     exportedData.results[experiment] = agentResults.sort((a, b) =>
@@ -253,6 +361,24 @@ async function main(): Promise<void> {
       totalResults++;
       if (r.result.success) totalSuccess++;
     }
+  }
+
+  // Reliability leaderboard (success ties broken by pass@1)
+  const board = [...exportedData.metadata.experiments].map((exp) => {
+    const results = exportedData.results[exp.name];
+    const successRate =
+      results.filter((r) => r.result.success).length / results.length;
+    return { ...exp, successRate };
+  });
+  board.sort(
+    (a, b) =>
+      b.successRate - a.successRate || (b.passAt1 ?? 0) - (a.passAt1 ?? 0)
+  );
+  console.log('\nModel                       success   pass@1   avgPassRate');
+  for (const exp of board) {
+    console.log(
+      `${exp.name.padEnd(28)}${(exp.successRate * 100).toFixed(0).padStart(6)}%${((exp.passAt1 ?? 0) * 100).toFixed(0).padStart(8)}%${((exp.avgPassRate ?? 0) * 100).toFixed(0).padStart(11)}%`
+    );
   }
 
   const outputPath = join(process.cwd(), 'agent-results.json');

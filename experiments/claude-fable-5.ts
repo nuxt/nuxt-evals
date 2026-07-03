@@ -4,7 +4,7 @@ const config: ExperimentConfig = {
   agent: 'vercel-ai-gateway/claude-code',
   model: 'anthropic/claude-fable-5',
   scripts: ['build'],
-  runs: 1,
+  runs: 4,
   earlyExit: true,
   timeout: 1200,
   sandbox: 'vercel',
