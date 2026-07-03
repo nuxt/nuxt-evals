@@ -24,13 +24,20 @@ function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
 }
 
+function stripComments(source: string): string {
+  return source
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/(^|[^:])\/\/.*$/gm, '$1');
+}
+
 function getPageContent(): string {
   const p = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
     join(process.cwd(), 'app', 'app.vue'),
   );
   if (!p) throw new Error('No page found');
-  return readFileSync(p, 'utf-8');
+  return stripComments(readFileSync(p, 'utf-8'));
 }
 
 test('Displays the load time', () => {
@@ -41,11 +48,17 @@ test('Displays the load time', () => {
   expect(content).toMatch(/time|now|loaded|clock/i);
 });
 
-test('Uses an SSR-safe pattern (useState, onMounted, or ClientOnly)', () => {
+test('Uses an SSR-safe pattern (useState, onMounted, ClientOnly, ...)', () => {
   const content = getPageContent();
 
-  // The value must be stabilised across the SSR/client boundary.
-  expect(content).toMatch(/useState\s*\(|onMounted\s*\(|<ClientOnly/);
+  // The value must be stabilised across the SSR/client boundary. Accept every
+  // genuinely safe pattern: payload-serialized state (useState/useAsyncData),
+  // client-deferred computation (onMounted/onNuxtReady), or render isolation
+  // (<ClientOnly>). import.meta.client in setup is NOT safe — it still
+  // renders differently on server and client.
+  expect(content).toMatch(
+    /useState\s*\(|use(?:Lazy)?AsyncData\s*\(|onMounted\s*\(|onNuxtReady\s*\(|<ClientOnly/,
+  );
 });
 
 test('Does not interpolate a non-deterministic value directly in the template', () => {

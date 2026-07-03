@@ -28,6 +28,30 @@ function getPageContent(): string {
   return readFileSync(pagePath, 'utf-8');
 }
 
+function stripComments(source: string): string {
+  return source
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/(^|[^:])\/\/.*$/gm, '$1');
+}
+
+// Extract the balanced `public: { ... }` block from the config source so the
+// secret check is structural, not dependent on key order in the file.
+function extractPublicBlock(config: string): string {
+  const idx = config.search(/\bpublic\s*:\s*\{/);
+  if (idx === -1) return '';
+
+  const start = config.indexOf('{', idx);
+  let depth = 0;
+  for (let i = start; i < config.length; i++) {
+    if (config[i] === '{') depth++;
+    else if (config[i] === '}') {
+      depth--;
+      if (depth === 0) return config.slice(start, i + 1);
+    }
+  }
+  return config.slice(start);
+}
+
 test('Page does not access private runtimeConfig keys', () => {
   const content = getPageContent();
 
@@ -62,10 +86,11 @@ test('Page uses useFetch to call the server route', () => {
 
 test('Private key was NOT moved to public config', () => {
   const configPath = join(process.cwd(), 'nuxt.config.ts');
-  const content = readFileSync(configPath, 'utf-8');
+  const content = stripComments(readFileSync(configPath, 'utf-8'));
 
-  // apiSecret should NOT be inside public section
-  expect(content).not.toMatch(/public[\s\S]*apiSecret/);
+  // apiSecret should NOT be inside the public section (structural check —
+  // writing `public: {}` before `apiSecret` is a valid private config).
+  expect(extractPublicBlock(content)).not.toMatch(/apiSecret/);
 });
 
 test('Page still displays app name', () => {

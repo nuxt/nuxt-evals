@@ -2,14 +2,15 @@
  * Fix Watch + $fetch Anti-Pattern
  *
  * Tests whether the agent replaces the manual watch() + $fetch() + onMounted()
- * pattern with useFetch using a computed/reactive URL — and keeps the loading
+ * pattern with useFetch using a genuinely reactive URL — and keeps the loading
  * and error states, now driven by the composable's own status/error.
  *
  * Tricky because the watch + $fetch pattern works functionally but causes
  * flicker on SSR (client-only fetch), shows stale data during navigation,
  * and duplicates loading/error state that useFetch handles automatically.
- * The agent must recognize that useFetch with a reactive URL is the
- * idiomatic Nuxt pattern.
+ * A frozen template-string URL (evaluated once) with `watch: [userId]`
+ * refetches the SAME url forever — that broken "fix" must NOT pass. The URL
+ * must be a getter, a computed, or a useAsyncData handler.
  */
 
 import { expect, test } from 'vitest';
@@ -20,6 +21,13 @@ function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
 }
 
+function stripComments(source: string): string {
+  return source
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/(^|[^:])\/\/.*$/gm, '$1');
+}
+
 function getPageContent(): string {
   const pagePath = findFile(
     join(process.cwd(), 'app', 'pages', 'index.vue'),
@@ -27,7 +35,7 @@ function getPageContent(): string {
   );
 
   if (!pagePath) throw new Error('No page found');
-  return readFileSync(pagePath, 'utf-8');
+  return stripComments(readFileSync(pagePath, 'utf-8'));
 }
 
 test('Uses useFetch or useAsyncData', () => {
@@ -37,22 +45,30 @@ test('Uses useFetch or useAsyncData', () => {
   expect(content).toMatch(/use(?:Lazy)?(?:Fetch|AsyncData)/);
 });
 
-test('Uses computed URL or reactive pattern for refetching', () => {
+test('URL is genuinely reactive (getter, computed, or asyncData handler)', () => {
   const content = getPageContent();
 
   // Lazy variants (useLazyFetch/useLazyAsyncData) are accepted everywhere here.
-  const hasComputedUrl = /use(?:Lazy)?Fetch\s*(?:<[^>]*>)?\s*\(\s*\(\)\s*=>/.test(content);
-  const hasComputedRef = /computed\s*\(/.test(content) && /use(?:Lazy)?(?:Fetch|AsyncData)/.test(content);
-  const hasWatchOption = /watch\s*:\s*\[/.test(content);
-  const hasUseAsyncDataGetter = /use(?:Lazy)?AsyncData\s*(?:<[^>]*>)?\s*\(/.test(content) && /\$fetch/.test(content);
+  // A getter URL: useFetch(() => `/api/users/${userId.value}`)
+  const hasGetterUrl = /use(?:Lazy)?Fetch\s*(?:<[^>]*>)?\s*\(\s*\(\)\s*=>/.test(content);
+  // A computed URL that actually depends on the user id.
+  const hasComputedUrl =
+    /computed\s*\([\s\S]{0,160}?userId/.test(content) &&
+    /use(?:Lazy)?(?:Fetch|AsyncData)/.test(content);
+  // useAsyncData with a $fetch handler re-runs via its own reactivity.
+  const hasAsyncDataHandler =
+    /use(?:Lazy)?AsyncData\s*(?:<[^>]*>)?\s*\(/.test(content) && /\$fetch/.test(content);
 
-  expect(hasComputedUrl || hasComputedRef || hasWatchOption || hasUseAsyncDataGetter).toBe(true);
+  // NOTE: a frozen template string plus `watch: [userId]` is intentionally
+  // NOT accepted — it refetches the same URL and is functionally broken.
+  expect(hasGetterUrl || hasComputedUrl || hasAsyncDataHandler).toBe(true);
 });
 
 test('Does not use manual watch + fetch', () => {
   const content = getPageContent();
 
-  expect(content).not.toMatch(/watch\s*\([\s\S]*?\$?fetch\s*\(/);
+  // Also catches named wrappers like watch(userId, () => fetchUser()).
+  expect(content).not.toMatch(/watch\s*\([\s\S]*?(?:\$fetch|\bfetch\w*)\s*\(/);
 });
 
 test('Does not use onMounted', () => {
@@ -64,13 +80,13 @@ test('Does not use onMounted', () => {
 test('Does not use manual loading ref', () => {
   const content = getPageContent();
 
-  expect(content).not.toMatch(/(?:const|let)\s+loading\s*=\s*ref\s*\(/);
+  expect(content).not.toMatch(/(?:const|let)\s+loading\s*=\s*ref\s*[<(]/);
 });
 
 test('Does not use manual error ref', () => {
   const content = getPageContent();
 
-  expect(content).not.toMatch(/(?:const|let)\s+error\s*=\s*ref\s*\(/);
+  expect(content).not.toMatch(/(?:const|let)\s+error\s*=\s*ref\s*[<(]/);
 });
 
 test('Keeps a loading state driven by the composable (status/pending)', () => {
