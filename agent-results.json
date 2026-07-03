@@ -1,111 +1,141 @@
 {
   "metadata": {
-    "exportedAt": "2026-07-02T13:08:13.201Z",
+    "exportedAt": "2026-07-03T15:09:30.929Z",
     "experiments": [
       {
         "name": "claude-fable-5",
-        "timestamp": "2026-07-02T12:48:58.293Z",
+        "timestamp": "2026-07-03T14:56:22.157Z",
         "modelName": "Claude Fable 5",
         "agentHarness": "Claude Code",
-        "avgDuration": 297.8064827586207
+        "avgDuration": 298.8140172413793,
+        "passAt1": 0.9655172413793104,
+        "avgPassRate": 0.9827586206896551
       },
       {
         "name": "claude-opus-4.6",
-        "timestamp": "2026-07-02T12:48:58.330Z",
+        "timestamp": "2026-07-03T14:56:22.172Z",
         "modelName": "Claude Opus 4.6",
         "agentHarness": "Claude Code",
-        "avgDuration": 238.17772413793105
+        "avgDuration": 244.85190229885058,
+        "passAt1": 0.8275862068965517,
+        "avgPassRate": 0.8850574712643677
       },
       {
         "name": "claude-opus-4.7",
-        "timestamp": "2026-07-02T12:48:58.356Z",
+        "timestamp": "2026-07-03T14:56:22.189Z",
         "modelName": "Claude Opus 4.7",
         "agentHarness": "Claude Code",
-        "avgDuration": 217.85804885057473
+        "avgDuration": 215.7265689655173,
+        "passAt1": 0.896551724137931,
+        "avgPassRate": 0.9195402298850573
       },
       {
         "name": "claude-opus-4.8",
-        "timestamp": "2026-07-02T12:48:58.378Z",
+        "timestamp": "2026-07-03T14:56:22.202Z",
         "modelName": "Claude Opus 4.8",
         "agentHarness": "Claude Code",
-        "avgDuration": 253.31549425287355
+        "avgDuration": 261.3666724137931,
+        "passAt1": 0.896551724137931,
+        "avgPassRate": 0.9396551724137931
       },
       {
         "name": "claude-sonnet-4.5",
-        "timestamp": "2026-07-02T12:48:58.393Z",
+        "timestamp": "2026-07-03T14:56:22.217Z",
         "modelName": "Claude Sonnet 4.5",
         "agentHarness": "Claude Code",
-        "avgDuration": 239.2730459770115
+        "avgDuration": 240.76111781609194,
+        "passAt1": 0.4827586206896552,
+        "avgPassRate": 0.5287356321839081
       },
       {
         "name": "claude-sonnet-4.6",
-        "timestamp": "2026-07-02T12:48:58.408Z",
+        "timestamp": "2026-07-03T14:56:22.237Z",
         "modelName": "Claude Sonnet 4.6",
         "agentHarness": "Claude Code",
-        "avgDuration": 252.04502011494253
+        "avgDuration": 254.11203448275862,
+        "passAt1": 0.8275862068965517,
+        "avgPassRate": 0.8793103448275862
       },
       {
         "name": "cursor-composer-2.0",
-        "timestamp": "2026-07-02T12:48:58.421Z",
+        "timestamp": "2026-07-03T14:56:22.253Z",
         "modelName": "Cursor Composer 2.0",
         "agentHarness": "Cursor",
-        "avgDuration": 264.6118275862069
+        "avgDuration": 273.9128965517241,
+        "passAt1": 0.9655172413793104,
+        "avgPassRate": 0.9827586206896551
       },
       {
         "name": "cursor-composer-2.5",
-        "timestamp": "2026-07-02T12:48:58.435Z",
+        "timestamp": "2026-07-03T14:56:22.267Z",
         "modelName": "Cursor Composer 2.5",
         "agentHarness": "Cursor",
-        "avgDuration": 247.42987931034483
+        "avgDuration": 263.3075344827586,
+        "passAt1": 0.896551724137931,
+        "avgPassRate": 0.9310344827586207
       },
       {
         "name": "gemini-3-pro-preview",
-        "timestamp": "2026-07-02T12:48:58.448Z",
+        "timestamp": "2026-07-03T14:56:22.282Z",
         "modelName": "Gemini 3 Pro Preview",
         "agentHarness": "OpenCode",
-        "avgDuration": 279.3991206896552
+        "avgDuration": 291.646,
+        "passAt1": 0.896551724137931,
+        "avgPassRate": 0.9425287356321839
       },
       {
         "name": "gemini-3.1-pro-preview",
-        "timestamp": "2026-07-02T12:48:58.460Z",
+        "timestamp": "2026-07-03T14:56:22.295Z",
         "modelName": "Gemini 3.1 Pro Preview",
         "agentHarness": "OpenCode",
-        "avgDuration": 282.5031379310345
+        "avgDuration": 289.4584827586207,
+        "passAt1": 0.8275862068965517,
+        "avgPassRate": 0.8821839080459771
       },
       {
         "name": "gpt-5.3-codex-xhigh",
-        "timestamp": "2026-07-02T12:48:58.478Z",
+        "timestamp": "2026-07-03T14:56:22.309Z",
         "modelName": "GPT 5.3 Codex (xhigh)",
         "agentHarness": "Codex",
-        "avgDuration": 277.71358333333336
+        "avgDuration": 276.5169597701149,
+        "passAt1": 0.896551724137931,
+        "avgPassRate": 0.942528735632184
       },
       {
         "name": "gpt-5.4-xhigh",
-        "timestamp": "2026-07-02T12:48:58.498Z",
+        "timestamp": "2026-07-03T14:56:22.325Z",
         "modelName": "GPT 5.4 (xhigh)",
         "agentHarness": "Codex",
-        "avgDuration": 294.38667528735624
+        "avgDuration": 302.56503735632185,
+        "passAt1": 0.7586206896551724,
+        "avgPassRate": 0.8074712643678161
       },
       {
         "name": "gpt-5.5-pro",
-        "timestamp": "2026-07-02T12:48:58.514Z",
+        "timestamp": "2026-07-03T14:56:22.340Z",
         "modelName": "GPT 5.5 Pro",
         "agentHarness": "Codex",
-        "avgDuration": 888.5776551724138
+        "avgDuration": 666.0175775862068,
+        "passAt1": 0.9310344827586207,
+        "avgPassRate": 0.9425287356321839
       },
       {
         "name": "kimi-k2.6",
-        "timestamp": "2026-07-02T12:48:58.528Z",
+        "timestamp": "2026-07-03T14:56:22.354Z",
         "modelName": "Kimi K2.6",
         "agentHarness": "OpenCode",
-        "avgDuration": 292.2845977011495
+        "avgDuration": 285.4723218390805,
+        "passAt1": 0.7931034482758621,
+        "avgPassRate": 0.8505747126436781
       },
       {
         "name": "minimax-m2.7",
-        "timestamp": "2026-07-02T12:48:58.543Z",
+        "timestamp": "2026-07-03T14:56:22.372Z",
         "modelName": "MiniMax M2.7",
         "agentHarness": "OpenCode",
-        "avgDuration": 195.47346551724138
+        "avgDuration": 204.88056896551726,
+        "passAt1": 0.3103448275862069,
+        "avgPassRate": 0.38218390804597696
       }
     ]
   },
@@ -115,261 +145,377 @@
         "evalPath": "nuxt-000-fix-data-fetching",
         "result": {
           "success": true,
-          "duration": 194926,
+          "duration": 218530,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-07-02T09:40:16.928Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-001-prefer-nuxt-link",
         "result": {
           "success": true,
-          "duration": 192765,
+          "duration": 214347,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-07-02T09:40:16.928Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 557340,
+          "duration": 427986,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-07-02T09:40:16.928Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": true,
-          "duration": 255973,
+          "duration": 271821,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T14:56:22.157Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 317225,
+          "duration": 367199.5,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-005-fix-seo-meta",
         "result": {
           "success": true,
-          "duration": 184551,
+          "duration": 197342,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-07-02T09:40:16.928Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-006-runtime-config",
         "result": {
           "success": true,
-          "duration": 275929,
+          "duration": 232923,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-07-02T09:40:16.928Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-007-avoid-redundant-ref",
         "result": {
           "success": true,
-          "duration": 189949,
+          "duration": 175493,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-07-02T09:40:16.928Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 400597,
+          "duration": 428143,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 193576,
+          "duration": 222651,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-07-02T09:40:16.928Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 377636,
+          "duration": 233750,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-07-02T09:40:16.928Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
           "success": true,
-          "duration": 203264,
+          "duration": 221743,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-07-02T09:40:16.928Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
         "result": {
           "success": true,
-          "duration": 260803.99999999997,
+          "duration": 255079,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-07-02T09:40:16.928Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
           "success": true,
-          "duration": 221598,
+          "duration": 261125.99999999997,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 204090,
+          "duration": 290862,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-015-shared-source-of-truth",
         "result": {
           "success": true,
-          "duration": 209556,
+          "duration": 229969,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.217Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 199328,
+          "duration": 209451,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:16.928Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 506060,
+          "duration": 299271,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.293Z"
+          "timestamp": "2026-07-03T14:56:22.157Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-018-nuxt5-migration",
         "result": {
           "success": true,
-          "duration": 344088,
+          "duration": 314526,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.293Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-content-000-navigation",
         "result": {
           "success": true,
-          "duration": 397609,
+          "duration": 425816,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-content-001-data-collection",
         "result": {
           "success": true,
-          "duration": 289724,
+          "duration": 321095,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-000-theming",
         "result": {
           "success": true,
-          "duration": 333841,
+          "duration": 329512,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-001-fix-raw-html-page",
         "result": {
           "success": true,
-          "duration": 342214,
+          "duration": 356780,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-002-dashboard-layout",
         "result": {
           "success": true,
-          "duration": 334551,
+          "duration": 408053,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-003-fix-raw-form",
         "result": {
           "success": true,
-          "duration": 313553,
+          "duration": 294277,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-004-table",
         "result": {
           "success": true,
-          "duration": 313401,
+          "duration": 385910,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 357961,
+          "duration": 395758,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-006-command-palette",
         "result": {
           "success": true,
-          "duration": 307637,
+          "duration": 357662,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-007-dropdown-menu",
         "result": {
           "success": true,
-          "duration": 356642,
+          "duration": 318531,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T08:32:33.552Z"
+          "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -380,7 +526,11 @@
           "success": true,
           "duration": 179125,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.394Z"
+          "timestamp": "2026-06-30T15:09:40.394Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -389,7 +539,11 @@
           "success": true,
           "duration": 172664,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.500Z"
+          "timestamp": "2026-06-30T14:12:50.500Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -398,25 +552,37 @@
           "success": true,
           "duration": 294745,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.500Z"
+          "timestamp": "2026-06-30T14:12:50.500Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
-          "success": false,
-          "duration": 201968.00000000003,
+          "success": true,
+          "duration": 218944.6666666667,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-30T15:09:40.394Z"
+          "timestamp": "2026-07-03T14:56:22.172Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 183877,
+          "duration": 230562,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-07-03T13:08:55.494Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -425,7 +591,11 @@
           "success": true,
           "duration": 159347,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.500Z"
+          "timestamp": "2026-06-30T14:12:50.500Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -434,7 +604,11 @@
           "success": true,
           "duration": 193475,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.500Z"
+          "timestamp": "2026-06-30T14:12:50.500Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -443,34 +617,50 @@
           "success": true,
           "duration": 172940,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.500Z"
+          "timestamp": "2026-06-30T14:12:50.500Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 115684.5,
+          "duration": 209426,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-07-03T13:08:55.494Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 157057,
+          "duration": 165374,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.500Z"
+          "timestamp": "2026-07-03T13:08:55.494Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 188833,
+          "duration": 192252,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.394Z"
+          "timestamp": "2026-07-03T13:08:55.494Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -479,7 +669,11 @@
           "success": true,
           "duration": 170495,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.500Z"
+          "timestamp": "2026-06-30T14:12:50.500Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -488,7 +682,11 @@
           "success": true,
           "duration": 347485,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.500Z"
+          "timestamp": "2026-06-30T14:12:50.500Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -497,16 +695,24 @@
           "success": true,
           "duration": 194055,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-06-11T12:17:50.688Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 181612,
+          "duration": 181366,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-07-03T13:08:55.494Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -515,25 +721,37 @@
           "success": true,
           "duration": 192059,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.229Z"
+          "timestamp": "2026-07-02T11:01:42.229Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": false,
-          "duration": 151095.50000000003,
+          "duration": 158332.49999999997,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:16.948Z"
+          "timestamp": "2026-07-03T13:08:55.494Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 165081,
+          "duration": 189581,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.330Z"
+          "timestamp": "2026-07-03T14:56:22.172Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
@@ -542,7 +760,11 @@
           "success": true,
           "duration": 245196.5,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.330Z"
+          "timestamp": "2026-07-02T12:48:58.330Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -551,7 +773,11 @@
           "success": true,
           "duration": 333362,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-06-11T12:17:50.688Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -560,7 +786,11 @@
           "success": true,
           "duration": 306913,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-06-11T12:17:50.688Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -569,7 +799,11 @@
           "success": true,
           "duration": 305873,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-06-11T12:17:50.688Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -578,7 +812,11 @@
           "success": true,
           "duration": 350793,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-06-11T12:17:50.688Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -587,7 +825,11 @@
           "success": true,
           "duration": 334772,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-06-11T12:17:50.688Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -596,7 +838,11 @@
           "success": true,
           "duration": 307078,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-06-11T12:17:50.688Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -605,16 +851,24 @@
           "success": true,
           "duration": 314649,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-06-11T12:17:50.688Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 307279,
+          "duration": 300200,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-07-03T13:08:55.494Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -623,7 +877,11 @@
           "success": true,
           "duration": 342904.5,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-06-11T12:17:50.688Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -632,7 +890,11 @@
           "success": true,
           "duration": 336736,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T12:17:50.688Z"
+          "timestamp": "2026-06-11T12:17:50.688Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -643,7 +905,11 @@
           "success": true,
           "duration": 158466,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.405Z"
+          "timestamp": "2026-06-30T15:09:40.405Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -652,7 +918,11 @@
           "success": true,
           "duration": 165453,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.511Z"
+          "timestamp": "2026-06-30T14:12:50.511Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -661,25 +931,37 @@
           "success": true,
           "duration": 275373,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.511Z"
+          "timestamp": "2026-06-30T14:12:50.511Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": false,
-          "duration": 203717.25,
+          "duration": 217019.5,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-11T15:11:17.050Z"
+          "timestamp": "2026-07-03T14:56:22.189Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 173709.5,
+          "duration": 178835,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-12T09:29:16.528Z"
+          "timestamp": "2026-07-03T12:55:20.922Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -688,7 +970,11 @@
           "success": true,
           "duration": 162467,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.511Z"
+          "timestamp": "2026-06-30T14:12:50.511Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -697,7 +983,11 @@
           "success": true,
           "duration": 165827,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.511Z"
+          "timestamp": "2026-06-30T14:12:50.511Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -706,34 +996,50 @@
           "success": true,
           "duration": 161220,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.511Z"
+          "timestamp": "2026-06-30T14:12:50.511Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 279964,
+          "duration": 235302,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-07-03T12:55:20.922Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 154447,
+          "duration": 154157,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.511Z"
+          "timestamp": "2026-07-03T12:55:20.922Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 162158,
+          "duration": 175794,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.405Z"
+          "timestamp": "2026-07-03T12:55:20.922Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -742,7 +1048,11 @@
           "success": true,
           "duration": 159757,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.511Z"
+          "timestamp": "2026-06-30T14:12:50.511Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -751,7 +1061,11 @@
           "success": true,
           "duration": 204111.33333333337,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.511Z"
+          "timestamp": "2026-06-30T14:12:50.511Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
@@ -760,16 +1074,24 @@
           "success": true,
           "duration": 207514,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-06-11T14:37:41.428Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 172298,
+          "duration": 169958,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-07-03T12:55:20.922Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -778,25 +1100,37 @@
           "success": true,
           "duration": 183497,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.242Z"
+          "timestamp": "2026-07-02T11:01:42.242Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 155192.66666666666,
+          "duration": 147146,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:16.961Z"
+          "timestamp": "2026-07-03T12:55:20.922Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 181020,
+          "duration": 161533,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.356Z"
+          "timestamp": "2026-07-03T14:56:22.189Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -805,7 +1139,11 @@
           "success": true,
           "duration": 216759,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.356Z"
+          "timestamp": "2026-07-02T12:48:58.356Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -814,7 +1152,11 @@
           "success": true,
           "duration": 290946,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-06-11T14:37:41.428Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -823,7 +1165,11 @@
           "success": true,
           "duration": 267800,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-06-11T14:37:41.428Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -832,7 +1178,11 @@
           "success": true,
           "duration": 279741,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-06-11T14:37:41.428Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -841,7 +1191,11 @@
           "success": true,
           "duration": 279651.6666666667,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-06-11T14:37:41.428Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
@@ -850,7 +1204,11 @@
           "success": true,
           "duration": 290508,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-06-11T14:37:41.428Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -859,7 +1217,11 @@
           "success": true,
           "duration": 267586,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-06-11T14:37:41.428Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -868,16 +1230,24 @@
           "success": true,
           "duration": 280160,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-06-11T14:37:41.428Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 276954,
+          "duration": 257903.00000000003,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-07-03T12:55:20.922Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -886,7 +1256,11 @@
           "success": true,
           "duration": 287475,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-06-11T14:37:41.428Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -895,7 +1269,11 @@
           "success": true,
           "duration": 254111,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T14:37:41.428Z"
+          "timestamp": "2026-06-11T14:37:41.428Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -906,7 +1284,11 @@
           "success": true,
           "duration": 191974,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.416Z"
+          "timestamp": "2026-06-30T15:09:40.416Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -915,7 +1297,11 @@
           "success": true,
           "duration": 171290,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.523Z"
+          "timestamp": "2026-06-30T14:12:50.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -924,25 +1310,37 @@
           "success": true,
           "duration": 339356,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.523Z"
+          "timestamp": "2026-06-30T14:12:50.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": true,
-          "duration": 244284,
+          "duration": 242714,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-07-03T14:56:22.202Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 218868,
+          "duration": 279717.50000000006,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-07-03T13:08:55.523Z",
+          "passRate": 0.25,
+          "passedRuns": 1,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -951,7 +1349,11 @@
           "success": true,
           "duration": 162596,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.523Z"
+          "timestamp": "2026-06-30T14:12:50.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -960,7 +1362,11 @@
           "success": true,
           "duration": 179040,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.523Z"
+          "timestamp": "2026-06-30T14:12:50.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -969,34 +1375,50 @@
           "success": true,
           "duration": 159741,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.523Z"
+          "timestamp": "2026-06-30T14:12:50.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 279617,
+          "duration": 368896,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-07-03T13:08:55.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 163210,
+          "duration": 160789,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.523Z"
+          "timestamp": "2026-07-03T13:08:55.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 179648,
+          "duration": 210911,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.416Z"
+          "timestamp": "2026-07-03T13:08:55.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1005,7 +1427,11 @@
           "success": true,
           "duration": 161247,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.523Z"
+          "timestamp": "2026-06-30T14:12:50.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1014,7 +1440,11 @@
           "success": true,
           "duration": 293445,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.523Z"
+          "timestamp": "2026-06-30T14:12:50.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1023,16 +1453,24 @@
           "success": true,
           "duration": 233514,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-06-11T14:28:10.369Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 211781,
+          "duration": 201703,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-07-03T13:08:55.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1041,25 +1479,37 @@
           "success": true,
           "duration": 182460,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.253Z"
+          "timestamp": "2026-07-02T11:01:42.253Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 147611,
+          "duration": 168042,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:19:28.614Z"
+          "timestamp": "2026-07-03T13:08:55.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 320657.3333333333,
+          "duration": 315515,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.378Z"
+          "timestamp": "2026-07-03T14:56:22.202Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1068,7 +1518,11 @@
           "success": true,
           "duration": 219805,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.378Z"
+          "timestamp": "2026-07-02T12:48:58.378Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1077,7 +1531,11 @@
           "success": true,
           "duration": 361738,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-06-11T14:28:10.369Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1086,7 +1544,11 @@
           "success": true,
           "duration": 293817,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-06-11T14:28:10.369Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1095,7 +1557,11 @@
           "success": true,
           "duration": 340298,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-06-11T14:28:10.369Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1104,7 +1570,11 @@
           "success": true,
           "duration": 347642,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-06-11T14:28:10.369Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1113,7 +1583,11 @@
           "success": true,
           "duration": 332252,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-06-11T14:28:10.369Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1122,7 +1596,11 @@
           "success": true,
           "duration": 299126,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-06-11T14:28:10.369Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1131,16 +1609,24 @@
           "success": true,
           "duration": 307484,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-06-11T14:28:10.369Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 349496,
+          "duration": 400369,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-07-03T13:08:55.523Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1149,7 +1635,11 @@
           "success": true,
           "duration": 327245,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-06-11T14:28:10.369Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1158,7 +1648,11 @@
           "success": true,
           "duration": 326907,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T14:28:10.369Z"
+          "timestamp": "2026-06-11T14:28:10.369Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -1169,7 +1663,11 @@
           "success": true,
           "duration": 179967,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.429Z"
+          "timestamp": "2026-06-30T15:09:40.429Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1178,7 +1676,11 @@
           "success": true,
           "duration": 178321,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.535Z"
+          "timestamp": "2026-06-30T14:12:50.535Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1187,25 +1689,37 @@
           "success": true,
           "duration": 278227,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.535Z"
+          "timestamp": "2026-06-30T14:12:50.535Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": false,
-          "duration": 178823,
+          "duration": 192623.25,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-07-03T14:56:22.217Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": false,
-          "duration": 254082.75,
+          "duration": 325770.25000000006,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-07-03T13:08:55.538Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1214,7 +1728,11 @@
           "success": true,
           "duration": 172551,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.535Z"
+          "timestamp": "2026-06-30T14:12:50.535Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1223,7 +1741,11 @@
           "success": true,
           "duration": 159555.5,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.535Z"
+          "timestamp": "2026-06-30T14:12:50.535Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1232,34 +1754,50 @@
           "success": true,
           "duration": 175971,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.535Z"
+          "timestamp": "2026-06-30T14:12:50.535Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 214996.66666666666,
+          "duration": 183575,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-07-03T13:08:55.538Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 176855,
+          "duration": 173934,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.535Z"
+          "timestamp": "2026-07-03T13:08:55.538Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 181298,
+          "duration": 181478,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.429Z"
+          "timestamp": "2026-07-03T13:08:55.538Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1268,7 +1806,11 @@
           "success": true,
           "duration": 176191,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.535Z"
+          "timestamp": "2026-06-30T14:12:50.535Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1277,7 +1819,11 @@
           "success": true,
           "duration": 219513,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.535Z"
+          "timestamp": "2026-06-30T14:12:50.535Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1286,16 +1832,24 @@
           "success": true,
           "duration": 199616,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-06-11T15:11:17.070Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
-          "success": false,
-          "duration": 258543,
+          "success": true,
+          "duration": 205204,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-07-03T13:08:55.538Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1304,25 +1858,37 @@
           "success": false,
           "duration": 194482.25,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.267Z"
+          "timestamp": "2026-07-02T11:01:42.267Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 159294,
+          "duration": 165181,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:16.992Z"
+          "timestamp": "2026-07-03T13:08:55.538Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": false,
-          "duration": 188325.75,
+          "duration": 185609,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.393Z"
+          "timestamp": "2026-07-03T14:56:22.217Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1331,7 +1897,11 @@
           "success": false,
           "duration": 190120.99999999997,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.393Z"
+          "timestamp": "2026-07-02T12:48:58.393Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1340,7 +1910,11 @@
           "success": false,
           "duration": 497660.5,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-06-11T15:11:17.070Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1349,7 +1923,11 @@
           "success": true,
           "duration": 456112.6666666666,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-06-11T15:11:17.070Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1358,7 +1936,11 @@
           "success": true,
           "duration": 263856.5,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-06-11T15:11:17.070Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1367,7 +1949,11 @@
           "success": false,
           "duration": 262721.25,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-06-11T15:11:17.070Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1376,7 +1962,11 @@
           "success": false,
           "duration": 295387.25,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-06-11T15:11:17.070Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1385,7 +1975,11 @@
           "success": true,
           "duration": 260699,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-06-11T15:11:17.070Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1394,16 +1988,24 @@
           "success": false,
           "duration": 300317.25,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-06-11T15:11:17.070Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": false,
-          "duration": 272557.75,
+          "duration": 314555.50000000006,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-07-03T13:08:55.538Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1412,7 +2014,11 @@
           "success": false,
           "duration": 317681.74999999994,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-06-11T15:11:17.070Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1421,7 +2027,11 @@
           "success": false,
           "duration": 275190.50000000006,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T15:11:17.070Z"
+          "timestamp": "2026-06-11T15:11:17.070Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       }
     ],
@@ -1432,7 +2042,11 @@
           "success": true,
           "duration": 171311,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.440Z"
+          "timestamp": "2026-06-30T15:09:40.440Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1441,7 +2055,11 @@
           "success": true,
           "duration": 175346,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.546Z"
+          "timestamp": "2026-06-30T14:12:50.546Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1450,25 +2068,37 @@
           "success": true,
           "duration": 308492,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.546Z"
+          "timestamp": "2026-06-30T14:12:50.546Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": true,
-          "duration": 195676.5,
+          "duration": 192594.49999999997,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-07-03T14:56:22.237Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 188720,
+          "duration": 209187,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-07-03T13:08:55.559Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1477,7 +2107,11 @@
           "success": true,
           "duration": 164311.50000000003,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.546Z"
+          "timestamp": "2026-06-30T14:12:50.546Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1486,7 +2120,11 @@
           "success": true,
           "duration": 220041,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.546Z"
+          "timestamp": "2026-06-30T14:12:50.546Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1495,34 +2133,50 @@
           "success": true,
           "duration": 162507,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.546Z"
+          "timestamp": "2026-06-30T14:12:50.546Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 221696,
+          "duration": 187181,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-07-03T13:08:55.559Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 159141,
+          "duration": 166968,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.546Z"
+          "timestamp": "2026-07-03T13:08:55.559Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 198169,
+          "duration": 189572,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.440Z"
+          "timestamp": "2026-07-03T13:08:55.559Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1531,7 +2185,11 @@
           "success": true,
           "duration": 172103,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.546Z"
+          "timestamp": "2026-06-30T14:12:50.546Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1540,7 +2198,11 @@
           "success": true,
           "duration": 241129,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.546Z"
+          "timestamp": "2026-06-30T14:12:50.546Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1549,16 +2211,24 @@
           "success": true,
           "duration": 200371,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-06-11T15:11:17.082Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 192796.33333333334,
+          "duration": 186904,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-07-03T13:08:55.559Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1567,25 +2237,37 @@
           "success": true,
           "duration": 181694,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.277Z"
+          "timestamp": "2026-07-02T11:01:42.277Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": false,
-          "duration": 155195.75,
+          "duration": 160393.50000000003,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:17.006Z"
+          "timestamp": "2026-07-03T13:08:55.559Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 183134,
+          "duration": 205765,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.408Z"
+          "timestamp": "2026-07-03T14:56:22.237Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1594,7 +2276,11 @@
           "success": true,
           "duration": 177911,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.408Z"
+          "timestamp": "2026-07-02T12:48:58.408Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1603,7 +2289,11 @@
           "success": true,
           "duration": 427871,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-06-11T15:11:17.082Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1612,7 +2302,11 @@
           "success": true,
           "duration": 272707,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-06-11T15:11:17.082Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1621,7 +2315,11 @@
           "success": true,
           "duration": 350554,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-06-11T15:11:17.082Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1630,7 +2328,11 @@
           "success": false,
           "duration": 309729.5,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-06-11T15:11:17.082Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -1639,7 +2341,11 @@
           "success": true,
           "duration": 405813,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-06-11T15:11:17.082Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1648,7 +2354,11 @@
           "success": true,
           "duration": 271305,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-06-11T15:11:17.082Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1657,16 +2367,24 @@
           "success": true,
           "duration": 354992,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-06-11T15:11:17.082Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 382070,
+          "duration": 437977,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-07-03T13:08:55.559Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1675,7 +2393,11 @@
           "success": true,
           "duration": 483156,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-06-11T15:11:17.082Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1684,7 +2406,11 @@
           "success": true,
           "duration": 381363,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T15:11:17.082Z"
+          "timestamp": "2026-06-11T15:11:17.082Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -1695,7 +2421,11 @@
           "success": true,
           "duration": 184806,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.450Z"
+          "timestamp": "2026-06-30T15:09:40.450Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1704,7 +2434,11 @@
           "success": true,
           "duration": 186880,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.555Z"
+          "timestamp": "2026-06-30T14:12:50.555Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1713,25 +2447,37 @@
           "success": true,
           "duration": 241154,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.555Z"
+          "timestamp": "2026-06-30T14:12:50.555Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": true,
-          "duration": 236508,
+          "duration": 256031,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-07-03T14:56:22.253Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
-          "success": false,
-          "duration": 249238.25,
+          "success": true,
+          "duration": 347703,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-12T12:13:20.429Z"
+          "timestamp": "2026-07-03T13:08:55.602Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1740,7 +2486,11 @@
           "success": true,
           "duration": 163606,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.555Z"
+          "timestamp": "2026-06-30T14:12:50.555Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1749,7 +2499,11 @@
           "success": true,
           "duration": 253404,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.555Z"
+          "timestamp": "2026-06-30T14:12:50.555Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1758,34 +2512,50 @@
           "success": true,
           "duration": 172513,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.555Z"
+          "timestamp": "2026-06-30T14:12:50.555Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 367351,
+          "duration": 405936,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-07-03T13:08:55.602Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 210787,
+          "duration": 223781,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.555Z"
+          "timestamp": "2026-07-03T13:08:55.602Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 202139,
+          "duration": 250415,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.450Z"
+          "timestamp": "2026-07-03T13:08:55.602Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1794,7 +2564,11 @@
           "success": true,
           "duration": 187308,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.555Z"
+          "timestamp": "2026-06-30T14:12:50.555Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1803,7 +2577,11 @@
           "success": true,
           "duration": 211658,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.555Z"
+          "timestamp": "2026-06-30T14:12:50.555Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1812,16 +2590,24 @@
           "success": true,
           "duration": 225386,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-06-11T12:17:52.206Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
-          "success": false,
-          "duration": 248139.75,
+          "success": true,
+          "duration": 278656,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T15:11:17.093Z"
+          "timestamp": "2026-07-03T13:08:55.602Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1830,25 +2616,37 @@
           "success": true,
           "duration": 202719,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.289Z"
+          "timestamp": "2026-07-02T11:01:42.289Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 173340,
+          "duration": 174911,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:17.026Z"
+          "timestamp": "2026-07-03T13:08:55.602Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 203821,
+          "duration": 222580,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.421Z"
+          "timestamp": "2026-07-03T14:56:22.253Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1857,7 +2655,11 @@
           "success": true,
           "duration": 267936,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.421Z"
+          "timestamp": "2026-07-02T12:48:58.421Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1866,7 +2668,11 @@
           "success": true,
           "duration": 619905,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-12T09:29:16.574Z"
+          "timestamp": "2026-06-12T09:29:16.574Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1875,7 +2681,11 @@
           "success": true,
           "duration": 306745,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-06-11T12:17:52.206Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1884,7 +2694,11 @@
           "success": true,
           "duration": 323174,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-06-11T12:17:52.206Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1893,7 +2707,11 @@
           "success": true,
           "duration": 331705,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-06-11T12:17:52.206Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1902,7 +2720,11 @@
           "success": true,
           "duration": 307934,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-06-11T12:17:52.206Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1911,7 +2733,11 @@
           "success": true,
           "duration": 306646,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-06-11T12:17:52.206Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1920,16 +2746,24 @@
           "success": true,
           "duration": 318897,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-06-11T12:17:52.206Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 325368,
+          "duration": 326410,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-07-03T13:08:55.602Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1938,7 +2772,11 @@
           "success": true,
           "duration": 336887,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-06-11T12:17:52.206Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1947,7 +2785,11 @@
           "success": true,
           "duration": 307788,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T12:17:52.206Z"
+          "timestamp": "2026-06-11T12:17:52.206Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -1958,7 +2800,11 @@
           "success": true,
           "duration": 191961,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.461Z"
+          "timestamp": "2026-06-30T15:09:40.461Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1967,7 +2813,11 @@
           "success": true,
           "duration": 195412,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.566Z"
+          "timestamp": "2026-06-30T14:12:50.566Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -1976,25 +2826,37 @@
           "success": true,
           "duration": 246090,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.566Z"
+          "timestamp": "2026-06-30T14:12:50.566Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": true,
-          "duration": 237397,
+          "duration": 298967,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-07-03T14:56:22.267Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 221874.5,
+          "duration": 324684,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-30T15:36:40.237Z"
+          "timestamp": "2026-07-03T13:08:55.648Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2003,7 +2865,11 @@
           "success": true,
           "duration": 167650,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.566Z"
+          "timestamp": "2026-06-30T14:12:50.566Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -2012,7 +2878,11 @@
           "success": true,
           "duration": 197439,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.566Z"
+          "timestamp": "2026-06-30T14:12:50.566Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2021,34 +2891,50 @@
           "success": true,
           "duration": 171353,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.566Z"
+          "timestamp": "2026-06-30T14:12:50.566Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 327346,
+          "duration": 376598,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-30T16:00:07.909Z"
+          "timestamp": "2026-07-03T13:08:55.648Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 203771,
+          "duration": 204691,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.566Z"
+          "timestamp": "2026-07-03T13:08:55.648Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 189066,
+          "duration": 232383,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.461Z"
+          "timestamp": "2026-07-03T13:08:55.648Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2057,7 +2943,11 @@
           "success": true,
           "duration": 217488,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.566Z"
+          "timestamp": "2026-06-30T14:12:50.566Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2066,7 +2956,11 @@
           "success": true,
           "duration": 233959,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.566Z"
+          "timestamp": "2026-06-30T14:12:50.566Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2075,16 +2969,24 @@
           "success": true,
           "duration": 219577,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-06-11T13:18:53.333Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
-          "success": true,
-          "duration": 213351,
+          "success": false,
+          "duration": 300488.50000000006,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-07-03T13:08:55.648Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -2093,25 +2995,37 @@
           "success": true,
           "duration": 213637,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.302Z"
+          "timestamp": "2026-07-02T11:01:42.302Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 162820,
+          "duration": 157620,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:17.045Z"
+          "timestamp": "2026-07-03T13:08:55.648Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 176822,
+          "duration": 244354,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.435Z"
+          "timestamp": "2026-07-03T14:56:22.267Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2120,7 +3034,11 @@
           "success": true,
           "duration": 231873,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.435Z"
+          "timestamp": "2026-07-02T12:48:58.435Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2129,7 +3047,11 @@
           "success": true,
           "duration": 354571,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-30T15:09:40.461Z"
+          "timestamp": "2026-06-30T15:09:40.461Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2138,7 +3060,11 @@
           "success": true,
           "duration": 308890,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-06-11T13:18:53.333Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2147,7 +3073,11 @@
           "success": true,
           "duration": 316645,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-06-11T13:18:53.333Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2156,7 +3086,11 @@
           "success": true,
           "duration": 310134,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-06-11T13:18:53.333Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2165,7 +3099,11 @@
           "success": true,
           "duration": 324498,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-06-11T13:18:53.333Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2174,7 +3112,11 @@
           "success": true,
           "duration": 324922,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-06-11T13:18:53.333Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2183,16 +3125,24 @@
           "success": true,
           "duration": 299428,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-06-11T13:18:53.333Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 298155,
+          "duration": 351269,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-07-03T13:08:55.648Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2201,7 +3151,11 @@
           "success": true,
           "duration": 314601,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-06-11T13:18:53.333Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2210,7 +3164,11 @@
           "success": true,
           "duration": 304736,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T13:18:53.333Z"
+          "timestamp": "2026-06-11T13:18:53.333Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -2221,7 +3179,11 @@
           "success": true,
           "duration": 211060,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.472Z"
+          "timestamp": "2026-06-30T15:09:40.472Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2230,7 +3192,11 @@
           "success": true,
           "duration": 201276,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.582Z"
+          "timestamp": "2026-06-30T14:12:50.582Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2239,25 +3205,37 @@
           "success": true,
           "duration": 264665,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.582Z"
+          "timestamp": "2026-06-30T14:12:50.582Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": true,
-          "duration": 207524.99999999997,
+          "duration": 223386,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-12T09:29:16.597Z"
+          "timestamp": "2026-07-03T14:56:22.282Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 227091,
+          "duration": 231831,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-07-03T13:08:55.663Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2266,7 +3244,11 @@
           "success": true,
           "duration": 187063,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.582Z"
+          "timestamp": "2026-06-30T14:12:50.582Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2275,7 +3257,11 @@
           "success": true,
           "duration": 223122,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.582Z"
+          "timestamp": "2026-06-30T14:12:50.582Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2284,34 +3270,50 @@
           "success": true,
           "duration": 200845,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.582Z"
+          "timestamp": "2026-06-30T14:12:50.582Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 580816,
+          "duration": 489342,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-11T15:11:17.113Z"
+          "timestamp": "2026-07-03T13:08:55.663Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 188633,
+          "duration": 205430,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.582Z"
+          "timestamp": "2026-07-03T13:08:55.663Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 251304,
+          "duration": 380517,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.472Z"
+          "timestamp": "2026-07-03T13:08:55.663Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2320,7 +3322,11 @@
           "success": true,
           "duration": 201200,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.582Z"
+          "timestamp": "2026-06-30T14:12:50.582Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2329,7 +3335,11 @@
           "success": true,
           "duration": 337807,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.582Z"
+          "timestamp": "2026-06-30T14:12:50.582Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2338,16 +3348,24 @@
           "success": true,
           "duration": 215634,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-06-11T12:17:53.660Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 212277,
+          "duration": 203592,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-07-03T13:08:55.663Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2356,25 +3374,37 @@
           "success": true,
           "duration": 198327,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.313Z"
+          "timestamp": "2026-07-02T11:01:42.313Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 173815,
+          "duration": 205194,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:19:28.626Z"
+          "timestamp": "2026-07-03T13:08:55.663Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 312998,
+          "duration": 566766,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.448Z"
+          "timestamp": "2026-07-03T14:56:22.282Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2383,7 +3413,11 @@
           "success": true,
           "duration": 190920,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.448Z"
+          "timestamp": "2026-07-02T12:48:58.448Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2392,7 +3426,11 @@
           "success": true,
           "duration": 334318,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-06-11T12:17:53.660Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2401,7 +3439,11 @@
           "success": true,
           "duration": 291507,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-06-11T12:17:53.660Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2410,7 +3452,11 @@
           "success": true,
           "duration": 361194,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-06-11T12:17:53.660Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2419,7 +3465,11 @@
           "success": true,
           "duration": 409490,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T15:11:17.113Z"
+          "timestamp": "2026-06-11T15:11:17.113Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
@@ -2428,7 +3478,11 @@
           "success": true,
           "duration": 394566.5,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-06-11T12:17:53.660Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -2437,7 +3491,11 @@
           "success": true,
           "duration": 347022,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-06-11T12:17:53.660Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2446,16 +3504,24 @@
           "success": true,
           "duration": 345626,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-06-11T12:17:53.660Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 336788,
+          "duration": 340348.5,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-07-03T13:08:55.663Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -2464,7 +3530,11 @@
           "success": true,
           "duration": 370477,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-06-11T12:17:53.660Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2473,7 +3543,11 @@
           "success": true,
           "duration": 325208,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T12:17:53.660Z"
+          "timestamp": "2026-06-11T12:17:53.660Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -2484,7 +3558,11 @@
           "success": true,
           "duration": 208623,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.483Z"
+          "timestamp": "2026-06-30T15:09:40.483Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2493,7 +3571,11 @@
           "success": true,
           "duration": 204483,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.597Z"
+          "timestamp": "2026-06-30T14:12:50.597Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2502,25 +3584,37 @@
           "success": true,
           "duration": 273627,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.597Z"
+          "timestamp": "2026-06-30T14:12:50.597Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": true,
-          "duration": 231278,
+          "duration": 297370,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-11T15:11:17.122Z"
+          "timestamp": "2026-07-03T14:56:22.295Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 209728,
+          "duration": 250836,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-07-03T13:08:55.681Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
@@ -2529,7 +3623,11 @@
           "success": true,
           "duration": 188333,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.597Z"
+          "timestamp": "2026-06-30T14:12:50.597Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2538,7 +3636,11 @@
           "success": true,
           "duration": 224977,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.597Z"
+          "timestamp": "2026-06-30T14:12:50.597Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2547,34 +3649,50 @@
           "success": true,
           "duration": 192539,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.597Z"
+          "timestamp": "2026-06-30T14:12:50.597Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
-          "success": true,
-          "duration": 579634,
+          "success": false,
+          "duration": 661517.9999999999,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-12T10:17:38.313Z"
+          "timestamp": "2026-07-03T14:56:22.295Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 195073,
+          "duration": 198654,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.597Z"
+          "timestamp": "2026-07-03T13:08:55.681Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 226661,
+          "duration": 230427,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.483Z"
+          "timestamp": "2026-07-03T13:08:55.681Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2583,7 +3701,11 @@
           "success": true,
           "duration": 198657,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.597Z"
+          "timestamp": "2026-06-30T14:12:50.597Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2592,7 +3714,11 @@
           "success": true,
           "duration": 310602,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.597Z"
+          "timestamp": "2026-06-30T14:12:50.597Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2601,16 +3727,24 @@
           "success": true,
           "duration": 217701,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-06-11T13:18:49.142Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 190010,
+          "duration": 202021,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-07-03T13:08:55.681Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2619,25 +3753,37 @@
           "success": true,
           "duration": 203035,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.327Z"
+          "timestamp": "2026-07-02T11:01:42.327Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 176046,
+          "duration": 185024,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:19:28.643Z"
+          "timestamp": "2026-07-03T13:08:55.681Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 510748,
+          "duration": 490969,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.460Z"
+          "timestamp": "2026-07-03T14:56:22.295Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2646,7 +3792,11 @@
           "success": true,
           "duration": 324479,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.460Z"
+          "timestamp": "2026-07-02T12:48:58.460Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2655,7 +3805,11 @@
           "success": true,
           "duration": 301579,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-06-11T13:18:49.142Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2664,7 +3818,11 @@
           "success": true,
           "duration": 297655,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-06-11T13:18:49.142Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2673,7 +3831,11 @@
           "success": true,
           "duration": 358192,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-06-11T13:18:49.142Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2682,7 +3844,11 @@
           "success": true,
           "duration": 371042.49999999994,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-06-11T13:18:49.142Z",
+          "passRate": 0.25,
+          "passedRuns": 1,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -2691,7 +3857,11 @@
           "success": true,
           "duration": 395207.5,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-06-11T13:18:49.142Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -2700,7 +3870,11 @@
           "success": true,
           "duration": 374089,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-06-11T13:18:49.142Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2709,16 +3883,24 @@
           "success": true,
           "duration": 301073,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-06-11T13:18:49.142Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 345798,
+          "duration": 349862,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-07-03T13:08:55.681Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2727,7 +3909,11 @@
           "success": true,
           "duration": 261274.99999999997,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-06-11T13:18:49.142Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -2736,7 +3922,11 @@
           "success": true,
           "duration": 320446,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T13:18:49.142Z"
+          "timestamp": "2026-06-11T13:18:49.142Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -2747,7 +3937,11 @@
           "success": true,
           "duration": 182986,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.494Z"
+          "timestamp": "2026-06-30T15:09:40.494Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2756,7 +3950,11 @@
           "success": true,
           "duration": 183217,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.609Z"
+          "timestamp": "2026-06-30T14:12:50.609Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2765,25 +3963,37 @@
           "success": true,
           "duration": 272524,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.609Z"
+          "timestamp": "2026-06-30T14:12:50.609Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": true,
-          "duration": 275095.25,
+          "duration": 225815,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-07-03T14:56:22.309Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 247870.66666666666,
+          "duration": 215526,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-07-03T13:08:55.697Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2792,7 +4002,11 @@
           "success": true,
           "duration": 170177,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.609Z"
+          "timestamp": "2026-06-30T14:12:50.609Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2801,7 +4015,11 @@
           "success": true,
           "duration": 225368,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.609Z"
+          "timestamp": "2026-06-30T14:12:50.609Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2810,34 +4028,50 @@
           "success": true,
           "duration": 177980,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.609Z"
+          "timestamp": "2026-06-30T14:12:50.609Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 310580,
+          "duration": 308863,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-07-03T13:08:55.697Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 183556,
+          "duration": 176602.33333333334,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.609Z"
+          "timestamp": "2026-07-03T13:08:55.697Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 193843,
+          "duration": 241874,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.494Z"
+          "timestamp": "2026-07-03T13:08:55.697Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2846,7 +4080,11 @@
           "success": true,
           "duration": 205324,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.609Z"
+          "timestamp": "2026-06-30T14:12:50.609Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2855,7 +4093,11 @@
           "success": true,
           "duration": 302178,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.609Z"
+          "timestamp": "2026-06-30T14:12:50.609Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2864,16 +4106,24 @@
           "success": true,
           "duration": 231901,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-06-11T12:17:55.178Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 222568.5,
+          "duration": 199220,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-07-03T13:08:55.697Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2882,25 +4132,37 @@
           "success": true,
           "duration": 215637,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.338Z"
+          "timestamp": "2026-07-02T11:01:42.338Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 152233,
+          "duration": 163906,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:19:28.658Z"
+          "timestamp": "2026-07-03T13:08:55.697Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 176896,
+          "duration": 187681,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.478Z"
+          "timestamp": "2026-07-03T14:56:22.309Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2909,7 +4171,11 @@
           "success": true,
           "duration": 456211.5,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.478Z"
+          "timestamp": "2026-07-02T12:48:58.478Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -2918,7 +4184,11 @@
           "success": true,
           "duration": 428765,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-06-11T12:17:55.178Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2927,7 +4197,11 @@
           "success": true,
           "duration": 298165,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-06-11T12:17:55.178Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2936,7 +4210,11 @@
           "success": true,
           "duration": 294445,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-06-11T12:17:55.178Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2945,7 +4223,11 @@
           "success": true,
           "duration": 637238,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T15:11:17.137Z"
+          "timestamp": "2026-06-11T15:11:17.137Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2954,7 +4236,11 @@
           "success": true,
           "duration": 343980,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-06-11T12:17:55.178Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2963,7 +4249,11 @@
           "success": true,
           "duration": 271428,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-12T09:29:16.619Z"
+          "timestamp": "2026-06-12T09:29:16.619Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2972,16 +4262,24 @@
           "success": true,
           "duration": 332701,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-06-11T12:17:55.178Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 343136,
+          "duration": 351589,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-07-03T13:08:55.697Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2990,7 +4288,11 @@
           "success": true,
           "duration": 413606,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-06-11T12:17:55.178Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -2999,7 +4301,11 @@
           "success": true,
           "duration": 304084,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T12:17:55.178Z"
+          "timestamp": "2026-06-11T12:17:55.178Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -3010,7 +4316,11 @@
           "success": true,
           "duration": 192736,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.505Z"
+          "timestamp": "2026-06-30T15:09:40.505Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3019,7 +4329,11 @@
           "success": true,
           "duration": 186633,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.621Z"
+          "timestamp": "2026-06-30T14:12:50.621Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3028,25 +4342,37 @@
           "success": true,
           "duration": 313055,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.621Z"
+          "timestamp": "2026-06-30T14:12:50.621Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
-          "success": true,
-          "duration": 311413,
+          "success": false,
+          "duration": 240887.5,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-11T13:18:42.884Z"
+          "timestamp": "2026-07-03T14:56:22.325Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 360540,
+          "duration": 230874,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-30T08:20:35.136Z"
+          "timestamp": "2026-07-03T13:47:29.847Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3055,7 +4381,11 @@
           "success": true,
           "duration": 177897,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.621Z"
+          "timestamp": "2026-06-30T14:12:50.621Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3064,7 +4394,11 @@
           "success": true,
           "duration": 258733.6666666667,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.621Z"
+          "timestamp": "2026-06-30T14:12:50.621Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3073,34 +4407,50 @@
           "success": true,
           "duration": 173611,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.621Z"
+          "timestamp": "2026-06-30T14:12:50.621Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 399751,
+          "duration": 411349,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-11T13:18:42.884Z"
+          "timestamp": "2026-07-03T13:08:55.713Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 232460,
+          "duration": 335299,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.621Z"
+          "timestamp": "2026-07-03T13:08:55.713Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 451890,
+          "duration": 704297,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.505Z"
+          "timestamp": "2026-07-03T13:08:55.713Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3109,7 +4459,11 @@
           "success": true,
           "duration": 217712,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.621Z"
+          "timestamp": "2026-06-30T14:12:50.621Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3118,7 +4472,11 @@
           "success": true,
           "duration": 481723,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.621Z"
+          "timestamp": "2026-06-30T14:12:50.621Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3127,16 +4485,24 @@
           "success": true,
           "duration": 370572,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-30T10:18:21.554Z"
+          "timestamp": "2026-06-30T10:18:21.554Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 260171,
+          "duration": 291110,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T13:18:42.884Z"
+          "timestamp": "2026-07-03T13:08:55.713Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3145,25 +4511,37 @@
           "success": true,
           "duration": 180753,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.353Z"
+          "timestamp": "2026-07-02T11:01:42.353Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 155133,
+          "duration": 166338,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:17.116Z"
+          "timestamp": "2026-07-03T13:08:55.713Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 248477,
+          "duration": 274528,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.498Z"
+          "timestamp": "2026-07-03T14:56:22.325Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3172,7 +4550,11 @@
           "success": true,
           "duration": 309683,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.498Z"
+          "timestamp": "2026-07-02T12:48:58.498Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3181,7 +4563,11 @@
           "success": true,
           "duration": 211449.75,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-12T09:29:16.632Z"
+          "timestamp": "2026-06-12T09:29:16.632Z",
+          "passRate": 0.25,
+          "passedRuns": 1,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3190,7 +4576,11 @@
           "success": true,
           "duration": 204729,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-12T12:13:20.483Z"
+          "timestamp": "2026-06-12T12:13:20.483Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3199,7 +4589,11 @@
           "success": true,
           "duration": 233054.66666666666,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T15:11:17.148Z"
+          "timestamp": "2026-06-11T15:11:17.148Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3208,7 +4602,11 @@
           "success": true,
           "duration": 458242,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T13:18:42.884Z"
+          "timestamp": "2026-06-11T13:18:42.884Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3217,7 +4615,11 @@
           "success": false,
           "duration": 374190.5,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-12T09:29:16.632Z"
+          "timestamp": "2026-06-12T09:29:16.632Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3226,7 +4628,11 @@
           "success": false,
           "duration": 250126,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-12T09:29:16.632Z"
+          "timestamp": "2026-06-12T09:29:16.632Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3235,16 +4641,24 @@
           "success": true,
           "duration": 312919,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T13:18:42.884Z"
+          "timestamp": "2026-06-11T13:18:42.884Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 335702,
+          "duration": 338027,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-12T09:29:16.632Z"
+          "timestamp": "2026-07-03T13:08:55.713Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3253,7 +4667,11 @@
           "success": true,
           "duration": 526070,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T13:18:42.884Z"
+          "timestamp": "2026-06-11T13:18:42.884Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3262,7 +4680,11 @@
           "success": true,
           "duration": 347787,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T13:18:42.884Z"
+          "timestamp": "2026-06-11T13:18:42.884Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -3271,261 +4693,377 @@
         "evalPath": "nuxt-000-fix-data-fetching",
         "result": {
           "success": true,
-          "duration": 697729,
+          "duration": 423419,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.517Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-001-prefer-nuxt-link",
         "result": {
           "success": true,
-          "duration": 702548,
+          "duration": 245409,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.634Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-002-state-composables",
         "result": {
           "success": true,
-          "duration": 1045781.9999999999,
+          "duration": 951268,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.634Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": true,
-          "duration": 450478,
+          "duration": 479537,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-05-21T12:13:33.294Z"
+          "timestamp": "2026-07-03T14:56:22.340Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 1651144,
+          "duration": 774540,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-30T08:58:10.595Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-005-fix-seo-meta",
         "result": {
           "success": true,
-          "duration": 481122,
+          "duration": 313061,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.634Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-006-runtime-config",
         "result": {
           "success": true,
-          "duration": 1678712,
+          "duration": 938069,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.634Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-007-avoid-redundant-ref",
         "result": {
           "success": true,
-          "duration": 550309,
+          "duration": 405637,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.634Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 561943,
+          "duration": 934903,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-05-21T12:13:33.294Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 413695,
+          "duration": 445937,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.634Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 1260582,
+          "duration": 596233,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.517Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-011-fix-sequential-fetching",
         "result": {
           "success": true,
-          "duration": 661732,
+          "duration": 354027,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.634Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
         "result": {
           "success": true,
-          "duration": 1524730,
+          "duration": 1671809,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T15:09:40.517Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-013-prefer-nuxt-image",
         "result": {
-          "success": false,
-          "duration": 1738948,
+          "success": true,
+          "duration": 879002,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-30T10:51:16.602Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 768538,
+          "duration": 383060,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-12T12:55:07.169Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-015-shared-source-of-truth",
         "result": {
           "success": true,
-          "duration": 648928,
+          "duration": 501649,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.365Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 306401,
+          "duration": 275791,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:17.129Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 372705,
+          "duration": 412871,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.514Z"
+          "timestamp": "2026-07-03T14:56:22.340Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-018-nuxt5-migration",
         "result": {
           "success": true,
-          "duration": 720851,
+          "duration": 595629,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.514Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-content-000-navigation",
         "result": {
           "success": true,
-          "duration": 1466396,
+          "duration": 1018853,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-05-26T08:10:03.956Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-content-001-data-collection",
         "result": {
           "success": true,
-          "duration": 514452,
+          "duration": 627853,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-05-21T12:13:33.294Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-000-theming",
         "result": {
           "success": true,
-          "duration": 1171054,
+          "duration": 660048,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T15:11:17.159Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-001-fix-raw-html-page",
         "result": {
           "success": true,
-          "duration": 1435836,
+          "duration": 1066256,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-05-21T12:13:33.294Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-002-dashboard-layout",
         "result": {
           "success": true,
-          "duration": 1251907,
+          "duration": 917526,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-05-21T12:13:33.294Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-003-fix-raw-form",
         "result": {
           "success": false,
-          "duration": 416021,
+          "duration": 720520.7499999999,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-05-21T12:13:33.294Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-ui-004-table",
         "result": {
           "success": true,
-          "duration": 697113,
+          "duration": 591864,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-05-21T12:13:33.294Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 539729,
+          "duration": 665565,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-05-21T12:13:33.294Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-006-command-palette",
         "result": {
           "success": true,
-          "duration": 1442213,
+          "duration": 812545,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T15:11:17.159Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-007-dropdown-menu",
         "result": {
           "success": true,
-          "duration": 597154,
+          "duration": 651628,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-05-21T12:13:33.294Z"
+          "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -3536,7 +5074,11 @@
           "success": true,
           "duration": 187519,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.528Z"
+          "timestamp": "2026-06-30T15:09:40.528Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3545,7 +5087,11 @@
           "success": true,
           "duration": 188805,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.649Z"
+          "timestamp": "2026-06-30T14:12:50.649Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3554,25 +5100,37 @@
           "success": true,
           "duration": 240141,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.649Z"
+          "timestamp": "2026-06-30T14:12:50.649Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
-          "success": true,
-          "duration": 359308,
+          "success": false,
+          "duration": 231087.24999999997,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-07-03T14:56:22.354Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
           "success": true,
-          "duration": 330553,
+          "duration": 223109,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-07-03T13:08:55.749Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3581,7 +5139,11 @@
           "success": true,
           "duration": 177075,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.649Z"
+          "timestamp": "2026-06-30T14:12:50.649Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3590,7 +5152,11 @@
           "success": true,
           "duration": 197042,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.649Z"
+          "timestamp": "2026-06-30T14:12:50.649Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3599,34 +5165,50 @@
           "success": true,
           "duration": 186915,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.649Z"
+          "timestamp": "2026-06-30T14:12:50.649Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": true,
-          "duration": 442052,
+          "duration": 415284,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-07-03T13:08:55.749Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 190581,
+          "duration": 175448,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.649Z"
+          "timestamp": "2026-07-03T13:08:55.749Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 177672,
+          "duration": 210501,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.528Z"
+          "timestamp": "2026-07-03T13:08:55.749Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3635,7 +5217,11 @@
           "success": true,
           "duration": 177092,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.649Z"
+          "timestamp": "2026-06-30T14:12:50.649Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3644,7 +5230,11 @@
           "success": true,
           "duration": 226174,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T14:12:50.649Z"
+          "timestamp": "2026-06-30T14:12:50.649Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3653,16 +5243,24 @@
           "success": true,
           "duration": 241266,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-06-11T13:19:12.233Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 263647,
+          "duration": 297634,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-07-03T13:08:55.749Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3671,25 +5269,37 @@
           "success": true,
           "duration": 177542,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.377Z"
+          "timestamp": "2026-07-02T11:01:42.377Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
           "success": true,
-          "duration": 151346,
+          "duration": 173340,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:19:28.670Z"
+          "timestamp": "2026-07-03T13:08:55.749Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
           "success": true,
-          "duration": 242980,
+          "duration": 301970,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.528Z"
+          "timestamp": "2026-07-03T14:56:22.354Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3698,7 +5308,11 @@
           "success": true,
           "duration": 202629.5,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.528Z"
+          "timestamp": "2026-07-02T12:48:58.528Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3707,7 +5321,11 @@
           "success": true,
           "duration": 380488,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-06-11T13:19:12.233Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3716,7 +5334,11 @@
           "success": true,
           "duration": 414877,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-06-11T13:19:12.233Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3725,7 +5347,11 @@
           "success": true,
           "duration": 545550,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-06-11T13:19:12.233Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3734,7 +5360,11 @@
           "success": true,
           "duration": 478559.6666666667,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-06-11T13:19:12.233Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3743,7 +5373,11 @@
           "success": true,
           "duration": 466718,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-06-11T13:19:12.233Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3752,7 +5386,11 @@
           "success": true,
           "duration": 360868.6666666667,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-06-11T13:19:12.233Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3761,16 +5399,24 @@
           "success": true,
           "duration": 295511,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-06-11T13:19:12.233Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
-          "success": true,
-          "duration": 385503,
+          "success": false,
+          "duration": 317712.75,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-07-03T13:08:55.749Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3779,7 +5425,11 @@
           "success": true,
           "duration": 429171.50000000006,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-06-11T13:19:12.233Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3788,7 +5438,11 @@
           "success": true,
           "duration": 358667,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-11T13:19:12.233Z"
+          "timestamp": "2026-06-11T13:19:12.233Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       }
     ],
@@ -3799,7 +5453,11 @@
           "success": true,
           "duration": 154124,
           "evalPath": "nuxt-000-fix-data-fetching",
-          "timestamp": "2026-06-30T15:09:40.538Z"
+          "timestamp": "2026-06-30T15:09:40.538Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3808,7 +5466,11 @@
           "success": true,
           "duration": 167075,
           "evalPath": "nuxt-001-prefer-nuxt-link",
-          "timestamp": "2026-06-30T14:12:50.671Z"
+          "timestamp": "2026-06-30T14:12:50.671Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3817,25 +5479,37 @@
           "success": true,
           "duration": 151994,
           "evalPath": "nuxt-002-state-composables",
-          "timestamp": "2026-06-30T14:12:50.671Z"
+          "timestamp": "2026-06-30T14:12:50.671Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-003-page-meta",
         "result": {
           "success": false,
-          "duration": 170736,
+          "duration": 175921.75000000003,
           "evalPath": "nuxt-003-page-meta",
-          "timestamp": "2026-06-30T15:09:40.538Z"
+          "timestamp": "2026-07-03T14:56:22.372Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-004-error-handling",
         "result": {
-          "success": true,
-          "duration": 167324,
+          "success": false,
+          "duration": 182392.75,
           "evalPath": "nuxt-004-error-handling",
-          "timestamp": "2026-06-11T13:19:09.141Z"
+          "timestamp": "2026-07-03T13:08:55.767Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3844,7 +5518,11 @@
           "success": true,
           "duration": 160718,
           "evalPath": "nuxt-005-fix-seo-meta",
-          "timestamp": "2026-06-30T14:12:50.671Z"
+          "timestamp": "2026-06-30T14:12:50.671Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3853,7 +5531,11 @@
           "success": false,
           "duration": 191917.25000000003,
           "evalPath": "nuxt-006-runtime-config",
-          "timestamp": "2026-06-30T14:12:50.671Z"
+          "timestamp": "2026-06-30T14:12:50.671Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3862,34 +5544,50 @@
           "success": true,
           "duration": 165878,
           "evalPath": "nuxt-007-avoid-redundant-ref",
-          "timestamp": "2026-06-30T14:12:50.671Z"
+          "timestamp": "2026-06-30T14:12:50.671Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-008-fix-exposed-secret",
         "result": {
           "success": false,
-          "duration": 168487.25,
+          "duration": 210765.49999999997,
           "evalPath": "nuxt-008-fix-exposed-secret",
-          "timestamp": "2026-06-30T15:09:40.538Z"
+          "timestamp": "2026-07-03T13:08:55.767Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-009-cache-api-response",
         "result": {
           "success": true,
-          "duration": 168210,
+          "duration": 194994,
           "evalPath": "nuxt-009-cache-api-response",
-          "timestamp": "2026-06-30T14:12:50.671Z"
+          "timestamp": "2026-07-03T13:08:55.767Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-010-fix-watch-fetch",
         "result": {
           "success": true,
-          "duration": 176408,
+          "duration": 187692.99999999997,
           "evalPath": "nuxt-010-fix-watch-fetch",
-          "timestamp": "2026-06-30T15:09:40.538Z"
+          "timestamp": "2026-07-03T13:08:55.767Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3898,7 +5596,11 @@
           "success": true,
           "duration": 178048,
           "evalPath": "nuxt-011-fix-sequential-fetching",
-          "timestamp": "2026-06-30T14:12:50.671Z"
+          "timestamp": "2026-06-30T14:12:50.671Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3907,7 +5609,11 @@
           "success": true,
           "duration": 210765,
           "evalPath": "nuxt-012-nuxt3-to-nuxt4-migration",
-          "timestamp": "2026-06-30T15:36:40.335Z"
+          "timestamp": "2026-06-30T15:36:40.335Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -3916,16 +5622,24 @@
           "success": true,
           "duration": 174728,
           "evalPath": "nuxt-013-prefer-nuxt-image",
-          "timestamp": "2026-06-11T13:19:09.141Z"
+          "timestamp": "2026-06-11T13:19:09.141Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
         "evalPath": "nuxt-014-prefer-use-cookie",
         "result": {
           "success": true,
-          "duration": 169271,
+          "duration": 285923,
           "evalPath": "nuxt-014-prefer-use-cookie",
-          "timestamp": "2026-06-11T13:19:09.141Z"
+          "timestamp": "2026-07-03T13:08:55.767Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3934,25 +5648,37 @@
           "success": true,
           "duration": 175983.99999999997,
           "evalPath": "nuxt-015-shared-source-of-truth",
-          "timestamp": "2026-07-02T11:01:42.391Z"
+          "timestamp": "2026-07-02T11:01:42.391Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-016-hydration-mismatch",
         "result": {
-          "success": true,
-          "duration": 174340,
+          "success": false,
+          "duration": 174334.99999999997,
           "evalPath": "nuxt-016-hydration-mismatch",
-          "timestamp": "2026-07-02T09:40:17.159Z"
+          "timestamp": "2026-07-03T13:08:55.767Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-017-shallow-reactivity",
         "result": {
-          "success": true,
-          "duration": 197716.99999999997,
+          "success": false,
+          "duration": 227853.75,
           "evalPath": "nuxt-017-shallow-reactivity",
-          "timestamp": "2026-07-02T12:48:58.543Z"
+          "timestamp": "2026-07-03T14:56:22.372Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3961,7 +5687,11 @@
           "success": false,
           "duration": 174476.75,
           "evalPath": "nuxt-018-nuxt5-migration",
-          "timestamp": "2026-07-02T12:48:58.543Z"
+          "timestamp": "2026-07-02T12:48:58.543Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3970,7 +5700,11 @@
           "success": true,
           "duration": 302478.25,
           "evalPath": "nuxt-content-000-navigation",
-          "timestamp": "2026-06-11T13:19:09.141Z"
+          "timestamp": "2026-06-11T13:19:09.141Z",
+          "passRate": 0.25,
+          "passedRuns": 1,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3979,7 +5713,11 @@
           "success": false,
           "duration": 219681.75,
           "evalPath": "nuxt-content-001-data-collection",
-          "timestamp": "2026-06-30T15:09:40.538Z"
+          "timestamp": "2026-06-30T15:09:40.538Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3988,7 +5726,11 @@
           "success": false,
           "duration": 249002.75,
           "evalPath": "nuxt-ui-000-theming",
-          "timestamp": "2026-06-30T15:09:40.538Z"
+          "timestamp": "2026-06-30T15:09:40.538Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -3997,7 +5739,11 @@
           "success": false,
           "duration": 254108,
           "evalPath": "nuxt-ui-001-fix-raw-html-page",
-          "timestamp": "2026-06-30T15:36:40.335Z"
+          "timestamp": "2026-06-30T15:36:40.335Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -4006,7 +5752,11 @@
           "success": false,
           "duration": 270806.25,
           "evalPath": "nuxt-ui-002-dashboard-layout",
-          "timestamp": "2026-06-30T15:36:40.335Z"
+          "timestamp": "2026-06-30T15:36:40.335Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -4015,7 +5765,11 @@
           "success": false,
           "duration": 191364.5,
           "evalPath": "nuxt-ui-003-fix-raw-form",
-          "timestamp": "2026-06-30T15:09:40.538Z"
+          "timestamp": "2026-06-30T15:09:40.538Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -4024,16 +5778,24 @@
           "success": false,
           "duration": 167546.75,
           "evalPath": "nuxt-ui-004-table",
-          "timestamp": "2026-06-30T15:09:40.538Z"
+          "timestamp": "2026-06-30T15:09:40.538Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
         "evalPath": "nuxt-ui-005-modal",
         "result": {
           "success": true,
-          "duration": 265799.49999999994,
+          "duration": 291220,
           "evalPath": "nuxt-ui-005-modal",
-          "timestamp": "2026-06-11T13:19:09.141Z"
+          "timestamp": "2026-07-03T13:08:55.767Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -4042,7 +5804,11 @@
           "success": false,
           "duration": 290493.75,
           "evalPath": "nuxt-ui-006-command-palette",
-          "timestamp": "2026-06-30T15:36:40.335Z"
+          "timestamp": "2026-06-30T15:36:40.335Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -4051,7 +5817,11 @@
           "success": false,
           "duration": 159247.75,
           "evalPath": "nuxt-ui-007-dropdown-menu",
-          "timestamp": "2026-06-30T15:09:40.538Z"
+          "timestamp": "2026-06-30T15:09:40.538Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       }
     ]
