@@ -107,11 +107,12 @@ test('Blog page derives its title from the slug via useHead', () => {
 
   // The title must actually be dynamic: either the title expression
   // references the slug (template literal / concatenation / function), or
-  // the title comes from a computed that references it.
+  // a slug-derived computed is passed to the head call — including the
+  // shorthand form `useHead({ title })`.
   const titleUsesSlug = /title\s*:[^\n]{0,160}slug/.test(content);
   const computedTitle =
     /computed\s*\([\s\S]{0,160}?slug/.test(content) &&
-    /title\s*:/.test(content);
+    /use(?:Head|SeoMeta)\s*\(\s*\{[\s\S]{0,200}?\btitle\b\s*[,:}]/.test(content);
   expect(titleUsesSlug || computedTitle).toBe(true);
 });
 

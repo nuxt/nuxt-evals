@@ -53,9 +53,10 @@ test('Makes the toggle reactive despite the shallowRef default', () => {
   // assignment, not a comparison (=== / ==);
   const reassigns = /\.value\s*=(?!=)/.test(content);
   const triggers = /triggerRef\s*\(/.test(content);
-  // a deep local copy must wrap the fetched todos inside the call parens —
-  // an unrelated ref(false) elsewhere in setup does not count;
-  const deepCopy = /=\s*(?:ref|reactive)\s*\(\s*[^)\n]*todos/.test(content);
+  // a deep local copy must wrap the fetched data inside the call parens —
+  // whatever the variable is called (`todos`, `data.value`, a spread of
+  // either); an unrelated ref(false) elsewhere in setup does not count;
+  const deepCopy = /=\s*(?:ref|reactive)\s*\(\s*[^)\n]*(?:todos|\.value)/.test(content);
   // deeply-reactive useState container is also a legitimate fix.
   const deepState = /useState\s*(?:<[^>]*>)?\s*\(/.test(content);
 
