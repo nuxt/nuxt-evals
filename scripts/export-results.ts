@@ -86,6 +86,7 @@ const MODEL_NAMES: Record<string, string> = {
   'kimi-k2.6': 'Kimi K2.6',
   'kimi-k2.7-code': 'Kimi K2.7 Code',
   'minimax-m2.7': 'MiniMax M2.7',
+  'minimax-m3': 'MiniMax M3',
 };
 
 const HARNESS_NAMES: Record<string, string> = {

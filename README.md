@@ -53,6 +53,7 @@ pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 | `kimi-k2.6` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k2.6` |
 | `kimi-k2.7-code` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k2.7-code` |
 | `minimax-m2.7` | `vercel-ai-gateway/opencode` | `vercel/minimax/minimax-m2.7` |
+| `minimax-m3` | `vercel-ai-gateway/opencode` | `vercel/minimax/minimax-m3` |
 
 ## Eval structure
 
