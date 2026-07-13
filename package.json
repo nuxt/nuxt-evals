@@ -9,7 +9,7 @@
     "export-results": "tsx scripts/export-results.ts"
   },
   "devDependencies": {
-    "tsx": "^4.22.4",
+    "tsx": "^4.23.1",
     "typescript": "^6.0.3",
     "@types/node": "^25.9.4"
   },
