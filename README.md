@@ -32,6 +32,12 @@ pnpm run export-results                          # Export from all experiments
 pnpm run export-results -- claude-opus-4.6       # Export specific experiment
 ```
 
+Each experiment also gets an `avgCostUsd`: the mean list cost per eval. Tokens are read from each run's `transcript-raw.jsonl` (handled per harness in `scripts/cost.ts`) and multiplied by the list prices in `MODEL_PRICING`. A model with no price entry, or whose runs carry no token usage, exports `null` and renders as N/A. Prices are a snapshot, so re-run the export to refresh them.
+
+### `pnpm run test:cost`
+
+Unit tests for the token extraction and pricing in `scripts/cost.ts`.
+
 ## Models
 
 | Experiment | Agent | Model |

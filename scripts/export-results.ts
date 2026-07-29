@@ -19,6 +19,7 @@ import {
   loadConfig,
   type ResolvedExperimentConfig,
 } from '@vercel/agent-eval';
+import { MODEL_PRICING, extractRunTokens, priceUsage } from './cost.ts';
 
 interface SummaryJson {
   totalRuns: number;
@@ -34,6 +35,9 @@ interface RunResultJson {
 
 interface AgentResult {
   evalPath: string;
+  /** Mean list cost in USD across this eval's runs. Absent when the runs saved
+   * no token usage (e.g. a timeout) or the model has no price entry. */
+  costUsd?: number;
   result: {
     success: boolean;
     duration: number;
@@ -59,6 +63,9 @@ interface ExportedData {
       modelName: string;
       agentHarness: string;
       avgDuration?: number;
+      /** Mean list cost per eval (USD). null = not estimated (no price, or the
+       * model's runs carry no usable token usage) — rendered as N/A. */
+      avgCostUsd?: number | null;
       /** Fraction of evals whose first run passed (unbiased pass@1). */
       passAt1?: number;
       /** Mean per-eval passRate (censored under earlyExit: true). */
@@ -155,6 +162,58 @@ async function getFirstRunSuccess(
   } catch {
     return summary.totalRuns === 1 && summary.passedRuns > 0;
   }
+}
+
+/**
+ * Mean list cost (USD) for one eval, averaged over its runs. Reads each run's
+ * transcript-raw.jsonl, extracts tokens, and prices them at the experiment's
+ * list rate. Returns undefined when the model has no price or no run carried
+ * usage (e.g. a timeout), so the caller can leave it out of the average.
+ */
+async function meanEvalCostUsd(
+  evalDir: string,
+  experiment: string
+): Promise<number | undefined> {
+  const pricing = MODEL_PRICING[experiment];
+  if (!pricing) return undefined;
+
+  let runEntries: string[];
+  try {
+    runEntries = await readdir(evalDir);
+  } catch {
+    return undefined;
+  }
+
+  const costs: number[] = [];
+  for (const entry of runEntries) {
+    if (!entry.startsWith('run-')) continue;
+    try {
+      const raw = await readFile(
+        join(evalDir, entry, 'transcript-raw.jsonl'),
+        'utf-8'
+      );
+      const usage = extractRunTokens(raw);
+      if (usage) costs.push(priceUsage(usage, pricing));
+    } catch {
+      // No transcript for this run (e.g. timeout) — skip it.
+    }
+  }
+
+  if (costs.length === 0) return undefined;
+  return costs.reduce((a, b) => a + b, 0) / costs.length;
+}
+
+/**
+ * Mean per-eval list cost across an experiment's results, over the evals that
+ * have a cost. Returns null when none do, so an all-timeout or unpriced
+ * experiment reads as N/A.
+ */
+function avgCost(results: AgentResult[]): number | null {
+  const costs = results
+    .map((r) => r.costUsd)
+    .filter((c): c is number => typeof c === 'number');
+  if (costs.length === 0) return null;
+  return costs.reduce((a, b) => a + b, 0) / costs.length;
 }
 
 async function loadExperimentConfig(
@@ -283,9 +342,14 @@ async function main(): Promise<void> {
             join(tsDir, evalDir),
             summary
           );
+          const costUsd = await meanEvalCostUsd(
+            join(tsDir, evalDir),
+            experiment
+          );
 
           agentResults.push({
             evalPath: evalDir,
+            ...(costUsd !== undefined ? { costUsd } : {}),
             result: {
               success: summary.passedRuns > 0,
               duration: summary.meanDuration * 1000,
@@ -347,6 +411,7 @@ async function main(): Promise<void> {
       modelName,
       agentHarness,
       avgDuration,
+      avgCostUsd: avgCost(agentResults),
       passAt1,
       avgPassRate,
     });
@@ -377,10 +442,12 @@ async function main(): Promise<void> {
     (a, b) =>
       b.successRate - a.successRate || (b.passAt1 ?? 0) - (a.passAt1 ?? 0)
   );
-  console.log('\nModel                       success   pass@1   avgPassRate');
+  console.log('\nModel                       success   pass@1   avgPassRate    $/eval');
   for (const exp of board) {
+    const cost =
+      typeof exp.avgCostUsd === 'number' ? `$${exp.avgCostUsd.toFixed(2)}` : 'N/A';
     console.log(
-      `${exp.name.padEnd(28)}${(exp.successRate * 100).toFixed(0).padStart(6)}%${((exp.passAt1 ?? 0) * 100).toFixed(0).padStart(8)}%${((exp.avgPassRate ?? 0) * 100).toFixed(0).padStart(11)}%`
+      `${exp.name.padEnd(28)}${(exp.successRate * 100).toFixed(0).padStart(6)}%${((exp.passAt1 ?? 0) * 100).toFixed(0).padStart(8)}%${((exp.avgPassRate ?? 0) * 100).toFixed(0).padStart(11)}%${cost.padStart(10)}`
     );
   }
 

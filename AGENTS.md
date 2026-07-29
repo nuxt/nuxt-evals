@@ -9,10 +9,11 @@ When asked to add a new model/experiment, do all of the following, then commit:
 1. **Create `experiments/<name>.ts`** with an `ExperimentConfig` default export (see conventions below).
 2. **Add a display name** to the `MODEL_NAMES` map in `scripts/export-results.ts` (e.g. `'kimi-k2.6': 'Kimi K2.6'`). Without this, exported results fall back to the raw key.
 3. **Check `HARNESS_NAMES`** in `scripts/export-results.ts`. If the experiment's `agent` value isn't already a key there, add it (e.g. `'vercel-ai-gateway/opencode': 'OpenCode'`). Without this, the harness falls back to the raw `agent` string.
-4. **Add a row** to the Models table in `README.md` with `| \`<name>\` | \`<agent>\` | \`<model>\` |`.
-5. **Commit per model** with message `feat(experiments): add <name>` (one model = one commit, bundling all the file changes).
+4. **Add the list price** to the `MODEL_PRICING` map in `scripts/cost.ts` (per 1M tokens, from the AI Gateway model catalog base tier). Without this, the exported `avgCostUsd` is `null` and the cost column shows N/A. `pnpm run test:cost` fails when an experiment has no entry.
+5. **Add a row** to the Models table in `README.md` with `| \`<name>\` | \`<agent>\` | \`<model>\` |`.
+6. **Commit per model** with message `feat(experiments): add <name>` (one model = one commit, bundling all the file changes).
 
-Keep these in sync. Every `experiments/*.ts` file must have a matching `MODEL_NAMES` entry, a known `HARNESS_NAMES` key for its `agent`, and a README table row.
+Keep these in sync. Every `experiments/*.ts` file must have a matching `MODEL_NAMES` entry, a known `HARNESS_NAMES` key for its `agent`, a `MODEL_PRICING` entry, and a README table row.
 
 ## Experiment config conventions
 
