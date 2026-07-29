@@ -92,6 +92,7 @@ const MODEL_NAMES: Record<string, string> = {
   'gpt-5.5-pro': 'GPT 5.5 Pro',
   'kimi-k2.6': 'Kimi K2.6',
   'kimi-k2.7-code': 'Kimi K2.7 Code',
+  'kimi-k3': 'Kimi K3',
   'minimax-m2.7': 'MiniMax M2.7',
   'minimax-m3': 'MiniMax M3',
 };

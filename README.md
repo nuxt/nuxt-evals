@@ -58,6 +58,7 @@ Unit tests for the token extraction and pricing in `scripts/cost.ts`.
 | `gpt-5.5-pro` | `vercel-ai-gateway/codex` | `openai/gpt-5.5-pro` |
 | `kimi-k2.6` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k2.6` |
 | `kimi-k2.7-code` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k2.7-code` |
+| `kimi-k3` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k3` |
 | `minimax-m2.7` | `vercel-ai-gateway/opencode` | `vercel/minimax/minimax-m2.7` |
 | `minimax-m3` | `vercel-ai-gateway/opencode` | `vercel/minimax/minimax-m3` |
 
