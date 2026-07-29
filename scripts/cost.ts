@@ -56,6 +56,7 @@ export const MODEL_PRICING: Record<string, Pricing | null> = {
   'gpt-5.3-codex-xhigh': { input: 1.75, output: 14, cacheRead: 0.175, cacheWrite: 0 },
   'gpt-5.4-xhigh': { input: 2.5, output: 15, cacheRead: 0.25, cacheWrite: 0 },
   'gpt-5.5-pro': { input: 30, output: 180, cacheRead: 0, cacheWrite: 0 }, // never caches; cacheRead moot
+  'gpt-5.6-sol-xhigh': { input: 5, output: 30, cacheRead: 0.5, cacheWrite: 6.25 },
   'kimi-k2.6': { input: 0.95, output: 4, cacheRead: 0.16, cacheWrite: 0 },
   'kimi-k2.7-code': { input: 0.95, output: 4, cacheRead: 0.19, cacheWrite: 0 },
   'kimi-k3': { input: 3, output: 15, cacheRead: 0.3, cacheWrite: 0 },
