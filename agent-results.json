@@ -1,96 +1,96 @@
 {
   "metadata": {
-    "exportedAt": "2026-07-29T15:50:48.354Z",
+    "exportedAt": "2026-07-31T15:20:09.326Z",
     "experiments": [
       {
         "name": "claude-fable-5",
-        "timestamp": "2026-07-03T14:56:22.157Z",
+        "timestamp": "2026-07-30T10:20:21.436Z",
         "modelName": "Claude Fable 5",
         "agentHarness": "Claude Code",
-        "avgDuration": 298.8140172413793,
-        "avgCostUsd": 0.9632599741379312,
-        "passAt1": 0.9655172413793104,
-        "avgPassRate": 0.9827586206896551
+        "avgDuration": 309.86505,
+        "avgCostUsd": 1.1941185916666666,
+        "passAt1": 0.9666666666666667,
+        "avgPassRate": 0.9833333333333333
       },
       {
         "name": "claude-opus-4.6",
-        "timestamp": "2026-07-03T14:56:22.172Z",
+        "timestamp": "2026-07-30T10:20:21.454Z",
         "modelName": "Claude Opus 4.6",
         "agentHarness": "Claude Code",
-        "avgDuration": 244.85190229885058,
-        "avgCostUsd": 0.3399654540229885,
-        "passAt1": 0.8275862068965517,
-        "avgPassRate": 0.8850574712643677
+        "avgDuration": 243.57770555555555,
+        "avgCostUsd": 0.34134218055555554,
+        "passAt1": 0.8333333333333334,
+        "avgPassRate": 0.8888888888888888
       },
       {
         "name": "claude-opus-4.7",
-        "timestamp": "2026-07-03T14:56:22.189Z",
+        "timestamp": "2026-07-30T10:20:21.472Z",
         "modelName": "Claude Opus 4.7",
         "agentHarness": "Claude Code",
-        "avgDuration": 215.7265689655173,
-        "avgCostUsd": 0.3285196745689655,
-        "passAt1": 0.896551724137931,
-        "avgPassRate": 0.9195402298850573
+        "avgDuration": 222.55130555555556,
+        "avgCostUsd": 0.38082877708333324,
+        "passAt1": 0.8666666666666667,
+        "avgPassRate": 0.8999999999999999
       },
       {
         "name": "claude-opus-4.8",
-        "timestamp": "2026-07-03T14:56:22.202Z",
+        "timestamp": "2026-07-30T10:20:21.496Z",
         "modelName": "Claude Opus 4.8",
         "agentHarness": "Claude Code",
-        "avgDuration": 261.3666724137931,
-        "avgCostUsd": 0.49228460775862076,
-        "passAt1": 0.896551724137931,
-        "avgPassRate": 0.9396551724137931
+        "avgDuration": 266.8935833333333,
+        "avgCostUsd": 0.5416218125000002,
+        "passAt1": 0.9,
+        "avgPassRate": 0.9416666666666667
       },
       {
         "name": "claude-sonnet-4.5",
-        "timestamp": "2026-07-03T14:56:22.217Z",
+        "timestamp": "2026-07-30T10:20:21.518Z",
         "modelName": "Claude Sonnet 4.5",
         "agentHarness": "Claude Code",
-        "avgDuration": 240.76111781609194,
-        "avgCostUsd": 0.18423550129310343,
-        "passAt1": 0.4827586206896552,
-        "avgPassRate": 0.5287356321839081
+        "avgDuration": 239.83094722222222,
+        "avgCostUsd": 0.18659232166666664,
+        "passAt1": 0.4666666666666667,
+        "avgPassRate": 0.5111111111111112
       },
       {
         "name": "claude-sonnet-4.6",
-        "timestamp": "2026-07-03T14:56:22.237Z",
+        "timestamp": "2026-07-30T10:20:21.537Z",
         "modelName": "Claude Sonnet 4.6",
         "agentHarness": "Claude Code",
-        "avgDuration": 254.11203448275862,
-        "avgCostUsd": 0.32152283146551724,
-        "passAt1": 0.8275862068965517,
-        "avgPassRate": 0.8793103448275862
+        "avgDuration": 254.27348333333333,
+        "avgCostUsd": 0.32072031124999995,
+        "passAt1": 0.8,
+        "avgPassRate": 0.85
       },
       {
         "name": "claude-sonnet-5",
-        "timestamp": "2026-07-03T15:14:44.287Z",
+        "timestamp": "2026-07-30T10:20:21.558Z",
         "modelName": "Claude Sonnet 5",
         "agentHarness": "Claude Code",
-        "avgDuration": 292.09031034482757,
-        "avgCostUsd": 0.406632048275862,
-        "passAt1": 1,
-        "avgPassRate": 1
+        "avgDuration": 307.795525,
+        "avgCostUsd": 0.5113394066666666,
+        "passAt1": 0.9666666666666667,
+        "avgPassRate": 0.9666666666666667
       },
       {
         "name": "cursor-composer-2.0",
-        "timestamp": "2026-07-03T14:56:22.253Z",
+        "timestamp": "2026-07-30T10:20:21.578Z",
         "modelName": "Cursor Composer 2.0",
         "agentHarness": "Cursor",
-        "avgDuration": 273.9128965517241,
-        "avgCostUsd": 0.07533416034482758,
-        "passAt1": 0.9655172413793104,
-        "avgPassRate": 0.9827586206896551
+        "avgDuration": 286.916225,
+        "avgCostUsd": 0.08622733166666667,
+        "passAt1": 0.9333333333333333,
+        "avgPassRate": 0.95
       },
       {
         "name": "cursor-composer-2.5",
-        "timestamp": "2026-07-03T14:56:22.267Z",
+        "timestamp": "2026-07-30T10:20:21.597Z",
         "modelName": "Cursor Composer 2.5",
         "agentHarness": "Cursor",
-        "avgDuration": 263.3075344827586,
-        "avgCostUsd": 0.06392737413793105,
-        "passAt1": 0.896551724137931,
-        "avgPassRate": 0.9310344827586207
+        "avgDuration": 273.15453888888885,
+        "avgCostUsd": 0.09031729722222225,
+        "passAt1": 0.8666666666666667,
+        "avgPassRate": 0.9111111111111111
       },
       {
         "name": "gemini-3-pro-preview",
@@ -104,103 +104,103 @@
       },
       {
         "name": "gemini-3.1-pro-preview",
-        "timestamp": "2026-07-03T14:56:22.295Z",
+        "timestamp": "2026-07-30T10:20:21.635Z",
         "modelName": "Gemini 3.1 Pro Preview",
         "agentHarness": "OpenCode",
-        "avgDuration": 289.4584827586207,
-        "avgCostUsd": 0.24203949999999996,
-        "passAt1": 0.8275862068965517,
-        "avgPassRate": 0.8821839080459771
+        "avgDuration": 297.974,
+        "avgCostUsd": 0.26964989500000003,
+        "passAt1": 0.8,
+        "avgPassRate": 0.8527777777777779
       },
       {
         "name": "gpt-5.3-codex-xhigh",
-        "timestamp": "2026-07-03T14:56:22.309Z",
+        "timestamp": "2026-07-30T14:27:51.510Z",
         "modelName": "GPT 5.3 Codex (xhigh)",
         "agentHarness": "Codex",
-        "avgDuration": 276.5169597701149,
-        "avgCostUsd": 0.16182335890804597,
-        "passAt1": 0.896551724137931,
-        "avgPassRate": 0.942528735632184
+        "avgDuration": 291.15349444444445,
+        "avgCostUsd": 0.19308303194444443,
+        "passAt1": 0.9,
+        "avgPassRate": 0.9444444444444444
       },
       {
         "name": "gpt-5.4-xhigh",
-        "timestamp": "2026-07-03T14:56:22.325Z",
+        "timestamp": "2026-07-30T10:20:21.674Z",
         "modelName": "GPT 5.4 (xhigh)",
         "agentHarness": "Codex",
-        "avgDuration": 302.56503735632185,
-        "avgCostUsd": 0.3413602916666666,
-        "passAt1": 0.7586206896551724,
-        "avgPassRate": 0.8074712643678161
+        "avgDuration": 310.3354027777778,
+        "avgCostUsd": 0.36756834861111104,
+        "passAt1": 0.7333333333333333,
+        "avgPassRate": 0.7972222222222223
       },
       {
         "name": "gpt-5.5-pro",
-        "timestamp": "2026-07-03T14:56:22.340Z",
+        "timestamp": "2026-07-30T10:20:21.695Z",
         "modelName": "GPT 5.5 Pro",
         "agentHarness": "Codex",
-        "avgDuration": 666.0175775862068,
-        "avgCostUsd": 7.286853189655172,
-        "passAt1": 0.9310344827586207,
-        "avgPassRate": 0.9425287356321839
+        "avgDuration": 700.2472916666667,
+        "avgCostUsd": 8.629919083333332,
+        "passAt1": 0.9333333333333333,
+        "avgPassRate": 0.9444444444444444
       },
       {
         "name": "gpt-5.6-sol-xhigh",
-        "timestamp": "2026-07-29T14:44:58.724Z",
+        "timestamp": "2026-07-30T10:20:21.714Z",
         "modelName": "GPT 5.6 Sol (xhigh)",
         "agentHarness": "Codex",
-        "avgDuration": 322.1667068965517,
-        "avgCostUsd": 0.4028855215517242,
-        "passAt1": 0.9310344827586207,
-        "avgPassRate": 0.9568965517241379
+        "avgDuration": 322.1145833333333,
+        "avgCostUsd": 0.42496590416666674,
+        "passAt1": 0.9333333333333333,
+        "avgPassRate": 0.9583333333333334
       },
       {
         "name": "kimi-k2.6",
-        "timestamp": "2026-07-03T14:56:22.354Z",
+        "timestamp": "2026-07-30T10:20:21.735Z",
         "modelName": "Kimi K2.6",
         "agentHarness": "OpenCode",
-        "avgDuration": 285.4723218390805,
-        "avgCostUsd": 0.07429004876436782,
-        "passAt1": 0.7931034482758621,
-        "avgPassRate": 0.8505747126436781
+        "avgDuration": 296.13801944444447,
+        "avgCostUsd": 0.08004601797222219,
+        "passAt1": 0.7666666666666667,
+        "avgPassRate": 0.8222222222222222
       },
       {
         "name": "kimi-k2.7-code",
-        "timestamp": "2026-07-03T15:27:06.357Z",
+        "timestamp": "2026-07-30T10:20:21.754Z",
         "modelName": "Kimi K2.7 Code",
         "agentHarness": "OpenCode",
-        "avgDuration": 327.0041465517241,
-        "avgCostUsd": 0.07976979836206895,
-        "passAt1": 0.8275862068965517,
-        "avgPassRate": 0.8908045977011495
+        "avgDuration": 328.94844166666667,
+        "avgCostUsd": 0.09073628358333334,
+        "passAt1": 0.8,
+        "avgPassRate": 0.8777777777777779
       },
       {
         "name": "kimi-k3",
-        "timestamp": "2026-07-29T14:44:58.901Z",
+        "timestamp": "2026-07-31T08:44:47.740Z",
         "modelName": "Kimi K3",
         "agentHarness": "OpenCode",
-        "avgDuration": 393.4540172413793,
-        "avgCostUsd": 0.2805193862068966,
-        "passAt1": 0.9655172413793104,
-        "avgPassRate": 0.9827586206896551
+        "avgDuration": 412.71481666666665,
+        "avgCostUsd": 0.3106992600000001,
+        "passAt1": 0.9666666666666667,
+        "avgPassRate": 0.9833333333333333
       },
       {
         "name": "minimax-m2.7",
-        "timestamp": "2026-07-03T14:56:22.372Z",
+        "timestamp": "2026-07-30T10:20:21.799Z",
         "modelName": "MiniMax M2.7",
         "agentHarness": "OpenCode",
-        "avgDuration": 204.88056896551726,
-        "avgCostUsd": 0.008907228793103449,
-        "passAt1": 0.3103448275862069,
-        "avgPassRate": 0.38218390804597696
+        "avgDuration": 204.38996666666668,
+        "avgCostUsd": 0.009493340666666667,
+        "passAt1": 0.3,
+        "avgPassRate": 0.3694444444444444
       },
       {
         "name": "minimax-m3",
-        "timestamp": "2026-07-03T15:57:38.098Z",
+        "timestamp": "2026-07-30T10:20:21.825Z",
         "modelName": "MiniMax M3",
         "agentHarness": "OpenCode",
-        "avgDuration": 224.8897844827586,
-        "avgCostUsd": 0.030834221896551724,
-        "passAt1": 0.8620689655172413,
-        "avgPassRate": 0.9051724137931034
+        "avgDuration": 233.69590833333334,
+        "avgCostUsd": 0.04168436649999999,
+        "passAt1": 0.8333333333333334,
+        "avgPassRate": 0.8916666666666667
       }
     ]
   },
@@ -466,6 +466,20 @@
           "duration": 314526,
           "evalPath": "nuxt-018-nuxt5-migration",
           "timestamp": "2026-07-03T13:08:55.474Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
+        }
+      },
+      {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 7.8890185,
+        "result": {
+          "success": true,
+          "duration": 630345,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.436Z",
           "passRate": 1,
           "passedRuns": 1,
           "totalRuns": 1,
@@ -881,6 +895,20 @@
         }
       },
       {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 0.38126725,
+        "result": {
+          "success": true,
+          "duration": 206626,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.454Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "costUsd": 0.72014525,
         "result": {
@@ -1289,6 +1317,20 @@
         }
       },
       {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 1.89779275,
+        "result": {
+          "success": true,
+          "duration": 420468.6666666666,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.472Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "costUsd": 0.45813325,
         "result": {
@@ -1690,6 +1732,20 @@
           "duration": 219805,
           "evalPath": "nuxt-018-nuxt5-migration",
           "timestamp": "2026-07-02T12:48:58.378Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
+        }
+      },
+      {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 1.97240075,
+        "result": {
+          "success": true,
+          "duration": 427174,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.496Z",
           "passRate": 1,
           "passedRuns": 1,
           "totalRuns": 1,
@@ -2105,6 +2161,20 @@
         }
       },
       {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 0.25494011250000004,
+        "result": {
+          "success": false,
+          "duration": 212855.99999999997,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.518Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "costUsd": 0.263465325,
         "result": {
@@ -2510,6 +2580,20 @@
           "passedRuns": 1,
           "totalRuns": 1,
           "firstRunSuccess": true
+        }
+      },
+      {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 0.297447225,
+        "result": {
+          "success": false,
+          "duration": 258955.49999999997,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.537Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
         }
       },
       {
@@ -2921,6 +3005,20 @@
         }
       },
       {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 3.5478528000000003,
+        "result": {
+          "success": false,
+          "duration": 763246.75,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.558Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "costUsd": 1.0270408,
         "result": {
@@ -3329,6 +3427,20 @@
         }
       },
       {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 0.4021293,
+        "result": {
+          "success": false,
+          "duration": 664012.75,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.578Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "costUsd": 0.21671630000000003,
         "result": {
@@ -3734,6 +3846,20 @@
           "passedRuns": 1,
           "totalRuns": 1,
           "firstRunSuccess": true
+        }
+      },
+      {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 0.8556250666666667,
+        "result": {
+          "success": true,
+          "duration": 558717.6666666666,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.597Z",
+          "passRate": 0.3333333333333333,
+          "passedRuns": 1,
+          "totalRuns": 3,
+          "firstRunSuccess": false
         }
       },
       {
@@ -4553,6 +4679,20 @@
         }
       },
       {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 1.07035135,
+        "result": {
+          "success": false,
+          "duration": 544924,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.635Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "costUsd": 0.1219492,
         "result": {
@@ -4958,6 +5098,20 @@
           "passedRuns": 1,
           "totalRuns": 2,
           "firstRunSuccess": false
+        }
+      },
+      {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 1.09961355,
+        "result": {
+          "success": true,
+          "duration": 715613,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T14:27:51.510Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
         }
       },
       {
@@ -5369,6 +5523,20 @@
         }
       },
       {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 1.127602,
+        "result": {
+          "success": true,
+          "duration": 535675.9999999999,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.674Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "costUsd": 1.0684725,
         "result": {
@@ -5770,6 +5938,20 @@
           "duration": 595629,
           "evalPath": "nuxt-018-nuxt5-migration",
           "timestamp": "2026-07-03T13:08:55.731Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
+        }
+      },
+      {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 47.57883,
+        "result": {
+          "success": true,
+          "duration": 1692909,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.695Z",
           "passRate": 1,
           "passedRuns": 1,
           "totalRuns": 1,
@@ -6185,6 +6367,20 @@
         }
       },
       {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 1.065297,
+        "result": {
+          "success": true,
+          "duration": 320603,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.714Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "costUsd": 0.5777635,
         "result": {
@@ -6589,6 +6785,20 @@
           "passRate": 0.5,
           "passedRuns": 1,
           "totalRuns": 2,
+          "firstRunSuccess": false
+        }
+      },
+      {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 0.246969125,
+        "result": {
+          "success": false,
+          "duration": 605443.2499999999,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.735Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
           "firstRunSuccess": false
         }
       },
@@ -7001,6 +7211,20 @@
         }
       },
       {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 0.408764355,
+        "result": {
+          "success": true,
+          "duration": 385332.99999999994,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.754Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "costUsd": 0.07968191000000001,
         "result": {
@@ -7402,6 +7626,20 @@
           "duration": 446623,
           "evalPath": "nuxt-018-nuxt5-migration",
           "timestamp": "2026-07-29T14:44:58.901Z",
+          "passRate": 1,
+          "passedRuns": 1,
+          "totalRuns": 1,
+          "firstRunSuccess": true
+        }
+      },
+      {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 1.1859156000000002,
+        "result": {
+          "success": true,
+          "duration": 971278,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-31T08:44:47.740Z",
           "passRate": 1,
           "passedRuns": 1,
           "totalRuns": 1,
@@ -7817,6 +8055,20 @@
         }
       },
       {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 0.026490585,
+        "result": {
+          "success": false,
+          "duration": 190162.50000000003,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.799Z",
+          "passRate": 0,
+          "passedRuns": 0,
+          "totalRuns": 4,
+          "firstRunSuccess": false
+        }
+      },
+      {
         "evalPath": "nuxt-content-000-navigation",
         "costUsd": 0.011740320000000002,
         "result": {
@@ -8222,6 +8474,20 @@
           "passedRuns": 1,
           "totalRuns": 1,
           "firstRunSuccess": true
+        }
+      },
+      {
+        "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+        "costUsd": 0.35633855999999997,
+        "result": {
+          "success": true,
+          "duration": 489073.49999999994,
+          "evalPath": "nuxt-019-nuxt5-runtime-semantics",
+          "timestamp": "2026-07-30T10:20:21.825Z",
+          "passRate": 0.5,
+          "passedRuns": 1,
+          "totalRuns": 2,
+          "firstRunSuccess": false
         }
       },
       {
