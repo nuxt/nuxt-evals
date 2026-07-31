@@ -3,5 +3,6 @@
   "passedRuns": 1,
   "passRate": "100%",
   "meanDuration": 230.427,
-  "fingerprint": "0197963caf7a208e6a98ccaf032013d411b34fc6e7e83db53014f5b17d514bab"
+  "fingerprint": "0197963caf7a208e6a98ccaf032013d411b34fc6e7e83db53014f5b17d514bab",
+  "contentFingerprint": "e4805dd3081641ab3aa8eeedf3944ebbe793e1445eaeb28750483587a771e1b6"
 }
