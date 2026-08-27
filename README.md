@@ -57,6 +57,7 @@ Unit tests for the token extraction and pricing in `scripts/cost.ts`.
 | `gpt-5.4-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.4?reasoningEffort=xhigh` |
 | `gpt-5.5-pro` | `vercel-ai-gateway/codex` | `openai/gpt-5.5-pro` |
 | `gpt-5.6-sol-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.6-sol?reasoningEffort=xhigh` |
+| `grok-4.6` | `vercel-ai-gateway/opencode` | `vercel/spacexai/grok-4.6` |
 | `kimi-k2.6` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k2.6` |
 | `kimi-k2.7-code` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k2.7-code` |
 | `kimi-k3` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k3` |
