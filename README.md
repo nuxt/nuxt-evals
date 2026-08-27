@@ -121,7 +121,7 @@ cp agent-results.json <path-to-nuxt.com>/agent-results.json
 
 ## Current evals
 
-### Nuxt (15)
+### Nuxt (21)
 
 | Eval | Type | Tests |
 |------|------|-------|
@@ -140,6 +140,12 @@ cp agent-results.json <path-to-nuxt.com>/agent-results.json
 | nuxt-012-nuxt3-to-nuxt4-migration | fix | Migrate Nuxt 3 directory structure to Nuxt 4 |
 | nuxt-013-prefer-nuxt-image | fix | Replace raw `<img>` with NuxtImg + @nuxt/image |
 | nuxt-014-prefer-use-cookie | fix | Replace document.cookie with useCookie composable |
+| nuxt-015-shared-source-of-truth | fix | Deduplicate app and server utils into the shared/ directory |
+| nuxt-016-hydration-mismatch | build | Render a load timestamp without an SSR hydration mismatch |
+| nuxt-017-shallow-reactivity | fix | Make a nested mutation reactive on useFetch shallowRef data |
+| nuxt-018-nuxt5-migration | fix | Opt into compatibilityVersion 5 and update deprecated data fetching |
+| nuxt-019-nuxt5-runtime-semantics | fix | Reserve client-only space with ClientOnly and target Vite environments |
+| nuxt-020-fix-nuxt-module | fix | Fix a local module's meta, namespacing, config merging, and dependencies |
 
 ### Nuxt Content (2)
 

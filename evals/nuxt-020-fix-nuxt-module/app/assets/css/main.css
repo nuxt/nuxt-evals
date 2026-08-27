@@ -1,0 +1,17 @@
+:root {
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 2rem;
+  background: #0b0b0b;
+  color: #fafafa;
+}
+
+.revenue-chart {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+}

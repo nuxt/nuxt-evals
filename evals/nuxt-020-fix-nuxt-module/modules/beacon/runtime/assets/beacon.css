@@ -1,0 +1,12 @@
+.beacon-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 60px;
+}
+
+.beacon-chart span {
+  width: 8px;
+  background: #00dc82;
+  border-radius: 2px;
+}
