@@ -10,7 +10,7 @@
     "test:cost": "tsx --test scripts/cost.test.ts"
   },
   "devDependencies": {
-    "tsx": "^4.22.4",
+    "tsx": "^4.23.12",
     "typescript": "^6.0.3",
     "@types/node": "^25.9.5"
   },
