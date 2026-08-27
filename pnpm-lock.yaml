@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@vercel/agent-eval':
-        specifier: ^2.1.0
-        version: 2.1.0
+        specifier: ^2.2.1
+        version: 2.2.1
     devDependencies:
       '@types/node':
         specifier: ^25.9.4
@@ -276,8 +276,8 @@ packages:
   '@types/node@25.9.4':
     resolution: {integrity: sha512-dszCsrKb5U7ZsVZBWiHFklTloVl0mSEnWH/iZXfZUlI4rzCUnsvGmgqfuVRHL54ugE7/wRuxEIXRa2iMZ+BG6g==}
 
-  '@vercel/agent-eval@2.1.0':
-    resolution: {integrity: sha512-/egVQOtIHxcv711W5mgwfZtirlzJM1E2h4Th8Y7AuQN0QQH/eFvpJQS+x+QxuR9kASQgd9rWQRP92d8JLfL1ow==}
+  '@vercel/agent-eval@2.2.1':
+    resolution: {integrity: sha512-TVowf/Q60kw8anu4oAIhb1fc4y8k4jhwjCPwdfNoy9m9W1LHBHZYaIi81QZ+7w2S77hvBi4CAoOnohovjA2Mow==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -953,7 +953,7 @@ snapshots:
     dependencies:
       undici-types: 7.24.6
 
-  '@vercel/agent-eval@2.1.0':
+  '@vercel/agent-eval@2.2.1':
     dependencies:
       '@ai-sdk/anthropic': 1.2.12(zod@3.25.76)
       '@vercel/sandbox': 1.10.2
