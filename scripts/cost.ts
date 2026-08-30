@@ -55,6 +55,8 @@ export const MODEL_PRICING: Record<string, Pricing | null> = {
   // (0.66/1.98/0.066). Peak, measured via usage.cost on 2026-08-29, is used here.
   'deepseek-v4-pro': { input: 1.32, output: 3.96, cacheRead: 0.044, cacheWrite: 0 },
   'gemini-3.1-pro-preview': { input: 2, output: 12, cacheRead: 0.2, cacheWrite: 0 },
+  // Catalog rate; not yet checked against usage.cost (Fireworks is the only allowlisted host).
+  'glm-5.3': { input: 1.4, output: 4.4, cacheRead: 0.14, cacheWrite: 0 },
   'gpt-5.3-codex-xhigh': { input: 1.75, output: 14, cacheRead: 0.175, cacheWrite: 0 },
   'gpt-5.4-xhigh': { input: 2.5, output: 15, cacheRead: 0.25, cacheWrite: 0 },
   'gpt-5.5-pro': { input: 30, output: 180, cacheRead: 0, cacheWrite: 0 }, // never caches; cacheRead moot
