@@ -51,6 +51,9 @@ export const MODEL_PRICING: Record<string, Pricing | null> = {
   'claude-sonnet-5': { input: 2, output: 10, cacheRead: 0.2, cacheWrite: 2.5 },
   'cursor-composer-2.0': { input: 0.5, output: 2.5, cacheRead: 0.2, cacheWrite: 0 }, // cursor.com, Standard
   'cursor-composer-2.5': { input: 0.5, output: 2.5, cacheRead: 0.2, cacheWrite: 0 }, // cursor.com, Standard
+  // DeepSeek bills peak/off-peak; the catalog shows the off-peak rate
+  // (0.66/1.98/0.066). Peak, measured via usage.cost on 2026-08-29, is used here.
+  'deepseek-v4-pro': { input: 1.32, output: 3.96, cacheRead: 0.044, cacheWrite: 0 },
   'gemini-3.1-pro-preview': { input: 2, output: 12, cacheRead: 0.2, cacheWrite: 0 },
   'gpt-5.3-codex-xhigh': { input: 1.75, output: 14, cacheRead: 0.175, cacheWrite: 0 },
   'gpt-5.4-xhigh': { input: 2.5, output: 15, cacheRead: 0.25, cacheWrite: 0 },

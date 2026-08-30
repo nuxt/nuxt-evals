@@ -52,6 +52,7 @@ Unit tests for the token extraction and pricing in `scripts/cost.ts`.
 | `claude-sonnet-5` | `vercel-ai-gateway/claude-code` | `anthropic/claude-sonnet-5` |
 | `cursor-composer-2.0` | `cursor` | `composer-2` |
 | `cursor-composer-2.5` | `cursor` | `composer-2.5` |
+| `deepseek-v4-pro` | `vercel-ai-gateway/opencode` | `vercel/deepseek/deepseek-v4-pro-0813` |
 | `gemini-3.1-pro-preview` | `vercel-ai-gateway/opencode` | `vercel/google/gemini-3.1-pro-preview` |
 | `gpt-5.3-codex-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.3-codex?reasoningEffort=xhigh` |
 | `gpt-5.4-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.4?reasoningEffort=xhigh` |
