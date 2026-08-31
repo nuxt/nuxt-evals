@@ -53,7 +53,9 @@ Unit tests for the token extraction and pricing in `scripts/cost.ts`.
 | `cursor-composer-2.0` | `cursor` | `composer-2` |
 | `cursor-composer-2.5` | `cursor` | `composer-2.5` |
 | `cursor-grok-4.6-xhigh` | `cursor` | `cursor-grok-4.6-xhigh` |
+| `deepseek-v4-pro` | `vercel-ai-gateway/opencode` | `vercel/deepseek/deepseek-v4-pro-0813` |
 | `gemini-3.1-pro-preview` | `vercel-ai-gateway/opencode` | `vercel/google/gemini-3.1-pro-preview` |
+| `glm-5.3` | `vercel-ai-gateway/opencode` | `vercel/zai/glm-5.3` |
 | `gpt-5.3-codex-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.3-codex?reasoningEffort=xhigh` |
 | `gpt-5.4-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.4?reasoningEffort=xhigh` |
 | `gpt-5.5-pro` | `vercel-ai-gateway/codex` | `openai/gpt-5.5-pro` |
