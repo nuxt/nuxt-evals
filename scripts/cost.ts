@@ -65,6 +65,8 @@ export const MODEL_PRICING: Record<string, Pricing | null> = {
   // Cut from 5/30/0.5/6.25. OpenAI-direct lists 4/20/0.4, but runs go through
   // the gateway and bill at its rate (verified via usage.cost, 2026-08-29).
   'gpt-5.6-sol-xhigh': { input: 2, output: 10, cacheRead: 0.2, cacheWrite: 2.5 },
+  // Base tier (272k+ context bills 20/75/2/25, not applied). Input/output verified via usage.cost on 2026-09-05.
+  'gpt-6-astra-xhigh': { input: 10, output: 50, cacheRead: 1, cacheWrite: 12.5 },
   'kimi-k2.6': { input: 0.95, output: 4, cacheRead: 0.16, cacheWrite: 0 },
   'kimi-k2.7-code': { input: 0.95, output: 4, cacheRead: 0.19, cacheWrite: 0 }, // catalog shows 0.16, gateway bills 0.19
   'kimi-k3': { input: 3, output: 15, cacheRead: 0.3, cacheWrite: 0 },
