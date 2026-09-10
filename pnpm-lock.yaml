@@ -13,8 +13,8 @@ importers:
         version: 2.2.1
     devDependencies:
       '@types/node':
-        specifier: ^25.9.5
-        version: 25.9.5
+        specifier: ^25.9.6
+        version: 25.9.6
       tsx:
         specifier: ^4.23.13
         version: 4.23.13
@@ -275,6 +275,9 @@ packages:
 
   '@types/node@25.9.5':
     resolution: {integrity: sha512-OScDchr2fwuUmWdf4kZ9h7PcJiYDVInhJizG/biAq3cAvqwYktuy/TYGGdZNMtNTFUP7rnb0NU4TUdm82kt4Rg==}
+
+  '@types/node@25.9.6':
+    resolution: {integrity: sha512-JR6Q/PV5DKFvjrGFVqQJdeG0qvsqQQLDa3TzFrqVwhqRXqwNaxPo2KYCtCQXpOdIulCouKwT7a6in9nFthBAzw==}
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
@@ -1070,6 +1073,10 @@ snapshots:
   '@standard-schema/spec@1.1.0': {}
 
   '@types/node@25.9.5':
+    dependencies:
+      undici-types: 7.24.6
+
+  '@types/node@25.9.6':
     dependencies:
       undici-types: 7.24.6
 
