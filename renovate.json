@@ -1,12 +1,21 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "group:allNonMajor",
+    ":semanticCommitTypeAll(chore)"
   ],
   "ignorePaths": [
     "**/node_modules/**",
     "evals/**",
     "experiments/**"
   ],
-  "rangeStrategy": "bump"
+  "rangeStrategy": "bump",
+  "minimumReleaseAge": "25 hours",
+  "schedule": [
+    "on Monday"
+  ],
+  "postUpdateOptions": [
+    "pnpmDedupe"
+  ]
 }
