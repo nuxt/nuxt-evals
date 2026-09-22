@@ -42,10 +42,11 @@ export default config;
 | Harness (`agent`) | `model` format | Example |
 |-------------------|----------------|---------|
 | `claude-code` | dashed name | `claude-opus-4-8` |
-| `cursor` | composer id | `composer-2.5` |
+| `cursor` | Cursor CLI `--model` id (Composer or effort-suffixed) | `composer-2.5`, `cursor-grok-4.6-xhigh` |
 | `vercel-ai-gateway/opencode` | `vercel/<provider>/<model>` | `vercel/minimax/minimax-m2.7` |
 | `vercel-ai-gateway/codex` | `openai/<model>` | `openai/gpt-5.5-pro` |
 | `codex` | `<model>?reasoningEffort=<level>` | `gpt-5.3-codex?reasoningEffort=xhigh` |
 
 - Bleeding-edge Claude models may need a canary CLI via `agentOptions: { cliPackage: '@anthropic-ai/claude-code@next' }` and a higher `timeout` (e.g. `1200`).
 - Codex runs default `reasoningEffort` to `medium`; set it explicitly in the model string when you need otherwise.
+- Cursor has no `--effort` / `?reasoningEffort` in `@vercel/agent-eval`; bake effort into the model id (e.g. `cursor-grok-4.6-xhigh`). Prefer non-`-fast` ids unless you intentionally want Fast-tier pricing.
