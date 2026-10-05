@@ -9,12 +9,12 @@ importers:
   .:
     dependencies:
       '@vercel/agent-eval':
-        specifier: ^2.3.0
-        version: 2.3.0
+        specifier: ^2.4.1
+        version: 2.4.1
     devDependencies:
       '@types/node':
-        specifier: ^25.9.8
-        version: 25.9.8
+        specifier: ^25.9.9
+        version: 25.9.9
       tsx:
         specifier: ^4.23.15
         version: 4.23.15
@@ -273,8 +273,8 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@types/node@25.9.8':
-    resolution: {integrity: sha512-VfMrScDmMhUJQmd5hArdQnFvK0OIeD36uN2Va1FcpYaLB/BgkgM8Ulc50XtYISPMz7APJ30+N0T5EM0jlcdfRw==}
+  '@types/node@25.9.9':
+    resolution: {integrity: sha512-b4e2xxj/yMeT2hNlD6x7zNFiQK2Dlmkb9CQ6v3/1G2RezKN4YS2lcEv8lzGm1mhs4f2lM4yNAMI/zUDBZBBt7w==}
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
@@ -396,8 +396,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@vercel/agent-eval@2.3.0':
-    resolution: {integrity: sha512-4PCZ5cXUAZ4s9NrE7lZMjTyv6BraqdZ6UnxawKRAMDoAZQ30kYNlWf7UiymA5uaVAvCJE89e5D8mhJyMYjDdGw==}
+  '@vercel/agent-eval@2.4.1':
+    resolution: {integrity: sha512-cn9m8IiuupbSrTbRsT8ofKhb+j7ppyJ/mAIO0O91FQQfFweGd1Ovowu6rUhXuMDXvMj/uPIYZgeX67tYvnIHGQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -1075,7 +1075,7 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@types/node@25.9.8':
+  '@types/node@25.9.9':
     dependencies:
       undici-types: 7.24.6
 
@@ -1139,7 +1139,7 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@vercel/agent-eval@2.3.0':
+  '@vercel/agent-eval@2.4.1':
     dependencies:
       '@ai-sdk/anthropic': 1.2.12(zod@3.25.76)
       '@vercel/sandbox': 3.3.0
@@ -1504,7 +1504,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.1
-      '@types/node': 25.9.8
+      '@types/node': 25.9.9
       long: 5.3.2
 
   pump@3.0.4:

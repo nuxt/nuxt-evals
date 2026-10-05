@@ -12,9 +12,9 @@
   "devDependencies": {
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
-    "@types/node": "^25.9.8"
+    "@types/node": "^25.9.9"
   },
   "dependencies": {
-    "@vercel/agent-eval": "^2.3.0"
+    "@vercel/agent-eval": "^2.4.1"
   }
 }
