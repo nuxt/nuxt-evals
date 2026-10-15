@@ -100,6 +100,7 @@ const MODEL_NAMES: Record<string, string> = {
   'gpt-6-astra-high': 'GPT 6 Astra (high)',
   'gpt-6-sol-high': 'GPT 6 Sol (high)',
   'gpt-6.1-sol-high': 'GPT 6.1 Sol (high)',
+  'grok-4.7': 'Grok 4.7',
   'kimi-k2.6': 'Kimi K2.6',
   'kimi-k2.7-code': 'Kimi K2.7 Code',
   'kimi-k3': 'Kimi K3',
