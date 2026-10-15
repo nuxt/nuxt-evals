@@ -91,6 +91,7 @@ const MODEL_NAMES: Record<string, string> = {
   'cursor-composer-2.5': 'Cursor Composer 2.5',
   'deepseek-v4-pro': 'DeepSeek V4 Pro',
   'gemini-3.1-pro-preview': 'Gemini 3.1 Pro Preview',
+  'gemini-4-argon': 'Gemini 4 Argon',
   'glm-5.3': 'GLM 5.3',
   'gpt-5.3-codex-xhigh': 'GPT 5.3 Codex (xhigh)',
   'gpt-5.4-xhigh': 'GPT 5.4 (xhigh)',
