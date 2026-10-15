@@ -52,6 +52,7 @@ export const MODEL_PRICING: Record<string, Pricing | null> = {
   'claude-sonnet-4.5': { input: 3, output: 15, cacheRead: 0.3, cacheWrite: 3.75 },
   'claude-sonnet-4.6': { input: 3, output: 15, cacheRead: 0.3, cacheWrite: 3.75 },
   'claude-sonnet-5': { input: 2, output: 10, cacheRead: 0.2, cacheWrite: 2.5 },
+  'claude-sonnet-5.5': { input: 2, output: 10, cacheRead: 0.1, cacheWrite: 2.5 },
   'cursor-composer-2.0': { input: 0.5, output: 2.5, cacheRead: 0.2, cacheWrite: 0 }, // cursor.com, Standard
   'cursor-composer-2.5': { input: 0.5, output: 2.5, cacheRead: 0.2, cacheWrite: 0 }, // cursor.com, Standard
   // DeepSeek bills peak/off-peak; the catalog shows the off-peak rate

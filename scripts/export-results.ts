@@ -86,6 +86,7 @@ const MODEL_NAMES: Record<string, string> = {
   'claude-sonnet-4.5': 'Claude Sonnet 4.5',
   'claude-sonnet-4.6': 'Claude Sonnet 4.6',
   'claude-sonnet-5': 'Claude Sonnet 5',
+  'claude-sonnet-5.5': 'Claude Sonnet 5.5',
   'cursor-composer-2.0': 'Cursor Composer 2.0',
   'cursor-composer-2.5': 'Cursor Composer 2.5',
   'deepseek-v4-pro': 'DeepSeek V4 Pro',
