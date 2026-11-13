@@ -11,10 +11,17 @@ function toggle(todo: Todo) {
 <template>
   <ul>
     <li v-for="todo in todos" :key="todo.id">
-      <label>
+      <label :class="{ done: todo.done }">
         <input type="checkbox" :checked="todo.done" @change="toggle(todo)">
         {{ todo.title }}
       </label>
     </li>
   </ul>
 </template>
+
+<style scoped>
+.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+</style>
