@@ -42,7 +42,6 @@ Unit tests for the token extraction and pricing in `scripts/cost.ts`.
 
 | Experiment | Agent | Model |
 |------------|-------|-------|
-| `claude-fable-5.2` | `vercel-ai-gateway/claude-code` | `anthropic/claude-fable-5.2` |
 | `claude-opus-4.6` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-4.6` |
 | `claude-opus-4.7` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-4.7` |
 | `claude-opus-4.8` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-4.8` |
@@ -50,6 +49,7 @@ Unit tests for the token extraction and pricing in `scripts/cost.ts`.
 | `claude-opus-5.5` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-5.5` |
 | `claude-fable-5` | `vercel-ai-gateway/claude-code` | `anthropic/claude-fable-5` |
 | `claude-fable-5.1` | `vercel-ai-gateway/claude-code` | `anthropic/claude-fable-5.1` |
+| `claude-fable-5.2` | `vercel-ai-gateway/claude-code` | `anthropic/claude-fable-5.2` |
 | `claude-sonnet-4.5` | `vercel-ai-gateway/claude-code` | `anthropic/claude-sonnet-4.5` |
 | `claude-sonnet-4.6` | `vercel-ai-gateway/claude-code` | `anthropic/claude-sonnet-4.6` |
 | `claude-sonnet-5` | `vercel-ai-gateway/claude-code` | `anthropic/claude-sonnet-5` |

@@ -41,8 +41,6 @@ export interface Pricing {
  * When adding a model, add its price here or /evals shows N/A for that row.
  */
 export const MODEL_PRICING: Record<string, Pricing | null> = {
-  // Catalog rate; not yet checked against usage.cost.
-  'claude-fable-5.2': { input: 8, output: 40, cacheRead: 0.2, cacheWrite: 10 },
   'claude-opus-4.6': { input: 5, output: 25, cacheRead: 0.5, cacheWrite: 6.25 },
   'claude-opus-4.7': { input: 5, output: 25, cacheRead: 0.5, cacheWrite: 6.25 },
   'claude-opus-4.8': { input: 5, output: 25, cacheRead: 0.5, cacheWrite: 6.25 },
@@ -51,6 +49,8 @@ export const MODEL_PRICING: Record<string, Pricing | null> = {
   'claude-fable-5': { input: 10, output: 50, cacheRead: 1, cacheWrite: 12.5 },
   // Cache read is 0.25, not 1: catalog and Anthropic pricing agree; input/output verified via usage.cost on 2026-09-05.
   'claude-fable-5.1': { input: 10, output: 50, cacheRead: 0.25, cacheWrite: 12.5 },
+  // Catalog rate; not yet checked against usage.cost.
+  'claude-fable-5.2': { input: 8, output: 40, cacheRead: 0.2, cacheWrite: 10 },
   'claude-sonnet-4.5': { input: 3, output: 15, cacheRead: 0.3, cacheWrite: 3.75 },
   'claude-sonnet-4.6': { input: 3, output: 15, cacheRead: 0.3, cacheWrite: 3.75 },
   'claude-sonnet-5': { input: 2, output: 10, cacheRead: 0.2, cacheWrite: 2.5 },
