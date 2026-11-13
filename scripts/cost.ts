@@ -117,7 +117,7 @@ function parseLines(raw: string): Array<Record<string, unknown>> {
  * The format is sniffed from event shape rather than passed in, so it stays
  * correct as harnesses are added:
  * - codex: one `turn.completed` with cumulative usage; input_tokens includes
- *   cached_input_tokens, so uncached input = input_tokens - cached.
+ *   cache reads and writes, which are priced separately from uncached input.
  * - opencode: per `step-finish` part; reasoning tokens billed as output.
  * - claude-code: one API response spans several content-block events that
  *   repeat the same message.id + usage — dedupe by id (max per field) or it
@@ -137,8 +137,10 @@ export function extractRunTokens(raw: string): Usage | null {
     if (type === 'turn.completed' && d.usage) {
       const x = obj(d.usage);
       const cached = num(x.cached_input_tokens);
-      u.input += num(x.input_tokens) - cached;
+      const cacheWrite = num(x.cache_write_input_tokens);
+      u.input += num(x.input_tokens) - cached - cacheWrite;
       u.cacheRead += cached;
+      u.cacheWrite += cacheWrite;
       u.output += num(x.output_tokens);
       got = true;
     } else if (type === 'step_finish' && d.part) {

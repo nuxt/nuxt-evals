@@ -34,6 +34,27 @@ test('codex: single turn.completed, input includes cached', () => {
   });
 });
 
+test('codex: cache writes are separate input tokens, not charged twice', () => {
+  const raw = jsonl({
+    type: 'turn.completed',
+    usage: {
+      input_tokens: 1292543,
+      cached_input_tokens: 1227440,
+      cache_write_input_tokens: 61673,
+      output_tokens: 20180,
+    },
+  });
+  const usage = extractRunTokens(raw)!;
+  assert.deepEqual(usage, {
+    input: 3430,
+    output: 20180,
+    cacheRead: 1227440,
+    cacheWrite: 61673,
+  });
+  assert.equal(usage.input + usage.cacheRead + usage.cacheWrite, 1292543);
+  assert.equal(Math.round(priceUsage(usage, MODEL_PRICING['gpt-6.1-sol-high']!) * 1e6), 485587);
+});
+
 test('opencode: sums step-finish parts, reasoning billed as output', () => {
   const raw = jsonl(
     { type: 'step_finish', part: { type: 'step-finish', tokens: { input: 10, output: 5, reasoning: 3, cache: { read: 100, write: 2 } } } },
