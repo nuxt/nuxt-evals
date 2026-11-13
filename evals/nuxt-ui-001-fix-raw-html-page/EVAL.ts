@@ -2,17 +2,40 @@
  * Fix Raw HTML Page with Nuxt UI Components
  *
  * Tests whether the agent replaces raw HTML elements (header, nav, footer,
- * anchor tags) with Nuxt UI components (UHeader, UNavigationMenu, UFooter,
- * UPageHero, UPageSection, UButton).
+ * anchor tags, hero and feature sections) with Nuxt UI's purpose-built
+ * components: UHeader, UNavigationMenu, UFooter, UPageHero, UPageSection and
+ * UButton. Verified on @nuxt/ui 4.12 / nuxt 4.6.4.
  *
  * Tricky because the raw HTML works visually, but the agent must recognize
- * that Nuxt UI provides purpose-built components that are more accessible,
- * consistent, and include built-in responsive behavior.
+ * that Nuxt UI provides components that are more accessible, consistent and
+ * responsive. Keeping a raw <header> with only the links swapped, or plain
+ * <section>s with cards, is the common miss.
+ *
+ * Checks and why:
+ * - Each of UHeader, UNavigationMenu, UFooter, UPageHero and UPageSection is
+ *   used somewhere under app/ (page, app.vue, layouts or components).
+ * - No raw <header>, <nav> or <footer>: UHeader and UFooter render those tags
+ *   themselves.
+ * - No raw <a href="/..."> for internal links, and the page uses UButton,
+ *   NuxtLink or a `links` prop (UPageHero) for its CTAs.
+ * - All three features (Fast, Secure, Scalable) are still there.
+ *
+ * Comments are stripped before matching, so naming a component in a comment
+ * while keeping divs does not pass.
  */
 
 import { expect, test } from 'vitest';
 import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
+
+function stripComments(source: string): string {
+  // Block and line comments only count when they start a line or follow
+  // whitespace, so glob strings and URLs survive.
+  return source
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/(^|\s)\/\*[\s\S]*?\*\//g, '$1')
+    .replace(/(^|[^:])\/\/.*$/gm, '$1');
+}
 
 function findFile(...paths: string[]): string | undefined {
   return paths.find(p => existsSync(p));
@@ -26,7 +49,7 @@ function getAllVueFiles(): string[] {
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
       const full = join(dir, entry.name);
       if (entry.isDirectory()) scan(full);
-      else if (entry.name.endsWith('.vue')) results.push(readFileSync(full, 'utf-8'));
+      else if (entry.name.endsWith('.vue')) results.push(stripComments(readFileSync(full, 'utf-8')));
     }
   }
 
@@ -111,5 +134,7 @@ test('Uses NuxtLink or UButton for CTAs', () => {
 
 test('Still has features content', () => {
   const allContent = getAllVueFiles().join('\n');
-  expect(allContent).toMatch(/Fast|Secure|Scalable/);
+  expect(allContent).toMatch(/Fast/);
+  expect(allContent).toMatch(/Secure/);
+  expect(allContent).toMatch(/Scalable/);
 });
