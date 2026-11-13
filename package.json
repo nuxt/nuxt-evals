@@ -6,6 +6,8 @@
     "eval": "agent-eval",
     "eval:smoke": "agent-eval --smoke",
     "eval:dry": "agent-eval --dry",
+    "eval:tier1": "tsx scripts/tier-one-cli.ts run",
+    "eval:tier1:status": "tsx scripts/tier-one-cli.ts status",
     "export-results": "tsx scripts/export-results.ts",
     "test:cost": "tsx --test scripts/cost.test.ts"
   },
