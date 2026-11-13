@@ -1,11 +1,18 @@
 /**
  * Nuxt Error Handling
  *
- * Tests whether the agent implements both global error handling (error.vue)
- * and component-level error boundaries (NuxtErrorBoundary).
+ * Tests whether the agent implements both global error handling (app/error.vue
+ * reading the error and recovering with clearError) and a component-level
+ * NuxtErrorBoundary that renders a fallback through its #error slot.
+ * Verified on nuxt 4.6.4.
  *
- * Tricky because agents might only implement one level of error handling
- * or use incorrect error utilities.
+ * Both levels are needed. On the client, Nuxt only shows the error page for
+ * fatal or unhandled NuxtErrors; other errors thrown while rendering a
+ * component do not reach error.vue, so without a boundary that part of the
+ * page breaks. NuxtErrorBoundary renders only its #error slot once it catches
+ * an error, so a boundary without that slot (for example with just an @error
+ * listener) shows nothing in its place and fails. error.vue must live in app/,
+ * the Nuxt 4 srcDir; a root-level or pages/ error.vue is never used.
  */
 
 import { expect, test } from 'vitest';
@@ -84,7 +91,7 @@ test('NuxtErrorBoundary has error slot', () => {
   const content = findBoundaryContent();
 
   if (content) {
-    expect(content).toMatch(/#error|v-slot:error|@error/);
+    expect(content).toMatch(/#error\b|v-slot:error\b/);
   }
 });
 
