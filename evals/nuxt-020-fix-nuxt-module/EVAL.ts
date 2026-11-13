@@ -11,24 +11,39 @@
  *   - Unprefixed public surface: `addComponent({ name: 'Chart' })` collides
  *     with the app's scanned Chart.vue and silently loses (the scanned
  *     component wins, no warning), while the `/api/track` server handler wins
- *     over the app's own route (last registration wins in h3). Both observed
- *     on a real nuxt@4.5.2 build of this fixture.
+ *     over the app's own route (last registration wins in h3).
  *   - `nuxt.options.css = [...]` and `runtimeConfig.public.beacon = {...}`
  *     overwrite user values instead of merging.
  *   - Every kit path argument is a root-anchored `~~/modules/beacon/...`
  *     literal instead of resolving relative to the module.
  *   - `modules/beacon/consent.ts` never loads: Nuxt only auto-scans
  *     `modules/*` and `modules/* /index`, so a sub-module must be declared via
- *     `moduleDependencies`. Observed on nuxt@4.5.2: with the declaration the
- *     consent config is baked into .output, without it it is absent and the
- *     build stays green.
+ *     `moduleDependencies`.
+ *
+ * Re-verified on a real nuxt@4.6.4 build and server of this fixture (first
+ * observed on 4.5.2). Starter: `/api/track` returns the module's
+ * `{ source: 'beacon' }`, `<Chart>` renders the app's `ul.revenue-chart` and
+ * `.nuxt/components.d.ts` maps `Chart` only to app/components/Chart.vue, the
+ * app's main.css is missing from the client CSS, and the payload is
+ * `public: { beacon: { endpoint: '/api/track', sampleRate: 1 } }` with no
+ * siteId and no `beaconConsent`. Reference fix: `/api/track` returns
+ * ORD-1042, `/api/_beacon/track` is the module's, both stylesheets ship, and
+ * the payload carries `sampleRate: .25`, `siteId: 'nuxt-evals-demo'` and
+ * `beaconConsent: { defaultState: 'pending' }`. Every build is green. On
+ * 4.6.4, kit resolves a `moduleDependencies` path key from the declaring
+ * module first, so `'./consent'` and the documented root-relative
+ * `'./modules/beacon/consent'` both load it, and `installModule` is still
+ * `@deprecated Use module dependencies.` in kit's shipped types.
  *
  * Static analysis policy: values are read as string literals, interpolation-
  * free template literals, or one const-lookup hop away (including resolver /
- * new URL wrappers). The recipes guide requires kit calls to be statically
- * analyzable, so a name, route, or dependency key that cannot be resolved
- * statically fails the check rather than being skipped — a skipped check is
- * how a planted defect survives a passing run.
+ * new URL wrappers), `<setupParam>.<key>` through the module's `defaults`, and
+ * `alias.<key>` where `const alias = nuxt.options.runtimeConfig.public.x =
+ * defu(...)` (the key is read from the defu arguments). The recipes guide
+ * requires kit calls to be statically analyzable, so a name, route, or
+ * dependency key that cannot be resolved statically fails the check rather
+ * than being skipped: a skipped check is how a planted defect survives a
+ * passing run.
  *
  * Deliberately NOT tested (do not re-add without a reason):
  *   - `meta.compatibility`: its value is arbitrary, requiring mere presence is
@@ -279,13 +294,24 @@ function resolveString(scope: string, expr: string, hops = 3): string | undefine
     const decl = new RegExp(`\\b(?:const|let|var)\\s+${t}\\s*=\\s*([^\\n;]+)`).exec(scope);
     if (decl) return resolveString(scope, decl[1]!, hops - 1);
   }
-  // `options.endpoint` — driving a registration from a module option is good
+  // `options.endpoint`: driving a registration from a module option is good
   // practice (the handler and the composable stay in sync), so resolve it
   // through the module's own `defaults`, which is the value kit will pass in
   const option = /^([\w$]+)\.([\w$]+)$/.exec(t);
   if (option) {
     const { params, defaults } = optionContext();
     const value = params.has(option[1]!) ? defaults.get(option[2]!) : undefined;
+    if (value !== undefined) return resolveString(scope, value, hops - 1);
+  }
+  // `const beacon = nuxt.options.runtimeConfig.public.beacon = defu(..., {
+  // endpoint: options.endpoint })` then `route: beacon.endpoint`: driving the
+  // route off the merged runtime config entry keeps it in sync with the
+  // composable. The user's runtimeConfig does not set the key, so its value is
+  // whatever the defu arguments give it, resolved like any other expression
+  if (option) {
+    const alias = assignments(scope, `(?:const|let|var)\\s+${option[1]}`)[0];
+    const merged = alias && /^nuxt\.options\.runtimeConfig\.public\.[\w$]+\s*=\s*defu\s*\(([\s\S]*)\)$/.exec(alias.rhs);
+    const value = merged ? new RegExp(`\\b${option[2]}\\s*:\\s*([^,\\n}]+)`).exec(merged[1]!)?.[1] : undefined;
     if (value !== undefined) return resolveString(scope, value, hops - 1);
   }
   return undefined;
@@ -396,7 +422,7 @@ test('The beacon module still exists where Nuxt loads it from', () => {
 
   expect(
     autoScanned || registered,
-    'Nuxt only auto-scans modules/* and modules/*/index — moving the entry elsewhere silently unregisters it'
+    'Nuxt only auto-scans modules/* and modules/*/index: moving the entry elsewhere silently unregisters it'
   ).toBe(true);
 });
 
@@ -460,7 +486,7 @@ test('The module server route no longer shadows the app /api/track route', () =>
       const route = raw === undefined ? undefined : resolveString(f.content, raw);
       expect(
         route,
-        `addServerHandler in ${f.rel} needs a statically analyzable, namespaced route — a route-less handler runs on every request, including the app's own /api/track`
+        `addServerHandler in ${f.rel} needs a statically analyzable, namespaced route: a route-less handler runs on every request, including the app's own /api/track`
       ).toBeDefined();
       expect(
         /beacon/i.test(route!),
@@ -473,7 +499,7 @@ test('The module server route no longer shadows the app /api/track route', () =>
 
   if (scanDirs > 0) {
     // every scannable route file resolves to its file path as a route, so each
-    // must carry the module name — an unprefixed leftover still shadows the app
+    // must carry the module name: an unprefixed leftover still shadows the app
     for (const f of beaconFiles.filter(f => /\/server\/(api|routes)\//.test(f.rel))) {
       expect(
         /beacon/i.test(f.rel.slice(f.rel.indexOf('/server/'))),
@@ -577,7 +603,7 @@ test('The module appends its stylesheet instead of replacing the app css', () =>
       for (const { rhs } of assignments(f.content, recv)) {
         expect(
           receiverRe.test(expanded(f.content, rhs)),
-          `\`= ${rhs.slice(0, 60)}\` throws away the app's own stylesheets — merge into the existing nuxt.options.css`
+          `\`= ${rhs.slice(0, 60)}\` throws away the app's own stylesheets: merge into the existing nuxt.options.css`
         ).toBe(true);
         const added = expanded(f.content, rhs.replace(new RegExp(`(?:${cssReceivers.join('|')})`, 'g'), ''));
         if (/\.css/.test(added)) wired = true;
@@ -617,7 +643,7 @@ test('Module options merge into runtime config without clobbering user values', 
   ];
 
   // the resolved module options arrive as the first parameter of setup, or of a
-  // helper it delegates to — both are `(options, nuxt)` shaped.
+  // helper it delegates to: both are `(options, nuxt)` shaped.
   // The lookbehind matters: a bare `options` is that parameter, whereas
   // `.options` is `nuxt.options` and says nothing about the user's config.
   const optionParams = optionContext().params;
@@ -726,7 +752,7 @@ test('Beacon declares its consent sub-module as a module dependency', () => {
   }
   expect(
     depsValues.length,
-    'declare the consent module in moduleDependencies (a top-level defineNuxtModule option — Nuxt ignores it anywhere else) so Nuxt installs it: modules/beacon/consent.ts is not auto-scanned'
+    'declare the consent module in moduleDependencies (a top-level defineNuxtModule option: Nuxt ignores it anywhere else) so Nuxt installs it: modules/beacon/consent.ts is not auto-scanned'
   ).toBeGreaterThan(0);
 
   const declared = depsValues.join('\n');
@@ -734,7 +760,7 @@ test('Beacon declares its consent sub-module as a module dependency', () => {
   const computedKey = /\[[^\]\n]*consent[^\]\n]*\]\s*:/.test(declared);
   expect(
     literalKey || computedKey,
-    'moduleDependencies must reference the consent module (by path — its meta name cannot resolve an unregistered local module)'
+    'moduleDependencies must reference the consent module (by path: its meta name cannot resolve an unregistered local module)'
   ).toBe(true);
 
   // an optional dependency is never auto-installed, which is the whole defect
@@ -772,7 +798,7 @@ test('Beacon declares its consent sub-module as a module dependency', () => {
 test('The deprecated installModule path is not used and consent is not inlined', () => {
   expect(
     moduleTree,
-    'installModule is deprecated — declare the dependency in moduleDependencies instead'
+    'installModule is deprecated: declare the dependency in moduleDependencies instead'
   ).not.toMatch(/\binstallModule\b/);
 
   for (const f of beaconFiles) {
@@ -788,7 +814,7 @@ test('The deprecated installModule path is not used and consent is not inlined',
 test('The module still ships its tracking plugin', () => {
   expect(beaconTree, 'the module must still register its runtime plugin').toMatch(/\baddPlugin\s*\(/);
   const plugin = beaconFiles.find(f => /\bdefineNuxtPlugin\b/.test(f.content));
-  expect(plugin, 'the runtime plugin file is gone — removing tracking is not fixing it').toBeDefined();
+  expect(plugin, 'the runtime plugin file is gone: removing tracking is not fixing it').toBeDefined();
   expect(
     beaconTree,
     'the module must still honor the configured sampleRate'
