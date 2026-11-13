@@ -2,15 +2,23 @@
  * Nuxt 3 to Nuxt 4 Migration
  *
  * Tests whether the agent can migrate a Nuxt 3 app to the Nuxt 4 directory
- * structure — moving pages, components, composables, layouts, middleware,
- * app.vue, and app.config.ts into the app/ directory while keeping server/,
- * public/, and nuxt.config.ts at the project root.
+ * structure: pages, components, composables, layouts, middleware, app.vue and
+ * app.config.ts move into app/, while server/ and nuxt.config.ts stay at the
+ * project root. Nuxt 4 uses app/ as srcDir as soon as it holds any source file (verified on
+ * nuxt 4.6.4, @nuxt/schema srcDir resolver), so a half-done move silently
+ * drops whatever is left at the root.
  *
- * Also checks the nuxt version upgrade.
+ * Checks:
+ * - every source file exists under app/, and nothing is left at the root
+ *   (agents often copy instead of move, or leave app.vue/app.config.ts behind);
+ * - server/ is not moved into app/ (Nuxt 4 resolves serverDir from rootDir);
+ * - package.json targets nuxt 4. Any range whose floor is 4 is accepted
+ *   (^4, ~4, >=4, an exact 4.x.y); a dist-tag like "latest" is not a version;
+ * - the moved files keep their behaviour, so stubbing them out to satisfy the
+ *   existence checks does not pass.
  *
- * Tricky because agents often do incomplete migrations: moving server/ inside
- * app/, leaving files in both locations, leaving app.vue/app.config.ts at the
- * root, or leaving the old root source directories behind.
+ * The starter has no code that breaks on Nuxt 4, so this eval only grades the
+ * structure and the version bump. The build step then proves the app compiles.
  */
 
 import { expect, test } from 'vitest';
@@ -77,8 +85,7 @@ test('Nuxt dependency upgraded to v4', () => {
   const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf-8'));
   const nuxtVersion = pkg.dependencies?.nuxt || pkg.devDependencies?.nuxt || '';
 
-  expect(nuxtVersion).not.toMatch(/^\^?3\./);
-  expect(nuxtVersion).toMatch(/^\^?4/);
+  expect(nuxtVersion).toMatch(/^(?:[\^~]|>=?\s*)?4(?:\.|$)/);
 });
 
 test('Old root-level source directories are fully cleaned up', () => {
@@ -88,4 +95,17 @@ test('Old root-level source directories are fully cleaned up', () => {
 
   // A complete migration leaves no source directories behind at the root.
   expect(oldDirsRemaining).toBe(0);
+});
+
+test('Moved files keep their behaviour', () => {
+  const read = (...p: string[]) => readFileSync(join(root, 'app', ...p), 'utf-8');
+
+  expect(read('pages', 'index.vue')).toMatch(/useCounter\(/);
+  expect(read('pages', 'index.vue')).toMatch(/\/api\/hello/);
+  expect(read('components', 'AppHeader.vue')).toMatch(/useAppConfig\(/);
+  expect(read('layouts', 'default.vue')).toMatch(/<AppHeader/);
+  expect(read('composables', 'useCounter.ts')).toMatch(/useState\(/);
+  expect(read('middleware', 'auth.ts')).toMatch(/navigateTo\(/);
+  expect(read('app.config.ts')).toMatch(/My Nuxt App/);
+  expect(read('app.vue')).toMatch(/<NuxtPage/);
 });
