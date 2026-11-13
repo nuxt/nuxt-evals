@@ -108,13 +108,30 @@ evals/nuxt-000-fix-data-fetching/
 3. Add broken or suboptimal starter code in `app/` for the agent to fix
 4. Add `EVAL.ts` with vitest assertions that check for the correct fix and reject anti-patterns
 5. Add `package.json` with `"type": "module"` and `"build": "nuxt build"`
-6. Run `pnpm run eval` — it will automatically run the new eval for all models
+6. Run it for tier-1 models only (see [Model retention policy](#model-retention-policy)). Tier-2 models keep their last measurement and are not rerun
 
 ## Adding a new model
 
 1. Create a config in `experiments/` (e.g., `experiments/my-model.ts`)
 2. Add the display name to `MODEL_NAMES` in `scripts/export-results.ts`
 3. Run `pnpm run eval` — it will automatically run all evals for the new model
+4. Decide its tier and update `TIER_ONE_EXPERIMENTS` in `scripts/tier-one.ts` (see below)
+
+## Model retention policy
+
+Mirrors [nextjs.org/evals](https://github.com/vercel/next-evals-oss#model-retention-policy). The published board has two tiers:
+
+- **Tier 1 (current)**: models with a complete run of the current eval set. Tier 1 carries the **latest model of each product line**, and a new version moves its predecessor to tier 2 right away. Sibling lines count separately, but only flagship or coding-focused models are measured: no budget or fast variants. A tier-1 model that goes stale because the eval set moved on gets rerun, not left on old measurements.
+- **Tier 2 (previously measured)**: every other model keeps its last measured results for reference, dated by its `timestamp`, and is not rerun.
+
+Tier 1 is scored over the full current eval set: an eval it never ran exports with `notAvailable: true` and counts as not passed until it is rerun. Tier 2 is scored over the evals it was measured on, so adding an eval doesn't lower it. An eval that changed since a model's last run keeps that last result.
+
+`TIER_ONE_EXPERIMENTS` in `scripts/tier-one.ts` is the list, and each experiment exports a `tier` field. When the eval set changes, rerun only tier 1:
+
+```bash
+pnpm run eval:tier1:status   # what each tier-1 experiment is missing
+pnpm run eval:tier1          # run it
+```
 
 ## Publishing to nuxt.com/evals
 

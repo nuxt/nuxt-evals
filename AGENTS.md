@@ -11,7 +11,10 @@ When asked to add a new model/experiment, do all of the following, then commit:
 3. **Check `HARNESS_NAMES`** in `scripts/export-results.ts`. If the experiment's `agent` value isn't already a key there, add it (e.g. `'vercel-ai-gateway/opencode': 'OpenCode'`). Without this, the harness falls back to the raw `agent` string.
 4. **Add the list price** to the `MODEL_PRICING` map in `scripts/cost.ts` (per 1M tokens, from the AI Gateway model catalog base tier). Without this, the exported `avgCostUsd` is `null` and the cost column shows N/A. `pnpm run test:cost` fails when an experiment has no entry.
 5. **Add a row** to the Models table in `README.md` with `| \`<name>\` | \`<agent>\` | \`<model>\` |`.
-6. **Commit per model** with message `feat(experiments): add <name>` (one model = one commit, bundling all the file changes).
+6. **Decide the tier** in `TIER_ONE_EXPERIMENTS` in `scripts/tier-one.ts`, following the README's "Model retention policy". A newer version of a line moves its predecessor to tier 2. Only add flagship or coding-focused models, never a budget or fast sibling.
+7. **Commit per model** with message `feat(experiments): add <name>` (one model = one commit, bundling all the file changes).
+
+When an eval is added or changed, rerun tier-1 experiments only. Never rerun tier 2: `gpt-5.5-pro` costs $200+ per sweep and `minimax-m2.7` can't be served on the gateway any more.
 
 Keep these in sync. Every `experiments/*.ts` file must have a matching `MODEL_NAMES` entry, a known `HARNESS_NAMES` key for its `agent`, a `MODEL_PRICING` entry, and a README table row.
 
