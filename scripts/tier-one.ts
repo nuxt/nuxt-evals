@@ -10,7 +10,7 @@ export const TIER_ONE_EXPERIMENTS = [
   'claude-sonnet-5.5',
   'cursor-composer-2.5',
   'deepseek-v4-pro',
-  'gemini-4-argon',
+  'gemini-4-carbon',
   'glm-5.3',
   'gpt-6-astra-high',
   'gpt-6.1-sol-high',
