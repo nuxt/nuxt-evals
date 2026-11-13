@@ -42,6 +42,7 @@ Unit tests for the token extraction and pricing in `scripts/cost.ts`.
 
 | Experiment | Agent | Model |
 |------------|-------|-------|
+| `claude-fable-5.2` | `vercel-ai-gateway/claude-code` | `anthropic/claude-fable-5.2` |
 | `claude-opus-4.6` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-4.6` |
 | `claude-opus-4.7` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-4.7` |
 | `claude-opus-4.8` | `vercel-ai-gateway/claude-code` | `anthropic/claude-opus-4.8` |

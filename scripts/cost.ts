@@ -41,6 +41,8 @@ export interface Pricing {
  * When adding a model, add its price here or /evals shows N/A for that row.
  */
 export const MODEL_PRICING: Record<string, Pricing | null> = {
+  // Catalog rate; not yet checked against usage.cost.
+  'claude-fable-5.2': { input: 8, output: 40, cacheRead: 0.2, cacheWrite: 10 },
   'claude-opus-4.6': { input: 5, output: 25, cacheRead: 0.5, cacheWrite: 6.25 },
   'claude-opus-4.7': { input: 5, output: 25, cacheRead: 0.5, cacheWrite: 6.25 },
   'claude-opus-4.8': { input: 5, output: 25, cacheRead: 0.5, cacheWrite: 6.25 },

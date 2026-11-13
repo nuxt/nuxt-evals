@@ -5,7 +5,7 @@
  * tier 2: previously measured, dated, not rerun.
  */
 export const TIER_ONE_EXPERIMENTS = [
-  'claude-fable-5.1',
+  'claude-fable-5.2',
   'claude-opus-5.5',
   'claude-sonnet-5.5',
   'cursor-composer-2.5',
