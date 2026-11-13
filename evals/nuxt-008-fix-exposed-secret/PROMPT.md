@@ -1,1 +1,1 @@
-Users report seeing 'undefined' where the API status should appear. Debug and fix this page so it correctly shows whether the external API is reachable.
+Users report that the API status on this page shows 'Not connected', and that it sometimes says 'Connected' for a split second before flipping after the page loads. Debug and fix this page so it correctly shows whether the external API is reachable.
