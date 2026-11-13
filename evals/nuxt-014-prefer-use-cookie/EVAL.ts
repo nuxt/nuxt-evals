@@ -2,12 +2,28 @@
  * Prefer useCookie Over document.cookie
  *
  * Tests whether the agent replaces manual document.cookie parsing with
- * Nuxt's useCookie composable for SSR-compatible cookie handling.
+ * Nuxt's useCookie composable, and renders the theme on the server so the
+ * flash of wrong theme is gone.
  *
  * Tricky because document.cookie works on the client but is not available
- * during SSR, causing a flash of wrong theme on page load. The agent must
- * know that useCookie is SSR-safe, reactive, and handles serialization
- * automatically — eliminating the need for onMounted and manual parsing.
+ * during SSR. useCookie reads the request's Cookie header on the server
+ * (verified on nuxt 4.6.4), which removes the need for onMounted and manual
+ * parsing. But reading the cookie is only half the fix: the starter applies the
+ * theme by toggling a class on document.documentElement, which only happens in
+ * the browser, so the first paint still shows the wrong theme.
+ *
+ * Checks:
+ * - useCookie is called with a theme-related key, either a string literal or a
+ *   const holding one;
+ * - no document.cookie, onMounted, manual split() parsing or cookie library;
+ * - the theme reaches the server-rendered HTML, through useHead htmlAttrs or
+ *   bodyAttrs, <Html>/<Body>, or a :class binding in a template. Without this, a
+ *   client-only classList toggle passes while the flash persists, and a toggle
+ *   moved into an immediate watcher crashes SSR with a 500;
+ * - the page still renders the theme and a toggle.
+ *
+ * Cookie logic may live in the page, a composable or a plugin, so the whole
+ * app/ source is scanned, with comments stripped.
  */
 
 import { expect, test } from 'vitest';
@@ -107,9 +123,20 @@ test('Theme value is reactive', () => {
 test('Cookie persists the theme preference', () => {
   const content = getSolutionContent();
 
-  // useCookie must actually be CALLED with a theme-related key — mere
-  // co-occurrence of the words anywhere in the app is not persistence.
-  expect(content).toMatch(
-    /useCookie\s*(?:<[^>]*>)?\s*\(\s*['"`][^'"`]*(?:theme|color|mode)[^'"`]*['"`]/i,
-  );
+  // useCookie must actually be CALLED with a theme-related key. Mere
+  // co-occurrence of the words anywhere in the app is not persistence. The key
+  // may be inlined or held in a const (`useCookie<Theme>(COOKIE_NAME, ...)`).
+  const key = /['"`][^'"`]*(?:theme|color|mode)[^'"`]*['"`]/i.source;
+  const call = /useCookie\s*(?:<[^(]*>)?\s*\(\s*/.source;
+  const direct = new RegExp(call + key, 'i');
+  const viaConst = new RegExp(`const\\s+(\\w+)\\s*=\\s*${key}[\\s\\S]*${call}\\1\\b`, 'i');
+  expect(direct.test(content) || viaConst.test(content)).toBe(true);
+});
+
+test('Theme is applied in the server-rendered HTML', () => {
+  const content = getSolutionContent();
+
+  // The flash only goes away if the server already renders the theme. Setting
+  // the class from client code (classList, onMounted, import.meta.client) does not.
+  expect(content).toMatch(/htmlAttrs|bodyAttrs|<Html\b|<Body\b|(?::|v-bind:)class=/);
 });
