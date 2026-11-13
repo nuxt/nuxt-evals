@@ -1,0 +1,17 @@
+diff --git a/dist/lib/agents/shared.js b/dist/lib/agents/shared.js
+index 213be2037fe23ae9fc9816d9da9ec9230f739cfc..218a3487e8389d1515f280c99ff2a979b7b32acd 100644
+--- a/dist/lib/agents/shared.js
++++ b/dist/lib/agents/shared.js
+@@ -258,6 +258,12 @@ export async function createVitestConfig(sandbox) {
+         'vitest.config.ts': `
+ import { defineConfig } from 'vitest/config';
+ export default defineConfig({
++  // EVAL.ts is transpiled without reading the workspace tsconfig.json. A
++  // framework tsconfig can reference generated files (Nuxt's .nuxt/tsconfig.*.json)
++  // that an agent may have deleted, and a missing reference aborts the whole run
++  // before any test executes. oxc is Vite 8, esbuild covers older Vite.
++  oxc: { tsconfig: false },
++  esbuild: { tsconfigRaw: '{}' },
+   test: {
+     include: ['${evalFile}'],
+     globals: false,

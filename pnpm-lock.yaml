@@ -4,13 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@vercel/agent-eval@3.0.0':
+    hash: 253bff302dd9a4a9bdd4a5a1b64fef334dfecfc1a9b4ccd7228ddcc9b9a63cf6
+    path: patches/@vercel__agent-eval@3.0.0.patch
+
 importers:
 
   .:
     dependencies:
       '@vercel/agent-eval':
         specifier: ^3.0.0
-        version: 3.0.0
+        version: 3.0.0(patch_hash=253bff302dd9a4a9bdd4a5a1b64fef334dfecfc1a9b4ccd7228ddcc9b9a63cf6)
     devDependencies:
       '@types/node':
         specifier: ^25.9.9
@@ -1093,7 +1098,7 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@vercel/agent-eval@3.0.0':
+  '@vercel/agent-eval@3.0.0(patch_hash=253bff302dd9a4a9bdd4a5a1b64fef334dfecfc1a9b4ccd7228ddcc9b9a63cf6)':
     dependencies:
       '@vercel/sandbox': 3.3.0
       ai: 7.0.165(zod@3.25.76)

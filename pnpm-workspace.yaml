@@ -3,3 +3,5 @@ allowBuilds:
   esbuild: false
   protobufjs: false
   ssh2: false
+patchedDependencies:
+  '@vercel/agent-eval@3.0.0': patches/@vercel__agent-eval@3.0.0.patch
