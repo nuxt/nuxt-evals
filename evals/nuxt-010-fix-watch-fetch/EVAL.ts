@@ -2,15 +2,27 @@
  * Fix Watch + $fetch Anti-Pattern
  *
  * Tests whether the agent replaces the manual watch() + $fetch() + onMounted()
- * pattern with useFetch using a genuinely reactive URL — and keeps the loading
- * and error states, now driven by the composable's own status/error.
+ * pattern with a data-fetching composable that genuinely refetches when the
+ * user ID changes, and keeps the loading and error states, now driven by the
+ * composable's own status/error. Verified against nuxt 4.6.4:
+ *
+ * - useFetch turns its URL into `computed(() => toValue(url))` and keys on it,
+ *   so a getter URL, a computed URL, or a named getter passed in refetches.
+ *   A template string is evaluated once, so `useFetch(`/api/users/${id}`,
+ *   { watch: [userId] })` refetches the SAME url forever and must not pass.
+ *   A string `key` option replaces the URL-derived key and the URL is not
+ *   watched, so a getter URL with `key: 'user'` never refetches either.
+ * - useAsyncData only re-runs when its key is reactive (a getter or computed
+ *   key) or when its `watch` option fires. Reads of userId inside the handler
+ *   are not tracked, so a static or auto-generated key without `watch` never
+ *   refetches and must not pass.
+ * - `server: false` makes the fetch client-only, which brings back the SSR
+ *   flicker the prompt is about, so it fails.
  *
  * Tricky because the watch + $fetch pattern works functionally but causes
- * flicker on SSR (client-only fetch), shows stale data during navigation,
- * and duplicates loading/error state that useFetch handles automatically.
- * A frozen template-string URL (evaluated once) with `watch: [userId]`
- * refetches the SAME url forever — that broken "fix" must NOT pass. The URL
- * must be a getter, a computed, or a useAsyncData handler.
+ * flicker on SSR (client-only fetch), shows stale data during navigation, and
+ * duplicates loading/error state that useFetch handles automatically.
+ * Checks run on comment-stripped source.
  */
 
 import { expect, test } from 'vitest';
@@ -38,6 +50,39 @@ function getPageContent(): string {
   return stripComments(readFileSync(pagePath, 'utf-8'));
 }
 
+/** Names bound to a getter or computed that depends on userId: `const url = () => ...` / `computed(...)`. */
+function reactiveNames(content: string): string[] {
+  return [...content.matchAll(
+    /(?:const|let)\s+(\w+)\s*=\s*(?:computed\s*(?:<[^>]*>)?\s*\(\s*)?\(\)\s*=>[\s\S]{0,160}?\buserId\b/g,
+  )].map(m => m[1]);
+}
+
+function hasReactiveFetch(content: string): boolean {
+  const names = reactiveNames(content);
+
+  // useFetch(() => `/api/users/${userId.value}`), lazy variants and generics included.
+  const getterUrl = /use(?:Lazy)?Fetch\s*(?:<[^>]*>)?\s*\(\s*\(\)\s*=>/.test(content);
+  // useFetch(url) where url is a computed or getter that depends on userId.
+  const namedUrl = names.some(n => new RegExp(`use(?:Lazy)?Fetch\\s*(?:<[^>]*>)?\\s*\\(\\s*${n}\\b`).test(content));
+
+  // useAsyncData(() => `user-${userId.value}`, ...) or useAsyncData(computed(...), ...):
+  // a getter key returns a string, unlike a handler passed first with an auto key.
+  const reactiveKey =
+    /use(?:Lazy)?AsyncData\s*(?:<[^>]*>)?\s*\(\s*(?:\(\)\s*=>\s*['"`]|computed\s*\()/.test(content)
+    || names.some(n => new RegExp(`use(?:Lazy)?AsyncData\\s*(?:<[^>]*>)?\\s*\\(\\s*${n}\\s*,`).test(content));
+  // useAsyncData('user', handler, { watch: [userId] }) re-runs through its watch option.
+  const watchedAsyncData =
+    /use(?:Lazy)?AsyncData\s*(?:<[^>]*>)?\s*\(/.test(content) && /watch\s*:\s*\[[^\]]*\buserId\b/.test(content);
+
+  // useFetch with a string `key` option keys on that string instead of the URL,
+  // and the URL itself is not watched, so it never refetches unless userId is
+  // in its `watch` option.
+  const watchesUserId = /watch\s*:\s*\[[^\]]*\buserId\b/.test(content);
+  const staticFetchKey = /\bkey\s*:\s*['"`]/.test(content) && !watchesUserId;
+
+  return ((getterUrl || namedUrl) && !staticFetchKey) || reactiveKey || watchedAsyncData;
+}
+
 test('Uses useFetch or useAsyncData', () => {
   const content = getPageContent();
 
@@ -45,23 +90,19 @@ test('Uses useFetch or useAsyncData', () => {
   expect(content).toMatch(/use(?:Lazy)?(?:Fetch|AsyncData)/);
 });
 
-test('URL is genuinely reactive (getter, computed, or asyncData handler)', () => {
+test('Refetches when the user ID changes (reactive URL or key)', () => {
   const content = getPageContent();
 
-  // Lazy variants (useLazyFetch/useLazyAsyncData) are accepted everywhere here.
-  // A getter URL: useFetch(() => `/api/users/${userId.value}`)
-  const hasGetterUrl = /use(?:Lazy)?Fetch\s*(?:<[^>]*>)?\s*\(\s*\(\)\s*=>/.test(content);
-  // A computed URL that actually depends on the user id.
-  const hasComputedUrl =
-    /computed\s*\([\s\S]{0,160}?userId/.test(content) &&
-    /use(?:Lazy)?(?:Fetch|AsyncData)/.test(content);
-  // useAsyncData with a $fetch handler re-runs via its own reactivity.
-  const hasAsyncDataHandler =
-    /use(?:Lazy)?AsyncData\s*(?:<[^>]*>)?\s*\(/.test(content) && /\$fetch/.test(content);
+  // NOTE: a frozen template string plus `watch: [userId]`, or useAsyncData with
+  // a static key and no watch, are intentionally NOT accepted: neither fetches
+  // the new user.
+  expect(hasReactiveFetch(content)).toBe(true);
+});
 
-  // NOTE: a frozen template string plus `watch: [userId]` is intentionally
-  // NOT accepted — it refetches the same URL and is functionally broken.
-  expect(hasGetterUrl || hasComputedUrl || hasAsyncDataHandler).toBe(true);
+test('Fetches during SSR (no server: false)', () => {
+  const content = getPageContent();
+
+  expect(content).not.toMatch(/\bserver\s*:\s*false\b/);
 });
 
 test('Does not use manual watch + fetch', () => {
