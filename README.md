@@ -150,7 +150,7 @@ cp agent-results.json <path-to-nuxt.com>/agent-results.json
 
 ## Current evals
 
-### Nuxt (21)
+### Nuxt (22)
 
 | Eval | Type | Tests |
 |------|------|-------|
@@ -175,6 +175,7 @@ cp agent-results.json <path-to-nuxt.com>/agent-results.json
 | nuxt-018-nuxt5-migration | fix | Opt into compatibilityVersion 5 and update deprecated data fetching |
 | nuxt-019-nuxt5-runtime-semantics | fix | Reserve client-only space with ClientOnly and target Vite environments |
 | nuxt-020-fix-nuxt-module | fix | Fix a local module's meta, namespacing, config merging, and dependencies |
+| nuxt-021-custom-fetch-client | fix | Replace a `globalThis.$fetch` override with a provided `$fetch.create` client |
 
 ### Nuxt Content (2)
 

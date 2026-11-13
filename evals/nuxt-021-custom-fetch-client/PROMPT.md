@@ -1,0 +1,3 @@
+Every request the app makes to our `/api` routes is supposed to carry `Authorization: Bearer <token>`, using the token stored in the `token` cookie. The cookie is set when the user signs in and cleared when they sign out. `app/plugins/api.ts` was added to take care of that, but it doesn't work: even with a valid `token` cookie, the dashboard can't load the account or the orders, and saving the profile on the settings page fails. The API answers 401 every time.
+
+Fix it following Nuxt best practices. The header has to be attached in one place, so new pages and components get it without having to remember. Don't change anything in `server/`: the API is shared with our mobile app and only accepts the Authorization header.
