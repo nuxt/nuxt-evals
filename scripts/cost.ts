@@ -81,6 +81,8 @@ export const MODEL_PRICING: Record<string, Pricing | null> = {
   'kimi-k2.6': { input: 0.95, output: 4, cacheRead: 0.16, cacheWrite: 0 },
   'kimi-k2.7-code': { input: 0.95, output: 4, cacheRead: 0.19, cacheWrite: 0 }, // catalog shows 0.16, gateway bills 0.19
   'kimi-k3': { input: 3, output: 15, cacheRead: 0.3, cacheWrite: 0 },
+  // Matches usage.cost on 2026-11-13 (22 input, 64 cached, 16 output tokens billed $0.0002168).
+  'kimi-k3.1-pro': { input: 2, output: 10, cacheRead: 0.2, cacheWrite: 0 },
   'minimax-m2.7': { input: 0.3, output: 1.2, cacheRead: 0.06, cacheWrite: 0.375 },
   'minimax-m3': { input: 0.3, output: 1.2, cacheRead: 0.06, cacheWrite: 0 },
 };

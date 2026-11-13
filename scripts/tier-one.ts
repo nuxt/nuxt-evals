@@ -15,7 +15,7 @@ export const TIER_ONE_EXPERIMENTS = [
   'gpt-6-astra-high',
   'gpt-6.1-sol-high',
   'grok-4.7',
-  'kimi-k3',
+  'kimi-k3.1-pro',
   'minimax-m3',
 ] as const;
 
