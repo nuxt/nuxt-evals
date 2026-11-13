@@ -20,6 +20,7 @@ import {
   type ResolvedExperimentConfig,
 } from '@vercel/agent-eval';
 import { MODEL_PRICING, extractRunTokens, priceUsage } from './cost.ts';
+import { TIER_1 } from './tier-one.ts';
 
 interface SummaryJson {
   totalRuns: number;
@@ -70,6 +71,10 @@ interface ExportedData {
       passAt1?: number;
       /** Mean per-eval passRate (censored under earlyExit: true). */
       avgPassRate?: number;
+      /** 1 = current, rerun when the eval set changes. 2 = previously
+       * measured, kept at its last run. See "Model retention policy" in the
+       * README. */
+      tier: 1 | 2;
     }>;
   };
   results: Record<string, AgentResult[]>;
@@ -386,7 +391,11 @@ async function main(): Promise<void> {
     const missingEvals = Object.keys(currentFingerprints).filter(
       (e) => !seenEvals.has(e)
     );
-    if (missingEvals.length > 0) {
+    if (missingEvals.length > 0 && !TIER_1.has(experiment)) {
+      console.log(
+        `${experiment}: tier 2, exported at its last measurement without ${missingEvals.length} newer evals: ${missingEvals.join(', ')}`
+      );
+    } else if (missingEvals.length > 0) {
       console.warn(
         `${experiment}: ${missingEvals.length}/${Object.keys(currentFingerprints).length} evals have no current result (stale or never run) — re-run before exporting: ${missingEvals.join(', ')}`
       );
@@ -426,6 +435,7 @@ async function main(): Promise<void> {
       avgCostUsd: avgCost(agentResults),
       passAt1,
       avgPassRate,
+      tier: TIER_1.has(experiment) ? 1 : 2,
     });
 
     exportedData.results[experiment] = agentResults.sort((a, b) =>
