@@ -19,6 +19,9 @@ import {
   loadConfig,
   type ResolvedExperimentConfig,
 } from '@vercel/agent-eval';
+// Not exported from the package root. The same hash agent-eval uses to tell an
+// eval change from a config change.
+import { computeContentFingerprint } from '../node_modules/@vercel/agent-eval/dist/lib/fingerprint.js';
 import { MODEL_PRICING, extractRunTokens, priceUsage } from './cost.ts';
 import { TIER_1 } from './tier-one.ts';
 
@@ -28,6 +31,7 @@ interface SummaryJson {
   meanDuration: number;
   valid?: boolean;
   fingerprint?: string;
+  contentFingerprint?: string;
 }
 
 interface RunResultJson {
@@ -36,6 +40,10 @@ interface RunResultJson {
 
 interface AgentResult {
   evalPath: string;
+  /** A tier-1 experiment never ran this eval (e.g. added after its last
+   * sweep). Counts as not passed, so a partial tier-1 run can't publish an
+   * inflated score. Tier-2 rows leave never-run evals out instead. */
+  notAvailable?: boolean;
   /** Mean list cost in USD across this eval's runs. Absent when the runs saved
    * no token usage (e.g. a timeout) or the model has no price entry. */
   costUsd?: number;
@@ -247,9 +255,9 @@ async function loadExperimentConfig(
 /**
  * Compute the current fingerprint for every eval under evals/, using the same
  * hash as the harness (eval files + config fields that affect results).
- * Only stored results matching these fingerprints are exported — anything
- * else was produced by a different eval version or experiment config and
- * must not be mixed into agent-results.json.
+ * A result matching these fingerprints is preferred. Without one, the newest
+ * result from an older version of the eval is exported as the last
+ * measurement, and an eval with neither is exported as not available.
  */
 function computeCurrentFingerprints(
   config: ResolvedExperimentConfig
@@ -309,6 +317,10 @@ async function main(): Promise<void> {
       continue;
     }
     const currentFingerprints = computeCurrentFingerprints(config);
+    const evalsDir = join(process.cwd(), 'evals');
+    const contentFingerprints = Object.fromEntries(
+      Object.keys(currentFingerprints).map((e) => [e, computeContentFingerprint(join(evalsDir, e))])
+    );
 
     // Find all timestamp directories (may be nested under model subdirs)
     const tsDirs = await findTimestampDirs(expDir);
@@ -324,9 +336,11 @@ async function main(): Promise<void> {
     });
 
     const latestTimestamp = sortedTsDirs[0].split('/').pop()!;
-    const agentResults: AgentResult[] = [];
-    const seenEvals = new Set<string>();
-    const staleEvals = new Set<string>();
+    // Newest valid result per eval whose fingerprint matches the current eval
+    // and config, plus the newest one that doesn't. A stale result is kept as
+    // the last measurement until the model is rerun, like nextjs.org/evals.
+    const currentResults = new Map<string, AgentResult>();
+    const staleResults = new Map<string, AgentResult>();
 
     for (const tsDir of sortedTsDirs) {
       const timestamp = tsDir.split('/').pop()!;
@@ -338,7 +352,8 @@ async function main(): Promise<void> {
       }
 
       for (const evalDir of evalDirs) {
-        if (evalDir.startsWith('.') || seenEvals.has(evalDir)) continue;
+        if (evalDir.startsWith('.') || currentResults.has(evalDir)) continue;
+        if (!(evalDir in currentFingerprints)) continue;
 
         const summaryPath = join(tsDir, evalDir, 'summary.json');
         try {
@@ -348,12 +363,14 @@ async function main(): Promise<void> {
           // Skip invalid results (infra/timeout failures)
           if (summary.valid === false) continue;
 
-          // Skip results whose fingerprint doesn't match the current eval
-          // content + experiment config — stale batches must never backfill.
-          if (summary.fingerprint !== currentFingerprints[evalDir]) {
-            staleEvals.add(evalDir);
-            continue;
-          }
+          const isCurrent = summary.fingerprint === currentFingerprints[evalDir];
+          // Only an eval change keeps the last result. A result whose eval is
+          // unchanged but whose config differs came from another model or
+          // setup, so it is never carried into this row.
+          const evalChanged =
+            summary.contentFingerprint !== undefined
+            && summary.contentFingerprint !== contentFingerprints[evalDir];
+          if (!isCurrent && (!evalChanged || staleResults.has(evalDir))) continue;
 
           const firstRunSuccess = await getFirstRunSuccess(
             join(tsDir, evalDir),
@@ -364,7 +381,7 @@ async function main(): Promise<void> {
             experiment
           );
 
-          agentResults.push({
+          (isCurrent ? currentResults : staleResults).set(evalDir, {
             evalPath: evalDir,
             ...(costUsd !== undefined ? { costUsd } : {}),
             result: {
@@ -381,42 +398,72 @@ async function main(): Promise<void> {
               firstRunSuccess,
             },
           });
-          seenEvals.add(evalDir);
         } catch {
           // Skip evals without valid summary
         }
       }
     }
 
-    const missingEvals = Object.keys(currentFingerprints).filter(
-      (e) => !seenEvals.has(e)
-    );
-    if (missingEvals.length > 0 && !TIER_1.has(experiment)) {
-      console.log(
-        `${experiment}: tier 2, exported at its last measurement without ${missingEvals.length} newer evals: ${missingEvals.join(', ')}`
-      );
-    } else if (missingEvals.length > 0) {
-      console.warn(
-        `${experiment}: ${missingEvals.length}/${Object.keys(currentFingerprints).length} evals have no current result (stale or never run) — re-run before exporting: ${missingEvals.join(', ')}`
-      );
-    } else if (staleEvals.size > 0) {
-      console.log(
-        `${experiment}: ignored stale batches for ${staleEvals.size} evals (current results found)`
-      );
-    }
-
-    if (agentResults.length === 0) {
+    if (currentResults.size === 0 && staleResults.size === 0) {
       console.warn(`No valid results for: ${experiment}`);
       continue;
+    }
+
+    // Tier 1 is scored over the full eval set, so an eval it never ran is a
+    // fail until it is rerun. Tier 2 is never rerun, so it keeps the score on
+    // the evals it was measured on instead of losing points each time an eval
+    // is added.
+    const tierOne = TIER_1.has(experiment);
+    const stale: string[] = [];
+    const notAvailable: string[] = [];
+    const agentResults: AgentResult[] = Object.keys(currentFingerprints).flatMap((evalName): AgentResult[] => {
+      const current = currentResults.get(evalName);
+      if (current) return [current];
+      const last = staleResults.get(evalName);
+      if (last) {
+        stale.push(evalName);
+        return [last];
+      }
+      notAvailable.push(evalName);
+      if (!tierOne) return [];
+      return [{
+        evalPath: evalName,
+        notAvailable: true,
+        result: {
+          success: false,
+          duration: 0,
+          evalPath: evalName,
+          timestamp: parseTimestamp(latestTimestamp),
+          passRate: 0,
+          passedRuns: 0,
+          totalRuns: 0,
+          firstRunSuccess: false,
+        },
+      }];
+    });
+
+    const total = Object.keys(currentFingerprints).length;
+    const log = tierOne ? console.warn : console.log;
+    if (notAvailable.length > 0) {
+      log(tierOne
+        ? `${experiment}: ${notAvailable.length}/${total} evals never run, counted as not passed. Tier 1, rerun it. ${notAvailable.join(', ')}`
+        : `${experiment}: ${notAvailable.length}/${total} evals never run, left out of its tier-2 score. ${notAvailable.join(', ')}`);
+    }
+    if (stale.length > 0) {
+      log(`${experiment}: ${stale.length}/${total} evals changed since their last run, keeping that result.${tierOne ? ' Tier 1, rerun it.' : ''} ${stale.join(', ')}`);
     }
 
     const modelName = MODEL_NAMES[experiment] || experiment;
     const agentHarness = HARNESS_NAMES[config.agent] || config.agent;
 
+    // Success, pass@1 and pass rate count a tier-1 row's never-run evals as
+    // not passed. Duration averages what was measured.
+    const measured = agentResults.filter((r) => !r.notAvailable);
+
     // Mean run duration in seconds (durations are stored in ms)
     const avgDuration =
-      agentResults.reduce((sum, r) => sum + r.result.duration, 0) /
-      agentResults.length /
+      measured.reduce((sum, r) => sum + r.result.duration, 0) /
+      measured.length /
       1000;
 
     const passAt1 =
