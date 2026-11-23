@@ -12,7 +12,7 @@ export const TIER_ONE_EXPERIMENTS = [
   'deepseek-v4-pro',
   'gemini-4-carbon',
   'glm-5.3',
-  'gpt-6-astra-high',
+  'gpt-6.2-astra-high',
   'gpt-6.2-sol-high',
   'grok-4.7',
   'kimi-k3.1-pro',

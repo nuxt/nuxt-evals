@@ -68,6 +68,7 @@ Unit tests for the token extraction and pricing in `scripts/cost.ts`.
 | `gpt-6-astra-high` | `vercel-ai-gateway/codex` | `openai/gpt-6-astra?reasoningEffort=high` |
 | `gpt-6-sol-high` | `vercel-ai-gateway/codex` | `openai/gpt-6-sol?reasoningEffort=high` |
 | `gpt-6.1-sol-high` | `vercel-ai-gateway/codex` | `openai/gpt-6.1-sol?reasoningEffort=high` |
+| `gpt-6.2-astra-high` | `vercel-ai-gateway/codex` | `openai/gpt-6.2-astra?reasoningEffort=high` |
 | `gpt-6.2-sol-high` | `vercel-ai-gateway/codex` | `openai/gpt-6.2-sol?reasoningEffort=high` |
 | `grok-4.7` | `vercel-ai-gateway/opencode` | `vercel/spacexai/grok-4.7` |
 | `kimi-k2.6` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k2.6` |

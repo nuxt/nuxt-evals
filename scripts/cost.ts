@@ -76,6 +76,8 @@ export const MODEL_PRICING: Record<string, Pricing | null> = {
   'gpt-6-astra-high': { input: 10, output: 50, cacheRead: 1, cacheWrite: 12.5 },
   'gpt-6-sol-high': { input: 2, output: 10, cacheRead: 0.2, cacheWrite: 2.5 },
   'gpt-6.1-sol-high': { input: 2, output: 10, cacheRead: 0.1, cacheWrite: 2.5 },
+  // Base tier catalog rate; not yet checked against usage.cost.
+  'gpt-6.2-astra-high': { input: 8, output: 40, cacheRead: 0.4, cacheWrite: 10 },
   // Catalog rate; not yet checked against usage.cost.
   'gpt-6.2-sol-high': { input: 2, output: 10, cacheRead: 0.1, cacheWrite: 2.5 },
   // Base tier (200k+ context bills 4/12/1, not applied).
