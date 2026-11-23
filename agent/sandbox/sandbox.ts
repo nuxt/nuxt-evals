@@ -1,13 +1,14 @@
 import { defineSandbox } from 'eve/sandbox';
-import { VERCEL_EVE_GIT_SANDBOX_IMAGE, VercelSandbox } from 'eve/sandbox/vercel';
+import { VercelSandbox } from 'eve/sandbox/vercel';
 import { installCodeTooling } from 'eve/extensions/code/sandbox';
 import { run } from '../lib/sandbox';
 
 const REPOSITORY = 'https://github.com/nuxt/nuxt-evals.git';
 
 export const environment = VercelSandbox.environment({
-  image: VERCEL_EVE_GIT_SANDBOX_IMAGE,
-  // Captured in the snapshot every session starts from: the gh wrappers and pnpm.
+  // eve's default image. Its eve-git variant, which adds gh, isn't served to
+  // this team ("Image not found"), so installCodeTooling installs gh instead.
+  // Captured in the snapshot every session starts from: gh, its wrappers and pnpm.
   prepare: async (sandbox) => {
     await installCodeTooling(sandbox);
     await run(sandbox, 'npm install --global pnpm@10');
