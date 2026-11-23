@@ -7,7 +7,9 @@ run-name: >-
   || 'Tier-1 rerun' }}
 
 # Sweeps cost money, so every run stops at the `sweeps` environment until a
-# required reviewer approves it. The credentials only exist in that environment.
+# required reviewer approves it. No credential is stored in GitHub: the sweep
+# job trades its GitHub OIDC token for the Vercel project's OIDC token, and is
+# the only job allowed to ask for one.
 #
 # - A registration pull request (`agent/add-*`) sweeps the experiments it adds
 #   and gets the results committed onto its branch.
@@ -139,10 +141,12 @@ jobs:
       queue: max
     permissions:
       contents: read
+      id-token: write
     steps:
-      # The credentialed step runs main's scripts and dependencies. From a
-      # pull request it only takes the experiment files, which `ci.ts sweep`
-      # refuses unless they are plain config literals.
+      # This job can mint Vercel credentials, so it runs main's scripts and
+      # dependencies only. From a pull request it takes the experiment files,
+      # which `ci.ts sweep` refuses unless they are plain config literals.
+      # The pull request's own code runs in the export job, which can't.
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ needs.plan.outputs.base }}
@@ -176,35 +180,77 @@ jobs:
             git show "$SHA:experiments/$name.ts" > "experiments/$name.ts"
           done
 
-      # The only step that sees the credentials.
       - name: Run the evals
         env:
-          AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TEAM_ID: ${{ vars.VERCEL_TEAM_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
           EXPERIMENTS: ${{ needs.plan.outputs.experiments }}
           FLAGS: ${{ inputs.smoke && '--smoke' || '' }} ${{ needs.plan.outputs.pr != '' && '--registration' || '' }}
         run: |
           # shellcheck disable=SC2086
           pnpm exec tsx scripts/ci.ts sweep $EXPERIMENTS $FLAGS
 
-      # The export needs the pull request's display name, price and tier, so
-      # the rest of the job runs on its tree. The new results are untracked
-      # files and stay where they are.
-      - name: Switch to the pull request
-        if: ${{ !inputs.smoke && needs.plan.outputs.pr != '' }}
+      # Transcripts never leave this job. The export writes each result's
+      # token counts to usage.json, which is committed, so the export job can
+      # price them without the transcripts.
+      - name: Save token usage
+        if: ${{ !inputs.smoke }}
         env:
-          SHA: ${{ needs.plan.outputs.sha }}
           EXPERIMENTS: ${{ needs.plan.outputs.experiments }}
         run: |
-          for name in $EXPERIMENTS; do rm "experiments/$name.ts"; done
-          git checkout --detach "$SHA"
-          pnpm install --frozen-lockfile
+          # shellcheck disable=SC2086
+          pnpm run export-results --allow-partial $EXPERIMENTS > /dev/null
 
-      - name: Export the results
+      # Only files .gitignore lets through leave the job: summary.json,
+      # usage.json and classification.json.
+      - name: Collect the results
         if: ${{ !inputs.smoke }}
         run: |
+          git add results
+          git diff --cached --binary -- results > "$RUNNER_TEMP/sweep.patch"
+          git diff --cached --stat -- results | tail -1
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: ${{ !inputs.smoke }}
+        with:
+          name: sweep
+          path: ${{ runner.temp }}/sweep.patch
+          if-no-files-found: error
+          retention-days: 3
+
+  export:
+    name: Export
+    needs: [plan, sweep]
+    if: ${{ !inputs.smoke }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      # The pull request's tree, for its display name, price and tier.
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ needs.plan.outputs.pr != '' && needs.plan.outputs.sha || needs.plan.outputs.base }}
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+        with:
+          version: 10
+
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: sweep
+          path: ${{ runner.temp }}
+
+      - name: Export the results
+        run: |
+          if [[ -s "$RUNNER_TEMP/sweep.patch" ]]; then git apply --3way "$RUNNER_TEMP/sweep.patch"; fi
           pnpm exec tsx scripts/ci.ts promote
           pnpm run export-results | tee "$RUNNER_TEMP/export.log"
           pnpm run test:cost
@@ -214,17 +260,13 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # Only what gets committed leaves the job: .gitignore keeps everything
-      # under results/ but summary.json out, transcripts included.
       - name: Collect the changes
-        if: ${{ !inputs.smoke }}
         run: |
           git add results agent-results.json scripts/tier-one.ts
           git diff --cached --binary > "$RUNNER_TEMP/results.patch"
           git diff --cached --stat | tail -1
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: ${{ !inputs.smoke }}
         with:
           name: results
           path: ${{ runner.temp }}/results.patch
@@ -233,7 +275,7 @@ jobs:
 
   commit:
     name: Commit the results
-    needs: [plan, sweep]
+    needs: [plan, export]
     if: ${{ !inputs.smoke }}
     runs-on: ubuntu-24.04
     permissions:

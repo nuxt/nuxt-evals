@@ -9,6 +9,11 @@
  * `plan` with no name covers every tier-1 experiment. It refuses tier 2, since
  * those are never rerun, and anything that is not a gateway harness, since CI
  * only holds gateway credentials.
+ *
+ * In GitHub Actions, `sweep` holds no stored credential. It trades the job's
+ * GitHub OIDC token for the Vercel project's OIDC token, the same one
+ * `vercel env pull` writes, which agent-eval uses for the gateway and for
+ * sandboxes alike. It lives in this process only.
  */
 import { spawnSync } from 'node:child_process';
 import { appendFileSync, existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -33,6 +38,59 @@ const registration = args.includes('--registration');
 
 const agentEval = (argv: string[], capture = false) =>
   spawnSync('agent-eval', argv, { stdio: capture ? 'pipe' : 'inherit', encoding: 'utf-8' });
+
+/** The Vercel CLI's public OAuth client, the one `@vercel/oidc` uses too. */
+const VERCEL_CLI_CLIENT_ID = 'cl_HYyOPBNtFMfHhaUn9L4QPfTZz6TP47bp';
+
+const jwtExpiry = (token: string): number => JSON.parse(Buffer.from(token.split('.')[1], 'base64url').toString()).exp * 1000;
+
+/**
+ * Puts a fresh Vercel project OIDC token in this process's environment, for
+ * the agent-eval runs it spawns. Called before every pass, so a long sweep
+ * never runs on a token close to expiry. Outside GitHub Actions it does
+ * nothing, and local runs keep using `.env.local`.
+ */
+async function authenticate() {
+  const { ACTIONS_ID_TOKEN_REQUEST_URL: requestUrl, ACTIONS_ID_TOKEN_REQUEST_TOKEN: requestToken, VERCEL_TEAM_ID: teamId, VERCEL_PROJECT_ID: projectId } = process.env;
+  if (!requestUrl || !requestToken) return;
+  if (!teamId || !projectId) throw new Error('Set the VERCEL_TEAM_ID and VERCEL_PROJECT_ID variables on the sweeps environment.');
+
+  const request = async (url: string, init: RequestInit, what: string) => {
+    const response = await fetch(url, { ...init, redirect: 'error' });
+    if (!response.ok) throw new Error(`${what} failed with status ${response.status}: ${(await response.text()).slice(0, 300)}`);
+    return response.json();
+  };
+
+  const { value: githubToken } = await request(requestUrl, { headers: { authorization: `bearer ${requestToken}` } }, 'The GitHub OIDC request');
+  console.log(`::add-mask::${githubToken}`);
+
+  const { access_token: accessToken } = await request('https://api.vercel.com/login/oauth/token', {
+    method: 'POST',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
+      client_id: VERCEL_CLI_CLIENT_ID,
+      subject_token_type: 'urn:ietf:params:oauth:token-type:id_token',
+      requested_token_type: 'urn:ietf:params:oauth:token-type:access_token',
+      team_id_or_slug: teamId,
+      subject_token: githubToken,
+    }),
+  }, 'The Vercel token exchange');
+  console.log(`::add-mask::${accessToken}`);
+
+  const { token } = await request(
+    `https://api.vercel.com/v1/projects/${encodeURIComponent(projectId)}/token?teamId=${encodeURIComponent(teamId)}`,
+    { method: 'POST', headers: { authorization: `Bearer ${accessToken}` } },
+    'The project OIDC token request',
+  );
+  console.log(`::add-mask::${token}`);
+
+  process.env.VERCEL_OIDC_TOKEN = token;
+  // agent-eval prefers these over the OIDC token. Nothing here sets them.
+  delete process.env.AI_GATEWAY_API_KEY;
+  delete process.env.VERCEL_TOKEN;
+  console.log(`Vercel OIDC token valid for ${Math.round((jwtExpiry(token) - Date.now()) / 60_000)} min.`);
+}
 
 /**
  * The evals `agent-eval run` would execute for each experiment. An experiment
@@ -159,6 +217,7 @@ async function sweep() {
 
   if (smoke) {
     // A smoke run always exits 1 and deletes its result. Its ✓ or ✗ line is the answer.
+    await authenticate();
     agentEval(['run', '--smoke', ...names]);
     return;
   }
@@ -172,6 +231,7 @@ async function sweep() {
     let left = (await pending([name])).get(name) ?? [];
     for (let pass = 1; left.length > 0 && pass <= MAX_PASSES; pass++) {
       console.log(`\n=== ${name}, pass ${pass}/${MAX_PASSES}, ${left.length} evals ===`);
+      await authenticate();
       agentEval(['run', name]);
       left = (await pending([name])).get(name) ?? [];
     }

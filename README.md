@@ -47,7 +47,7 @@ Transcripts are not committed, so the export saves each result's token counts ne
 
 Two pieces keep the board current. Neither merges anything.
 
-**The sweep workflow** (`.github/workflows/evals.yml`) runs the paid part. It stops at the `sweeps` environment until a required reviewer approves, and the gateway and sandbox credentials only exist there. It runs each model until no eval is missing, up to four passes, exports, and commits the `summary.json` files and `agent-results.json`.
+**The sweep workflow** (`.github/workflows/evals.yml`) runs the paid part. It stops at the `sweeps` environment until a required reviewer approves. No credential is stored in GitHub: the sweep job exchanges its GitHub OIDC token for the Vercel project's OIDC token, the one `vercel env pull` writes, and agent-eval uses it for the gateway and the sandboxes. It runs each model until no eval is missing, up to four passes, exports, and commits the `summary.json`, `usage.json` and `classification.json` files and `agent-results.json`.
 
 | Trigger | What it sweeps | Where the results go |
 |---------|----------------|----------------------|
