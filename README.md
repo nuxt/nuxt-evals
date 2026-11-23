@@ -151,7 +151,7 @@ Follow the checklist in [AGENTS.md](AGENTS.md#adding-a-new-experiment-model): th
 
 Mirrors [nextjs.org/evals](https://github.com/vercel/next-evals-oss#model-retention-policy). The published board has two tiers:
 
-- **Tier 1 (current)**: models with a complete run of the current eval set. Tier 1 carries the **latest model of each product line**, and a new version moves its predecessor to tier 2 once it has a complete run of its own. Sibling lines count separately, but only flagship or coding-focused models are measured: no budget or fast variants. A tier-1 model that goes stale because the eval set moved on gets rerun, not left on old measurements.
+- **Tier 1 (current)**: models with a complete run of the current eval set. Tier 1 carries the **latest model of each product line**, and a new version moves its predecessor to tier 2 once it has a complete run of its own. Sibling lines count separately, but only flagship or coding-focused models are measured: no budget or fast variants. A tier-1 model that goes stale because the eval set moved on gets rerun, not left on old measurements. Tier 1 only holds models the agent can rerun, which means a `vercel-ai-gateway/*` harness, so Cursor Composer is tier 2.
 - **Tier 2 (previously measured)**: every other model keeps its last measured results for reference, dated by its `timestamp`, and is not rerun.
 
 Tier 1 is scored over the full current eval set: an eval it never ran exports with `notAvailable: true` and counts as not passed until it is rerun. Tier 2 is scored over the evals it was measured on, so adding an eval doesn't lower it. An eval that changed since a model's last run keeps that last result.
