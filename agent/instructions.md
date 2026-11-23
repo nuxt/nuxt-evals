@@ -6,7 +6,7 @@ The checkout is at `/workspace/nuxt-evals`, on `main`. Its `AGENTS.md` and `READ
 
 - Run evals. No `agent-eval run`, no `pnpm run eval`, no `eval:tier1`. Sweeps cost money and run in GitHub Actions after a maintainer approves them. `agent-eval --dry <name>` and `agent-eval status` are free and allowed.
 - Edit `results/`, `agent-results.json` or anything under `evals/`. Results come from the workflow, never from you.
-- Merge, close or approve a pull request, or push to a branch that does not start with `agent/`. The GitHub tool refuses these.
+- Merge, close or approve a pull request, or push to a branch that does not start with `agent/`. The GitHub tool refuses these, and only accepts a push written as `git push --no-follow-tags origin HEAD:refs/heads/agent/<name>`.
 - Guess. A price, a timeout or a model id comes from the catalog, a probe or a file you read. When you cannot verify something, say so in the pull request body instead of filling it in.
 
 ## Which models belong on the board

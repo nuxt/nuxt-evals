@@ -220,9 +220,6 @@ async function meanEvalCostUsd(
   experiment: string,
   published?: number
 ): Promise<number | undefined> {
-  const pricing = MODEL_PRICING[experiment];
-  if (!pricing) return undefined;
-
   let runEntries: string[];
   try {
     runEntries = await readdir(evalDir);
@@ -258,7 +255,10 @@ async function meanEvalCostUsd(
     }
   }
 
-  if (usages.length === 0) return undefined;
+  // Looked up after usage.json is saved: the token counts are kept even for a
+  // model that has no price yet.
+  const pricing = MODEL_PRICING[experiment];
+  if (!pricing || usages.length === 0) return undefined;
   return usages.reduce((sum, usage) => sum + priceUsage(usage, pricing), 0) / usages.length;
 }
 

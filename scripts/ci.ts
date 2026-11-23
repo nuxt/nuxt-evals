@@ -49,12 +49,15 @@ const FIXED_LINES = new Set([
   '};',
   'export default config;',
 ]);
-const FIELD = /^  (agent|model|sandbox): '[\w@./?=:-]+',$|^  scripts: \['build'\],$|^  (runs|timeout): \d+,$|^  earlyExit: (true|false),$|^  agentOptions: \{ cliPackage: '[\w@./-]+' \},$/;
+const FIELD = /^  agent: '(vercel-ai-gateway\/(claude-code|codex|opencode)|cursor|codex|claude-code)',$|^  model: '[\w./?=:-]+',$|^  sandbox: 'vercel',$|^  scripts: \['build'\],$|^  (runs|timeout): \d+,$|^  earlyExit: (true|false),$/;
 
 /**
  * An experiment file is imported by the sweep, in the job that holds the
  * credentials. A registration pull request is written by an agent, so the file
  * has to be the plain config literal from AGENTS.md and nothing that runs.
+ * `agentOptions` is left out on purpose: `cliPackage` picks the npm package
+ * that runs next to the gateway key. An experiment that needs it is swept by
+ * hand.
  */
 function assertPlainConfig(name: string): string {
   const source = readFileSync(join('experiments', `${name}.ts`), 'utf-8');

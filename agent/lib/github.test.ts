@@ -18,16 +18,23 @@ test('pull requests can be opened and edited, never merged or closed', () => {
 });
 
 test('pushes only reach agent branches, without force', () => {
-  assert.equal(run('git push origin agent/add-kimi-k4'), true);
-  assert.equal(run('git push -u origin HEAD:agent/add-kimi-k4'), true);
-  assert.equal(run('git -C nuxt-evals push origin agent/evals-results', 'nuxt/nuxt.com'), true);
-  assert.equal(run('git push origin main'), false);
-  assert.equal(run('git push origin HEAD:main'), false);
-  assert.equal(run('git push origin agent/add-x:main'), false);
-  assert.equal(run('git push --force origin agent/add-kimi-k4'), false);
-  assert.equal(run('git push origin +agent/add-kimi-k4'), false);
-  assert.equal(run('git push origin --delete agent/add-kimi-k4'), false);
-  assert.equal(run('git push origin agent/add-a agent/add-b'), false);
+  const push = 'git push --no-follow-tags origin';
+  assert.equal(run(`${push} HEAD:refs/heads/agent/add-kimi-k4`), true);
+  assert.equal(run('git push -u --no-follow-tags origin agent/add-kimi-k4:refs/heads/agent/add-kimi-k4'), true);
+  assert.equal(run('git -C nuxt.com push --no-follow-tags origin HEAD:refs/heads/agent/evals-results', 'nuxt/nuxt.com'), true);
+  // The destination of a bare ref comes from git config, which the sandbox owns.
+  assert.equal(run(`${push} agent/add-kimi-k4`), false);
+  assert.equal(run(`${push} HEAD:agent/add-kimi-k4`), false);
+  assert.equal(run(`${push} main`), false);
+  assert.equal(run(`${push} HEAD:refs/heads/main`), false);
+  assert.equal(run(`${push} agent/add-x:refs/heads/main`), false);
+  assert.equal(run(`${push} --force HEAD:refs/heads/agent/add-x`), false);
+  assert.equal(run(`${push} +HEAD:refs/heads/agent/add-x`), false);
+  assert.equal(run(`${push} --delete refs/heads/agent/add-x`), false);
+  assert.equal(run(`${push} HEAD:refs/heads/agent/a HEAD:refs/heads/agent/b`), false);
+  assert.equal(run('git push --no-follow-tags fork HEAD:refs/heads/agent/add-x'), false);
+  assert.equal(run('git push origin HEAD:refs/heads/agent/add-x'), false);
+  assert.equal(run('git -c push.followTags=true push --no-follow-tags origin HEAD:refs/heads/agent/add-x'), false);
   assert.equal(run('git push'), false);
 });
 

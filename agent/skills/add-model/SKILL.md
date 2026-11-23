@@ -11,7 +11,7 @@ Work in `/workspace/nuxt-evals`. One model, one pull request, one commit.
 1. Call `gateway__catalog`. It returns recent language models with tool use.
 2. List what is registered: `grep -h "model:" experiments/*.ts`. A catalog id is registered when it appears in one of those strings, with or without a harness prefix or a `?reasoningEffort=` suffix.
 3. Apply "Which models belong on the board" from your instructions to the rest. Read `scripts/tier-one.ts` and the README's "Model retention policy" to see which product lines exist and which model each line currently carries.
-4. List the pull requests that already proposed a model, so you never propose it twice: `gh pr list --repo nuxt/nuxt-evals --state all --search "head:agent/add-" --json number,title,state,headRefName`. A closed, unmerged one means a maintainer said no.
+4. List the pull requests that already proposed a model, so you never propose it twice: `gh pr list --repo nuxt/nuxt-evals --state all --search "head:agent/add-" --limit 200 --json number,title,state,headRefName`. A closed, unmerged one means a maintainer said no.
 
 No candidate left is the normal outcome. Report and stop.
 
@@ -55,7 +55,13 @@ Both must pass. `git status --short` must show only `experiments/<name>.ts`, `sc
 
 ## 5. Open the pull request
 
-Commit locally on a branch named `agent/add-<name>` with the message `feat(experiments): add <name>`. Push the branch and open the pull request with the GitHub tool, against `main` of `nuxt/nuxt-evals`, titled like the commit and not as a draft.
+Commit locally on a branch named `agent/add-<name>` with the message `feat(experiments): add <name>`. Push it with the GitHub tool, with exactly this form, the only one it accepts:
+
+```bash
+git push --no-follow-tags origin HEAD:refs/heads/agent/add-<name>
+```
+
+Then open the pull request with `gh pr create --head agent/add-<name> --base main`, on `nuxt/nuxt-evals`, titled like the commit and not as a draft.
 
 Body, in this order and nothing else:
 

@@ -35,12 +35,6 @@ on:
         type: boolean
         default: false
 
-# One sweep at a time: two at once get rate limited on sandbox creation and
-# lose every run.
-concurrency:
-  group: evals-sweep
-  cancel-in-progress: false
-
 permissions: {}
 
 jobs:
@@ -107,6 +101,12 @@ jobs:
           PR: ${{ steps.target.outputs.pr }}
           SMOKE: ${{ inputs.smoke && '--smoke' || '' }}
         run: |
+          if [[ -n "$PR" ]] && ! git merge-base --is-ancestor origin/main HEAD; then
+            # The sweep runs main's evals and the export runs on this branch.
+            # Behind main, the two would disagree on the eval set.
+            echo "#$PR is behind main. Update the branch, which starts this workflow again." | tee -a "$GITHUB_STEP_SUMMARY" >&2
+            exit 1
+          fi
           if [[ -z "$NAMES" && -n "$PR" ]]; then
             # The experiments this pull request adds.
             NAMES="$(git diff --name-only --diff-filter=A origin/main...HEAD -- 'experiments/*.ts' | sed -E 's#^experiments/(.*)\.ts$#\1#' | tr '\n' ' ')"
@@ -126,6 +126,11 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 360
     environment: sweeps
+    # One sweep at a time: two at once get rate limited on sandbox creation
+    # and lose their runs.
+    concurrency:
+      group: evals-sweep
+      cancel-in-progress: false
     permissions:
       contents: read
     steps:
