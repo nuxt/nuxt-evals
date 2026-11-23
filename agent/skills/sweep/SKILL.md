@@ -28,4 +28,4 @@ When `newPullRequest` is true, open a pull request from `<pushTo>` against `main
 
 ## 3. Reply
 
-One short comment: what ran, the `board` the tool returned in a code block, the line from `promoted` when there is one, and every entry of `incomplete` with the evals it is missing. Those rows stay off the board until a later sweep completes them. When the tool threw, say what it said and stop.
+One short comment: what ran, the `board` the tool returned in a code block, the line from `promoted` when there is one, and every entry of `incomplete` with the evals it is missing. Those rows stay off the board until a later sweep completes them. When the tool threw, say what it said and stop. When the maintainer asks again after a failure, call it again: it commits results an earlier call paid for without running them twice.

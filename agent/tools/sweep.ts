@@ -23,6 +23,9 @@ interface Prepared {
   headRef: string | null;
   pullRequest: number | null;
   startedAt: number;
+  /** Every experiment the sweep covers, pending or not: what the commit message names. */
+  names: string[];
+  /** The ones with evals to run. */
   experiments: Array<{ name: string; evals: number }>;
   skipped: string[];
 }
@@ -37,9 +40,11 @@ export default defineWorkflowTool({
   async execute(input, ctx) {
     'use workflow';
     const prepared = await prepare(ctx, input);
-    if (prepared.experiments.length === 0) {
-      return { ran: false, reason: 'Every experiment already has a current result for every eval.', skipped: prepared.skipped };
+    if (input.smoke && prepared.experiments.length === 0) {
+      return { ran: false, reason: 'No experiment to smoke test.', skipped: prepared.skipped };
     }
+    // With nothing pending, a sweep still goes on to finish: a previous call
+    // can have paid for results and failed before committing them.
 
     const passes: Array<{ name: string; pass: number; evals: number; checks: number; tail: string }> = [];
     const incomplete: Record<string, string[]> = {};
@@ -110,7 +115,14 @@ async function prepare(ctx: WorkflowStepToolContext, input: { pullRequest?: numb
   const flags = [input.pullRequest ? '--registration' : '', input.smoke ? '--smoke' : ''].filter(Boolean).join(' ');
   const plan = JSON.parse(await run(sandbox, `${TSX} scripts/sweep.ts plan ${names.join(' ')} ${flags} --json`)) as { experiments: Prepared['experiments']; skipped: string[] };
   await run(sandbox, `mkdir -p ${STATE}`);
-  return { base, head, headRef, pullRequest: input.pullRequest ?? null, startedAt: Date.now(), experiments: plan.experiments, skipped: plan.skipped };
+  return {
+    base, head, headRef,
+    pullRequest: input.pullRequest ?? null,
+    startedAt: Date.now(),
+    names: names.length > 0 ? names : plan.experiments.map(({ name }) => name),
+    experiments: plan.experiments,
+    skipped: plan.skipped,
+  };
 }
 
 async function startPass(ctx: WorkflowStepToolContext, name: string, pass: number, smoke: boolean): Promise<{ evals: number }> {
@@ -155,7 +167,7 @@ async function finish(ctx: WorkflowStepToolContext, prepared: Prepared) {
   'use step';
   const sandbox = await ctx.getSandbox();
   const start = prepared.head ?? prepared.base;
-  const names = prepared.experiments.map(({ name }) => name).join(', ');
+  const names = prepared.names.join(', ');
   const message = prepared.pullRequest ? `chore(results): add ${names}` : 'chore(results): rerun tier 1';
   // Only agent/* branches can be pushed. A pull request from anyone else gets
   // its results on a new branch instead.
@@ -174,11 +186,16 @@ async function finish(ctx: WorkflowStepToolContext, prepared: Prepared) {
   const previous = await sandbox.run({ command: `[ "$(git rev-parse HEAD^)" = "${start}" ] && [ "$(git log -1 --format=%s)" = '${message}' ]` });
   if (previous.exitCode === 0) return report({ board: '', promoted: '' });
 
+  // Nothing new in results/, from this call or an earlier one that failed
+  // before committing: there is nothing to export.
+  const fresh = (await run(sandbox, 'git status --porcelain -- results')).trim();
+  if (!fresh) return { committed: null, board: '', promoted: '', pushTo: null, reason: 'Every experiment already has a current result for every eval, and nothing is left to commit.' };
+
   // The export needs the pull request's display name, price and tier, so it
   // runs on its tree, after agent-eval and its token are gone. Results are
   // ignored files and stay where they are.
   if (prepared.head) {
-    await run(sandbox, `rm -f ${prepared.experiments.map(({ name }) => `experiments/${name}.ts`).join(' ')} && git checkout -q -f --detach ${prepared.head} && pnpm install --frozen-lockfile`);
+    await run(sandbox, `rm -f ${prepared.names.map((name) => `experiments/${name}.ts`).join(' ')} && git checkout -q -f --detach ${prepared.head} && pnpm install --frozen-lockfile`);
   }
   const promoted = (await run(sandbox, `${TSX} scripts/sweep.ts promote`)).trim();
   const exported = await run(sandbox, 'pnpm run export-results');

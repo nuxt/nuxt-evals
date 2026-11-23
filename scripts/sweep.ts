@@ -175,8 +175,8 @@ async function prune() {
   const [name] = names;
   const left = (await pending([name])).get(name) ?? [];
   const resultsDir = join('results', name);
-  if (left.length === 0 || !existsSync(resultsDir)) return;
-  for (const directory of readdirSync(resultsDir)) {
+  if (left.length === 0) return;
+  for (const directory of existsSync(resultsDir) ? readdirSync(resultsDir) : []) {
     if (!(timestampOf(directory) >= since)) continue;
     for (const evalName of left) rmSync(join(resultsDir, directory, evalName), { recursive: true, force: true });
   }
@@ -237,8 +237,12 @@ function verifyPr() {
       problems.push(`${status} ${path}`);
       continue;
     }
-    const changed = git('diff', '-U0', `${base}...${head}`, '--', path).split('\n')
-      .filter((text) => /^[+-]/.test(text) && !/^(\+\+\+|---) /.test(text))
+    // Headers come before the first hunk. After it, every `+` or `-` line is
+    // content, even one that reads `+++ ` because the line itself began `++ `.
+    const diff = git('diff', '-U0', `${base}...${head}`, '--', path).split('\n');
+    const firstHunk = diff.findIndex((text) => text.startsWith('@@'));
+    const changed = diff.slice(firstHunk === -1 ? diff.length : firstHunk)
+      .filter((text) => /^[+-]/.test(text))
       .map((text) => text.slice(1));
     // A `//` line comment is inert, and registrations carry them (price sources).
     const odd = changed.filter((text) => !rule.test(text) && !/^ {2}\/\/( .*)?$/.test(text));
