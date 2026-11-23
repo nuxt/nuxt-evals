@@ -13,9 +13,14 @@
 import { spawnSync } from 'node:child_process';
 import { appendFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import {
+  computeFingerprint,
+  computeReuseCompatibilityFingerprint,
+  discoverFixtures,
+  loadConfig,
+  scanReusableResults,
+} from '@vercel/agent-eval';
 import { TIER_ONE_EXPERIMENTS } from './tier-one.ts';
-
-interface Work { experiment: string; new: string[]; changed: string[] }
 
 /** Infra failures are deleted, not counted, so the same command is the retry. */
 const MAX_PASSES = 4;
@@ -29,17 +34,33 @@ const registration = args.includes('--registration');
 const agentEval = (argv: string[], capture = false) =>
   spawnSync('agent-eval', argv, { stdio: capture ? 'pipe' : 'inherit', encoding: 'utf-8' });
 
-/** Evals each experiment has not run at its current fingerprint. An experiment with none is left out. */
-function pending(experiments: readonly string[]): Map<string, string[]> {
-  const status = agentEval(['status', '--json', ...experiments], true);
-  const start = status.stdout?.indexOf('{') ?? -1;
-  if (status.status !== 0 || start === -1) {
-    throw new Error(`agent-eval status failed:\n${status.stderr || status.stdout}`);
+/**
+ * The evals `agent-eval run` would execute for each experiment. An experiment
+ * with none is left out.
+ *
+ * This is the scan `run` does itself, not `agent-eval status`. `status` only
+ * compares fingerprints, while `run` also reruns a result that never passed
+ * and has no classification.json, since nothing says it was the model's fault.
+ * Counting the same way keeps the plan equal to what gets billed, and stops
+ * the retry loop only when `run` has nothing left.
+ */
+async function pending(experiments: readonly string[]): Promise<Map<string, string[]>> {
+  const evalsDir = join(process.cwd(), 'evals');
+  const fixtures = discoverFixtures(evalsDir);
+  const work = new Map<string, string[]>();
+  for (const name of experiments) {
+    const config = await loadConfig(join(process.cwd(), 'experiments', `${name}.ts`));
+    const fingerprints = Object.fromEntries(
+      fixtures.map((fixture) => [fixture, computeFingerprint(join(evalsDir, fixture), config)]),
+    );
+    const reusable = scanReusableResults(join(process.cwd(), 'results'), name, fingerprints, {
+      enforceReuseCompatibility: true,
+      reuseCompatibilityFingerprint: computeReuseCompatibilityFingerprint(config),
+    });
+    const evals = fixtures.filter((fixture) => !reusable.has(fixture));
+    if (evals.length > 0) work.set(name, evals);
   }
-  const work: Work[] = JSON.parse(status.stdout.slice(start)).work;
-  return new Map(work
-    .map((w): [string, string[]] => [w.experiment, [...w.new, ...w.changed]])
-    .filter(([, evals]) => evals.length > 0));
+  return work;
 }
 
 const FIXED_LINES = new Set([
@@ -81,7 +102,7 @@ function assertNames() {
   if (bad.length > 0) throw new Error(`Not experiment names: ${bad.join(' ')}`);
 }
 
-function plan() {
+async function plan() {
   assertNames();
   const tierOne = new Set<string>(TIER_ONE_EXPERIMENTS);
   const outside = names.filter((name) => !tierOne.has(name));
@@ -99,7 +120,7 @@ function plan() {
     throw new Error(`Not a vercel-ai-gateway harness, CI has no credentials for it: ${skipped.join(', ')}`);
   }
 
-  const work = pending(runnable);
+  const work = await pending(runnable);
   // A smoke run checks access, so it runs even when nothing is missing.
   const experiments = smoke ? runnable : runnable.filter((name) => work.has(name));
   output('experiments', experiments.join(' '));
@@ -122,7 +143,7 @@ function plan() {
   if (skipped.length > 0) summary(`\nNot run, no gateway harness: ${skipped.join(', ')}`);
 }
 
-function sweep() {
+async function sweep() {
   assertNames();
   if (names.length === 0) throw new Error('Name the experiments to sweep.');
   const tierOne = new Set<string>(TIER_ONE_EXPERIMENTS);
@@ -142,11 +163,11 @@ function sweep() {
   // One experiment per process: agent-eval starts every experiment named in
   // one process at once.
   for (const name of names) {
-    let left = pending([name]).get(name) ?? [];
+    let left = (await pending([name])).get(name) ?? [];
     for (let pass = 1; left.length > 0 && pass <= MAX_PASSES; pass++) {
       console.log(`\n=== ${name}, pass ${pass}/${MAX_PASSES}, ${left.length} evals ===`);
       agentEval(['run', name]);
-      left = pending([name]).get(name) ?? [];
+      left = (await pending([name])).get(name) ?? [];
     }
     if (left.length > 0) incomplete.push(`\`${name}\`: ${left.join(', ')}`);
   }
@@ -163,14 +184,14 @@ function sweep() {
  * tier-one.ts as `'<old>', // Until <new> has a complete run.`. Drop the lines
  * whose successor is now complete.
  */
-function promote() {
+async function promote() {
   const path = join('scripts', 'tier-one.ts');
   const lines = readFileSync(path, 'utf-8').split('\n');
   const marker = /^\s*'([\w.-]+)',\s*\/\/ Until ([\w.-]+) has a complete run\.$/;
   const successors = [...new Set(lines.flatMap((line) => line.match(marker)?.[2] ?? []))];
   if (successors.length === 0) return;
 
-  const work = pending(successors);
+  const work = await pending(successors);
   const kept = lines.filter((line) => {
     const match = line.match(marker);
     if (!match || work.has(match[2])) return true;
@@ -181,9 +202,9 @@ function promote() {
 }
 
 try {
-  if (command === 'plan') plan();
-  else if (command === 'sweep') sweep();
-  else if (command === 'promote') promote();
+  if (command === 'plan') await plan();
+  else if (command === 'sweep') await sweep();
+  else if (command === 'promote') await promote();
   else throw new Error('Usage: tsx scripts/ci.ts <plan|sweep|promote> [experiments...] [--smoke] [--registration]');
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);

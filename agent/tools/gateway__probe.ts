@@ -1,4 +1,4 @@
-import { APICallError, gateway, generateText } from 'ai';
+import { gateway, generateText } from 'ai';
 import { defineTool } from 'eve/tools';
 import { z } from 'zod';
 
@@ -24,10 +24,13 @@ export default defineTool({
         gateway: result.providerMetadata?.gateway ?? null,
       };
     } catch (error) {
-      if (APICallError.isInstance(error)) {
-        return { served: false, status: error.statusCode ?? null, error: String(error.responseBody ?? error.message).slice(0, 600) };
-      }
-      return { served: false, status: null, error: error instanceof Error ? `${error.name}: ${error.message}`.slice(0, 600) : String(error) };
+      // The gateway provider wraps the HTTP error in its own class, with the
+      // raw response on the cause. Read both by shape: the status is what tells
+      // an allowlist 403 from anything else.
+      const failure = error as { name?: string; message?: string; statusCode?: unknown; responseBody?: unknown; cause?: { statusCode?: unknown; responseBody?: unknown } } | null;
+      const status = [failure?.statusCode, failure?.cause?.statusCode].find((value) => typeof value === 'number') ?? null;
+      const body = failure?.responseBody ?? failure?.cause?.responseBody ?? '';
+      return { served: false, status, error: `${failure?.name ?? 'Error'}: ${failure?.message ?? String(error)} ${String(body)}`.trim().slice(0, 800) };
     }
   },
 });

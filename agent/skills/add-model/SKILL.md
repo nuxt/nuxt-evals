@@ -11,7 +11,7 @@ Work in `/workspace/nuxt-evals`. One model, one pull request, one commit.
 1. Call `gateway__catalog`. It returns recent language models with tool use.
 2. List what is registered: `grep -h "model:" experiments/*.ts`. A catalog id is registered when it appears in one of those strings, with or without a harness prefix or a `?reasoningEffort=` suffix.
 3. Apply "Which models belong on the board" from your instructions to the rest. Read `scripts/tier-one.ts` and the README's "Model retention policy" to see which product lines exist and which model each line currently carries.
-4. List the pull requests that already proposed a model, so you never propose it twice: `gh pr list --repo nuxt/nuxt-evals --state all --search "head:agent/add-" --limit 200 --json number,title,state,headRefName`. A closed, unmerged one means a maintainer said no.
+4. Check that nobody proposed the model before, from any branch, so you never propose it twice: `gh pr list --repo nuxt/nuxt-evals --state all --search "<model name> in:title" --limit 200 --json number,title,state,headRefName`, once per candidate, with the name as it would appear in an experiment slug. A closed, unmerged one means a maintainer said no.
 
 No candidate left is the normal outcome. Report and stop.
 

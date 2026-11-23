@@ -245,14 +245,24 @@ async function meanEvalCostUsd(
   }
 
   const usagePath = join(evalDir, 'usage.json');
-  if (transcripts > 0) {
-    await writeFile(usagePath, `${JSON.stringify({ runs: usages }, null, 2)}\n`);
-  } else {
+  let saved: Usage[] | undefined;
+  try {
+    saved = JSON.parse(await readFile(usagePath, 'utf-8')).runs;
+  } catch {
+    // No usage.json yet.
+  }
+  if (saved && saved.length > usages.length) {
+    // Some or all of the transcripts are gone. The saved counts cover more runs.
+    usages = saved;
+  } else if (transcripts > 0) {
     try {
-      usages = JSON.parse(await readFile(usagePath, 'utf-8')).runs;
-    } catch {
-      return published;
+      await writeFile(usagePath, `${JSON.stringify({ runs: usages }, null, 2)}\n`);
+    } catch (error) {
+      // The cost is still computed below, the result must not drop out of the export.
+      console.warn(`Could not save ${usagePath}: ${error instanceof Error ? error.message : error}`);
     }
+  } else if (!saved) {
+    return published;
   }
 
   // Looked up after usage.json is saved: the token counts are kept even for a
