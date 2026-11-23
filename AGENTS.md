@@ -52,3 +52,9 @@ export default config;
 
 - Bleeding-edge Claude models may need a canary CLI via `agentOptions: { cliPackage: '@anthropic-ai/claude-code@next' }` and a higher `timeout` (e.g. `1200`).
 - Codex runs default `reasoningEffort` to `medium`; set it explicitly in the model string when you need otherwise.
+
+## Automation
+
+- `.github/workflows/evals.yml` runs sweeps behind the `sweeps` environment approval, then commits results. Its logic lives in `scripts/ci.ts`. It refuses an experiment file that is not a plain config literal (the import, the `config` object with literal fields and comments, the default export), so keep experiments in that shape.
+- A predecessor waiting for its successor is marked in `scripts/tier-one.ts` as `'<old>', // Until <new> has a complete run.` The workflow deletes that line once the successor's run is complete. Keep the comment exact.
+- `agent/` is the eve agent that opens registration pull requests from `agent/add-<name>` branches. Its procedure in `agent/skills/add-model/SKILL.md` follows the checklist above, so change both together.

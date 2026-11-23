@@ -39,7 +39,33 @@ This writes `agent-results.json`. A tier-1 model with an eval it hasn't run yet 
 
 Each experiment also gets an `avgCostUsd`: the mean list cost per eval. Tokens are read from each run's `transcript-raw.jsonl` (handled per harness in `scripts/cost.ts`) and multiplied by the list prices in `MODEL_PRICING`. A model with no price entry, or whose runs carry no token usage, exports `null` and renders as N/A. Prices are a snapshot, so re-run the export to refresh them.
 
+Transcripts are not committed, so the export saves each result's token counts next to its `summary.json` as `usage.json`, which is. A result with no transcript on disk, as in a fresh clone or in CI, is priced from that file. A result exported before `usage.json` existed keeps the cost already in `agent-results.json`.
+
 `pnpm run test:cost` runs the unit tests for the token extraction and pricing.
+
+## Automation
+
+Two pieces keep the board current. Neither merges anything.
+
+**The sweep workflow** (`.github/workflows/evals.yml`) runs the paid part. It stops at the `sweeps` environment until a required reviewer approves, and the gateway and sandbox credentials only exist there. It runs each model until no eval is missing, up to four passes, exports, and commits the `summary.json` files and `agent-results.json`.
+
+| Trigger | What it sweeps | Where the results go |
+|---------|----------------|----------------------|
+| A pull request from an `agent/add-*` branch | The experiments it adds | A commit on that pull request |
+| A push to `main` that changes `evals/` | Tier-1 models with work left | A new `chore/results-*` pull request |
+| Run manually | Named experiments, a pull request, or everything tier 1 is missing | Same as above |
+
+A manual run with `smoke` checked runs one eval per model and commits nothing. `pnpm run ci plan` prints what a sweep would run, for free. Experiments on a harness other than `vercel-ai-gateway/*` are skipped, since the workflow has no credentials for them.
+
+**The agent** (`agent/`, built with [eve](https://eve.dev) and deployed on Vercel) does the part that needs judgment. Once a day it reads the AI Gateway catalog, probes new flagship models against the team's provider allowlist, and opens a pull request that registers one, following [AGENTS.md](AGENTS.md#adding-a-new-experiment-model). That pull request starts the sweep workflow. A second daily schedule opens or updates a pull request on nuxt/nuxt.com when `agent-results.json` on `main` differs from the published file.
+
+The agent never runs evals. Its GitHub App can open and edit pull requests on nuxt/nuxt-evals and nuxt/nuxt.com and push `agent/*` branches, enforced in `agent/lib/github.ts`.
+
+```bash
+pnpm run test:agent        # the GitHub access rules
+pnpm run typecheck:agent
+npx eve dev                # run the agent locally
+```
 
 ## Models
 
@@ -141,16 +167,14 @@ pnpm run eval:tier1          # run it
 
 ## Publishing to nuxt.com/evals
 
-After running evals:
-
-1. Export results: `pnpm run export-results`
-2. Copy it to the nuxt.com repo:
+The agent opens the pull request on nuxt/nuxt.com once new results reach `main` (see [Automation](#automation)). To do it by hand:
 
 ```bash
+pnpm run export-results
 cp agent-results.json <path-to-nuxt.com>/public/agent-results.json
 ```
 
-3. Commit and deploy the nuxt.com repo
+Then open a pull request on nuxt/nuxt.com with that file.
 
 ## Current evals
 
