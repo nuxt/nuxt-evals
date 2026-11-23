@@ -13,8 +13,6 @@ export const TIER_ONE_EXPERIMENTS = [
   'gemini-4-carbon',
   'gemini-4-neon',
   'glm-5.3',
-  'gpt-6-astra-high', // Until gpt-6.2-astra-high has a complete run.
-  'gpt-6.1-sol-high', // Until gpt-6.2-sol-high has a complete run.
   'gpt-6.2-astra-high',
   'gpt-6.2-sol-high',
   'grok-4.7',
