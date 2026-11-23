@@ -56,5 +56,6 @@ export default config;
 ## Automation
 
 - The agent in `agent/` runs sweeps with its `sweep` tool, when the maintainer comments `@nuxt-evals sweep`. The repository side lives in `scripts/sweep.ts`. It refuses an experiment file that is not a plain config literal (the import, the `config` object with literal fields and comments, the default export), so keep experiments in that shape. An experiment that needs `agentOptions` is refused too and has to be swept by hand, since `cliPackage` chooses the package that runs next to the gateway token.
+- The sweep also refuses a pull request that changes more than a registration's data: in `scripts/export-results.ts`, `scripts/cost.ts` and `scripts/tier-one.ts`, only table rows, tier entries and `//` comments. Its export runs the pull request's code, so a pull request with other changes is swept by hand.
 - A predecessor waiting for its successor is marked in `scripts/tier-one.ts` as `'<old>', // Until <new> has a complete run.` The sweep deletes that line once the successor's run is complete. Keep the comment exact.
 - The agent opens registration pull requests from `agent/add-<name>` branches. Its procedure in `agent/skills/add-model/SKILL.md` follows the checklist above, so change both together.

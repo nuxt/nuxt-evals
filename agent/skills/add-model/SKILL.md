@@ -51,7 +51,7 @@ pnpm run test:cost
 npx agent-eval --dry <name>
 ```
 
-Both must pass. `git status --short` must show only `experiments/<name>.ts`, `scripts/export-results.ts`, `scripts/cost.ts`, `scripts/tier-one.ts` and `README.md`.
+Both must pass. `git status --short` must show only `experiments/<name>.ts`, `scripts/export-results.ts`, `scripts/cost.ts`, `scripts/tier-one.ts` and `README.md`. In the three scripts, add only table rows, tier entries and `//` comments: the sweep refuses a pull request that changes anything else in them.
 
 ## 5. Open the pull request
 

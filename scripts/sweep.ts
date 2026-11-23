@@ -7,12 +7,14 @@
  *   pnpm run sweep pending <experiment>
  *   pnpm run sweep prune <experiment> --since <epoch ms>
  *   pnpm run sweep promote
+ *   pnpm run sweep verify-pr <base> <head>
  *
  * `plan` with no name covers every tier-1 experiment. It refuses tier 2, since
  * those are never rerun, and anything that is not a gateway harness, since the
  * agent only holds gateway credentials. `--registration` accepts experiments a
  * pull request adds, which are not tier 1 on main yet.
  */
+import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
@@ -107,8 +109,18 @@ async function plan() {
 
   const skipped: string[] = [];
   const runnable = (names.length > 0 ? names : [...TIER_ONE_EXPERIMENTS]).filter((name) => {
-    if (/^  agent: 'vercel-ai-gateway\//m.test(assertPlainConfig(name))) return true;
-    skipped.push(name);
+    let source: string;
+    try {
+      source = assertPlainConfig(name);
+    } catch (error) {
+      // A named experiment is the caller's mistake. In a tier-1 sweep, one
+      // odd config should not block every other model.
+      if (names.length > 0) throw error;
+      skipped.push(`${name} (not a plain config)`);
+      return false;
+    }
+    if (/^  agent: 'vercel-ai-gateway\//m.test(source)) return true;
+    skipped.push(`${name} (no gateway harness)`);
     return false;
   });
   if (names.length > 0 && skipped.length > 0) {
@@ -136,7 +148,7 @@ async function plan() {
         `| \`${name}\` | ${evals}${!smoke && missing.length <= 4 ? `: ${missing.join(', ')}` : ''} |`),
     ].join('\n'));
   }
-  if (skipped.length > 0) console.log(`\nNot run, no gateway harness: ${skipped.join(', ')}`);
+  if (skipped.length > 0) console.log(`\nNot run: ${skipped.join(', ')}`);
 }
 
 /** The evals one experiment still has to run, as a JSON array. */
@@ -193,12 +205,57 @@ async function promote() {
   if (kept.length !== lines.length) writeFileSync(path, kept.join('\n'));
 }
 
+/**
+ * A sweep runs the export on a pull request's tree, so the pull request's
+ * code runs in the agent's sandbox. Before that, check from main that the
+ * pull request only adds data a registration needs: experiment files, rows in
+ * the export and price tables, entries in the tier list, line comments, and
+ * README lines.
+ * Anything else is swept by hand.
+ */
+function verifyPr() {
+  const [base, head] = names;
+  if (!/^[0-9a-f]{40}$/.test(base ?? '') || !/^[0-9a-f]{40}$/.test(head ?? '')) throw new Error('Usage: verify-pr <base sha> <head sha>');
+  const git = (...argv: string[]) => {
+    const result = spawnSync('git', argv, { encoding: 'utf-8' });
+    if (result.status !== 0) throw new Error(`git ${argv.join(' ')} failed: ${result.stderr}`);
+    return result.stdout;
+  };
+
+  const problems: string[] = [];
+  const files = git('diff', '--name-status', `${base}...${head}`).split('\n').filter(Boolean);
+  // Prices are numbers and names are plain strings: a value that could call
+  // anything is not a row.
+  const ROW = /^ {2}'[\w.-]+': (\{( \w+: \d+(\.\d+)?,?)+ \}|'[^'\\]*'|null),$/;
+  const TIER = /^ {2}'[\w.-]+',( \/\/ Until [\w.-]+ has a complete run\.)?$/;
+  for (const line of files) {
+    const [status, path] = line.split('\t');
+    if (path === 'README.md' && status === 'M') continue;
+    if (/^experiments\/[\w.-]+\.ts$/.test(path) && status === 'A') continue;
+    const rule = path === 'scripts/export-results.ts' || path === 'scripts/cost.ts' ? ROW : path === 'scripts/tier-one.ts' ? TIER : null;
+    if (!rule || status !== 'M') {
+      problems.push(`${status} ${path}`);
+      continue;
+    }
+    const changed = git('diff', '-U0', `${base}...${head}`, '--', path).split('\n')
+      .filter((text) => /^[+-]/.test(text) && !/^(\+\+\+|---) /.test(text))
+      .map((text) => text.slice(1));
+    // A `//` line comment is inert, and registrations carry them (price sources).
+    const odd = changed.filter((text) => !rule.test(text) && !/^ {2}\/\/( .*)?$/.test(text));
+    if (odd.length > 0) problems.push(`${path}: ${odd.join(' | ')}`);
+  }
+  if (problems.length > 0) {
+    throw new Error(`The pull request changes more than a registration's data, so the agent will not sweep it:\n${problems.join('\n')}`);
+  }
+}
+
 try {
   if (command === 'plan') await plan();
+  else if (command === 'verify-pr') verifyPr();
   else if (command === 'pending') await printPending();
   else if (command === 'prune') await prune();
   else if (command === 'promote') await promote();
-  else throw new Error('Usage: pnpm run sweep <plan|pending|prune|promote> [experiments...]');
+  else throw new Error('Usage: pnpm run sweep <plan|pending|prune|promote|verify-pr> [arguments...]');
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exit(1);

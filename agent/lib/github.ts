@@ -23,11 +23,11 @@ export const isMaintainer = (auth: SessionAuthContext | null | undefined): boole
 
 /**
  * Sweeps spend money, so only the maintainer's own comment starts one. `eve
- * dev` runs on the maintainer's machine, where there is no GitHub sender, so
- * it may too.
+ * dev` runs on the maintainer's machine, where there is no GitHub sender: its
+ * localhost-only `local-dev` caller may too, and only off Vercel.
  */
 export const mayStartSweeps = (auth: SessionAuthContext | null | undefined): boolean =>
-  isMaintainer(auth) || process.env.VERCEL_ENV === undefined;
+  isMaintainer(auth) || (auth?.principalType === 'local-dev' && process.env.VERCEL === undefined);
 
 /** Turns that may write to GitHub: the schedules, and the maintainer's comments. */
 export const mayWrite = (auth: SessionAuthContext | null | undefined): boolean =>
@@ -61,7 +61,10 @@ export function authorize({ argv, repository, auth }: Pick<GitHubAppAuthorizeReq
   if (bin === 'git') {
     // `-C dir` comes before the subcommand. `-c key=value` is refused.
     const args = [...rest];
-    while (args[0] === '-C') args.splice(0, 2);
+    while (args[0] === '-C') {
+      if (args[1] === undefined || args[1].startsWith('-')) return false;
+      args.splice(0, 2);
+    }
     const [subcommand, ...options] = args;
     if (subcommand === undefined) return false;
     if (GIT_READS.has(subcommand)) return true;

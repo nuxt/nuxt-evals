@@ -42,6 +42,7 @@ test('pushes only reach agent branches, without force', () => {
   assert.equal(run('git push origin HEAD:refs/heads/agent/add-x'), false);
   assert.equal(run('git -c push.followTags=true push --no-follow-tags origin HEAD:refs/heads/agent/add-x'), false);
   assert.equal(run('git push'), false);
+  assert.equal(run('git -C -c push --no-follow-tags origin HEAD:refs/heads/agent/add-x'), false);
 });
 
 test('reads are allowed, other repositories are not', () => {
@@ -53,6 +54,11 @@ test('reads are allowed, other repositories are not', () => {
 });
 
 test('only schedules and the maintainer get a token', () => {
+  const local = { principalId: 'local-dev', principalType: 'local-dev', authenticator: 'local-dev', attributes: {} };
+  assert.equal(run('gh pr list', 'nuxt/nuxt-evals', local), true);
+  process.env.VERCEL = '1';
+  assert.equal(run('gh pr list', 'nuxt/nuxt-evals', local), false);
+  delete process.env.VERCEL;
   assert.equal(run('gh pr create --title x', 'nuxt/nuxt-evals', schedule), true);
   assert.equal(run('gh pr create --title x', 'nuxt/nuxt-evals', stranger), false);
   assert.equal(authorize({ argv: ['gh', 'pr', 'list'], repository: 'nuxt/nuxt-evals', auth: null }), false);

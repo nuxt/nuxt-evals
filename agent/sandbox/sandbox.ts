@@ -16,10 +16,13 @@ export const environment = VercelSandbox.environment({
 
 export default defineSandbox(async () => {
   // A sweep keeps agent-eval running in here for an hour or more while the
-  // workflow checks on it every few minutes, and a background process does
-  // not count as activity. The session stays open during a sweep, so eve's
-  // idle stop does not apply, but Vercel's own timeout does.
-  const sandbox = await environment.open({ resources: { vcpus: 2 }, timeout: 5 * 60 * 60 * 1000 });
+  // workflow checks on it every few minutes. A background process does not
+  // count as activity, but each check is a sandbox operation, which eve uses
+  // to extend Vercel's timeout. The session stays open during a sweep, so
+  // eve's idle stop does not apply. 2 hours is the longest timeout tested.
+  // If the sandbox is lost mid-pass anyway, the next pass reruns what is
+  // missing.
+  const sandbox = await environment.open({ resources: { vcpus: 2 }, timeout: 2 * 60 * 60 * 1000 });
   // The repository is the workspace root, where the GitHub channel checks out
   // pull requests too. It is public, so this needs no credential. Safe to
   // repeat: this can run more than once against the same sandbox.

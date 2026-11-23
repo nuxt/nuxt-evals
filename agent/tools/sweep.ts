@@ -98,6 +98,10 @@ async function prepare(ctx: WorkflowStepToolContext, input: { pullRequest?: numb
     names = (await run(sandbox, `git diff --name-only --diff-filter=A ${base}...${head} -- experiments/`))
       .split('\n').filter(Boolean).map((path) => path.replace(/^experiments\/(.*)\.ts$/, '$1'));
     if (names.length === 0) throw new Error(`#${input.pullRequest} adds no experiment.`);
+    // The export runs on the pull request's tree, so its code runs here too.
+    // main's script checks that the pull request only adds data: experiment
+    // files, table rows and the tier list.
+    await run(sandbox, `${TSX} scripts/sweep.ts verify-pr ${base} ${head}`);
     for (const name of experimentName.array().parse(names)) {
       await run(sandbox, `git show ${head}:experiments/${name}.ts > experiments/${name}.ts`);
     }
@@ -114,6 +118,10 @@ async function startPass(ctx: WorkflowStepToolContext, name: string, pass: numbe
   const sandbox = await ctx.getSandbox();
   const left = smoke ? ['smoke'] : JSON.parse(await run(sandbox, `${TSX} scripts/sweep.ts pending ${name}`)) as string[];
   if (left.length === 0) return { evals: 0 };
+  // A step can run again after it already started the process. Never start a
+  // second agent-eval next to a live one: it would bill the same evals twice.
+  const live = await sandbox.run({ command: `[ -f ${STATE}/${name}-${pass}.log ] && kill -0 $(cat ${STATE}/pid) 2>/dev/null` });
+  if (live.exitCode === 0) return { evals: left.length };
   // Minted in this step and handed to the process only, never returned: step
   // results are stored in the workflow's event log. A fresh one per pass, so
   // a long sweep never runs on a token close to expiry.
@@ -146,6 +154,26 @@ async function prune(ctx: WorkflowStepToolContext, name: string, since: number):
 async function finish(ctx: WorkflowStepToolContext, prepared: Prepared) {
   'use step';
   const sandbox = await ctx.getSandbox();
+  const start = prepared.head ?? prepared.base;
+  const names = prepared.experiments.map(({ name }) => name).join(', ');
+  const message = prepared.pullRequest ? `chore(results): add ${names}` : 'chore(results): rerun tier 1';
+  // Only agent/* branches can be pushed. A pull request from anyone else gets
+  // its results on a new branch instead.
+  const pushTo = (committed: string) => prepared.headRef?.startsWith('agent/')
+    ? prepared.headRef
+    : `agent/results-${new Date(prepared.startedAt).toISOString().slice(0, 10)}-${committed}`;
+  const report = async (extra: { board: string; promoted: string }) => {
+    const committed = (await run(sandbox, 'git rev-parse --short HEAD')).trim();
+    const stat = (await run(sandbox, 'git show --stat --format= HEAD | tail -1')).trim();
+    const branch = pushTo(committed);
+    return { committed, message, stat, ...extra, pushTo: branch, newPullRequest: branch !== prepared.headRef };
+  };
+
+  // A step can run again after it already committed. Report that commit
+  // instead of checking out the start again, which would leave it behind.
+  const previous = await sandbox.run({ command: `[ "$(git rev-parse HEAD^)" = "${start}" ] && [ "$(git log -1 --format=%s)" = '${message}' ]` });
+  if (previous.exitCode === 0) return report({ board: '', promoted: '' });
+
   // The export needs the pull request's display name, price and tier, so it
   // runs on its tree, after agent-eval and its token are gone. Results are
   // ignored files and stay where they are.
@@ -161,13 +189,6 @@ async function finish(ctx: WorkflowStepToolContext, prepared: Prepared) {
   const staged = await sandbox.run({ command: 'git diff --cached --quiet' });
   if (staged.exitCode === 0) return { committed: null, board, promoted, pushTo: null };
 
-  const names = prepared.experiments.map(({ name }) => name).join(', ');
-  const message = prepared.pullRequest ? `chore(results): add ${names}` : 'chore(results): rerun tier 1';
-  await run(sandbox, `git -c user.name='nuxt-evals[bot]' -c user.email='nuxt-evals[bot]@users.noreply.github.com' commit -q -m '${message}'`);
-  const committed = (await run(sandbox, 'git rev-parse --short HEAD')).trim();
-  const stat = (await run(sandbox, 'git show --stat --format= HEAD | tail -1')).trim();
-  // Only agent/* branches can be pushed. A pull request from anyone else gets
-  // its results on a new branch instead.
-  const pushTo = prepared.headRef?.startsWith('agent/') ? prepared.headRef : `agent/results-${new Date().toISOString().slice(0, 10)}`;
-  return { committed, message, stat, board, promoted, pushTo, newPullRequest: pushTo !== prepared.headRef };
+  await run(sandbox, `git -c user.name='nuxt-evals[bot]' -c user.email='nuxt-evals[bot]@users.noreply.github.com' -c core.hooksPath=/dev/null commit -q -m '${message}'`);
+  return report({ board, promoted });
 }
