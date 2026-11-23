@@ -84,7 +84,9 @@ async function prepare(ctx: WorkflowStepToolContext, input: { pullRequest?: numb
   // main's scripts and dependencies, never the pull request's: agent-eval runs
   // with the gateway token. From a pull request only the experiment files it
   // adds are taken, and `sweep plan` refuses any that is not a plain config.
-  await run(sandbox, `git fetch -q origin main && git checkout -q -f --detach origin/main && git clean -fdq -e ${STATE} && pnpm install --frozen-lockfile`);
+  // `results/` is kept: the summaries are untracked but not ignored, and a
+  // call that failed before committing left paid results there.
+  await run(sandbox, `git fetch -q origin main && git checkout -q -f --detach origin/main && git clean -fdq -e ${STATE} -e results && pnpm install --frozen-lockfile`);
   const base = (await run(sandbox, 'git rev-parse HEAD')).trim();
 
   let head: string | null = null;
