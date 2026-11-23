@@ -59,6 +59,14 @@ A manual run with `smoke` checked runs one eval per model and commits nothing. `
 
 **The agent** (`agent/`, built with [eve](https://eve.dev) and deployed on Vercel) does the part that needs judgment. Once a day it reads the AI Gateway catalog, probes new flagship models against the team's provider allowlist, and opens a pull request that registers one, following [AGENTS.md](AGENTS.md#adding-a-new-experiment-model). That pull request starts the sweep workflow. A second daily schedule opens or updates a pull request on nuxt/nuxt.com when `agent-results.json` on `main` differs from the published file.
 
+One-time setup for the workflow, by a repository admin:
+
+1. Create an environment named `sweeps` (Settings → Environments) and add at least one required reviewer. The approval only exists because of that reviewer: without one, every sweep starts unattended and bills right away.
+2. Add the `VERCEL_TEAM_ID` and `VERCEL_PROJECT_ID` variables to that environment. They are plain variables, not secrets.
+3. Allow GitHub Actions to create pull requests (Settings → Actions → General), for the tier-1 rerun pull requests.
+
+The Vercel team also has to accept GitHub OIDC tokens from this repository for the token exchange.
+
 The agent never runs evals. Its GitHub App can open and edit pull requests on nuxt/nuxt-evals and nuxt/nuxt.com and push `agent/*` branches, enforced in `agent/lib/github.ts`.
 
 ```bash
