@@ -13,7 +13,7 @@ export const TIER_ONE_EXPERIMENTS = [
   'gemini-4-carbon',
   'glm-5.3',
   'gpt-6-astra-high',
-  'gpt-6.1-sol-high',
+  'gpt-6.2-sol-high',
   'grok-4.7',
   'kimi-k3.1-pro',
   'minimax-m3',
