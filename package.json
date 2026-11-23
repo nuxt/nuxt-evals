@@ -9,14 +9,21 @@
     "eval:tier1": "tsx scripts/tier-one-cli.ts run",
     "eval:tier1:status": "tsx scripts/tier-one-cli.ts status",
     "export-results": "tsx scripts/export-results.ts",
-    "test:cost": "tsx --test scripts/cost.test.ts"
+    "test:cost": "tsx --test scripts/cost.test.ts",
+    "test:agent": "tsx --test agent/lib/github.test.ts",
+    "typecheck:agent": "tsc -p agent/tsconfig.json",
+    "build:agent": "eve build",
+    "ci": "tsx scripts/ci.ts"
   },
   "devDependencies": {
+    "@types/node": "^25.9.9",
     "tsx": "^4.23.15",
-    "typescript": "^7.0.2",
-    "@types/node": "^25.9.9"
+    "typescript": "^7.0.2"
   },
   "dependencies": {
-    "@vercel/agent-eval": "^3.0.0"
+    "@vercel/agent-eval": "^3.0.0",
+    "ai": "^7.0.179",
+    "eve": "^1.3.0",
+    "zod": "^4.6.7"
   }
 }
