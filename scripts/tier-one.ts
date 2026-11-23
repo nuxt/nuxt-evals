@@ -11,6 +11,7 @@ export const TIER_ONE_EXPERIMENTS = [
   'cursor-composer-2.5',
   'deepseek-v4-pro',
   'gemini-4-carbon',
+  'gemini-4-neon',
   'glm-5.3',
   'gpt-6.2-astra-high',
   'gpt-6.2-sol-high',

@@ -107,6 +107,7 @@ const MODEL_NAMES: Record<string, string> = {
   'gemini-3.1-pro-preview': 'Gemini 3.1 Pro Preview',
   'gemini-4-argon': 'Gemini 4 Argon',
   'gemini-4-carbon': 'Gemini 4 Carbon',
+  'gemini-4-neon': 'Gemini 4 Neon',
   'glm-5.3': 'GLM 5.3',
   'gpt-5.3-codex-xhigh': 'GPT 5.3 Codex (xhigh)',
   'gpt-5.4-xhigh': 'GPT 5.4 (xhigh)',

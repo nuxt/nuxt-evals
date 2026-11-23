@@ -60,6 +60,7 @@ Unit tests for the token extraction and pricing in `scripts/cost.ts`.
 | `gemini-3.1-pro-preview` | `vercel-ai-gateway/opencode` | `vercel/google/gemini-3.1-pro-preview` |
 | `gemini-4-argon` | `vercel-ai-gateway/opencode` | `vercel/google/gemini-4-argon` |
 | `gemini-4-carbon` | `vercel-ai-gateway/opencode` | `vercel/google/gemini-4-carbon` |
+| `gemini-4-neon` | `vercel-ai-gateway/opencode` | `vercel/google/gemini-4-neon` |
 | `glm-5.3` | `vercel-ai-gateway/opencode` | `vercel/zai/glm-5.3` |
 | `gpt-5.3-codex-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.3-codex?reasoningEffort=xhigh` |
 | `gpt-5.4-xhigh` | `vercel-ai-gateway/codex` | `openai/gpt-5.4?reasoningEffort=xhigh` |

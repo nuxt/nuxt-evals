@@ -64,6 +64,8 @@ export const MODEL_PRICING: Record<string, Pricing | null> = {
   'gemini-4-argon': { input: 2, output: 10, cacheRead: 0.1, cacheWrite: 0 },
   // Catalog rate; not yet checked against usage.cost.
   'gemini-4-carbon': { input: 2, output: 10, cacheRead: 0.1, cacheWrite: 0 },
+  // Catalog rate; not yet checked against usage.cost.
+  'gemini-4-neon': { input: 3, output: 15, cacheRead: 0.15, cacheWrite: 0 },
   // Catalog rate; not yet checked against usage.cost (Fireworks is the only allowlisted host).
   'glm-5.3': { input: 1.4, output: 4.4, cacheRead: 0.14, cacheWrite: 0 },
   'gpt-5.3-codex-xhigh': { input: 1.75, output: 14, cacheRead: 0.175, cacheWrite: 0 },
