@@ -6,9 +6,13 @@
  *   pnpm run eval:tier1
  *   pnpm run eval:tier1 -- --smoke
  *
- * `run` goes one experiment at a time. agent-eval starts every experiment
- * named in one process at once, so a full sweep of several new models would
- * open hundreds of sandboxes together and hit 429s.
+ * `run` goes one experiment at a time by default. agent-eval starts every
+ * experiment named in one process at once, so a full sweep of many models
+ * opens hundreds of sandboxes together. Pass `--parallel` to run them all in
+ * one process (sandbox starts still share agent-eval's 20 per 2s limiter),
+ * which is fine when only a few experiments have work left.
+ *
+ *   pnpm run eval:tier1 -- --parallel
  */
 import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
@@ -22,7 +26,8 @@ if (command !== 'run' && command !== 'status') {
 // pnpm 10 forwards the `--` from `pnpm run eval:tier1 -- --smoke`. Placed after
 // the experiment names it would turn `--smoke` into an experiment name and run
 // the full sweep, so drop it and pass options before the names.
-const rest = args.filter((arg) => arg !== '--');
+const parallel = args.includes('--parallel');
+const rest = args.filter((arg) => arg !== '--' && arg !== '--parallel');
 
 // agent-eval prefers AI_GATEWAY_API_KEY over VERCEL_OIDC_TOKEN, so a personal
 // key exported in the shell would bill every run to it. When the project token
@@ -58,9 +63,18 @@ const agentEval = (cmd: string, extra: readonly string[], names: readonly string
 
 if (command === 'status') process.exit(agentEval('status', rest, TIER_ONE_EXPERIMENTS).status ?? 1);
 
-for (const name of TIER_ONE_EXPERIMENTS) {
-  console.log(`\n=== ${name} ===`);
-  agentEval('run', rest, [name]);
+if (parallel) {
+  // Only name experiments with work left, so idle ones don't print noise.
+  const pending = agentEval('status', ['--json'], TIER_ONE_EXPERIMENTS, true);
+  const names = (JSON.parse(pending.stdout.slice(pending.stdout.indexOf('{'))).work as Array<{ experiment: string; new: string[]; changed: string[] }>)
+    .filter((w) => w.new.length + w.changed.length > 0)
+    .map((w) => w.experiment);
+  if (names.length > 0) agentEval('run', rest, names);
+} else {
+  for (const name of TIER_ONE_EXPERIMENTS) {
+    console.log(`\n=== ${name} ===`);
+    agentEval('run', rest, [name]);
+  }
 }
 
 if (rest.includes('--smoke')) process.exit(0);
