@@ -84,9 +84,11 @@ async function prepare(ctx: WorkflowStepToolContext, input: { pullRequest?: numb
   // main's scripts and dependencies, never the pull request's: agent-eval runs
   // with the gateway token. From a pull request only the experiment files it
   // adds are taken, and `sweep plan` refuses any that is not a plain config.
-  // `results/` is kept: the summaries are untracked but not ignored, and a
-  // call that failed before committing left paid results there.
-  await run(sandbox, `git fetch -q origin main && git checkout -q -f --detach origin/main && git clean -fdq -e ${STATE} -e results && pnpm install --frozen-lockfile`);
+  // Paid results a failed call left behind survive this reset, whether they
+  // are untracked, staged, or in a commit that was never pushed: the mixed
+  // reset turns them back into untracked files, which the forced checkout
+  // keeps, and the clean skips `results/`.
+  await run(sandbox, `git fetch -q origin main && git reset -q origin/main && git checkout -q -f --detach origin/main && git clean -fdq -e ${STATE} -e results && pnpm install --frozen-lockfile`);
   const base = (await run(sandbox, 'git rev-parse HEAD')).trim();
 
   let head: string | null = null;
