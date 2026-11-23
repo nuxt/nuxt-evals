@@ -261,7 +261,7 @@ async function meanEvalCostUsd(
       // The cost is still computed below, the result must not drop out of the export.
       console.warn(`Could not save ${usagePath}: ${error instanceof Error ? error.message : error}`);
     }
-  } else if (!saved) {
+  } else if (!saved?.length) {
     return published;
   }
 

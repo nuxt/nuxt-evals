@@ -11,7 +11,7 @@
  * only holds gateway credentials.
  */
 import { spawnSync } from 'node:child_process';
-import { appendFileSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   computeFingerprint,
@@ -49,7 +49,11 @@ async function pending(experiments: readonly string[]): Promise<Map<string, stri
   const fixtures = discoverFixtures(evalsDir);
   const work = new Map<string, string[]>();
   for (const name of experiments) {
-    const config = await loadConfig(join(process.cwd(), 'experiments', `${name}.ts`));
+    const loaded = await loadConfig(join(process.cwd(), 'experiments', `${name}.ts`));
+    // A plain config has one model. agent-eval also takes a list, which names
+    // its results differently.
+    if (Array.isArray(loaded.model)) throw new Error(`experiments/${name}.ts lists several models.`);
+    const config = { ...loaded, model: loaded.model };
     const fingerprints = Object.fromEntries(
       fixtures.map((fixture) => [fixture, computeFingerprint(join(evalsDir, fixture), config)]),
     );
@@ -163,13 +167,24 @@ async function sweep() {
   // One experiment per process: agent-eval starts every experiment named in
   // one process at once.
   for (const name of names) {
+    const resultsDir = join('results', name);
+    const before = new Set(existsSync(resultsDir) ? readdirSync(resultsDir) : []);
     let left = (await pending([name])).get(name) ?? [];
     for (let pass = 1; left.length > 0 && pass <= MAX_PASSES; pass++) {
       console.log(`\n=== ${name}, pass ${pass}/${MAX_PASSES}, ${left.length} evals ===`);
       agentEval(['run', name]);
       left = (await pending([name])).get(name) ?? [];
     }
-    if (left.length > 0) incomplete.push(`\`${name}\`: ${left.join(', ')}`);
+    if (left.length === 0) continue;
+    incomplete.push(`\`${name}\`: ${left.join(', ')}`);
+    // What this sweep left behind for an eval that is still pending is a
+    // result `run` does not accept, like a failure the classifier never
+    // judged. Remove it, or the export would publish it as the model failing.
+    // Only this sweep's own directories: older results are not ours to drop.
+    const created = existsSync(resultsDir) ? readdirSync(resultsDir).filter((entry) => !before.has(entry)) : [];
+    for (const timestamp of created) {
+      for (const evalName of left) rmSync(join(resultsDir, timestamp, evalName), { recursive: true, force: true });
+    }
   }
 
   if (incomplete.length > 0) {
