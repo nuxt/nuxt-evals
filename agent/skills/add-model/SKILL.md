@@ -4,7 +4,7 @@ description: Find a model the board is missing, check the gateway serves it, and
 
 # Register a new model
 
-Work in `/workspace/nuxt-evals`. One model, one pull request, one commit.
+Work in `/workspace`, on `main`. One model, one pull request, one commit.
 
 ## 1. Find candidates
 
@@ -37,12 +37,12 @@ Harness and model string, by the catalog id's provider:
 | `openai` | `vercel-ai-gateway/codex` | `openai/<model>?reasoningEffort=high` |
 | anything else | `vercel-ai-gateway/opencode` | `vercel/<provider>/<model>` |
 
-Copy the newest experiment of the same harness as the template and change only what differs. The file must stay a plain config literal: the import, the `config` object with literal fields and comments, the default export. The workflow refuses anything else.
+Copy the newest experiment of the same harness as the template and change only what differs. The file must stay a plain config literal: the import, the `config` object with literal fields and comments, the default export. The sweep refuses anything else.
 
 - **Name**: the experiment slug follows its siblings, like `gpt-6.2-sol-high` or `kimi-k3.1-pro`.
 - **Timeout**: `timeout` is part of the result fingerprint, so raising it later reruns everything. Look for the same model in `vercel/next-evals-oss` (`https://raw.githubusercontent.com/vercel/next-evals-oss/main/experiments/<name>.ts`, their slug may differ) and reuse its timeout with a comment naming the source. Otherwise use the timeout of the predecessor in the same line.
 - **Price**: per 1M tokens, from the catalog. When the probe reports a billed cost that implies a different rate, or the catalog says the price varies by provider, keep the catalog number and say in the pull request that it is unverified against billing.
-- **Tier**: add the model to `TIER_ONE_EXPERIMENTS`. When it supersedes a model of the same line, keep the predecessor and mark its line exactly as `'<old>', // Until <new> has a complete run.` The workflow removes that line once the new run is complete.
+- **Tier**: add the model to `TIER_ONE_EXPERIMENTS`. When it supersedes a model of the same line, keep the predecessor and mark its line exactly as `'<old>', // Until <new> has a complete run.` The sweep removes that line once the new run is complete.
 
 ## 4. Check
 
@@ -70,5 +70,6 @@ Body, in this order and nothing else:
 - The price row you added and whether billing confirmed it.
 - Where the timeout comes from.
 - Anything you could not verify.
+- The last line, from `pnpm run sweep plan <name> --registration`: `Comment \`@nuxt-evals sweep\` to run its <n> evals.`
 
-Opening the pull request starts the sweep workflow, which waits for a maintainer's approval. Do not comment on it or follow up.
+The maintainer starts the sweep from that comment. Do not comment on the pull request or follow up.

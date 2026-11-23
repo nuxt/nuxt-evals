@@ -1,10 +1,16 @@
 /** Run with: pnpm run test:agent */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { authorize } from './github.ts';
+import { authorize, MAINTAINER_GITHUB_ID } from './github.ts';
 
-const run = (command: string, repository: string | null = 'nuxt/nuxt-evals') =>
-  authorize({ argv: command.split(' '), repository });
+const maintainer = { principalId: `github:${MAINTAINER_GITHUB_ID}`, principalType: 'user', authenticator: 'github', attributes: {} };
+const stranger = { ...maintainer, principalId: 'github:1' };
+const schedule = { principalId: 'eve:app', principalType: 'runtime', authenticator: 'app', attributes: {} };
+
+// The rules below are about commands, so they run as the maintainer.
+process.env.VERCEL_ENV = 'production';
+const run = (command: string, repository: string | null = 'nuxt/nuxt-evals', auth = maintainer) =>
+  authorize({ argv: command.split(' '), repository, auth });
 
 test('pull requests can be opened and edited, never merged or closed', () => {
   assert.equal(run('gh pr create --title x --body y'), true);
@@ -44,4 +50,17 @@ test('reads are allowed, other repositories are not', () => {
   assert.equal(run('gh pr create --title x', 'nuxt/nuxt'), false);
   assert.equal(run('gh pr list', null), false);
   assert.equal(run('gh-signed-commit -m x'), false);
+});
+
+test('only schedules and the maintainer get a token', () => {
+  assert.equal(run('gh pr create --title x', 'nuxt/nuxt-evals', schedule), true);
+  assert.equal(run('gh pr create --title x', 'nuxt/nuxt-evals', stranger), false);
+  assert.equal(authorize({ argv: ['gh', 'pr', 'list'], repository: 'nuxt/nuxt-evals', auth: null }), false);
+});
+
+test('issues can be opened and edited, never closed', () => {
+  assert.equal(run('gh issue create --title x'), true);
+  assert.equal(run('gh issue edit 3 --body x'), true);
+  assert.equal(run('gh issue close 3'), false);
+  assert.equal(run('gh issue comment 3 --body x'), false);
 });

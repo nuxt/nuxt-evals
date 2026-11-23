@@ -1,10 +1,37 @@
+import type { SessionAuthContext } from 'eve/context';
 import type { GitHubAppAuthorizeRequest, GitHubLeaseBroker } from 'eve/extensions/git';
+import { isScheduleAuth } from 'eve/schedules';
 
 /** The Vercel Connect connector of the agent's GitHub App. */
 export const CONNECTOR = 'github/nuxt-evals';
 
+/** The invocation token in comments, without the `@`: the App's slug. */
+export const BOT_NAME = 'nuxt-evals';
+
+/** The benchmark. Registrations, sweeps and results happen here. */
+export const REPOSITORY = 'nuxt/nuxt-evals';
+
 /** Where registrations go, and where the results are published. */
-const REPOSITORIES = new Set(['nuxt/nuxt-evals', 'nuxt/nuxt.com']);
+const REPOSITORIES = new Set([REPOSITORY, 'nuxt/nuxt.com']);
+
+/** benjamincanac. The only person whose comments start a turn. */
+export const MAINTAINER_GITHUB_ID = 739984;
+
+/** `defaultGitHubAuth` names a GitHub sender `github:<id>`. */
+export const isMaintainer = (auth: SessionAuthContext | null | undefined): boolean =>
+  auth?.principalId === `github:${MAINTAINER_GITHUB_ID}`;
+
+/**
+ * Sweeps spend money, so only the maintainer's own comment starts one. `eve
+ * dev` runs on the maintainer's machine, where there is no GitHub sender, so
+ * it may too.
+ */
+export const mayStartSweeps = (auth: SessionAuthContext | null | undefined): boolean =>
+  isMaintainer(auth) || process.env.VERCEL_ENV === undefined;
+
+/** Turns that may write to GitHub: the schedules, and the maintainer's comments. */
+export const mayWrite = (auth: SessionAuthContext | null | undefined): boolean =>
+  isScheduleAuth(auth ?? null) || mayStartSweeps(auth);
 
 /**
  * The only refspec the agent pushes: a source and a fully qualified `agent/*`
@@ -13,17 +40,19 @@ const REPOSITORIES = new Set(['nuxt/nuxt-evals', 'nuxt/nuxt.com']);
  */
 const AGENT_REFSPEC = /^[\w./-]+:refs\/heads\/agent\/[\w.-]+$/;
 
-const GH_ALLOWED = new Set(['pr create', 'pr edit', 'pr list', 'pr view', 'pr diff']);
+const GH_ALLOWED = new Set(['pr create', 'pr edit', 'pr list', 'pr view', 'pr diff', 'issue create', 'issue edit', 'issue list', 'issue view']);
 const GIT_READS = new Set(['clone', 'fetch', 'ls-remote', 'pull']);
 
 /**
  * The agent's whole GitHub access. A command gets a token only when this
- * returns true, so the rules live here and not in the instructions: two
- * repositories, pull requests it may open and edit but never merge or close,
- * and pushes to `agent/*` branches without force. Branch protection on
- * `main` is still the backstop on GitHub's side.
+ * returns true, so the rules live here and not in the instructions: turns
+ * started by a schedule or the maintainer, two repositories, pull requests and
+ * issues it may open and edit but never merge or close, and pushes to
+ * `agent/*` branches without force. Branch protection on `main` is still the
+ * backstop on GitHub's side.
  */
-export function authorize({ argv, repository }: Pick<GitHubAppAuthorizeRequest, 'argv' | 'repository'>): boolean {
+export function authorize({ argv, repository, auth }: Pick<GitHubAppAuthorizeRequest, 'argv' | 'repository' | 'auth'>): boolean {
+  if (!mayWrite(auth)) return false;
   if (repository === null || !REPOSITORIES.has(repository.toLowerCase())) return false;
   const [bin, ...rest] = argv;
 

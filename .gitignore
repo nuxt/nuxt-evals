@@ -6,6 +6,7 @@ dist/
 .claude
 .DS_Store
 .eve
+.eve-sweep
 # Eval results: commit only summary.json (the cache fingerprints), usage.json
 # (the token counts the export prices) and classification.json (which says a
 # failure was the model's, so it is not rerun) so a new contributor reuses the

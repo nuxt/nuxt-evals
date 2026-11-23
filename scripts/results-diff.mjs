@@ -2,7 +2,7 @@
 // Compares two agent-results.json files and prints what a nuxt.com pull
 // request needs: whether anything changed, and its title.
 //
-//   node bin/results-diff.mjs <published.json> <new.json>
+//   node scripts/results-diff.mjs <published.json> <new.json>
 import { readFileSync } from 'node:fs';
 
 const [publishedPath, newPath] = process.argv.slice(2);

@@ -1,16 +1,9 @@
 import { defineSandbox } from 'eve/sandbox';
 import { VERCEL_EVE_GIT_SANDBOX_IMAGE, VercelSandbox } from 'eve/sandbox/vercel';
 import { installCodeTooling } from 'eve/extensions/code/sandbox';
+import { run } from '../lib/sandbox';
 
 const REPOSITORY = 'https://github.com/nuxt/nuxt-evals.git';
-
-async function run(sandbox: { run(options: { command: string }): PromiseLike<{ exitCode: number; stdout: string; stderr: string }> }, command: string) {
-  // run() resolves with an exit code instead of throwing.
-  const result = await sandbox.run({ command });
-  if (result.exitCode !== 0) {
-    throw new Error(`Sandbox command failed (exit ${result.exitCode}): ${command}\n${result.stderr.trim() || result.stdout.trim()}`);
-  }
-}
 
 export const environment = VercelSandbox.environment({
   image: VERCEL_EVE_GIT_SANDBOX_IMAGE,
@@ -22,10 +15,15 @@ export const environment = VercelSandbox.environment({
 });
 
 export default defineSandbox(async () => {
-  const sandbox = await environment.open({ resources: { vcpus: 2 } });
-  // The repository is public, so the clone needs no credential. Safe to
+  // A sweep keeps agent-eval running in here for an hour or more while the
+  // workflow checks on it every few minutes, and a background process does
+  // not count as activity. The session stays open during a sweep, so eve's
+  // idle stop does not apply, but Vercel's own timeout does.
+  const sandbox = await environment.open({ resources: { vcpus: 2 }, timeout: 5 * 60 * 60 * 1000 });
+  // The repository is the workspace root, where the GitHub channel checks out
+  // pull requests too. It is public, so this needs no credential. Safe to
   // repeat: this can run more than once against the same sandbox.
-  await run(sandbox, `[ -d nuxt-evals/.git ] || git clone ${REPOSITORY} nuxt-evals`);
-  await run(sandbox, 'cd nuxt-evals && git fetch origin main && git checkout -f -B main origin/main && pnpm install --frozen-lockfile');
+  await run(sandbox, `[ -d .git ] || { git init -q && git remote add origin ${REPOSITORY}; }`);
+  await run(sandbox, 'git fetch -q origin main && git checkout -q -f -B main origin/main && pnpm install --frozen-lockfile');
   return sandbox;
 });

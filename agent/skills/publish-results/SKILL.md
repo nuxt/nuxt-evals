@@ -10,9 +10,9 @@ The site reads `public/agent-results.json` in `nuxt/nuxt.com`. The source is `ag
 
 ```bash
 cd /workspace
-curl -fsSL https://raw.githubusercontent.com/nuxt/nuxt-evals/main/agent-results.json -o new.json
-curl -fsSL https://raw.githubusercontent.com/nuxt/nuxt.com/main/public/agent-results.json -o published.json
-node bin/results-diff.mjs published.json new.json
+curl -fsSL https://raw.githubusercontent.com/nuxt/nuxt-evals/main/agent-results.json -o /tmp/new.json
+curl -fsSL https://raw.githubusercontent.com/nuxt/nuxt.com/main/public/agent-results.json -o /tmp/published.json
+node scripts/results-diff.mjs /tmp/published.json /tmp/new.json
 ```
 
 `changed: false` means the site is current. Report that and stop.
@@ -30,13 +30,13 @@ gh pr list --repo nuxt/nuxt.com --state open --limit 200 --json number,title,hea
 ## 3. Push the file
 
 ```bash
-cd /workspace
+cd /tmp
 rm -rf nuxt.com
 git clone --depth 1 --filter=blob:none --sparse https://github.com/nuxt/nuxt.com.git
 cd nuxt.com
 git sparse-checkout set --no-cone /public/agent-results.json
 git checkout -B agent/evals-results
-cp ../new.json public/agent-results.json
+cp /tmp/new.json public/agent-results.json
 git add public/agent-results.json
 git commit -m "<title from results-diff>"
 ```

@@ -45,29 +45,19 @@ Transcripts are not committed, so the export saves each result's token counts ne
 
 ## Automation
 
-Two pieces keep the board current. Neither merges anything.
+An agent in `agent/`, built with [eve](https://eve.dev) and deployed on Vercel, keeps the board current. It never merges anything.
 
-**The sweep workflow** (`.github/workflows/evals.yml`) runs the paid part. It stops at the `sweeps` environment until a required reviewer approves. No credential is stored in GitHub: the sweep job exchanges its GitHub OIDC token for the Vercel project's OIDC token, the one `vercel env pull` writes, and agent-eval uses it for the gateway and the sandboxes. It runs each model until no eval is missing, up to four passes, exports, and commits the `summary.json`, `usage.json` and `classification.json` files and `agent-results.json`.
+| Schedule | What it does |
+|----------|--------------|
+| `tier1-watch`, daily | Keeps one `Tier 1 has evals to run` issue open while an eval change left tier-1 models with work |
+| `model-watch`, daily | Reads the AI Gateway catalog, probes new flagship models against the team's provider allowlist, and opens a pull request that registers one, following [AGENTS.md](AGENTS.md#adding-a-new-experiment-model) |
+| `publish-results`, daily | Opens or updates a pull request on nuxt/nuxt.com when `agent-results.json` on `main` differs from the published file |
 
-| Trigger | What it sweeps | Where the results go |
-|---------|----------------|----------------------|
-| A pull request from an `agent/add-*` branch | The experiments it adds | A commit on that pull request |
-| A push to `main` that changes `evals/` | Tier-1 models with work left | A new `chore/results-*` pull request |
-| Run manually | Named experiments, a pull request, or everything tier 1 is missing | Same as above |
+Evals cost money, so they only run when the maintainer comments `@nuxt-evals sweep` on a registration pull request or on the tier-1 issue. Nobody else's comment reaches the agent. The `sweep` tool then runs `agent-eval` in the agent's sandbox, one model at a time and up to four passes while evals are missing, exports, and commits the `summary.json`, `usage.json` and `classification.json` files and `agent-results.json`. `@nuxt-evals sweep smoke` runs one eval per model and commits nothing.
 
-A manual run with `smoke` checked runs one eval per model and commits nothing. `pnpm run ci plan` prints what a sweep would run, for free. Experiments on a harness other than `vercel-ai-gateway/*` are skipped, since the workflow has no credentials for them.
+The sweep uses the Vercel project's OIDC token for the gateway and the eval sandboxes, so no key is stored anywhere. It runs `main`'s scripts and takes only the experiment files from a pull request, and `pnpm run sweep plan` refuses an experiment that is not a plain config. Experiments on a harness other than `vercel-ai-gateway/*` are skipped, since the agent has no credentials for them. `pnpm run sweep plan` prints what a sweep would run, for free.
 
-**The agent** (`agent/`, built with [eve](https://eve.dev) and deployed on Vercel) does the part that needs judgment. Once a day it reads the AI Gateway catalog, probes new flagship models against the team's provider allowlist, and opens a pull request that registers one, following [AGENTS.md](AGENTS.md#adding-a-new-experiment-model). That pull request starts the sweep workflow. A second daily schedule opens or updates a pull request on nuxt/nuxt.com when `agent-results.json` on `main` differs from the published file.
-
-One-time setup for the workflow, by a repository admin:
-
-1. Create an environment named `sweeps` (Settings → Environments) and add at least one required reviewer. The approval only exists because of that reviewer: without one, every sweep starts unattended and bills right away.
-2. Add the `VERCEL_TEAM_ID` and `VERCEL_PROJECT_ID` variables to that environment. They are plain variables, not secrets.
-3. Allow GitHub Actions to create pull requests (Settings → Actions → General), for the tier-1 rerun pull requests.
-
-The Vercel team also has to accept GitHub OIDC tokens from this repository for the token exchange.
-
-The agent never runs evals. Its GitHub App can open and edit pull requests on nuxt/nuxt-evals and nuxt/nuxt.com and push `agent/*` branches, enforced in `agent/lib/github.ts`.
+The agent's GitHub App can open and edit pull requests and issues on nuxt/nuxt-evals and nuxt/nuxt.com and push `agent/*` branches, only in turns a schedule or the maintainer started. `agent/lib/github.ts` enforces it.
 
 ```bash
 pnpm run test:agent        # the GitHub access rules
