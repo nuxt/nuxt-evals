@@ -213,3 +213,31 @@ export function extractRunTokens(raw: string): Usage | null {
 
   return got ? u : null;
 }
+
+/**
+ * Costs from an earlier export, keyed by experiment, eval and result
+ * timestamp. Transcripts are not committed, so an export from a fresh clone
+ * (CI) cannot recompute the cost of a result it did not just produce. It keeps
+ * the published figure for that exact result instead, at the price it was
+ * exported with.
+ */
+export type PublishedCosts = Map<string, number>;
+
+export const publishedCostKey = (experiment: string, evalPath: string, timestamp: string): string =>
+  `${experiment}\n${evalPath}\n${timestamp}`;
+
+export function indexPublishedCosts(exported: unknown): PublishedCosts {
+  const costs: PublishedCosts = new Map();
+  const results = (exported as { results?: unknown } | null)?.results;
+  if (!results || typeof results !== 'object') return costs;
+  for (const [experiment, rows] of Object.entries(results)) {
+    if (!Array.isArray(rows)) continue;
+    for (const row of rows) {
+      const timestamp = row?.result?.timestamp;
+      if (typeof row?.evalPath !== 'string' || typeof timestamp !== 'string') continue;
+      if (typeof row.costUsd !== 'number' || row.notAvailable) continue;
+      costs.set(publishedCostKey(experiment, row.evalPath, timestamp), row.costUsd);
+    }
+  }
+  return costs;
+}
