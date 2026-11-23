@@ -6,37 +6,40 @@ Agent evaluations for Nuxt coding tasks, powered by [`@vercel/agent-eval`](https
 
 ```bash
 pnpm install
-cp .env.example .env   # requires VERCEL_OIDC_TOKEN and AI_GATEWAY_API_KEY
+vercel env pull   # writes VERCEL_OIDC_TOKEN to .env.local
 ```
 
-## Scripts
+The OIDC token is the only credential the gateway harnesses need, and it lasts about 12 hours, so pull it again before each sweep. `agent-eval` prefers `AI_GATEWAY_API_KEY` over it when that is set, which would bill runs to a personal key. `pnpm run eval:tier1` ignores a shell `AI_GATEWAY_API_KEY` when `.env.local` has the token, and refuses to start with an expired one. The Cursor harness also needs `CURSOR_API_KEY` in `.env.local`.
 
-### `pnpm run eval`
+## Running evals
 
-Runs agent evaluations with memoization. Only runs (model, eval) pairs that haven't been completed yet.
+Results are memoized by fingerprint: an eval reruns for a model when the eval's files or the experiment config change, and never otherwise.
 
 ```bash
-pnpm run eval                          # Run only missing pairs
-pnpm run eval -- claude-opus-4.6       # Run a specific experiment
-pnpm run eval -- --force               # Re-run everything
-pnpm run eval:smoke                    # Run smoke test (1 eval per experiment)
-pnpm run eval:dry                      # Preview what would run
+pnpm run eval:tier1:status              # what each tier-1 model is missing
+pnpm run eval:tier1                     # run it, one model at a time
+pnpm run eval:tier1 -- --parallel       # run every model with work left in one process
+pnpm run eval:tier1 -- --smoke          # one eval per model, to check access
+npx agent-eval run <experiment...>      # run specific experiments
 ```
 
-### `pnpm run export-results`
+- Tier 2 is never rerun (see [Model retention policy](#model-retention-policy)), so stick to `eval:tier1` or name experiments explicitly. Avoid `agent-eval --force`, which reruns every model.
+- A smoke run always exits 1 and deletes its result, even when the eval passes. Read its ✓ or ✗ line.
+- Infra failures (rate limits, sandbox or provider timeouts, auth errors) are classified and deleted, not counted. Run the same command again to retry them. `eval:tier1` lists what is still missing at the end.
+- `timeout` is part of the fingerprint, so raising it reruns every eval of that model. Pick a generous one before the first sweep.
 
-Exports clean results to `agent-results.json`.
+## Exporting results
 
 ```bash
-pnpm run export-results                          # Export from all experiments
-pnpm run export-results -- claude-opus-4.6       # Export specific experiment
+pnpm run export-results                     # every experiment with results
+pnpm run export-results -- claude-opus-5.5  # specific experiments
 ```
+
+This writes `agent-results.json`. A tier-1 model with an eval it hasn't run yet is skipped and named at the end, so a partial run never reaches the board. `--allow-partial` publishes it anyway, with the missing evals counted as not passed.
 
 Each experiment also gets an `avgCostUsd`: the mean list cost per eval. Tokens are read from each run's `transcript-raw.jsonl` (handled per harness in `scripts/cost.ts`) and multiplied by the list prices in `MODEL_PRICING`. A model with no price entry, or whose runs carry no token usage, exports `null` and renders as N/A. Prices are a snapshot, so re-run the export to refresh them.
 
-### `pnpm run test:cost`
-
-Unit tests for the token extraction and pricing in `scripts/cost.ts`.
+`pnpm run test:cost` runs the unit tests for the token extraction and pricing.
 
 ## Models
 
@@ -81,7 +84,7 @@ Unit tests for the token extraction and pricing in `scripts/cost.ts`.
 
 ## Eval structure
 
-Each eval is a self-contained Nuxt project in `evals/`. Most evals provide broken or suboptimal starter code that the agent must fix — the prompt describes a symptom without revealing the solution.
+Each eval is a self-contained Nuxt project in `evals/`. Most evals provide broken or suboptimal starter code that the agent must fix. The prompt describes a symptom without revealing the solution.
 
 ```
 evals/nuxt-000-fix-data-fetching/
@@ -141,10 +144,10 @@ pnpm run eval:tier1          # run it
 After running evals:
 
 1. Export results: `pnpm run export-results`
-2. Copy to the nuxt.com repo:
+2. Copy it to the nuxt.com repo:
 
 ```bash
-cp agent-results.json <path-to-nuxt.com>/agent-results.json
+cp agent-results.json <path-to-nuxt.com>/public/agent-results.json
 ```
 
 3. Commit and deploy the nuxt.com repo
