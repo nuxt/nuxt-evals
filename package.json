@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "eval": "agent-eval",
-    "eval:smoke": "agent-eval --smoke",
+    "eval": "agent-eval run",
+    "eval:smoke": "agent-eval run --smoke",
     "eval:dry": "agent-eval --dry",
     "eval:tier1": "tsx scripts/tier-one-cli.ts run",
     "eval:tier1:status": "tsx scripts/tier-one-cli.ts status",

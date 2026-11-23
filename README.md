@@ -20,7 +20,8 @@ pnpm run eval:tier1:status              # what each tier-1 model is missing
 pnpm run eval:tier1                     # run it, one model at a time
 pnpm run eval:tier1 -- --parallel       # run every model with work left in one process
 pnpm run eval:tier1 -- --smoke          # one eval per model, to check access
-npx agent-eval run <experiment...>      # run specific experiments
+pnpm run eval <experiment...>           # run specific experiments
+pnpm run eval:smoke <experiment...>     # one eval each, to check access
 ```
 
 - Tier 2 is never rerun (see [Model retention policy](#model-retention-policy)), so stick to `eval:tier1` or name experiments explicitly. Avoid `agent-eval --force`, which reruns every model.
@@ -121,7 +122,7 @@ evals/nuxt-000-fix-data-fetching/
 
 ## Adding a new model
 
-Follow the checklist in [AGENTS.md](AGENTS.md#adding-a-new-experiment-model): the experiment config, its display name, harness name and list price, a row in the table above, and its tier in `scripts/tier-one.ts`. Then run it with `npx agent-eval run <name>`.
+Follow the checklist in [AGENTS.md](AGENTS.md#adding-a-new-experiment-model): the experiment config, its display name, harness name and list price, a row in the table above, and its tier in `scripts/tier-one.ts`. Then run it with `pnpm run eval <name>`.
 
 ## Model retention policy
 
