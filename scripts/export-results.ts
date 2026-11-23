@@ -280,7 +280,12 @@ function computeCurrentFingerprints(
 async function main(): Promise<void> {
   const resultsDir = join(process.cwd(), 'results');
 
-  let experiments = process.argv.slice(2);
+  const args = process.argv.slice(2);
+  // A tier-1 model with a missing eval is left off the board by default, so a
+  // run that infra failures kept from finishing never publishes a partial row.
+  const allowPartial = args.includes('--allow-partial');
+  let experiments = args.filter((arg) => arg !== '--allow-partial');
+  const skippedPartial: string[] = [];
 
   if (experiments.length === 0) {
     // Auto-discover all experiments with results
@@ -450,6 +455,11 @@ async function main(): Promise<void> {
 
     const total = Object.keys(currentFingerprints).length;
     const log = tierOne ? console.warn : console.log;
+    if (tierOne && notAvailable.length > 0 && !allowPartial) {
+      console.warn(`${experiment}: skipped, tier 1 with ${notAvailable.length}/${total} evals not run yet: ${notAvailable.join(', ')}. Rerun them, or pass --allow-partial to publish them as not passed.`);
+      skippedPartial.push(experiment);
+      continue;
+    }
     if (notAvailable.length > 0) {
       log(tierOne
         ? `${experiment}: ${notAvailable.length}/${total} evals never run, counted as not passed. Tier 1, rerun it. ${notAvailable.join(', ')}`
@@ -531,6 +541,9 @@ async function main(): Promise<void> {
 
   console.log('\n' + '-'.repeat(60));
   console.log(`Exported to: ${outputPath}`);
+  if (skippedPartial.length > 0) {
+    console.log(`Not published until complete: ${skippedPartial.join(', ')}`);
+  }
   console.log(`Total: ${totalResults} | Pass: ${totalSuccess} | Fail: ${totalResults - totalSuccess}`);
   console.log('-'.repeat(60));
 }
