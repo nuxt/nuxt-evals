@@ -65,10 +65,23 @@ export interface DashboardState {
 
 const RUNNING = /<!-- running -->\n(.*)\n<!-- \/running -->/;
 
-/** The running line of a dashboard body, kept across refreshes until a sweep clears it. */
-export function runningLine(body: string): string | null {
+/** A running line older than this is from a turn that ended without clearing it. */
+const STALE_AFTER_MINUTES = 20;
+
+/**
+ * The running line of a dashboard body, kept across refreshes while it is
+ * current. Every line carries a UTC time, and a sweep rewrites it every few
+ * minutes, so one older than 20 minutes belongs to a turn that ended without
+ * clearing it and is dropped.
+ */
+export function runningLine(body: string, now = new Date()): string | null {
   const line = body.match(RUNNING)?.[1]?.trim();
-  return line && line !== '_Nothing._' ? line : null;
+  if (!line || line === '_Nothing._') return null;
+  const times = [...line.matchAll(/(\d{1,2}):(\d{2}) UTC/g)];
+  const last = times.at(-1);
+  if (!last) return null;
+  const minutes = (now.getUTCHours() * 60 + now.getUTCMinutes() - (Number(last[1]) * 60 + Number(last[2])) + 24 * 60) % (24 * 60);
+  return minutes <= STALE_AFTER_MINUTES ? line : null;
 }
 
 /** `body` with its running line replaced, or null when the body has no running block. */
