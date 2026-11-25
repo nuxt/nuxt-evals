@@ -3,6 +3,7 @@ import { defineWorkflowTool, type WorkflowStepToolContext } from 'eve/tools';
 import { sleep } from 'eve/workflow';
 import { z } from 'zod';
 import { BASE_BRANCH, mayStartSweeps, REPOSITORY } from '../lib/github';
+import type { ProgressLabel } from '../lib/progress';
 import { run, SWEEP_STATE, syncBase } from '../lib/sandbox';
 
 /** Infra failures are deleted, not counted, so the same run is the retry. */
@@ -56,7 +57,12 @@ export default defineWorkflowTool({
         while (status.running && checks < MAX_CHECKS_PER_PASS) {
           await sleep(CHECK_EVERY);
           checks++;
-          status = await checkPass(ctx, name, pass, checks >= MAX_CHECKS_PER_PASS);
+          status = await checkPass(ctx, name, pass, checks >= MAX_CHECKS_PER_PASS, {
+            what: input.smoke ? 'Smoke test' : prepared.pullRequest ? `Sweep of #${prepared.pullRequest}` : 'Sweep of tier 1',
+            model: prepared.experiments.findIndex((experiment) => experiment.name === name) + 1,
+            models: prepared.experiments.length,
+            passes: input.smoke ? 1 : MAX_PASSES,
+          });
         }
         passes.push({ name, pass, evals: started.evals, checks, tail: status.tail });
       }
@@ -151,7 +157,7 @@ async function startPass(ctx: WorkflowStepToolContext, name: string, pass: numbe
   return { evals: left.length };
 }
 
-async function checkPass(ctx: WorkflowStepToolContext, name: string, pass: number, stop: boolean): Promise<{ running: boolean; tail: string }> {
+async function checkPass(ctx: WorkflowStepToolContext, name: string, pass: number, stop: boolean, label: ProgressLabel): Promise<{ running: boolean; tail: string }> {
   'use step';
   const sandbox = await ctx.getSandbox();
   if (stop) await sandbox.run({ command: `kill $(cat ${STATE}/pid) 2>/dev/null; sleep 5` });
@@ -161,6 +167,12 @@ async function checkPass(ctx: WorkflowStepToolContext, name: string, pass: numbe
   // stopped early says why.
   const log = `tail -c 6000 ${STATE}/${name}-${pass}.log | sed 's/\\x1b\\[[0-9;]*[A-Za-z]//g' | tr '\\r' '\\n' | grep -v '^\\s*$'`;
   const tail = await sandbox.run({ command: `{ ${log} | grep -E '✓|✗|passed|failed|Error|error|skipping|not set' || ${log}; } | tail -15` });
+  // The whole log, for the progress counts: the tail above drops early lines.
+  const full = await sandbox.run({ command: `sed 's/\\x1b\\[[0-9;]*[A-Za-z]//g' ${STATE}/${name}-${pass}.log | tr '\\r' '\\n' | grep -E 'Starting [0-9]+ eval attempts|^[✓✗] '` });
+  // Loaded here, inside the step: the GitHub client pulls in Node.js APIs,
+  // which the workflow bundle refuses at the top of this module.
+  const { reportProgress } = await import('../lib/progress');
+  await reportProgress(label, name, pass, full.stdout);
   return { running: state.stdout.trim() === 'running', tail: tail.stdout.trim() };
 }
 

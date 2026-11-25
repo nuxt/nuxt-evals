@@ -1,7 +1,7 @@
 /** Run with: pnpm test:agent */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { actionsInComment, newlyChecked, renderDashboard, runningLine } from './dashboard.ts';
+import { actionsInComment, newlyChecked, passProgress, renderDashboard, runningLine, withRunningLine } from './dashboard.ts';
 
 const state = {
   tier1: [{ name: 'gemini-4-carbon', evals: 2, missing: ['nuxt-020-fix-nuxt-module', 'nuxt-021-custom-fetch-client'] }],
@@ -48,6 +48,26 @@ test('a comment names actions by id', () => {
   ]);
   assert.deepEqual(actionsInComment('@nuxt-evals what is left?'), []);
   assert.deepEqual(actionsInComment('@nuxt-evals not-sweep-tier1x'), []);
+});
+
+test('a progress line replaces the running line and nothing else', () => {
+  const body = renderDashboard(state);
+  const updated = withRunningLine(body, 'Sweep of tier 1: gemini-4-carbon, pass 1/4, 3 of 8 runs finished.');
+  assert.equal(runningLine(updated!), 'Sweep of tier 1: gemini-4-carbon, pass 1/4, 3 of 8 runs finished.');
+  assert.equal(updated!.replace(/<!-- running -->\n.*\n/, ''), body.replace(/<!-- running -->\n.*\n/, ''));
+  assert.equal(withRunningLine('no dashboard here', 'x'), null);
+});
+
+test('pass progress comes from the agent-eval log', () => {
+  const log = [
+    'Starting 8 eval attempts concurrently (2 evals × 4 runs)',
+    'Running gemini-4-carbon/nuxt-020-fix-nuxt-module [1/4] [vercel-ai-gateway/opencode]...',
+    '✗ gemini-4-carbon/nuxt-020-fix-nuxt-module [1/4] (vercel-ai-gateway/opencode) (996.1s) - fetch failed',
+    '✓ gemini-4-carbon/nuxt-021-custom-fetch-client [2/4] (vercel-ai-gateway/opencode) (412.0s)',
+    '✗ nuxt-020-fix-nuxt-module: 0/1 passed (0%)',
+  ].join('\n');
+  assert.deepEqual(passProgress(log), { started: 8, finished: 2, passed: 1 });
+  assert.deepEqual(passProgress(''), { started: 0, finished: 0, passed: 0 });
 });
 
 test('an empty tier 1 has no sweep box', () => {
