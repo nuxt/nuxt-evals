@@ -70,6 +70,6 @@ Body, in this order and nothing else:
 - The price row you added and whether billing confirmed it.
 - Where the timeout comes from.
 - Anything you could not verify.
-- The last line, from `pnpm run sweep plan <name> --registration`: `Comment \`@nuxt-evals sweep\` to run its <n> evals.`
+- The last line, from `pnpm run sweep plan <name> --registration`: `Its <n> evals run from the Evals Dashboard.`
 
-The maintainer starts the sweep from that comment. Do not comment on the pull request or follow up.
+Then call `dashboard`, so the pull request shows up there with its box. The maintainer starts the sweep from it. Do not comment on the pull request or follow up.

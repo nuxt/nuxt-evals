@@ -10,7 +10,7 @@
     "eval:tier1:status": "tsx scripts/tier-one-cli.ts status",
     "export-results": "tsx scripts/export-results.ts",
     "test:cost": "tsx --test scripts/cost.test.ts",
-    "test:agent": "tsx --test agent/lib/github.test.ts",
+    "test:agent": "tsx --test agent/lib/github.test.ts agent/lib/dashboard.test.ts",
     "typecheck:agent": "tsc -p agent/tsconfig.json",
     "build:agent": "eve build",
     "sweep": "tsx scripts/sweep.ts"
