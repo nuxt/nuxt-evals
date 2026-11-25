@@ -1,6 +1,6 @@
 import { defaultGitHubAuth, githubChannel } from 'eve/channels/github';
-import { DASHBOARD_MARKER, newlyChecked } from '../lib/dashboard';
-import { BOT_NAME, credentials, MAINTAINER_GITHUB_ID, REPOSITORY } from '../lib/github';
+import { actionsInComment, DASHBOARD_MARKER, dashboardRequest, newlyChecked } from '../lib/dashboard';
+import { BOT_NAME, credentials, githubApi, MAINTAINER_GITHUB_ID, REPOSITORY } from '../lib/github';
 
 const MENTION = new RegExp(`(^|\\s)@${BOT_NAME}\\b`, 'i');
 
@@ -29,13 +29,27 @@ export default githubChannel({
     return {
       auth: defaultGitHubAuth(ctx),
       title: `Dashboard: ${actions.map(({ id }) => id).join(', ')}`,
-      context: [`This turn's request: the maintainer checked ${actions.map(({ id }) => `\`${id}\``).join(', ')} on the Evals Dashboard (#${issue.issueNumber}). Load the dashboard skill and run exactly these. Earlier requests in this thread were handled by earlier turns.`],
+      context: [dashboardRequest(actions, issue.issueNumber)],
     };
   },
-  onComment: (ctx, comment) => {
+  onComment: async (ctx, comment) => {
     if (ctx.repository.fullName.toLowerCase() !== REPOSITORY) return null;
     if (comment.author?.id !== MAINTAINER_GITHUB_ID || ctx.sender.id !== MAINTAINER_GITHUB_ID) return null;
     if (!MENTION.test(comment.body)) return null;
+    // `@nuxt-evals sweep-tier1` on the dashboard does what checking that box
+    // does. Only on the dashboard: its thread queues turns, another doesn't.
+    const actions = actionsInComment(comment.body);
+    const issueNumber = ctx.conversation.issueNumber;
+    if (actions.length > 0 && ctx.conversation.kind === 'issue' && issueNumber !== null) {
+      const issue = await githubApi<{ body: string | null }>('GET', `/repos/${REPOSITORY}/issues/${issueNumber}`);
+      if (issue.body?.includes(DASHBOARD_MARKER)) {
+        return {
+          auth: defaultGitHubAuth(ctx),
+          title: `Dashboard: ${actions.map(({ id }) => id).join(', ')}`,
+          context: [dashboardRequest(actions, issueNumber)],
+        };
+      }
+    }
     return { auth: defaultGitHubAuth(ctx) };
   },
 });

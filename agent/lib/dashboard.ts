@@ -31,6 +31,18 @@ export function parseAction(id: string): DashboardAction | null {
   return pull ? { id: id as `sweep-pr-${number}`, pullRequest: Number(pull[1]) } : null;
 }
 
+const ACTION_ID = /\b(sweep-tier1|smoke-tier1|sweep-pr-\d+|run-model-watch|run-publish-results)\b/g;
+
+/** The actions a comment names by id, like `@nuxt-evals sweep-tier1`, in order and once each. */
+export function actionsInComment(text: string): DashboardAction[] {
+  return [...new Set(text.match(ACTION_ID) ?? [])].flatMap((id) => parseAction(id) ?? []);
+}
+
+/** The context a dashboard turn starts with, from a checked box or a comment. */
+export function dashboardRequest(actions: readonly DashboardAction[], issueNumber: number): string {
+  return `This turn's request: the maintainer asked for ${actions.map(({ id }) => `\`${id}\``).join(', ')} on the Evals Dashboard (#${issueNumber}). Load the dashboard skill and run exactly these. Earlier requests in this thread were handled by earlier turns.`;
+}
+
 /** The boxes checked in `after` that were unchecked in `before`, in the order they appear. */
 export function newlyChecked(before: string, after: string): DashboardAction[] {
   const previous = boxes(before);
@@ -60,7 +72,7 @@ export function runningLine(body: string): string | null {
 }
 
 export function renderDashboard(state: DashboardState): string {
-  const box = (id: string, label: string) => ` - [ ] <!-- ${id} -->${label}`;
+  const box = (id: string, label: string) => ` - [ ] <!-- ${id} -->${label} \`${id}\``;
   const total = state.tier1.reduce((sum, { evals }) => sum + evals, 0);
   const plural = (count: number, word: string) => `${count} ${word}${count === 1 ? '' : 's'}`;
 
@@ -80,7 +92,7 @@ export function renderDashboard(state: DashboardState): string {
 
   return [
     DASHBOARD_MARKER,
-    'The nuxt-evals agent keeps this issue current. Check a box to run it: only the maintainer\'s checks count, and every eval run costs money. The agent unchecks the box when it starts, says what is running below, and replies here when it is done.',
+    'The nuxt-evals agent keeps this issue current. Check a box to run it, or comment `@nuxt-evals` with the box\'s id, like `@nuxt-evals sweep-tier1`. Only the maintainer counts, and every eval run costs money. The agent unchecks the box when it starts, says what is running below, and replies here when it is done.',
     '',
     '## Running',
     '',
