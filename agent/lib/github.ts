@@ -1,9 +1,31 @@
+import { connectGitHubCredentials } from '@vercel/connect/eve';
 import type { SessionAuthContext } from 'eve/context';
 import type { GitHubAppAuthorizeRequest, GitHubLeaseBroker } from 'eve/extensions/git';
 import { isScheduleAuth } from 'eve/schedules';
 
 /** The Vercel Connect connector of the agent's GitHub App. */
 export const CONNECTOR = 'github/nuxt-evals';
+
+/** One set of Connect credentials for the channel and the dashboard tool. */
+export const credentials = connectGitHubCredentials(CONNECTOR);
+
+/** A REST call to GitHub as the App, from the runtime. The token never enters the sandbox. */
+export async function githubApi<T>(method: 'GET' | 'POST' | 'PATCH', path: string, body?: unknown): Promise<T> {
+  const token = typeof credentials.installationToken === 'function' ? await credentials.installationToken() : credentials.installationToken;
+  if (!token) throw new Error('No GitHub installation token from Vercel Connect.');
+  const response = await fetch(`https://api.github.com${path}`, {
+    method,
+    headers: {
+      accept: 'application/vnd.github+json',
+      authorization: `Bearer ${token}`,
+      'user-agent': 'nuxt-evals-agent',
+      ...(body ? { 'content-type': 'application/json' } : {}),
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  if (!response.ok) throw new Error(`GitHub ${method} ${path} failed: ${response.status} ${(await response.text()).slice(0, 300)}`);
+  return response.json() as Promise<T>;
+}
 
 /** The invocation token in comments, without the `@`: the App's slug. */
 export const BOT_NAME = 'nuxt-evals';

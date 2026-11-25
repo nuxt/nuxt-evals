@@ -3,7 +3,7 @@ import { defineWorkflowTool, type WorkflowStepToolContext } from 'eve/tools';
 import { sleep } from 'eve/workflow';
 import { z } from 'zod';
 import { BASE_BRANCH, mayStartSweeps, REPOSITORY } from '../lib/github';
-import { run } from '../lib/sandbox';
+import { run, SWEEP_STATE, syncBase } from '../lib/sandbox';
 
 /** Infra failures are deleted, not counted, so the same run is the retry. */
 const MAX_PASSES = 4;
@@ -11,8 +11,7 @@ const MAX_PASSES = 4;
 const CHECK_EVERY = '3m';
 /** A pass still running after this many checks is stopped. Real passes take well under an hour. */
 const MAX_CHECKS_PER_PASS = 60;
-/** Untracked and ignored, next to the checkout: logs and the running pass's pid. */
-const STATE = '.eve-sweep';
+const STATE = SWEEP_STATE;
 const TSX = 'node_modules/.bin/tsx';
 
 const experimentName = z.string().regex(/^[\w.-]+$/);
@@ -31,7 +30,7 @@ interface Prepared {
 }
 
 export default defineWorkflowTool({
-  description: 'Run the paid evals for a registration pull request, or for every tier-1 model with evals left, then export and commit the results locally. Only call it when the maintainer asked for a sweep in this thread. It takes an hour or more. Afterwards, push the commit it reports and reply with its board.',
+  description: 'Run the paid evals for a registration pull request, or for every tier-1 model with evals left, then export and commit the results locally. Only call it for a box the maintainer checked on the Evals Dashboard. It takes an hour or more. Afterwards, push the commit it reports and reply with its board.',
   inputSchema: z.object({
     pullRequest: z.number().int().positive().optional().describe('The registration pull request to sweep. Omit to sweep what tier 1 is missing.'),
     experiments: z.array(experimentName).max(20).optional().describe('Limit a tier-1 sweep to these experiments.'),
@@ -84,12 +83,7 @@ async function prepare(ctx: WorkflowStepToolContext, input: { pullRequest?: numb
   // main's scripts and dependencies, never the pull request's: agent-eval runs
   // with the gateway token. From a pull request only the experiment files it
   // adds are taken, and `sweep plan` refuses any that is not a plain config.
-  // Paid results a failed call left behind survive this reset, whether they
-  // are untracked, staged, or in a commit that was never pushed: the mixed
-  // reset turns them back into untracked files, which the forced checkout
-  // keeps, and the clean skips `results/`.
-  await run(sandbox, `git fetch -q origin ${BASE_BRANCH} && git reset -q FETCH_HEAD && git checkout -q -f --detach FETCH_HEAD && git clean -fdq -e ${STATE} -e results && pnpm install --frozen-lockfile`);
-  const base = (await run(sandbox, 'git rev-parse HEAD')).trim();
+  const base = await syncBase(sandbox, BASE_BRANCH);
 
   let head: string | null = null;
   let headRef: string | null = null;
