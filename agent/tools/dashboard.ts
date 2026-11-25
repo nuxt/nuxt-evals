@@ -2,7 +2,8 @@ import { defineTool } from 'eve/tools';
 import { z } from 'zod';
 import { DASHBOARD_MARKER, DASHBOARD_TITLE, renderDashboard, runningLine, type DashboardState } from '../lib/dashboard';
 import { BASE_BRANCH, githubApi, REPOSITORY } from '../lib/github';
-import { run, syncBase } from '../lib/sandbox';
+import { OPEN_POLICY, run, syncBase } from '../lib/sandbox';
+import { environment } from '../sandbox/sandbox';
 
 interface Issue { number: number; body: string | null; html_url: string; pull_request?: unknown }
 interface Pull { number: number; title: string; head: { ref: string; repo: { full_name: string } | null } }
@@ -13,7 +14,8 @@ export default defineTool({
     running: z.string().max(200).nullable().optional().describe('One line on what is running now, like "Sweep of #71 started 11:00 UTC." null clears it. Omit to keep the current line.'),
   }),
   async execute({ running }, ctx) {
-    const sandbox = await ctx.getSandbox();
+    const sandbox = await ctx.getSandbox(environment);
+    await sandbox.setNetworkPolicy(OPEN_POLICY);
     await syncBase(sandbox, BASE_BRANCH);
     const tsx = 'node_modules/.bin/tsx scripts/sweep.ts plan --json';
     const plan = JSON.parse(await run(sandbox, tsx)) as { experiments: DashboardState['tier1'] };

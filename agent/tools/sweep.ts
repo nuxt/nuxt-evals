@@ -4,7 +4,7 @@ import { sleep } from 'eve/workflow';
 import { z } from 'zod';
 import { BASE_BRANCH, mayStartSweeps, REPOSITORY } from '../lib/github';
 import type { ProgressLabel } from '../lib/progress';
-import { run, SWEEP_STATE, syncBase } from '../lib/sandbox';
+import { OPEN_POLICY, run, SWEEP_STATE, syncBase } from '../lib/sandbox';
 
 /** Infra failures are deleted, not counted, so the same run is the retry. */
 const MAX_PASSES = 4;
@@ -89,6 +89,9 @@ async function prepare(ctx: WorkflowStepToolContext, input: { pullRequest?: numb
   // main's scripts and dependencies, never the pull request's: agent-eval runs
   // with the gateway token. From a pull request only the experiment files it
   // adds are taken, and `sweep plan` refuses any that is not a plain config.
+  // Loaded inside the step, like every Node.js-backed module here.
+  const { environment } = await import('../sandbox/sandbox');
+  await (await ctx.getSandbox(environment)).setNetworkPolicy(OPEN_POLICY);
   const base = await syncBase(sandbox, BASE_BRANCH);
 
   let head: string | null = null;
@@ -209,7 +212,7 @@ async function finish(ctx: WorkflowStepToolContext, prepared: Prepared) {
   // Nothing new in results/, from this call or an earlier one that failed
   // before committing: there is nothing to export.
   const fresh = (await run(sandbox, 'git status --porcelain -- results')).trim();
-  if (!fresh) return { committed: null, board: '', promoted: '', pushTo: null, reason: 'Every experiment already has a current result for every eval, and nothing is left to commit.' };
+  if (!fresh) return { committed: null, board: '', promoted: '', pushTo: null, reason: 'No new results to commit. Evals still missing are listed in `incomplete`.' };
 
   // The export needs the pull request's display name, price and tier, so it
   // runs on its tree, after agent-eval and its token are gone. Results are

@@ -3,6 +3,16 @@ export interface Runner {
   run(options: { command: string; env?: Record<string, string> }): PromiseLike<{ exitCode: number; stdout: string; stderr: string }>;
 }
 
+/**
+ * The open policy the sandbox runs with between GitHub commands. The GitHub
+ * channel adds the App's installation token for github.com at the firewall
+ * when a turn starts, and that token expires after an hour. A sweep turn lasts
+ * longer, so later fetches of the public repository went out with an expired
+ * token and GitHub answered 401. Resetting to this policy first makes them
+ * anonymous again, which a public repository allows.
+ */
+export const OPEN_POLICY = { allow: { '*': [] } } as const;
+
 /** Untracked and ignored, next to the checkout: sweep logs and the running pass's pid. */
 export const SWEEP_STATE = '.eve-sweep';
 

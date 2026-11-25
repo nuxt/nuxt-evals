@@ -34,9 +34,16 @@ test('editing anything else starts nothing', () => {
   assert.deepEqual(newlyChecked(' - [ ] <!-- rm-rf -->x', ' - [x] <!-- rm-rf -->x'), []);
 });
 
-test('the running line survives a refresh and clears', () => {
+test('the running line survives a refresh while it is current', () => {
   const running = renderDashboard({ ...state, running: 'Sweep of #71 started 11:00 UTC.' });
-  assert.equal(runningLine(running), 'Sweep of #71 started 11:00 UTC.');
+  assert.equal(runningLine(running, new Date('2026-11-25T11:15:00Z')), 'Sweep of #71 started 11:00 UTC.');
+  // Left behind by a turn that ended without clearing it.
+  assert.equal(runningLine(running, new Date('2026-11-25T13:00:00Z')), null);
+  // Across midnight.
+  const late = renderDashboard({ ...state, running: 'Sweep of #71: pass 1 of 4. Checked 23:55 UTC.' });
+  assert.equal(runningLine(late, new Date('2026-11-26T00:05:00Z')), 'Sweep of #71: pass 1 of 4. Checked 23:55 UTC.');
+  // No time, no way to tell: dropped.
+  assert.equal(runningLine(renderDashboard({ ...state, running: 'Sweep of tier 1 started (sweep-tier1).' })), null);
   assert.equal(runningLine(renderDashboard(state)), null);
 });
 
@@ -53,7 +60,7 @@ test('a comment names actions by id', () => {
 test('a progress line replaces the running line and nothing else', () => {
   const body = renderDashboard(state);
   const updated = withRunningLine(body, 'Sweep of tier 1: gemini-4-carbon, pass 1/4, 3 of 8 runs finished.');
-  assert.equal(runningLine(updated!), 'Sweep of tier 1: gemini-4-carbon, pass 1/4, 3 of 8 runs finished.');
+  assert.equal(updated!.includes('Sweep of tier 1: gemini-4-carbon, pass 1/4, 3 of 8 runs finished.'), true);
   assert.equal(updated!.replace(/<!-- running -->\n.*\n/, ''), body.replace(/<!-- running -->\n.*\n/, ''));
   assert.equal(withRunningLine('no dashboard here', 'x'), null);
 });

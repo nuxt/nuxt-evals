@@ -8,7 +8,7 @@ The maintainer's check is the approval. Only act on the box ids named in this tu
 
 ## 1. Start
 
-Call `dashboard` with `running` set to one line naming what you are about to do and the time in UTC, like `Sweep of #71 started 11:00 UTC.` That rewrites the issue, which unchecks the boxes, so the maintainer sees the request was taken. During a sweep, the `sweep` tool rewrites that line itself every few minutes with its progress.
+Call `dashboard` with `running` set to one line naming what you are about to do and the time in UTC as `HH:MM UTC`, like `Sweep of #71 started 11:00 UTC.` A line without that time is dropped at the next refresh. That rewrites the issue, which unchecks the boxes, so the maintainer sees the request was taken. During a sweep, the `sweep` tool rewrites that line itself every few minutes with its progress.
 
 ## 2. Run each box, in order
 
