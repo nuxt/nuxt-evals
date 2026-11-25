@@ -22,7 +22,15 @@ import {
 // Not exported from the package root. The same hash agent-eval uses to tell an
 // eval change from a config change.
 import { computeContentFingerprint } from '../node_modules/@vercel/agent-eval/dist/lib/fingerprint.js';
-import { MODEL_PRICING, extractRunTokens, priceUsage } from './cost.ts';
+import {
+  MODEL_PRICING,
+  extractRunTokens,
+  indexPublishedCosts,
+  priceUsage,
+  publishedCostKey,
+  type PublishedCosts,
+  type Usage,
+} from './cost.ts';
 import { TIER_1 } from './tier-one.ts';
 
 interface SummaryJson {
@@ -200,14 +208,18 @@ async function getFirstRunSuccess(
  * transcript-raw.jsonl, extracts tokens, and prices them at the experiment's
  * list rate. Returns undefined when the model has no price or no run carried
  * usage (e.g. a timeout), so the caller can leave it out of the average.
+ *
+ * Transcripts are gitignored, so the token counts they yield are saved next to
+ * summary.json as usage.json, which is committed. A result with no transcript
+ * on disk (a clone, CI) is priced from that file. Results exported before
+ * usage.json existed have neither, and keep `published`, the cost the last
+ * export computed for this same result.
  */
 async function meanEvalCostUsd(
   evalDir: string,
-  experiment: string
+  experiment: string,
+  published?: number
 ): Promise<number | undefined> {
-  const pricing = MODEL_PRICING[experiment];
-  if (!pricing) return undefined;
-
   let runEntries: string[];
   try {
     runEntries = await readdir(evalDir);
@@ -215,7 +227,8 @@ async function meanEvalCostUsd(
     return undefined;
   }
 
-  const costs: number[] = [];
+  let usages: Usage[] = [];
+  let transcripts = 0;
   for (const entry of runEntries) {
     if (!entry.startsWith('run-')) continue;
     try {
@@ -223,15 +236,49 @@ async function meanEvalCostUsd(
         join(evalDir, entry, 'transcript-raw.jsonl'),
         'utf-8'
       );
+      transcripts++;
       const usage = extractRunTokens(raw);
-      if (usage) costs.push(priceUsage(usage, pricing));
+      if (usage) usages.push(usage);
     } catch {
       // No transcript for this run (e.g. timeout) — skip it.
     }
   }
 
-  if (costs.length === 0) return undefined;
-  return costs.reduce((a, b) => a + b, 0) / costs.length;
+  const usagePath = join(evalDir, 'usage.json');
+  let saved: Usage[] | undefined;
+  try {
+    saved = JSON.parse(await readFile(usagePath, 'utf-8')).runs;
+  } catch {
+    // No usage.json yet.
+  }
+  if (saved && saved.length > usages.length) {
+    // Some or all of the transcripts are gone. The saved counts cover more runs.
+    usages = saved;
+  } else if (transcripts > 0) {
+    try {
+      await writeFile(usagePath, `${JSON.stringify({ runs: usages }, null, 2)}\n`);
+    } catch (error) {
+      // The cost is still computed below, the result must not drop out of the export.
+      console.warn(`Could not save ${usagePath}: ${error instanceof Error ? error.message : error}`);
+    }
+  } else if (!saved?.length) {
+    return published;
+  }
+
+  // Looked up after usage.json is saved: the token counts are kept even for a
+  // model that has no price yet.
+  const pricing = MODEL_PRICING[experiment];
+  if (!pricing || usages.length === 0) return undefined;
+  return usages.reduce((sum, usage) => sum + priceUsage(usage, pricing), 0) / usages.length;
+}
+
+/** Costs of the results already in agent-results.json, empty when there is none. */
+async function loadPublishedCosts(path: string): Promise<PublishedCosts> {
+  try {
+    return indexPublishedCosts(JSON.parse(await readFile(path, 'utf-8')));
+  } catch {
+    return new Map();
+  }
 }
 
 /**
@@ -279,6 +326,8 @@ function computeCurrentFingerprints(
 
 async function main(): Promise<void> {
   const resultsDir = join(process.cwd(), 'results');
+  const outputPath = join(process.cwd(), 'agent-results.json');
+  const publishedCosts = await loadPublishedCosts(outputPath);
 
   const args = process.argv.slice(2);
   // A tier-1 model with a missing eval is left off the board by default, so a
@@ -389,7 +438,8 @@ async function main(): Promise<void> {
           );
           const costUsd = await meanEvalCostUsd(
             join(tsDir, evalDir),
-            experiment
+            experiment,
+            publishedCosts.get(publishedCostKey(experiment, evalDir, parseTimestamp(timestamp)))
           );
 
           (isCurrent ? currentResults : staleResults).set(evalDir, {
@@ -536,7 +586,6 @@ async function main(): Promise<void> {
     );
   }
 
-  const outputPath = join(process.cwd(), 'agent-results.json');
   await writeFile(outputPath, JSON.stringify(exportedData, null, 2));
 
   console.log('\n' + '-'.repeat(60));

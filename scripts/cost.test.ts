@@ -10,7 +10,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { extractRunTokens, priceUsage, MODEL_PRICING } from './cost.ts';
+import { extractRunTokens, indexPublishedCosts, priceUsage, publishedCostKey, MODEL_PRICING } from './cost.ts';
 
 const jsonl = (...events: unknown[]): string =>
   events.map((e) => JSON.stringify(e)).join('\n');
@@ -138,4 +138,26 @@ test('every experiment has a MODEL_PRICING entry', () => {
     .map((f) => f.replace(/\.ts$/, ''));
   const missing = experiments.filter((e) => !(e in MODEL_PRICING));
   assert.deepEqual(missing, [], `add these to MODEL_PRICING or /evals shows N/A: ${missing.join(', ')}`);
+});
+
+test('indexPublishedCosts: keyed by experiment, eval and result timestamp', () => {
+  const costs = indexPublishedCosts({
+    results: {
+      'model-a': [
+        { evalPath: 'nuxt-000', costUsd: 0.42, result: { timestamp: '2026-11-16T08:56:24.179Z' } },
+        // No usage was saved for this one, so there is nothing to carry over.
+        { evalPath: 'nuxt-001', result: { timestamp: '2026-11-16T08:56:24.179Z' } },
+        { evalPath: 'nuxt-002', notAvailable: true, costUsd: 1, result: { timestamp: '2026-11-16T08:56:24.179Z' } },
+      ],
+    },
+  });
+  assert.equal(costs.get(publishedCostKey('model-a', 'nuxt-000', '2026-11-16T08:56:24.179Z')), 0.42);
+  // A rerun has another timestamp, so an old cost never sticks to a new result.
+  assert.equal(costs.get(publishedCostKey('model-a', 'nuxt-000', '2026-11-19T10:08:28.266Z')), undefined);
+  assert.equal(costs.size, 1);
+});
+
+test('indexPublishedCosts: tolerates a missing or malformed export', () => {
+  assert.equal(indexPublishedCosts(null).size, 0);
+  assert.equal(indexPublishedCosts({ results: { 'model-a': 'nope' } }).size, 0);
 });

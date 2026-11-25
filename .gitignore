@@ -5,11 +5,17 @@ dist/
 .vercel
 .claude
 .DS_Store
-# Eval results: commit only summary.json (the cache fingerprints) so a new
-# contributor reuses the memoization cache; ignore the heavy transcripts/outputs.
+.eve
+.eve-sweep
+# Eval results: commit only summary.json (the cache fingerprints), usage.json
+# (the token counts the export prices) and classification.json (which says a
+# failure was the model's, so it is not rerun) so a new contributor reuses the
+# memoization cache; ignore the heavy transcripts/outputs.
 results/**
 !results/**/
 !results/**/summary.json
+!results/**/usage.json
+!results/**/classification.json
 evals/**/output-*/.worktrees/
 
 # Nuxt build outputs

@@ -40,7 +40,31 @@ This writes `agent-results.json`. A tier-1 model with an eval it hasn't run yet 
 
 Each experiment also gets an `avgCostUsd`: the mean list cost per eval. Tokens are read from each run's `transcript-raw.jsonl` (handled per harness in `scripts/cost.ts`) and multiplied by the list prices in `MODEL_PRICING`. A model with no price entry, or whose runs carry no token usage, exports `null` and renders as N/A. Prices are a snapshot, so re-run the export to refresh them.
 
+Transcripts are not committed, so the export saves each result's token counts next to its `summary.json` as `usage.json`, which is. A result with no transcript on disk, as in a fresh clone or in CI, is priced from that file. A result exported before `usage.json` existed keeps the cost already in `agent-results.json`.
+
 `pnpm run test:cost` runs the unit tests for the token extraction and pricing.
+
+## Automation
+
+An agent in `agent/`, built with [eve](https://eve.dev) and deployed on Vercel, keeps the board current. It never merges anything.
+
+| Schedule | What it does |
+|----------|--------------|
+| `tier1-watch`, daily | Keeps one `Tier 1 has evals to run` issue open while an eval change left tier-1 models with work |
+| `model-watch`, daily | Reads the AI Gateway catalog, probes new flagship models against the team's provider allowlist, and opens a pull request that registers one, following [AGENTS.md](AGENTS.md#adding-a-new-experiment-model) |
+| `publish-results`, daily | Opens or updates a pull request on nuxt/nuxt.com when `agent-results.json` on `main` differs from the published file |
+
+Evals cost money, so they only run when the maintainer comments `@nuxt-evals sweep` on a registration pull request or on the tier-1 issue. Nobody else's comment reaches the agent. The `sweep` tool then runs `agent-eval` in the agent's sandbox, one model at a time and up to four passes while evals are missing, exports, and commits the `summary.json`, `usage.json` and `classification.json` files and `agent-results.json`. `@nuxt-evals sweep smoke` runs one eval per model and commits nothing.
+
+The sweep uses the Vercel project's OIDC token for the gateway and the eval sandboxes, so no key is stored anywhere. It runs `main`'s scripts and takes only the experiment files from a pull request, and `pnpm run sweep plan` refuses an experiment that is not a plain config. Experiments on a harness other than `vercel-ai-gateway/*` are skipped, since the agent has no credentials for them. `pnpm run sweep plan` prints what a sweep would run, for free.
+
+The agent's GitHub App can open and edit pull requests and issues on nuxt/nuxt-evals and nuxt/nuxt.com and push `agent/*` branches, only in turns a schedule or the maintainer started. `agent/lib/github.ts` enforces it.
+
+```bash
+pnpm run test:agent        # the GitHub access rules
+pnpm run typecheck:agent
+npx eve dev                # run the agent locally
+```
 
 ## Models
 
@@ -128,7 +152,7 @@ Follow the checklist in [AGENTS.md](AGENTS.md#adding-a-new-experiment-model): th
 
 Mirrors [nextjs.org/evals](https://github.com/vercel/next-evals-oss#model-retention-policy). The published board has two tiers:
 
-- **Tier 1 (current)**: models with a complete run of the current eval set. Tier 1 carries the **latest model of each product line**, and a new version moves its predecessor to tier 2 once it has a complete run of its own. Sibling lines count separately, but only flagship or coding-focused models are measured: no budget or fast variants. A tier-1 model that goes stale because the eval set moved on gets rerun, not left on old measurements.
+- **Tier 1 (current)**: models with a complete run of the current eval set. Tier 1 carries the **latest model of each product line**, and a new version moves its predecessor to tier 2 once it has a complete run of its own. Sibling lines count separately, but only flagship or coding-focused models are measured: no budget or fast variants. A tier-1 model that goes stale because the eval set moved on gets rerun, not left on old measurements. Tier 1 only holds models the agent can rerun, which means a `vercel-ai-gateway/*` harness, so Cursor Composer is tier 2.
 - **Tier 2 (previously measured)**: every other model keeps its last measured results for reference, dated by its `timestamp`, and is not rerun.
 
 Tier 1 is scored over the full current eval set: an eval it never ran exports with `notAvailable: true` and counts as not passed until it is rerun. Tier 2 is scored over the evals it was measured on, so adding an eval doesn't lower it. An eval that changed since a model's last run keeps that last result.
@@ -142,16 +166,14 @@ pnpm run eval:tier1          # run it
 
 ## Publishing to nuxt.com/evals
 
-After running evals:
-
-1. Export results: `pnpm run export-results`
-2. Copy it to the nuxt.com repo:
+The agent opens the pull request on nuxt/nuxt.com once new results reach `main` (see [Automation](#automation)). To do it by hand:
 
 ```bash
+pnpm run export-results
 cp agent-results.json <path-to-nuxt.com>/public/agent-results.json
 ```
 
-3. Commit and deploy the nuxt.com repo
+Then open a pull request on nuxt/nuxt.com with that file.
 
 ## Current evals
 
