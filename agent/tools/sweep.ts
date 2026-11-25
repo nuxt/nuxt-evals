@@ -2,8 +2,8 @@ import { getVercelOidcToken } from '@vercel/oidc';
 import { defineWorkflowTool, type WorkflowStepToolContext } from 'eve/tools';
 import { sleep } from 'eve/workflow';
 import { z } from 'zod';
-import { DASHBOARD_MARKER, passProgress, withRunningLine } from '../lib/dashboard';
-import { BASE_BRANCH, githubApi, mayStartSweeps, REPOSITORY } from '../lib/github';
+import { BASE_BRANCH, mayStartSweeps, REPOSITORY } from '../lib/github';
+import type { ProgressLabel } from '../lib/progress';
 import { run, SWEEP_STATE, syncBase } from '../lib/sandbox';
 
 /** Infra failures are deleted, not counted, so the same run is the retry. */
@@ -157,29 +157,6 @@ async function startPass(ctx: WorkflowStepToolContext, name: string, pass: numbe
   return { evals: left.length };
 }
 
-interface ProgressLabel { what: string; model: number; models: number; passes: number }
-
-/**
- * Rewrites the dashboard's running line with how far the sweep got, so the
- * maintainer can follow it there. Best effort: a failed update never fails the
- * sweep.
- */
-async function reportProgress(label: ProgressLabel, name: string, pass: number, log: string) {
-  try {
-    const { started, finished, passed } = passProgress(log);
-    const time = new Date().toISOString().slice(11, 16);
-    const model = label.models > 1 ? ` (model ${label.model} of ${label.models})` : '';
-    const runs = started > 0 ? `, ${finished} of ${started} runs finished, ${passed} passed` : '';
-    const line = `${label.what}: \`${name}\`${model}, pass ${pass} of ${label.passes}${runs}. Checked ${time} UTC.`;
-    const issues = await githubApi<Array<{ number: number; body: string | null; pull_request?: unknown }>>('GET', `/repos/${REPOSITORY}/issues?state=open&per_page=100`);
-    const dashboard = issues.find((issue) => !issue.pull_request && issue.body?.includes(DASHBOARD_MARKER));
-    const body = dashboard?.body ? withRunningLine(dashboard.body, line) : null;
-    if (dashboard && body) await githubApi('PATCH', `/repos/${REPOSITORY}/issues/${dashboard.number}`, { body });
-  } catch (error) {
-    console.warn(`Could not update the dashboard's progress: ${error instanceof Error ? error.message : error}`);
-  }
-}
-
 async function checkPass(ctx: WorkflowStepToolContext, name: string, pass: number, stop: boolean, label: ProgressLabel): Promise<{ running: boolean; tail: string }> {
   'use step';
   const sandbox = await ctx.getSandbox();
@@ -192,6 +169,9 @@ async function checkPass(ctx: WorkflowStepToolContext, name: string, pass: numbe
   const tail = await sandbox.run({ command: `{ ${log} | grep -E '✓|✗|passed|failed|Error|error|skipping|not set' || ${log}; } | tail -15` });
   // The whole log, for the progress counts: the tail above drops early lines.
   const full = await sandbox.run({ command: `sed 's/\\x1b\\[[0-9;]*[A-Za-z]//g' ${STATE}/${name}-${pass}.log | tr '\\r' '\\n' | grep -E 'Starting [0-9]+ eval attempts|^[✓✗] '` });
+  // Loaded here, inside the step: the GitHub client pulls in Node.js APIs,
+  // which the workflow bundle refuses at the top of this module.
+  const { reportProgress } = await import('../lib/progress');
   await reportProgress(label, name, pass, full.stdout);
   return { running: state.stdout.trim() === 'running', tail: tail.stdout.trim() };
 }
