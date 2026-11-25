@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model was asked to simplify SEO meta tags using Nuxt's more ergonomic `useSeoMeta()` composable, but instead produced code using the verbose `useHead()` with explicit `meta: []` arrays. Tests failed because the code lacks `useSeoMeta` and the required OpenGraph/Twitter properties (ogTitle, ogDescription, ogImage, twitterCard, etc.)."
+}

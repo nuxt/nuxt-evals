@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that uses UForm with a manual validate function instead of a Zod schema. The tests expect :schema binding with Zod validation, but the model implemented :validate binding with a custom validation function, failing 3 out of 11 tests."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model made code changes but they don't meet the test requirements. It failed to implement a `#fallback` slot (via Suspense) to reserve space for the client component during SSR, and it still uses registration flags (`{client: true}`) instead of environment-based Vite plugin registration."
+}

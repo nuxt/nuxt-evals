@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code in multiple runs but implemented incorrect APIs. Tests show the navigation should use queryCollectionNavigation, but the model used fetchContentNavigation instead. Additionally, the catch-all page implementation was incomplete or missing required functionality. While runs 1&3 timed out, runs 2&4 both completed with model-generated code that failed the test requirements."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted to write code and did write a complete implementation with UModal, form inputs, and buttons, but the code doesn't match the test requirements exactly. Tests expect `v-model:open` but the model used `v-model`, tests expect an explicit `title` attribute/property but the model used heading text only, and tests expect explicit `#body` slot but the model didn't define it explicitly."
+}

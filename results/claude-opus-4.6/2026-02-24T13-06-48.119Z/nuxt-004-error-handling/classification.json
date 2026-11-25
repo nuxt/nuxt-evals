@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created a detailed plan for error handling (stored in .claude/plans directory) but never actually implemented it. It entered plan mode, created the plan file, then attempted to exit plan mode which failed with an error. No actual code files were created or modified (error.vue, pages/index.vue, plugins, or app.vue modifications) - only a planning markdown file was written. All 7 evaluation tests failed because the required implementation files don't exist."
+}

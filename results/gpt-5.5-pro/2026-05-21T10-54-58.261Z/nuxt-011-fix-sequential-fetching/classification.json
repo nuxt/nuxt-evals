@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code that optimized the data fetching using Promise.all and useAsyncData, but failed one test by using a template literal variable `${userId}` instead of keeping the hardcoded value `1` in the URL string. The test explicitly checks for the literal string pattern in the source code."
+}

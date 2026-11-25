@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted to fix the Nuxt module but failed to fully address all requirements. Specifically, it didn't namespace the composable (should be useBeaconTrack instead of useTrack) and didn't use moduleDependencies to declare the consent sub-module dependency; instead it used the deprecated installModule() approach."
+}

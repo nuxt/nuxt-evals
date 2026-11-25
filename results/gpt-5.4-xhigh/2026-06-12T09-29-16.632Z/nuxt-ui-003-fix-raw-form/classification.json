@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully replaced the raw HTML form with Nuxt UI components (UForm, UFormField, UInput) and the code builds successfully. However, the implementation uses a custom validate function instead of a Zod schema, missing the `:schema` binding that the eval tests require, and fails 3 out of 11 tests."
+}

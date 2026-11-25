@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted multiple solutions (reactive(), useAsyncData with refresh, removing await, v-model binding) but all failed the same test assertion checking for specific deep reactivity patterns. The test checks source code for patterns like {deep: true}, useState, or watch with deep option, none of which the model's solutions contained, indicating the model didn't understand the required implementation pattern."
+}

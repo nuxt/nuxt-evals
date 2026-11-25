@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code to display load time but used an SSR-unsafe pattern (direct new Date() in setup) causing hydration mismatch. The code lacks required SSR-safe patterns like useState, onMounted, ClientOnly, or <NuxtTime> component that would ensure server and client render the same value."
+}

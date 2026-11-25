@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created server API routes in the wrong directory structure (/workspace/app/server/api instead of /workspace/server/api), violating Nuxt 3 conventions where server routes must be at the project root level, not nested in the app directory."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code that displays the page load time but failed to use an SSR-safe pattern (useState, onMounted, or ClientOnly). The direct computation of new Date() in component setup causes hydration mismatch between server and client rendering in Nuxt."
+}

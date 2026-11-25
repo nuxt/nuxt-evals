@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model consistently wrote code using the incorrect Nuxt UI component name. The tests require `UDropdownMenu` component with `color: 'error'` for the destructive item, but all runs used `UDropdown` component with various color styling approaches (color: 'red', CSS classes, or missing color specifications). The model generated functional but incorrect code."
+}

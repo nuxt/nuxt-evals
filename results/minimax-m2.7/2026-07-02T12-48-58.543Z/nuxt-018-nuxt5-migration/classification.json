@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model made incomplete code changes for the Nuxt 5 migration. While it correctly updated the dedupe option to getCachedData: 'first' and enabled Nuxt 5 compatibility, it failed to fix the null guard check (user.value === null), which is incompatible with Nuxt 5's undefined default. The test explicitly requires removing the === null comparison."
+}

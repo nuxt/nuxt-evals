@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model consistently created app.config.ts in the wrong location (/vercel/sandbox/app/app.config.ts instead of /vercel/sandbox/app.config.ts). The test cannot find the file in the expected root location, resulting in validation failures for all configuration checks."
+}

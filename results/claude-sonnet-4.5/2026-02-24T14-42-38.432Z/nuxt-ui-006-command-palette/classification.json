@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "Model wrote code but used incorrect UCommandPalette API: used `commands` property instead of `items`, and `v-model` instead of `v-model:open`. 2 out of 8 tests failed due to these incorrect API usages."
+}

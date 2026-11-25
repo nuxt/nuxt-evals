@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model implemented comprehensive error handling (error.vue, plugins, composables) but failed to use NuxtErrorBoundary in app.vue or any page template. All 4 runs consistently failed the test \"A page or app.vue uses NuxtErrorBoundary\" because the generated templates only included NuxtRouteAnnouncer and NuxtPage, missing the required NuxtErrorBoundary wrapper."
+}

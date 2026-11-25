@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "Model wrote code but failed 4/11 tests. It used wrong components: missing UNavigationMenu for nav items, missing UPageHero for hero section, missing UPageSection for features, and kept raw nav element instead of converting to UNavigationMenu."
+}

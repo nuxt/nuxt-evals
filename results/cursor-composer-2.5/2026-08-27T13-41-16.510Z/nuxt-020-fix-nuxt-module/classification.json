@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model made code edits to fix the Nuxt beacon module but failed to complete the task correctly. While the model made partial progress (fixing component naming, route namespacing, CSS handling), it left critical issues unfixed: the composable is still named `useTrack` instead of being namespaced (e.g., `useBeaconTrack`), and the deprecated `installModule` was not replaced with `moduleDependencies`. All 4 runs resulted in 3-5 test failures instead of passing all tests."
+}

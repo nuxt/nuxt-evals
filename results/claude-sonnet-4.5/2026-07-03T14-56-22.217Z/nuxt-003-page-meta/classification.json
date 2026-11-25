@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote incomplete code. While it updated the page files with definePageMeta and useHead for dynamic titles, it failed to update app.vue to wrap NuxtPage with NuxtLayout component, which was required to enable proper layout support. Additionally, in some runs the code contained TypeScript type annotations that caused build failures."
+}

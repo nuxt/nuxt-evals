@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code changes but failed 3 tests: it didn't namespace the composable correctly, used deprecated installModule() instead of moduleDependencies, and failed to declare module dependencies in the meta configuration. The implementation was incomplete and did not follow Nuxt 4 module conventions properly."
+}

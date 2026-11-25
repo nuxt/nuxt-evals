@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created error handling code (error.vue with useError/clearError, onErrorCaptured hook) but failed to add the NuxtErrorBoundary component to app.vue or a page template as required by the test specification. It passed 4/5 tests but the test \"A page or app.vue uses NuxtErrorBoundary\" explicitly requires the component to be present in the template."
+}

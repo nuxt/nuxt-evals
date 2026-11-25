@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code but failed to implement Nuxt module best practices correctly. Consistent failures across 4 runs show the composable wasn't namespaced (useTrack instead of useBeaconTrack), module paths weren't resolved relative to the module using import.meta.url/dirname, and moduleDependencies weren't declared for the consent sub-module."
+}

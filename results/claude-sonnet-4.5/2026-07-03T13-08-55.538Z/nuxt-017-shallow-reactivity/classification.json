@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model correctly identified that reactivity wasn't working with checkboxes but misdiagnosed the root cause. It switched from `:checked` + manual handler to `v-model`, which doesn't solve the actual problem: `useFetch` returns data wrapped in a `shallowRef` by default, which doesn't track nested property mutations. The test expects the code to use deep reactivity (via `useState`, deep options, full array reassignment, or deep copying), but the model's v-model solution still doesn't work with shallowRef."
+}

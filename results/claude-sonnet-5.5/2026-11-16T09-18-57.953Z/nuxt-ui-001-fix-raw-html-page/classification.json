@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that replaces some raw HTML with Nuxt UI components (UButton, UCard, UNavigationMenu), but failed to use the required components: UHeader, UFooter, UPageHero, and UPageSection. All 4 runs produced incomplete refactoring code that passed only 3-5 of 11 tests."
+}

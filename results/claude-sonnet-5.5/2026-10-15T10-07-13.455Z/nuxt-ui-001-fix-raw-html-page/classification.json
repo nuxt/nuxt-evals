@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model replaced some raw HTML elements with Nuxt UI components (nav, buttons, cards, footer) but failed to replace the <header> element with UHeader, the hero <section> with UPageHero, and the features <section> with UPageSection. The tests expect these specific components but the generated code kept some structural elements as raw HTML."
+}

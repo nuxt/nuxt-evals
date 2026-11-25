@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated error handling infrastructure but failed to include error-triggering code (createError, throw, or showError) in the main app.vue file, which the test explicitly checks for. The test requires the app to demonstrate how to trigger or throw errors, not just set up error handling boundaries."
+}

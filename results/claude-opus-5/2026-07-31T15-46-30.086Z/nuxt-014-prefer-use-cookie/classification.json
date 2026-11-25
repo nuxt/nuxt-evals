@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that uses useCookie() with a constant variable (THEME_COOKIE/COOKIE_NAME) instead of a literal string containing 'theme'. The EVAL test specifically requires a literal string like useCookie('theme', ...) to pass the \"Cookie persists the theme preference\" test, but all 4 runs use a constant instead."
+}

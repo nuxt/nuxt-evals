@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "Model replaced raw `<img>` tags with NuxtPicture components but failed to preserve width/height HTML attributes on the rendered `<img>` element. The test requires width= and height= attributes to prevent Cumulative Layout Shift, but the model only passed these as Vue component props without ensuring they appear in the final HTML output."
+}

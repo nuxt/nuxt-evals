@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted the task and modified files, but produced incorrect implementations. Across all 4 runs, the code fails tests because: (1) some runs put API routes in wrong locations (/workspace/app/server/api instead of /workspace/server/api), (2) most implementations don't properly use runtimeConfig for the secret (e.g., calling external APIs instead), and (3) some don't use useFetch/useAsyncData as required. These are code correctness issues, not infrastructure or timeout problems."
+}

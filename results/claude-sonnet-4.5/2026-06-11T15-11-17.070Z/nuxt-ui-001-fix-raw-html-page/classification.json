@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code but used incorrect Nuxt UI components. It used UContainer, ULink, UButton, and UCard instead of the required UHeader, UNavigationMenu, UFooter, UPageHero, and UPageSection components. The tests show 8 failures for missing these specific components."
+}

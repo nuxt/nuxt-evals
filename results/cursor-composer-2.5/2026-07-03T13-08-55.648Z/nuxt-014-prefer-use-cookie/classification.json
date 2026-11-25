@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "Model wrote code using useColorMode() composable instead of the required useCookie() composable for cookie-based theme persistence. The test explicitly requires useCookie() to be called with a theme-related parameter, but the model's solution uses @nuxtjs/color-mode module instead."
+}

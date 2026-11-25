@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code for a dashboard layout but failed all 4 dashboard structure tests. The layout.vue file delegates to an AppDashboard component instead of containing the UDashboardGroup, UDashboardSidebar, and UNavigationMenu components directly, so tests checking for these components in the layout file fail."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that doesn't match test requirements. The tests expect `useCookie` to be used directly in the page component, but the model either used `useColorMode()` from `@nuxtjs/color-mode` package (runs 1-4) or wrapped it in a separate `useTheme()` composable (runs 2-3). While the code builds successfully and passes 6/8 tests, it fails the critical requirements of directly using `useCookie` and persisting theme via `useCookie`."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code but made architectural mistakes in file placement. It failed to correctly understand the Nuxt 4 project structure: pages were placed at root level instead of app/pages/ in most runs, and API routes were placed in app/server/api/ instead of root server/api/ in run 3, causing test failures for frontend and API route detection."
+}

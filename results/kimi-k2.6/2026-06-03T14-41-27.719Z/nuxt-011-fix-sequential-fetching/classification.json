@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model consistently failed to implement the correct Nuxt parallel fetching pattern. Tests require useAsyncData + Promise.all + $fetch, but the model generated useFetch-based solutions in all 4 attempts, failing 3 out of 7 tests in each run."
+}

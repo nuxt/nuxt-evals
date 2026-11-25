@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code using `:rows` prop for the UTable component instead of the correct Nuxt UI v4 API which requires `:data` prop. This API mismatch caused the test to fail consistently across all 4 runs."
+}

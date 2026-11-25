@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code using `await useFetch` with a reactive URL function, but this doesn't properly re-fetch when the reactive dependency changes. The test expects the fetch to be re-triggered when userId changes, which requires either not awaiting useFetch, using a watch option, or manually watching for changes. All 4 runs consistently fail the same test."
+}

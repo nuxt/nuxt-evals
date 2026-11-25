@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code with a separate UsersManagementPage component containing the UTable, UInput, and filtering logic correctly implemented. However, the test expects these elements to be directly in the page file. The model's page files only contain `<UsersManagementPage />` instead of the actual UTable code, causing 6 of 8 tests to fail."
+}

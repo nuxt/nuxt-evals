@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that displays the page load time but failed to use an SSR-safe pattern. It computed the timestamp directly in script setup using `new Date()`, which causes hydration mismatch in Nuxt SSR. The test requires using patterns like `useState()`, `onMounted()`, `<ClientOnly>`, or similar to handle non-deterministic values safely."
+}

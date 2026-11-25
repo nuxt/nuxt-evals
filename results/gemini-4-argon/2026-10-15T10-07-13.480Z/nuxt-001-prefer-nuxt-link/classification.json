@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model converted external URLs to NuxtLink components incorrectly. External links with href=\"https://...\" should have remained as regular `<a>` tags, not been converted to `<NuxtLink to=\"...\">` components."
+}

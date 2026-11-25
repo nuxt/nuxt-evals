@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully generated code for 3 page files with proper meta setup and dynamic titles, but failed to update app.vue to wrap NuxtPage in a NuxtLayout component, causing 1 of 7 tests to fail (6 passed, 1 failed)."
+}

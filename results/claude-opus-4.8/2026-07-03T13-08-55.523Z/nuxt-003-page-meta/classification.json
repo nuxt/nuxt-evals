@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated working code that sets dynamic blog titles based on the slug parameter (confirmed by runtime verification), but the code structure doesn't match the test's regex pattern which expects `computed` and `slug` to appear within 160 characters of each other with `title:` also present in that pattern. The test failed on a code pattern match even though functionality works."
+}

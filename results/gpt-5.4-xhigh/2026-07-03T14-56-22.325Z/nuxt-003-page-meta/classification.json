@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully implemented definePageMeta with titles and layouts in the page files, but failed to modify app.vue to use the NuxtLayout component as required by the test \"app.vue uses NuxtLayout for layout support\". This incomplete implementation causes test failures across all runs."
+}

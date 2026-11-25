@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model correctly added Nuxt 5 compatibility mode to the config and updated the client-side data fetching, but failed to add the required import of `defineEventHandler` from `nuxt/server` to the server API handler. When `compatibilityVersion: 5` disables Nitro auto-imports, this import is mandatory to avoid runtime errors."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model consolidated the duplicate currency utilities into /workspace/utils/currency.ts following standard Nuxt 3 conventions, but the test expects them to be in a /workspace/shared/ directory instead. The model produced working code that resolved the duplication, but placed it in the wrong location as specified by the test requirements."
+}

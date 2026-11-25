@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully updated 3 page files with definePageMeta and useHead calls, but failed to update app.vue to wrap <NuxtPage /> with <NuxtLayout>. The test \"app.vue uses NuxtLayout for layout support\" failed because the model did not modify app.vue to include the NuxtLayout component, which is required for the layout system to work properly."
+}

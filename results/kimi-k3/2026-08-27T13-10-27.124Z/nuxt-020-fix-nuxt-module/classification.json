@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code to fix the Nuxt module but made 3 specific errors: (1) composable not namespaced (used `as: 'useTrack'` instead of a module-prefixed name), (2) used deprecated `installModule()` instead of declaring module dependency in `moduleDependencies`, (3) failed to properly declare the consent sub-module as a module dependency. 11 of 14 tests passed, 3 failed."
+}

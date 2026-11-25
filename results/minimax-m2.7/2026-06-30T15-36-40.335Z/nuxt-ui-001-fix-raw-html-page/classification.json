@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code that uses incorrect or missing Nuxt UI components. Across all runs, the code either uses wrong components (e.g., UHorizontalNavigation instead of UNavigationMenu, UPageSection instead of UPageHero) or raw HTML elements instead of the required Nuxt UI components. The code builds successfully but fails the eval tests that check for specific component usage."
+}

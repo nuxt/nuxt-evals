@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model used <NuxtImg> components instead of <NuxtImage> components. The test expects either NuxtImage, NuxtPicture, nuxt-image, or nuxt-picture components, but the model used NuxtImg which does not match the test regex pattern."
+}

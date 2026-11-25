@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that calls new Date() directly in the setup phase, causing hydration mismatch. It failed to use SSR-safe patterns like useState(), useAsyncData(), onMounted(), onNuxtReady(), or <ClientOnly> as required by the test."
+}

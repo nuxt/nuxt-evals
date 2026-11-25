@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted to reassign globalThis.$fetch (non-configurable in Nuxt), and failed to properly wire the authenticated fetch client into composables and component calls. Test failures show the model tried anti-patterns: reassigning globals and not routing all API calls through the auth-aware client."
+}

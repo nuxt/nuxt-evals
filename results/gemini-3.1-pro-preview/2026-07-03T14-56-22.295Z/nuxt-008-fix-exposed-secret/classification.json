@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model investigated the codebase but failed to implement the required refactoring: it never created the server/api directory, never created a server route with runtimeConfig, and never modified the page to use useFetch/useAsyncData to hide the apiSecret. All attempts timed out after investigating without making code changes."
+}

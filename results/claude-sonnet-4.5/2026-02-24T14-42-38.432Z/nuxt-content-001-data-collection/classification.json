@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created JSON files and a team page but failed to create the required content.config.ts file. It incorrectly attempted to configure the Nuxt Content collection using sources in nuxt.config.ts instead of properly defining a data collection type in content.config.ts, causing 4 out of 6 tests to fail consistently across all runs."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that creates a working dashboard app but failed to use the UDashboardNavbar component in the page header as required by the test. Instead, it used custom navbar components (DashboardTopbar/WorkspaceNavbar)."
+}

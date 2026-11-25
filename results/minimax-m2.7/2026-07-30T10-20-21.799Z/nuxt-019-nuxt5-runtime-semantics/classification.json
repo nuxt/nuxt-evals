@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote incorrect code. It changed `{ server: false }` to `{ client: true }` to target plugin environment, but this doesn't prevent config hooks from running as the test expects. The test specifically requires using `applyToEnvironment` or `configEnvironment` APIs for Nuxt 5 single-environment registration that avoids running config-time hooks. The model's approach is fundamentally incompatible with the test requirements."
+}

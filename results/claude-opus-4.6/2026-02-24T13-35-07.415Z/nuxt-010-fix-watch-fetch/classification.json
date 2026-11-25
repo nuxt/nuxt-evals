@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model refactored the code to use useFetch() with a getter function pattern, which is idiomatic Nuxt but failed the test that checks for \"computed URL or reactive pattern for refetching.\" The test expects a different reactive pattern (likely computed() or watch option) and the model's getter function approach doesn't match the test's regex pattern detection."
+}

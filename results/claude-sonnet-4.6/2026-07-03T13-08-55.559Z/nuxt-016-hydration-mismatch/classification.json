@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code that directly calls `new Date().toLocaleTimeString()` in script setup, which is not SSR-safe and causes hydration mismatch. The test requires SSR-safe patterns like useState, onMounted, or ClientOnly wrapper."
+}

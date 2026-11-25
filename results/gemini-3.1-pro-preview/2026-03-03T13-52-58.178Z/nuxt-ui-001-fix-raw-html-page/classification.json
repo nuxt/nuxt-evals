@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "Model generated code that uses UContainer and plain HTML sections instead of the required Nuxt UI components (UHeader, UFooter, UPageHero, UPageSection). Code compiles successfully but fails 4/11 test assertions that check for specific component usage."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully generated code but failed to meet test requirements. It added NuxtErrorBoundary to app.vue instead of the index page, and the tests specifically require the index page to use NuxtErrorBoundary and have an error slot template."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully wrote code to fix the Nuxt module but made critical mistakes: (1) exported composable `useTrack` without namespace prefix instead of properly namespaced name, and (2) used deprecated `installModule()` API instead of declaring consent as a module dependency in the `moduleDependencies` option. These failures caused 3 of 14 tests to fail."
+}

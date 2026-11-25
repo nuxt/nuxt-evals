@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code but failed to use the required Nuxt UI components (UHeader, UNavigationMenu, UFooter, UPageHero, UPageSection). Instead, it replaced only some HTML elements (like button/container) with Nuxt UI components while keeping header, nav, footer, and section tags as raw HTML."
+}

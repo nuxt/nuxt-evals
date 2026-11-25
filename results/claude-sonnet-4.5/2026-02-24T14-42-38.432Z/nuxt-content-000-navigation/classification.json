@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code to create a documentation site with navigation, but the implementation is incorrect. It failed to create a content.config.ts file, used the wrong Nuxt Content API (fetchContentNavigation instead of queryCollectionNavigation), and the navigation component implementation doesn't match the test requirements."
+}

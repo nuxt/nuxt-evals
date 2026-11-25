@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model replaced raw HTML with Nuxt UI components but did not include explicit UButton or NuxtLink elements in the source code. Instead, it passed button configurations via the `links` prop to `UPageHero`, which internally renders buttons. The test expects the literal text \"UButton\" or \"NuxtLink\" to appear in the Vue source files, which the model's implementation does not satisfy."
+}

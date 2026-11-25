@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code but failed 3 out of 14 eval tests: it used the deprecated `installModule()` to load the consent submodule instead of declaring it in `moduleDependencies`, and it didn't namespace the `useTrack` composable (should be `useBeaconTrack`). The build succeeded and the model's manual verification showed functional fixes, but the implementation didn't meet the test requirements."
+}

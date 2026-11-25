@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that attempted to fix the Nuxt module but failed multiple test requirements: it still uses the deprecated `installModule()` API instead of `moduleDependencies`, doesn't properly namespace the composable, and has server route issues. The model produced code (file_write successful) but it contains bugs that fail the eval tests across all 4 runs."
+}

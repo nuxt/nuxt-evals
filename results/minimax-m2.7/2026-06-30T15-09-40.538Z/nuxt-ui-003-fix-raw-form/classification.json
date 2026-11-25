@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated incorrect code that fails tests. The tests require UForm to have :schema and :state bindings, and the code to use reactive() for state management, but the model generated code using individual refs without proper bindings instead."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code that modified app/pages/index.vue with Nuxt UI components, but chose to use generic UContainer, ULink, UButton, UCard, and UPageGrid instead of the specifically required UHeader, UNavigationMenu, UFooter, UPageHero, and UPageSection components. The code compiles but fails 5/11 tests that check for these specific component names."
+}

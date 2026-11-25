@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model correctly identified the flickering/stale data issue and replaced the manual $fetch pattern with useFetch for SSR and reactivity. However, the test expects one of three specific reactive patterns (computed(), ref with computed getter, or watch option), and the model's arrow function URL (() => `/api/users/${userId.value}`) doesn't match any of those patterns, causing the test to fail."
+}

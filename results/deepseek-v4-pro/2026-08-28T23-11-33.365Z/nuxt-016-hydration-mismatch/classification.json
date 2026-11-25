@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code that displays the page load time but failed to use an SSR-safe pattern (like useState, onMounted, or ClientOnly). Instead, it created new Date() directly in script setup, causing hydration mismatch on the server vs client."
+}

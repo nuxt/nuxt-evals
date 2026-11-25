@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code using useLazyFetch instead of the expected useFetch or useAsyncData composable, and the implementation doesn't satisfy the test requirements for reactive URL patterns. Tests failed on \"Uses useFetch or useAsyncData\" and \"Uses computed URL or reactive pattern for refetching\" while passing the more functional tests."
+}

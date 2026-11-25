@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code with incorrect property names for UCommandPalette groups. Tests expect groups with an `items` property, but the model created groups with `commands` property instead. The model attempted the task but produced code that doesn't conform to the Nuxt UI component API."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code to parallelize data fetching using Promise.all with useFetch, but the eval tests required using useAsyncData with $fetch instead. The model understood the problem and implemented a working optimization, but chose the wrong Nuxt pattern for the solution."
+}

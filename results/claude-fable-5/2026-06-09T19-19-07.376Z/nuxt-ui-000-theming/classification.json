@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created app.config.ts in the incorrect directory (/workspace/app/app.config.ts) instead of the root project directory (/workspace/app.config.ts). Nuxt expects app.config.ts to be at the root level, causing the test runner to fail to find the file and resulting in 6 test failures related to app.config.ts not being found."
+}

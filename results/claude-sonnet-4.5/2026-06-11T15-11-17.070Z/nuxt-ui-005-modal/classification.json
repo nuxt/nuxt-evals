@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code that doesn't use the correct Nuxt UI UModal syntax. It used `v-model=\"isOpen\"` instead of `v-model:open`, lacks a `title` property/attribute, and doesn't use the `#body` slot for the form content as required by the tests (3 test failures out of 11)."
+}

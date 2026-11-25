@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model replaced native HTML form elements with Nuxt UI components (UForm, UFormField, UInput) but used the wrong validation approach. It created a custom validate() function instead of using a Zod schema, and bound `:validate` instead of `:schema` to UForm. The EVAL tests explicitly require Zod schema validation without manual validation functions."
+}

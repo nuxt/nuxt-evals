@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted to replace raw HTML with Nuxt UI components but failed to use the required components. Specifically, it did not use UPageHero for the hero section and UPageSection for the features section, instead leaving raw <section> elements. The code was generated but is incorrect."
+}

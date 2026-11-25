@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully created error handling infrastructure (error.vue and NuxtErrorBoundary) but failed to add any code that actually triggers errors. The test requires code containing patterns like createError, throw, or showError, which the model never generated."
+}

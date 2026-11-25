@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code for error handling but failed to wrap the content with NuxtErrorBoundary in app.vue or a page component. The EVAL test \"A page or app.vue uses NuxtErrorBoundary\" expects to find NuxtErrorBoundary in the template, but the model's code only has NuxtLayout and NuxtPage without the error boundary wrapper."
+}

@@ -1,0 +1,22 @@
+{
+  "runs": [
+    {
+      "input": 105,
+      "output": 15684,
+      "cacheRead": 1236845,
+      "cacheWrite": 49724
+    },
+    {
+      "input": 84,
+      "output": 17135,
+      "cacheRead": 964939,
+      "cacheWrite": 50691
+    },
+    {
+      "input": 81,
+      "output": 17725,
+      "cacheRead": 895297,
+      "cacheWrite": 47830
+    }
+  ]
+}

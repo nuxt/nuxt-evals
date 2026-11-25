@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code that failed the test requirements by using document.cookie directly and manual cookie parsing in inline scripts, rather than relying solely on Nuxt's useCookie composable. While it correctly created a useTheme composable using useCookie, it added an inline blocking script that parsed cookies manually instead of finding a pure useCookie-based solution."
+}

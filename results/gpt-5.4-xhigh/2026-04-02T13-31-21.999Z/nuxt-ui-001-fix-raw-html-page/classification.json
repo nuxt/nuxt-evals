@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that replaced raw HTML with Nuxt UI components, but failed to use UNavigationMenu for navigation items as required by the test. Instead, it used a loop of UButton components, causing 1 of 11 tests to fail."
+}
