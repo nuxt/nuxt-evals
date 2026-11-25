@@ -71,6 +71,24 @@ export function runningLine(body: string): string | null {
   return line && line !== '_Nothing._' ? line : null;
 }
 
+/** `body` with its running line replaced, or null when the body has no running block. */
+export function withRunningLine(body: string, line: string): string | null {
+  if (!RUNNING.test(body)) return null;
+  return body.replace(RUNNING, `<!-- running -->\n${line.replace(/\n/g, ' ')}\n<!-- /running -->`);
+}
+
+/**
+ * How far one `agent-eval run` pass got, from its log: the attempts it
+ * started, and the ones that finished with a ✓ or ✗. Early exit stops the
+ * remaining attempts of an eval once one passes, so `finished` can stay below
+ * `started`.
+ */
+export function passProgress(log: string): { started: number; finished: number; passed: number } {
+  const started = Number(log.match(/Starting (\d+) eval attempts/)?.[1] ?? 0);
+  const results = log.match(/^[✓✗] \S+\/\S+ \[\d+\/\d+\]/gm) ?? [];
+  return { started, finished: results.length, passed: results.filter((line) => line.startsWith('✓')).length };
+}
+
 export function renderDashboard(state: DashboardState): string {
   const box = (id: string, label: string) => ` - [ ] <!-- ${id} -->${label} \`${id}\``;
   const total = state.tier1.reduce((sum, { evals }) => sum + evals, 0);
