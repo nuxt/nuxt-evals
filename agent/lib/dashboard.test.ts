@@ -1,7 +1,7 @@
 /** Run with: pnpm test:agent */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { newlyChecked, renderDashboard, runningLine } from './dashboard.ts';
+import { actionsInComment, newlyChecked, renderDashboard, runningLine } from './dashboard.ts';
 
 const state = {
   tier1: [{ name: 'gemini-4-carbon', evals: 2, missing: ['nuxt-020-fix-nuxt-module', 'nuxt-021-custom-fetch-client'] }],
@@ -40,8 +40,18 @@ test('the running line survives a refresh and clears', () => {
   assert.equal(runningLine(renderDashboard(state)), null);
 });
 
+test('a comment names actions by id', () => {
+  assert.deepEqual(actionsInComment('@nuxt-evals sweep-tier1'), [{ id: 'sweep-tier1' }]);
+  assert.deepEqual(actionsInComment('@nuxt-evals sweep-pr-71 then run-publish-results, sweep-pr-71'), [
+    { id: 'sweep-pr-71', pullRequest: 71 },
+    { id: 'run-publish-results' },
+  ]);
+  assert.deepEqual(actionsInComment('@nuxt-evals what is left?'), []);
+  assert.deepEqual(actionsInComment('@nuxt-evals not-sweep-tier1x'), []);
+});
+
 test('an empty tier 1 has no sweep box', () => {
   const body = renderDashboard({ ...state, tier1: [], registrations: [] });
-  assert.equal(body.includes('sweep-tier1'), false);
+  assert.equal(body.includes('<!-- sweep-tier1 -->'), false);
   assert.match(body, /Every tier-1 model has a current result/);
 });
