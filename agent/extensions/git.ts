@@ -7,6 +7,6 @@ export default git({
     broker: brokerGitHubLease,
     principalType: 'app',
     authorize,
-    permissions: ['contents:write', 'pull_requests:write'],
+    permissions: ['contents:write', 'pull_requests:write', 'issues:write'],
   },
 });
