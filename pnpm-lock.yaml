@@ -5,9 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  '@vercel/agent-eval@3.0.0':
-    hash: 253bff302dd9a4a9bdd4a5a1b64fef334dfecfc1a9b4ccd7228ddcc9b9a63cf6
-    path: patches/@vercel__agent-eval@3.0.0.patch
+  '@vercel/agent-eval@3.0.0': 253bff302dd9a4a9bdd4a5a1b64fef334dfecfc1a9b4ccd7228ddcc9b9a63cf6
 
 importers:
 
