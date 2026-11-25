@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created app.config.ts and pages/index.vue files with reasonable implementation, but the tests failed because getAppConfigContent() returned undefined, indicating the test infrastructure couldn't find or properly read the created configuration file. The build succeeded but 6 out of 9 tests failed."
+}

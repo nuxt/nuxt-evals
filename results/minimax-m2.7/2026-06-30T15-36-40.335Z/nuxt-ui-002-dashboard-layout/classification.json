@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated incorrect code using wrong Nuxt UI components. Tests show it used UVerticalNavigation instead of UNavigationMenu, and used UDashboardLayout instead of UDashboardGroup in multiple runs. The model completed its task but wrote code that failed 1-4 tests consistently across all 4 runs."
+}

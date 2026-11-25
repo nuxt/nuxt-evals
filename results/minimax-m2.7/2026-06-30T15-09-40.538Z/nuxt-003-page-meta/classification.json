@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully made code edits to 3 page files, but failed to add the NuxtLayout wrapper component to app.vue as required by the test. The model read app.vue but didn't modify it, leaving the layout system incomplete."
+}

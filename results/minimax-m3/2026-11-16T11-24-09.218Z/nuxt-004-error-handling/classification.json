@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created app/error.vue correctly but failed to add NuxtErrorBoundary wrapper to app/app.vue. The test requires both a global error page (which was created) AND either a page or app.vue to use NuxtErrorBoundary (which was missing in 3 of 4 runs)."
+}

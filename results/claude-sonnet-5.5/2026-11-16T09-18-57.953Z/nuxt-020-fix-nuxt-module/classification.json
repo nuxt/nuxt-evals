@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that fixed most module issues (12/14 tests passed) but failed to use the modern `moduleDependencies` API, instead using the deprecated `installModule()` function for the consent sub-module dependency, causing 2 test failures."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code changes to fix the Nuxt module but only partially resolved the issues. It failed to namespace the composable (useTrack should be namespaced), declare moduleDependencies for the consent module, and used deprecated installModule() instead of the proper moduleDependencies approach. 3 of 14 tests failed."
+}

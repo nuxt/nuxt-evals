@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model modified the beacon module but failed 4 of 14 tests. It used deprecated `installModule()` instead of `moduleDependencies`, didn't namespace the composable (should be `useBeaconTrack` not `useTrack`), and didn't statically define the server route, causing route shadowing issues."
+}

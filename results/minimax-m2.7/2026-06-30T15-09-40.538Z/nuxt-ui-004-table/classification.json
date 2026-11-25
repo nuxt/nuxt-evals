@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code using the incorrect UTable prop `:rows=\"filteredUsers\"` instead of the correct `:data` prop required for Nuxt UI v4. The test explicitly expects `:data` as the correct pattern."
+}

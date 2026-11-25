@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated functionally correct code that uses `const { public: { appName } } = useRuntimeConfig()` to access runtime config, but the test expected to find the literal pattern `config.public|runtimeConfig.public|useRuntimeConfig().public` in the code. The model used destructuring syntax instead of the expected inline access pattern, causing test \"Frontend accesses public config correctly\" to fail while 6/7 other tests passed and the build succeeded."
+}

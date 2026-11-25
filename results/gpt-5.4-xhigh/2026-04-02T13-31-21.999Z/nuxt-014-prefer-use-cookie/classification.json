@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model refactored the theme code but chose to use useColorMode() or a custom useTheme() composable instead of the required useCookie composable. All 4 runs failed the test expecting /useCookie/ in the page content, even though the implemented solutions technically work for theme toggling."
+}

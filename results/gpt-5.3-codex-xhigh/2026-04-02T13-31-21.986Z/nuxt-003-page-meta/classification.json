@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully implemented page metadata and dynamic titles in the page components, but failed to modify app.vue to include the <NuxtLayout> component needed for proper layout support. 6 out of 7 tests passed, but the test \"app.vue uses NuxtLayout for layout support\" failed because app.vue was never updated from its original scaffold."
+}

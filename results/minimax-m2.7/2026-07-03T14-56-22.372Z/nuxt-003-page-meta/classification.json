@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully edited the page files to add definePageMeta and useHead, but failed to modify app.vue to wrap the content in a NuxtLayout component. This is required for layout support to function properly. 7 of 8 tests pass, but the critical app.vue modification was not completed."
+}

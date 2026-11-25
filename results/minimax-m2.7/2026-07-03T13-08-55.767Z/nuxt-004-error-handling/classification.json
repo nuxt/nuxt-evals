@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created error.vue and updated the layout, but failed to add NuxtErrorBoundary component to app.vue or a page component. The test \"A page or app.vue uses NuxtErrorBoundary\" explicitly checks for this component's presence, which was missing from the model's implementation."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code but failed to meet requirements. It used a manual validation function instead of a Zod schema, missing 3 critical tests: lacks :schema binding, has manual validate function (should not), and doesn't use Zod object validation."
+}

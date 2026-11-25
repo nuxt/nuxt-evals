@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code for all three pages but failed the blog page test requirement. The test expects the blog page to use `useHead` or `useSeoMeta` for reactive meta updates, but the model only used `definePageMeta` with dynamic arrow functions instead, which doesn't satisfy the test requirement."
+}

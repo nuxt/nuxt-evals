@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model optimized the data fetching to use parallel requests with Promise.all, but used useFetch instead of the canonical pattern of useAsyncData + Promise.all($fetch, $fetch) that the tests required. The code is functionally correct but doesn't match the specific implementation tested."
+}

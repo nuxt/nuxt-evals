@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code changes but implemented an incorrect solution. The beacon module still uses deprecated `installModule()` instead of `moduleDependencies`, and the composable is not properly namespaced (should be `useBeaconTrack` not `useTrack`). Test results: 11 passed, 3 failed across all 4 runs."
+}

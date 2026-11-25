@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created a useTheme() composable that internally uses useCookie, but the page component only references useTheme(). The tests expect the literal string \"useCookie\" to appear in the page content, which failed in all 4 runs. Additionally, some runs used alternative libraries like @nuxtjs/color-mode instead of useCookie."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code changes to modules/beacon/index.ts but failed to implement three key requirements: (1) the composable is not namespaced (should be 'useBeaconTrack' not 'useTrack'), (2) missing moduleDependencies declaration for the consent module, and (3) continues using deprecated installModule() instead of proper module dependencies. All three test failures are due to incorrect code implementation."
+}

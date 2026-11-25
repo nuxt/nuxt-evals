@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code changes (StatPanel.vue with ClientOnly wrapper and updated analytics-optimize.ts module), but the code fails the tests. Test failures indicate the implementation doesn't properly reserve space for the stats panel and/or properly maintain client-only behavior. The build succeeded but 2 out of 5 tests failed."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully implemented definePageMeta and useHead for multiple pages (passing 6/7 tests), but failed to update app.vue to wrap content with <NuxtLayout> component, which is required for layout support to work."
+}

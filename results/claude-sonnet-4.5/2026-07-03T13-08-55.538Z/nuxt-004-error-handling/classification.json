@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated error handling code but failed to use Nuxt's built-in NuxtErrorBoundary component consistently across runs. Runs 1-3 created a custom ErrorBoundary component instead of using NuxtErrorBoundary. Run 4 used NuxtErrorBoundary correctly but placed error.vue in the wrong directory (/workspace instead of /workspace/app). All 4 runs failed at least one test requirement."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that creates a hydration mismatch in Nuxt. It used `new Date().toLocaleTimeString()` directly in the script setup, which produces different values on server vs client rendering. The EVAL explicitly requires SSR-safe patterns like useState, onMounted, or ClientOnly to prevent hydration mismatch."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code to fix sequential fetching using Promise.all with useFetch, but the test required useAsyncData with $fetch. The implementation is incorrect per the test specifications."
+}

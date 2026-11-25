@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted the Nuxt 3 to Nuxt 4 migration and successfully completed most tasks (moved directories, upgraded packages, build passed), but failed to update tsconfig.json to use Nuxt 4's required \"project references\" structure. The eval test clearly shows the tsconfig.json still contains the old Nuxt 3 \"extends\" pattern instead of the new Nuxt 4 format, causing 1 of 13 tests to fail."
+}

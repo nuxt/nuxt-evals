@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code (modified api.ts and nuxt.config.ts with a Proxy-based solution), but the solution failed the eval tests. The critical failure was violating the constraint \"Nothing reassigns the global $fetch\" - the model added modifications to both files when the requirement was to leave them untouched. Additionally, components still used bare $fetch instead of the custom client. The approach was fundamentally incorrect."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model modified the page component to use Nuxt UI components but failed to wrap the CTA links in either UButton or NuxtLink components as required by the test. The heroLinks were passed to UPageHero as data instead of being rendered as explicit button/link components."
+}

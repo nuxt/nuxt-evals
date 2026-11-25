@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted to fix two issues in a Nuxt 5 app but the solutions failed the functional tests. The model renamed StatsPanel.client.vue to StatsPanel.vue and wrapped the template with <ClientOnly>, which doesn't maintain the required .client.vue naming convention that the test explicitly checks for. Additionally, the test \"Client-only stats panel still reserves its space\" fails, indicating the fallback mechanism isn't working as expected. Both critical fixes failed in runs 1 and 2, and runs 3-4 failed due to infrastructure issues (tsconfig errors). The model wrote code but it doesn't satisfy the requirements.</failureReason>\n</invoke>"
+}

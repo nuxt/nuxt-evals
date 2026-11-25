@@ -1,0 +1,10 @@
+{
+  "runs": [
+    {
+      "input": 8,
+      "output": 1023,
+      "cacheRead": 51164,
+      "cacheWrite": 18492
+    }
+  ]
+}

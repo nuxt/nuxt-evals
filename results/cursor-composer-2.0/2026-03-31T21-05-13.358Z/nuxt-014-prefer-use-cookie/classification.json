@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created a wrapper composable that internally uses useCookie, but failed to use useCookie directly in the page component. The tests explicitly require the page code to contain the useCookie call and a theme variable initialization, which the model's abstraction approach did not satisfy."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created functionally correct code but placed the command palette logic in a separate component rather than on the index page itself. Tests expect UCommandPalette, :groups prop, and defineShortcuts to be directly on the index page, but the model moved this logic to AppCommandPalette.vue and only left simplified UI on the index page."
+}

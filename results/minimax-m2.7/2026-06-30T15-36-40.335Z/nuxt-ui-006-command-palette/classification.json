@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code in all runs but failed to meet test requirements. It used incorrect component names (CommandPalette vs UCommandPalette), wrong property names (key vs id), incorrect keyboard binding approach (addEventListener vs defineShortcuts), and missing visibility control (no v-model:open)."
+}

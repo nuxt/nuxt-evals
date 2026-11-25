@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code using the UDropdown component instead of the required UDropdownMenu component. While 8 of 9 tests passed, the critical test \"Uses UDropdownMenu component\" failed because the code implemented the dropdown with the wrong component."
+}

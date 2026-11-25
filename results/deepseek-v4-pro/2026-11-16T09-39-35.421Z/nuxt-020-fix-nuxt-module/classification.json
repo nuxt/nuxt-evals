@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code to fix a Nuxt module's architecture but failed to properly namespace the composable export. The composable should be named `useBeaconTrack` (to include the module name \"beacon\") but the model exported it as just `useTrack`, causing the test \"The module composable is namespaced\" to fail. 13 out of 14 tests pass, demonstrating the model attempted the task but made a specific implementation error."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model consistently created API routes and pages in incorrect directory paths (under app/ subdirectories instead of directly under the workspace root as expected by Nuxt's default structure), causing tests to fail when looking for server/api and pages directories."
+}

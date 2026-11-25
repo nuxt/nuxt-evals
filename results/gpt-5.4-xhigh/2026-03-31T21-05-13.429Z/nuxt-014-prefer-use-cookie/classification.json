@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created a wrapper composable around useCookie instead of calling useCookie directly in the page component. The tests specifically require useCookie to be present in the page content, failing the \"Uses useCookie composable\" and \"Cookie persists the theme preference\" tests."
+}

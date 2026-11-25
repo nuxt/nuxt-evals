@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created a useTheme composable that internally uses useCookie, but the page component only destructures from the composable and doesn't directly use useCookie. The tests require useCookie to be present in the page content (/useCookie/ regex match), which the generated code doesn't provide."
+}

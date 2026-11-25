@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model converted raw img tags to NuxtPicture components (7/8 tests pass) but failed to properly preserve width/height attributes on the rendered img elements to prevent Cumulative Layout Shift (test 7 fails). The width/height data was stored in JS objects but not passed as HTML attributes to the NuxtPicture components."
+}

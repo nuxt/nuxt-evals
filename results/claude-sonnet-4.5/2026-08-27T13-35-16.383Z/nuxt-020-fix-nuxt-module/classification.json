@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that partially addresses the requirements but fails 3 critical tests: the composable is not namespaced (should be useBeaconTrack or similar), the consent module is not declared in moduleDependencies (still uses deprecated installModule instead), and installModule is still being used."
+}

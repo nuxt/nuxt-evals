@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code using Nuxt UI components but implemented validation incorrectly. The tests require a Zod schema with :schema binding and no manual validate function, but the model used a :validate prop with a manual validation function instead, failing 3 of 11 tests."
+}

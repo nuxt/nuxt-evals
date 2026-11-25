@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created an error.vue file (passing 4 tests), but failed to add NuxtErrorBoundary to app.vue as required. The test expects NuxtErrorBoundary to be present in either a page or app.vue component, but the model did not modify app.vue and incorrectly stated the wrapper was unnecessary for a starter app."
+}

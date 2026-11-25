@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model used useCookie in a composable (useTheme.ts) rather than directly in the page component. The tests explicitly check that useCookie appears in the page content, but the model's implementation only has it in the composable. While the implementation is architecturally sound and functional (theme persists via useCookie), it fails the specific test requirements that expect useCookie to be present in index.vue."
+}

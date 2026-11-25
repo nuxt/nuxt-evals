@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully performed the directory migration (moved files to app/) and updated nuxt/package versions, but failed to properly update tsconfig.json for Nuxt 4. The test requires tsconfig.json to use project references with \"references\" and \"tsconfig.app.json\", but the model either didn't update it (runs 1-2) or reverted it to the old Nuxt 3 \"extends\" format (run 3)."
+}

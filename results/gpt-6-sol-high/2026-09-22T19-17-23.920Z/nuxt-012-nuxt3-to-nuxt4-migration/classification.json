@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully moved files into the app/ directory but failed to delete the old root-level directories (pages/, components/, layouts/, middleware/, composables/). The test expects these directories to be fully cleaned up (0 remaining), but 5 remain. The model's patch operation moved files but left the source directories behind."
+}

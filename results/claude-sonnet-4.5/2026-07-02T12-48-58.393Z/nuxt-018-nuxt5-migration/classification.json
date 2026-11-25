@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted the migration but produced incorrect code. Most runs failed to change the null guard (`user.value === null`) to check for undefined instead, which is required for Nuxt 5 compatibility where the default is undefined, not null. Additionally, runs 3-4 either omitted the compatibility flag or set it to the wrong version."
+}

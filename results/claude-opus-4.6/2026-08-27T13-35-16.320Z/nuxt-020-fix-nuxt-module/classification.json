@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model made many correct fixes to the Nuxt module (component renaming, server route restructuring, CSS merging, config merging) but failed to complete 3 critical requirements: (1) namespace the composable import, (2) use moduleDependencies instead of installModule for the consent submodule, and (3) remove the deprecated installModule call entirely."
+}

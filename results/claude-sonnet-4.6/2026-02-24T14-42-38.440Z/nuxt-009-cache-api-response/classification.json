@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model implemented caching by using `cachedEventHandler`, but the test expected `defineCachedEventHandler`. The model wrote code but chose the wrong Nitro caching API function, causing the test to fail."
+}

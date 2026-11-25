@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code but used incorrect Nuxt UI components. It used UDashboardLayout and UDashboardSidebarLinks instead of the required UDashboardGroup and UNavigationMenu, and failed to implement the collapsible sidebar functionality that tests required."
+}

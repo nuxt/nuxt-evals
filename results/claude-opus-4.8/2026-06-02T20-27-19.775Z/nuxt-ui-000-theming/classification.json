@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created app.config.ts but consistently placed it in the wrong location (/workspace/app/app.config.ts instead of /workspace/app.config.ts). In Nuxt 4, app.config.ts must be at the project root. The tests correctly expected the file at the root but couldn't find it. Across all 4 runs, the model made this same mistake, causing the EVAL tests to fail with \"getAppConfigContent() returns undefined\"."
+}

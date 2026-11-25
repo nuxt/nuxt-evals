@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code that partially fixed the Nuxt module issues but failed on 3 critical test cases: (1) did not namespace the composable export (should be useBeaconTrack not useTrack), (2) did not declare the consent module as a moduleDependency, and (3) used the deprecated installModule() approach instead of moduleDependencies, contradicting the Nuxt module author guide standards."
+}

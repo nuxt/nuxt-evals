@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that compiles and partially works (11/14 tests pass), but fails 3 critical tests: the composable should be namespaced, consent should be declared via moduleDependencies (not deprecated installModule), and installModule usage is deprecated."
+}

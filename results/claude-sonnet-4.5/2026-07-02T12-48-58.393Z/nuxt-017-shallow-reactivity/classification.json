@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model changed the checkbox from `:checked` with `@change` to `v-model`, but this doesn't address the core issue: `useFetch` returns data in a `shallowRef` by default, which doesn't track nested property mutations. The test \"Makes the toggle reactive despite the shallowRef default\" requires using either deep reactivity options, reassigning the entire ref, triggering mechanisms, or wrapping with `ref()`/`reactive()` - none of which the model implemented."
+}

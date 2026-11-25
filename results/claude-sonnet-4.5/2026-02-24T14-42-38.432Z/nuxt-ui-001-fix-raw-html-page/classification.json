@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model replaced raw HTML with Nuxt UI components but used incorrect ones. Tests required UPageHero, UPageSection, and UNavigationMenu, but the model used UHeaderLinks, ULink, and plain sections instead, causing 3 test failures in run-1 and 8 failures in run-2 out of 11 total tests."
+}

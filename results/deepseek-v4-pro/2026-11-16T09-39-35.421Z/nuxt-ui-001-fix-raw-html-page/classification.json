@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code and modified the index.vue file but failed to correctly replace all raw HTML elements with the required Nuxt UI components. Tests required UNavigationMenu, UPageHero, and UPageSection components, and complete removal of raw <header>, <nav>, and <footer> elements, but the model's implementation kept raw HTML elements and used incorrect component substitutions."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted to fix the Nuxt module but failed to fully implement the required changes. While it correctly added meta.configKey, used createResolver, renamed the component to BeaconChart, and changed the endpoint, it failed to: namespace the composable (still `useTrack` instead of namespaced), use moduleDependencies instead of deprecated installModule, and didn't achieve all 14 test requirements. 4 of 14 tests failed."
+}

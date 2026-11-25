@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model replaced the checkbox binding with v-model across all 4 runs, but failed to address the specific constraint: making reactivity work despite a shallowRef default. The test requires code patterns indicating deep reactivity handling (useState, watcher with deep:true, array reassigns, or deepCopy), which the v-model solution doesn't provide."
+}

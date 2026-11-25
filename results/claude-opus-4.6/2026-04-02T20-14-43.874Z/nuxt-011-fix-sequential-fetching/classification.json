@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model incorrectly wrapped useFetch calls in Promise.all for parallel fetching, but Nuxt best practices require useAsyncData + Promise.all with $fetch instead. The model failed 3 out of 7 tests that check for the correct architectural pattern."
+}

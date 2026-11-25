@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated partial error handling code (error.vue, error boundary in app.vue, error handler plugin) but failed to create the pages/index.vue file that the evaluation tests require. 3 of 7 tests passed, but 4 critical tests failed because the index page was missing entirely."
+}

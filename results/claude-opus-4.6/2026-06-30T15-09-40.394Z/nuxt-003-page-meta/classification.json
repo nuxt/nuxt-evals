@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully added definePageMeta to pages but failed to wrap NuxtPage with NuxtLayout in app.vue, which is required for proper layout support. 6 of 7 tests passed, but the test \"app.vue uses NuxtLayout for layout support\" failed because app.vue still contains only NuxtPage without the NuxtLayout wrapper component."
+}

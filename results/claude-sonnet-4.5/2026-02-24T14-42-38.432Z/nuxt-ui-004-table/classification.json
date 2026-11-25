@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code but used the incorrect prop name for the UTable component. It used `:rows=\"filteredUsers\"` instead of the correct `:data` prop required by Nuxt UI v4's UTable component."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully generated code that converts sequential data fetching to parallel requests using Promise.all, but used the wrong Nuxt APIs (useFetch instead of useAsyncData + $fetch). Tests require the canonical Nuxt pattern which wraps parallel $fetch calls in useAsyncData."
+}

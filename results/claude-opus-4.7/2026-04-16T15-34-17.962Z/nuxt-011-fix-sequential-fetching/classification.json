@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code to parallelize requests using Promise.all with useFetch, but the tests require useAsyncData with $fetch, which is Nuxt's canonical pattern for parallel data fetching. The solution doesn't meet the specified requirements."
+}

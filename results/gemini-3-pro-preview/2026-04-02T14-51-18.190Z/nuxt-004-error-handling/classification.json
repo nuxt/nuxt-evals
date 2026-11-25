@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model created an error.vue page but failed to wrap the app content in NuxtErrorBoundary component as required. The eval test \"A page or app.vue uses NuxtErrorBoundary\" explicitly failed, showing the model's implementation was incomplete."
+}

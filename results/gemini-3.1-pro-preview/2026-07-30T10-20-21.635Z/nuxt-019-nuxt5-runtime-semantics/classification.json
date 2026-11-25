@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code changes but wrote incorrect implementations. The Vite plugin didn't use the required `applyToEnvironment` or `configEnvironment` APIs, and the server component fallback didn't properly reserve space for the client component as required by the tests."
+}

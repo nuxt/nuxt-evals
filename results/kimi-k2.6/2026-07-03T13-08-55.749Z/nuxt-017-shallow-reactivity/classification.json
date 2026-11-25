@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code to make todo state reactive using shallow copies with `ref()`, but the test expects deep reactivity handling (checking for patterns like deep copy, deep options, useState, or reactive triggers). The model's solution doesn't satisfy any of the required reactivity patterns."
+}

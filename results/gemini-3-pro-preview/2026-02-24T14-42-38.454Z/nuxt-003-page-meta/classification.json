@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully added definePageMeta and page titles to individual page files (6/7 tests pass), but failed to modify app.vue to include the NuxtLayout component, which is required to enable the layout system. The test \"app.vue uses NuxtLayout for layout support\" explicitly expects /<NuxtLayout/ in app.vue but found the default template with only NuxtPage instead."
+}

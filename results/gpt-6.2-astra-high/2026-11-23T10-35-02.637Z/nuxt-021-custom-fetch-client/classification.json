@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code but it was incorrect. The test expects the client to dynamically read the token cookie using useCookie() per request, but the model either didn't use useCookie at all (runs 1-3) or captured its value at setup time causing the header to go stale (run 4)."
+}

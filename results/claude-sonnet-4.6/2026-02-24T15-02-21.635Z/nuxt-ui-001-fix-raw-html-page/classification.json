@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code that replaced some raw HTML elements with Nuxt UI components (UNavigationMenu, UButton, UCard) but failed to replace all required elements. Tests expect UPageHero for the hero section and UPageSection for the features section, but the model kept the raw <section> elements instead. Runs 2 and 3 achieved 9/11 passing tests, but all 4 runs failed to achieve 100% compliance."
+}

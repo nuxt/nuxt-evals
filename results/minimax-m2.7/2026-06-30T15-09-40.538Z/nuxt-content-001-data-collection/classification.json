@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "Model created /workspace/pages/team.vue but test cannot find it (teamPage variable is undefined). The test's file lookup function cannot locate the created team page file, suggesting the model may have created it in the wrong location or with incorrect structure that the test framework cannot detect."
+}

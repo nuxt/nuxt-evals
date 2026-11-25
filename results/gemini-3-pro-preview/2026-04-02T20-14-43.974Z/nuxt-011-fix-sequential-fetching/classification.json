@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code to optimize data fetching using Promise.all with useFetch, but the tests require the canonical Nuxt pattern using useAsyncData with $fetch. All 4 runs consistently failed the same 3 tests, demonstrating the model misunderstood the correct optimization approach."
+}

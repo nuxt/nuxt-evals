@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model made partial code changes for the Nuxt 5 migration but failed to complete all required updates. All 4 runs missed adding the explicit import of `defineEventHandler` to the API handler (required when compatibilityVersion 5 disables Nitro auto-imports), and some runs also failed to properly update null check logic in the component."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code for a modal page but used incorrect Nuxt UI syntax. It used `v-model=\"isModalOpen\"` instead of `v-model:open=\"isModalOpen\"` and didn't use a `#body` slot for the form content, causing 2 out of 11 tests to fail in all successful runs (runs 1-3)."
+}

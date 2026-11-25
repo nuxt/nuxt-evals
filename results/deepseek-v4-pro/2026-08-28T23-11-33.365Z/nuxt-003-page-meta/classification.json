@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully added definePageMeta and useHead to 3 pages but failed to modify app.vue to wrap NuxtPage with NuxtLayout, which is required for layout support. Test expects /<NuxtLayout/ regex match in app.vue."
+}

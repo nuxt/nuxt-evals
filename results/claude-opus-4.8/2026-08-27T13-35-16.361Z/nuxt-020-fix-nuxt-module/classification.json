@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted to fix the Nuxt beacon module but wrote incorrect code. Despite making changes to modules/beacon/index.ts, the implementation still fails 3 critical tests: the composable is not namespaced (should be useBeaconTrack not useTrack), moduleDependencies is not declared for the consent sub-module, and deprecated installModule() is still used instead of the modern moduleDependencies approach."
+}

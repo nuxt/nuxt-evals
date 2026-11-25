@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated a UTable component using the :rows prop instead of the required :data prop for Nuxt UI v4. While most of the implementation was correct (7/8 tests passed), the incorrect prop name caused the test failure."
+}

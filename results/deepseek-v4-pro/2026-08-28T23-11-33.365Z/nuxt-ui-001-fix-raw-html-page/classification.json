@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model attempted to refactor the page to use Nuxt UI components by modifying Vue files, but generated incorrect code. It used wrong components (ULink, UButton, UCard) instead of the required ones (UHeader, UNavigationMenu, UFooter, UPageHero, UPageSection) and failed to remove raw HTML elements that tests explicitly reject."
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model never wrote any code. Across all 4 runs, file_write and file_edit metrics are 0, and filesModified arrays are empty. The model only ran shell exploration commands to inspect the codebase and @nuxt/ui library structure but never called file creation/modification tools. Test failures show app.config.ts does not exist, indicating the model failed to create the required configuration file despite claiming to have done so in its final messages."
+}

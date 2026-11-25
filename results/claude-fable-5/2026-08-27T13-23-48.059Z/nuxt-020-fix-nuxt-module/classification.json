@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model wrote code but it violates the Nuxt module author guide in 3 ways: (1) used deprecated `installModule()` instead of `moduleDependencies`, (2) didn't namespace the composable (`useTrack` should be `useBeaconTrack`), and (3) didn't declare the consent module as a module dependency via `moduleDependencies`."
+}

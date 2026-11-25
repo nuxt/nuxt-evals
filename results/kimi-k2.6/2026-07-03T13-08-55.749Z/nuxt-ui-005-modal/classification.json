@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model successfully wrote Vue code implementing a UModal component with all required features (modal with v-model:open, body and footer slots, form inputs, buttons, item list with v-for), but placed it in /workspace/pages/index.vue which the test harness appears not to read when gathering Vue file content. The model's code is correct but didn't satisfy the test's expectations about file location."
+}
