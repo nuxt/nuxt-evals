@@ -145,7 +145,9 @@ async function startPass(ctx: WorkflowStepToolContext, name: string, pass: numbe
   await run(
     sandbox,
     `setsid nohup node_modules/.bin/agent-eval run ${smoke ? '--smoke ' : ''}${name} > ${STATE}/${name}-${pass}.log 2>&1 < /dev/null & echo $! > ${STATE}/pid`,
-    { VERCEL_OIDC_TOKEN: token, AI_GATEWAY_API_KEY: '' },
+    // Only the token. agent-eval reads AI_GATEWAY_API_KEY first and treats an
+    // empty one as set, so it is not passed at all.
+    { VERCEL_OIDC_TOKEN: token },
   );
   return { evals: left.length };
 }
@@ -156,7 +158,10 @@ async function checkPass(ctx: WorkflowStepToolContext, name: string, pass: numbe
   if (stop) await sandbox.run({ command: `kill $(cat ${STATE}/pid) 2>/dev/null; sleep 5` });
   const state = await sandbox.run({ command: `kill -0 $(cat ${STATE}/pid) 2>/dev/null && echo running || echo done` });
   // Strip the terminal codes agent-eval's dashboard prints.
-  const tail = await sandbox.run({ command: `tail -c 4000 ${STATE}/${name}-${pass}.log | sed 's/\\x1b\\[[0-9;]*[A-Za-z]//g' | grep -E '✓|✗|passed|failed|Error|error' | tail -15` });
+  // Result lines when there are any, otherwise the last lines, so a run that
+  // stopped early says why.
+  const log = `tail -c 6000 ${STATE}/${name}-${pass}.log | sed 's/\\x1b\\[[0-9;]*[A-Za-z]//g' | tr '\\r' '\\n' | grep -v '^\\s*$'`;
+  const tail = await sandbox.run({ command: `{ ${log} | grep -E '✓|✗|passed|failed|Error|error|skipping|not set' || ${log}; } | tail -15` });
   return { running: state.stdout.trim() === 'running', tail: tail.stdout.trim() };
 }
 
