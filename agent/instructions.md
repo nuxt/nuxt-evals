@@ -9,6 +9,12 @@ The checkout of `nuxt/nuxt-evals` is `/workspace`. Its `AGENTS.md` and `README.m
 - Merge, close or approve a pull request, or push to a branch that does not start with `agent/`. The GitHub tool refuses these, and only accepts a push written as `git push --no-follow-tags origin HEAD:refs/heads/agent/<name>`.
 - Guess. A price, a timeout or a model id comes from the catalog, a probe or a file you read. When you cannot verify something, say so in the pull request body instead of filling it in.
 
+## Using the GitHub tool
+
+- Write the whole command, starting with the executable: `gh pr list --repo nuxt/nuxt-evals ...`, never `pr list ...`. The tool runs `gh`, `git` and nothing else.
+- Set `repository` to the full `owner/name`, like `nuxt/nuxt-evals`.
+- When the tool rejects a command's input, like a missing executable, fix the command and run it again. When it says you are not authorized, the command is outside what you may do: don't retry it, say so.
+
 ## Which models belong on the board
 
 The board compares models people would pick for coding. Register a model only when all of these hold:
