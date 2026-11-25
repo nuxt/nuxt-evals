@@ -140,14 +140,19 @@ async function startPass(ctx: WorkflowStepToolContext, name: string, pass: numbe
   if (live.exitCode === 0) return { evals: left.length };
   // Minted in this step and handed to the process only, never returned: step
   // results are stored in the workflow's event log. A fresh one per pass, so
-  // a long sweep never runs on a token close to expiry.
+  // a long sweep never runs on a token close to expiry. agent-eval creates the
+  // eval sandboxes with it.
   const token = await getVercelOidcToken();
+  // The project runs on the Nuxt team, but model calls go through a
+  // vercel-labs gateway key, for its provider allowlist and billing, so
+  // results stay comparable with the board. agent-eval prefers the key over
+  // the token for the gateway. It treats an empty key as set, so a missing one
+  // is left out rather than passed empty.
+  const gatewayKey = process.env.AI_GATEWAY_API_KEY?.trim();
   await run(
     sandbox,
     `setsid nohup node_modules/.bin/agent-eval run ${smoke ? '--smoke ' : ''}${name} > ${STATE}/${name}-${pass}.log 2>&1 < /dev/null & echo $! > ${STATE}/pid`,
-    // Only the token. agent-eval reads AI_GATEWAY_API_KEY first and treats an
-    // empty one as set, so it is not passed at all.
-    { VERCEL_OIDC_TOKEN: token },
+    { VERCEL_OIDC_TOKEN: token, ...(gatewayKey ? { AI_GATEWAY_API_KEY: gatewayKey } : {}) },
   );
   return { evals: left.length };
 }
