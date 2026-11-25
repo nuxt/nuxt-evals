@@ -2,7 +2,7 @@ import { getVercelOidcToken } from '@vercel/oidc';
 import { defineWorkflowTool, type WorkflowStepToolContext } from 'eve/tools';
 import { sleep } from 'eve/workflow';
 import { z } from 'zod';
-import { mayStartSweeps, REPOSITORY } from '../lib/github';
+import { BASE_BRANCH, mayStartSweeps, REPOSITORY } from '../lib/github';
 import { run } from '../lib/sandbox';
 
 /** Infra failures are deleted, not counted, so the same run is the retry. */
@@ -88,7 +88,7 @@ async function prepare(ctx: WorkflowStepToolContext, input: { pullRequest?: numb
   // are untracked, staged, or in a commit that was never pushed: the mixed
   // reset turns them back into untracked files, which the forced checkout
   // keeps, and the clean skips `results/`.
-  await run(sandbox, `git fetch -q origin main && git reset -q origin/main && git checkout -q -f --detach origin/main && git clean -fdq -e ${STATE} -e results && pnpm install --frozen-lockfile`);
+  await run(sandbox, `git fetch -q origin ${BASE_BRANCH} && git reset -q FETCH_HEAD && git checkout -q -f --detach FETCH_HEAD && git clean -fdq -e ${STATE} -e results && pnpm install --frozen-lockfile`);
   const base = (await run(sandbox, 'git rev-parse HEAD')).trim();
 
   let head: string | null = null;

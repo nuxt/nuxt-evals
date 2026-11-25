@@ -11,6 +11,15 @@ export const BOT_NAME = 'nuxt-evals';
 /** The benchmark. Registrations, sweeps and results happen here. */
 export const REPOSITORY = 'nuxt/nuxt-evals';
 
+/**
+ * The branch the agent works from: its scripts run with the gateway token, so
+ * a deployment always uses `main`. Under `eve dev`, `NUXT_EVALS_BASE_BRANCH`
+ * points it at a branch under test.
+ */
+export const BASE_BRANCH = process.env.VERCEL === undefined && /^[\w./-]+$/.test(process.env.NUXT_EVALS_BASE_BRANCH ?? '')
+  ? process.env.NUXT_EVALS_BASE_BRANCH!
+  : 'main';
+
 /** Where registrations go, and where the results are published. */
 const REPOSITORIES = new Set([REPOSITORY, 'nuxt/nuxt.com']);
 
