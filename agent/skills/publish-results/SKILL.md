@@ -29,8 +29,10 @@ gh pr list --repo nuxt/nuxt.com --state open --limit 200 --json number,title,hea
 
 ## 3. Push the file
 
+The clone goes in `/workspace/.eve-publish`: the GitHub tool only runs inside `/workspace`, and that directory is ignored by the nuxt-evals checkout around it.
+
 ```bash
-cd /tmp
+mkdir -p /workspace/.eve-publish && cd /workspace/.eve-publish
 rm -rf nuxt.com
 git clone --depth 1 --filter=blob:none --sparse https://github.com/nuxt/nuxt.com.git
 cd nuxt.com
@@ -46,6 +48,8 @@ git commit -m "<title from results-diff>"
 ```bash
 git push --no-follow-tags origin HEAD:refs/heads/agent/evals-results
 ```
+
+Run it with `workingDirectory` set to `.eve-publish/nuxt.com` and `repository` set to `nuxt/nuxt.com`.
 
 ## 4. Open or update the pull request
 
