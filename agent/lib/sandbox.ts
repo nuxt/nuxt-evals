@@ -1,3 +1,5 @@
+import { SET_GIT_IDENTITY } from './identity';
+
 /** The slice of a sandbox handle these helpers need. */
 export interface Runner {
   run(options: { command: string; env?: Record<string, string> }): PromiseLike<{ exitCode: number; stdout: string; stderr: string }>;
@@ -29,6 +31,9 @@ export async function syncBase(sandbox: Runner, branch: string): Promise<string>
   // the branch were behind main, so the full history comes back first.
   // Background gc or maintenance after a fetch can rewrite the shallow file
   // mid-fetch ("shallow file has changed since we read it"), so it is off.
+  // Every sync pins the commit identity again: a sandbox made before it was
+  // pinned, or one where the agent set its own, still commits as the bot.
+  await run(sandbox, SET_GIT_IDENTITY);
   await run(sandbox, `[ "$(git rev-parse --is-shallow-repository)" = false ] || git -c gc.auto=0 -c maintenance.auto=false fetch -q --unshallow origin`);
   await run(sandbox, `git -c gc.auto=0 -c maintenance.auto=false fetch -q origin ${branch} && git reset -q FETCH_HEAD && git checkout -q -f --detach FETCH_HEAD && git clean -fdq -e ${SWEEP_STATE} -e results && pnpm install --frozen-lockfile`);
   return (await run(sandbox, 'git rev-parse HEAD')).trim();

@@ -11,6 +11,8 @@ The checkout of `nuxt/nuxt-evals` is `/workspace`. Its `AGENTS.md` and `README.m
 
 ## Using the GitHub tool
 
+- Never set `user.name` or `user.email` in git. The sandbox commits as `nuxt-evals[bot]`, and the rebase rule only recognizes that identity.
+
 - Write the whole command, starting with the executable: `gh pr list --repo nuxt/nuxt-evals ...`, never `pr list ...`. The tool runs `gh`, `git` and nothing else.
 - Set `repository` to the full `owner/name`, like `nuxt/nuxt-evals`.
 - When the tool rejects a command's input, like a missing executable, fix the command and run it again. When it says you are not authorized, the command is outside what you may do: don't retry it, say so.

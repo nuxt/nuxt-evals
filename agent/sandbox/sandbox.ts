@@ -1,7 +1,8 @@
 import { defineSandbox } from 'eve/sandbox';
 import { VercelSandbox } from 'eve/sandbox/vercel';
 import { installCodeTooling } from 'eve/extensions/code/sandbox';
-import { BASE_BRANCH, BOT_EMAIL, BOT_NAME_IN_COMMITS } from '../lib/github';
+import { BASE_BRANCH } from '../lib/github';
+import { SET_GIT_IDENTITY } from '../lib/identity';
 import { run } from '../lib/sandbox';
 
 const REPOSITORY = 'https://github.com/nuxt/nuxt-evals.git';
@@ -14,7 +15,7 @@ export const environment = VercelSandbox.environment({
     await installCodeTooling(sandbox);
     await run(sandbox, 'npm install --global pnpm@10');
     // Every commit the agent makes is authored as the App's bot account.
-    await run(sandbox, `git config --global user.name '${BOT_NAME_IN_COMMITS}' && git config --global user.email '${BOT_EMAIL}'`);
+    await run(sandbox, SET_GIT_IDENTITY);
   },
 });
 
@@ -30,6 +31,7 @@ export default defineSandbox(async () => {
   // The repository is the workspace root, where the GitHub channel checks out
   // pull requests too. It is public, so this needs no credential. Safe to
   // repeat: this can run more than once against the same sandbox.
+  await run(sandbox, SET_GIT_IDENTITY);
   await run(sandbox, `[ -d .git ] || { git init -q && git remote add origin ${REPOSITORY}; }`);
   await run(sandbox, `git fetch -q origin ${BASE_BRANCH} && git checkout -q -f -B main FETCH_HEAD && pnpm install --frozen-lockfile`);
   return sandbox;
