@@ -3,15 +3,9 @@ import type { SessionAuthContext } from 'eve/context';
 import type { GitHubAppAuthorizeRequest, GitHubLeaseBroker } from 'eve/extensions/git';
 import { isScheduleAuth } from 'eve/schedules';
 
-/**
- * The App's bot account, which every commit the agent makes is authored as.
- * The noreply address with the bot's user id is what GitHub links to
- * `nuxt-evals[bot]`.
- */
-export const BOT_NAME_IN_COMMITS = 'nuxt-evals[bot]';
-export const BOT_EMAIL = '361069101+nuxt-evals[bot]@users.noreply.github.com';
-/** What the agent wrote before BOT_EMAIL existed, on #78. GitHub links it to an unrelated account. */
-const LEGACY_BOT_EMAIL = 'agent@users.noreply.github.com';
+import { BOT_EMAIL, LEGACY_BOT_EMAILS } from './identity';
+
+export { BOT_EMAIL, BOT_NAME_IN_COMMITS } from './identity';
 
 /** The Vercel Connect connector of the agent's GitHub App. */
 export const CONNECTOR = 'github/nuxt-evals';
@@ -102,7 +96,7 @@ async function onlyAgentCommits(repository: string, branch: string, token: strin
     // The compare API lists at most 250 commits. A comparison it cut short
     // can't prove every commit is the agent's, so it counts as a no.
     if (commits.length === 0 || commits.length !== total) return false;
-    const ours = (email: string | undefined) => email === BOT_EMAIL || email === LEGACY_BOT_EMAIL;
+    const ours = (email: string | undefined) => email === BOT_EMAIL || LEGACY_BOT_EMAILS.includes(email ?? '');
     return commits.every(({ commit }) => ours(commit.author?.email) && ours(commit.committer?.email));
   } catch {
     return false;
