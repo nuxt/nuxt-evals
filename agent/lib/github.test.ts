@@ -13,9 +13,10 @@ const run = (command: string, repository: string | null = 'nuxt/nuxt-evals', aut
   authorize({ argv: command.split(' '), repository, auth, token });
 
 /** GitHub's compare API, answering with commits by these emails. */
-function stubCompare(emails: string[]) {
+function stubCompare(emails: string[], total = emails.length) {
   globalThis.fetch = (async () => new Response(JSON.stringify({
     commits: emails.map((email) => ({ commit: { author: { email }, committer: { email } } })),
+    total_commits: total,
   }))) as typeof fetch;
 }
 
@@ -84,6 +85,9 @@ test('the agent rebases its own registrations, like Renovate', async () => {
   assert.equal(await run(force), true);
   // Someone else pushed to it: never rewritten.
   stubCompare([BOT_EMAIL, 'someone@example.com']);
+  assert.equal(await run(force), false);
+  // A comparison the API cut short proves nothing.
+  stubCompare([BOT_EMAIL], 300);
   assert.equal(await run(force), false);
   stubCompare([BOT_EMAIL]);
   // Only registrations, only on nuxt-evals, only with a lease.

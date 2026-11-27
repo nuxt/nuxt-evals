@@ -95,9 +95,15 @@ async function onlyAgentCommits(repository: string, branch: string, token: strin
       headers: { accept: 'application/vnd.github+json', authorization: `Bearer ${token}`, 'user-agent': 'nuxt-evals-agent' },
     });
     if (!response.ok) return false;
-    const { commits } = await response.json() as { commits: Array<{ commit: { author: { email?: string } | null; committer: { email?: string } | null } }> };
+    const { commits, total_commits: total } = await response.json() as {
+      commits: Array<{ commit: { author: { email?: string } | null; committer: { email?: string } | null } }>;
+      total_commits: number;
+    };
+    // The compare API lists at most 250 commits. A comparison it cut short
+    // can't prove every commit is the agent's, so it counts as a no.
+    if (commits.length === 0 || commits.length !== total) return false;
     const ours = (email: string | undefined) => email === BOT_EMAIL || email === LEGACY_BOT_EMAIL;
-    return commits.length > 0 && commits.every(({ commit }) => ours(commit.author?.email) && ours(commit.committer?.email));
+    return commits.every(({ commit }) => ours(commit.author?.email) && ours(commit.committer?.email));
   } catch {
     return false;
   }
