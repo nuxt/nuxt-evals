@@ -1,0 +1,19 @@
+{
+  "totalRuns": 1,
+  "passedRuns": 1,
+  "passRate": "100%",
+  "meanDuration": 841.729,
+  "usage": {
+    "runsWithUsage": 1,
+    "totalTokens": 4082836,
+    "inputTokens": 212297,
+    "outputTokens": 6321,
+    "cacheReadTokens": 3854784,
+    "cacheWriteTokens": 0,
+    "reasoningTokens": 9434,
+    "meanTotalTokens": 4082836,
+    "costUsd": 0.9105476
+  },
+  "fingerprint": "8f197a7330e8b23dc0286d3a5ccf2d9150e4ce363f525e4d6b39927f0c83af3f",
+  "contentFingerprint": "e48408d08be041522530b7763f96726da700ce50a581d34aa1e67cd52212dda0"
+}

@@ -1,0 +1,4 @@
+{
+  "failureType": "model",
+  "failureReason": "The model generated code for the Nuxt module but made an error in the second edit. It reverted part of the fix by exporting both `useTrack` (non-namespaced) and `useBeaconTrack` (namespaced), when the test requires composables to be namespaced to prevent collisions. The test \"The module composable is namespaced\" failed with assertion that `useTrack` must carry the module name."
+}

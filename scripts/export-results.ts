@@ -133,6 +133,7 @@ const MODEL_NAMES: Record<string, string> = {
   'kimi-k3.1-pro': 'Kimi K3.1 Pro',
   'minimax-m2.7': 'MiniMax M2.7',
   'minimax-m3': 'MiniMax M3',
+  'muse-spark-open': 'Muse Spark Open',
 };
 
 const HARNESS_NAMES: Record<string, string> = {

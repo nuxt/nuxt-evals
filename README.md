@@ -106,6 +106,7 @@ npx eve dev                # run the agent locally
 | `kimi-k3.1-pro` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k3.1-pro` |
 | `minimax-m2.7` | `vercel-ai-gateway/opencode` | `vercel/minimax/minimax-m2.7` |
 | `minimax-m3` | `vercel-ai-gateway/opencode` | `vercel/minimax/minimax-m3` |
+| `muse-spark-open` | `vercel-ai-gateway/opencode` | `vercel/meta/muse-spark-open` |
 
 ## Eval structure
 

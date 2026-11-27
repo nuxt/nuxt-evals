@@ -17,6 +17,7 @@ export const TIER_ONE_EXPERIMENTS = [
   'grok-4.7',
   'kimi-k3.1-pro',
   'minimax-m3',
+  'muse-spark-open',
 ] as const;
 
 
