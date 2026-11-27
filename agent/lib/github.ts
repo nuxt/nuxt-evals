@@ -3,6 +3,16 @@ import type { SessionAuthContext } from 'eve/context';
 import type { GitHubAppAuthorizeRequest, GitHubLeaseBroker } from 'eve/extensions/git';
 import { isScheduleAuth } from 'eve/schedules';
 
+/**
+ * The App's bot account, which every commit the agent makes is authored as.
+ * The noreply address with the bot's user id is what GitHub links to
+ * `nuxt-evals[bot]`.
+ */
+export const BOT_NAME_IN_COMMITS = 'nuxt-evals[bot]';
+export const BOT_EMAIL = '361069101+nuxt-evals[bot]@users.noreply.github.com';
+/** What the agent wrote before BOT_EMAIL existed, on #78. GitHub links it to an unrelated account. */
+const LEGACY_BOT_EMAIL = 'agent@users.noreply.github.com';
+
 /** The Vercel Connect connector of the agent's GitHub App. */
 export const CONNECTOR = 'github/nuxt-evals';
 
@@ -70,6 +80,34 @@ export const mayWrite = (auth: SessionAuthContext | null | undefined): boolean =
  * from the sandbox's own configuration, which the agent can edit.
  */
 const AGENT_REFSPEC = /^[\w./-]+:refs\/heads\/agent\/[\w.-]+$/;
+/** The branches the agent may rebase and force push: its registrations. */
+const REGISTRATION_REFSPEC = /^[\w./-]+:refs\/heads\/(agent\/add-[\w.-]+)$/;
+
+/**
+ * Whether every commit `branch` has on top of main is the agent's own, like
+ * Renovate before it rebases one of its branches. A branch someone else
+ * pushed to is never rewritten. It asks GitHub with the token minted for the
+ * command, before the command runs.
+ */
+async function onlyAgentCommits(repository: string, branch: string, token: string): Promise<boolean> {
+  try {
+    const response = await fetch(`https://api.github.com/repos/${repository}/compare/main...${encodeURIComponent(branch)}`, {
+      headers: { accept: 'application/vnd.github+json', authorization: `Bearer ${token}`, 'user-agent': 'nuxt-evals-agent' },
+    });
+    if (!response.ok) return false;
+    const { commits, total_commits: total } = await response.json() as {
+      commits: Array<{ commit: { author: { email?: string } | null; committer: { email?: string } | null } }>;
+      total_commits: number;
+    };
+    // The compare API lists at most 250 commits. A comparison it cut short
+    // can't prove every commit is the agent's, so it counts as a no.
+    if (commits.length === 0 || commits.length !== total) return false;
+    const ours = (email: string | undefined) => email === BOT_EMAIL || email === LEGACY_BOT_EMAIL;
+    return commits.every(({ commit }) => ours(commit.author?.email) && ours(commit.committer?.email));
+  } catch {
+    return false;
+  }
+}
 
 const GH_ALLOWED = new Set(['pr create', 'pr edit', 'pr list', 'pr view', 'pr diff', 'issue create', 'issue edit', 'issue list', 'issue view']);
 const GIT_READS = new Set(['clone', 'fetch', 'ls-remote', 'pull']);
@@ -82,7 +120,7 @@ const GIT_READS = new Set(['clone', 'fetch', 'ls-remote', 'pull']);
  * `agent/*` branches without force. Branch protection on `main` is still the
  * backstop on GitHub's side.
  */
-export function authorize({ argv, repository, auth }: Pick<GitHubAppAuthorizeRequest, 'argv' | 'repository' | 'auth'>): boolean {
+export async function authorize({ argv, repository, auth, token }: Pick<GitHubAppAuthorizeRequest, 'argv' | 'repository' | 'auth'> & { token?: string }): Promise<boolean> {
   if (!mayWrite(auth)) return false;
   if (repository === null || !REPOSITORIES.has(repository.toLowerCase())) return false;
   const [bin, ...rest] = argv;
@@ -103,12 +141,20 @@ export function authorize({ argv, repository, auth }: Pick<GitHubAppAuthorizeReq
     const positional = options.filter((arg) => !arg.startsWith('-'));
     const flags = options.filter((arg) => arg.startsWith('-'));
     // `git push --no-follow-tags origin <src>:refs/heads/agent/<name>`: one
-    // remote, one branch, no tag, nothing that rewrites or deletes.
-    return positional.length === 2
+    // remote, one branch, no tag, nothing that deletes.
+    const plain = positional.length === 2
       && positional[0] === 'origin'
       && AGENT_REFSPEC.test(positional[1])
-      && flags.includes('--no-follow-tags')
-      && flags.every((flag) => flag === '--no-follow-tags' || flag === '-u' || flag === '--set-upstream');
+      && flags.includes('--no-follow-tags');
+    if (!plain) return false;
+    const rewrites = flags.filter((flag) => flag !== '--no-follow-tags' && flag !== '-u' && flag !== '--set-upstream');
+    if (rewrites.length === 0) return true;
+    // A rebased registration: `--force-with-lease` only, which refuses to
+    // overwrite a push it hasn't seen, and only on a branch with nothing but
+    // the agent's commits.
+    const registration = positional[1].match(REGISTRATION_REFSPEC)?.[1];
+    if (rewrites.length !== 1 || rewrites[0] !== '--force-with-lease' || !registration || repository.toLowerCase() !== REPOSITORY || !token) return false;
+    return onlyAgentCommits(REPOSITORY, registration, token);
   }
 
   // gh-signed-commit: neither repository requires signed commits.

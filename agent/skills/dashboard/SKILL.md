@@ -22,6 +22,23 @@ Call `dashboard` with `running` set to one line naming what you are about to do 
 
 Several boxes run one after another, never at the same time. Between two of them, call `dashboard` again with the next `running` line.
 
+When `sweep` says a pull request is behind main, rebase its branch, then call `sweep` again once:
+
+```bash
+git fetch origin main agent/add-<name>
+git checkout -B agent/add-<name> origin/agent/add-<name>
+git rebase origin/main
+pnpm run test:cost
+```
+
+On a conflict, run `git rebase --abort` and report it instead. Push with the GitHub tool, in exactly this form:
+
+```bash
+git push --no-follow-tags --force-with-lease origin HEAD:refs/heads/agent/add-<name>
+```
+
+The tool only allows it on a registration branch where every commit is yours. When it refuses, someone else pushed to the branch: report it and leave the branch alone.
+
 ## 3. Finish
 
 Call `dashboard` with `running: null`. The board now shows what is left.
