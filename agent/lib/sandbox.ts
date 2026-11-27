@@ -24,7 +24,13 @@ export const SWEEP_STATE = '.eve-sweep';
  * `results/`.
  */
 export async function syncBase(sandbox: Runner, branch: string): Promise<string> {
-  await run(sandbox, `git fetch -q origin ${branch} && git reset -q FETCH_HEAD && git checkout -q -f --detach FETCH_HEAD && git clean -fdq -e ${SWEEP_STATE} -e results && pnpm install --frozen-lockfile`);
+  // The GitHub channel checks pull requests out with depth 1, which makes the
+  // repository shallow. Ancestry checks and three-dot diffs then fail as if
+  // the branch were behind main, so the full history comes back first.
+  // Background gc or maintenance after a fetch can rewrite the shallow file
+  // mid-fetch ("shallow file has changed since we read it"), so it is off.
+  await run(sandbox, `[ "$(git rev-parse --is-shallow-repository)" = false ] || git -c gc.auto=0 -c maintenance.auto=false fetch -q --unshallow origin`);
+  await run(sandbox, `git -c gc.auto=0 -c maintenance.auto=false fetch -q origin ${branch} && git reset -q FETCH_HEAD && git checkout -q -f --detach FETCH_HEAD && git clean -fdq -e ${SWEEP_STATE} -e results && pnpm install --frozen-lockfile`);
   return (await run(sandbox, 'git rev-parse HEAD')).trim();
 }
 

@@ -105,8 +105,11 @@ async function prepare(ctx: WorkflowStepToolContext, input: { pullRequest?: numb
     head = pull.head.sha;
     headRef = pull.head.ref;
     await run(sandbox, `git fetch -q origin refs/pull/${input.pullRequest}/head`);
+    // Exit 1 means not an ancestor. Anything else means git could not tell,
+    // like a missing commit, which must not be reported as a stale branch.
     const behind = await sandbox.run({ command: `git merge-base --is-ancestor ${base} ${head}` });
-    if (behind.exitCode !== 0) throw new Error(`#${input.pullRequest} is behind main. Its branch has to be updated first, or its export would run on another eval set.`);
+    if (behind.exitCode === 1) throw new Error(`#${input.pullRequest} is behind main. Its branch has to be updated first, or its export would run on another eval set.`);
+    if (behind.exitCode !== 0) throw new Error(`Could not compare #${input.pullRequest} with main: ${(behind.stderr || behind.stdout).trim()}`);
     names = (await run(sandbox, `git diff --name-only --diff-filter=A ${base}...${head} -- experiments/`))
       .split('\n').filter(Boolean).map((path) => path.replace(/^experiments\/(.*)\.ts$/, '$1'));
     if (names.length === 0) throw new Error(`#${input.pullRequest} adds no experiment.`);
