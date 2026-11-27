@@ -2,7 +2,7 @@ import { getVercelOidcToken } from '@vercel/oidc';
 import { defineWorkflowTool, type WorkflowStepToolContext } from 'eve/tools';
 import { sleep } from 'eve/workflow';
 import { z } from 'zod';
-import { BASE_BRANCH, mayStartSweeps, REPOSITORY } from '../lib/github';
+import { BASE_BRANCH, BOT_EMAIL, BOT_NAME_IN_COMMITS, mayStartSweeps, REPOSITORY } from '../lib/github';
 import type { ProgressLabel } from '../lib/progress';
 import { OPEN_POLICY, run, SWEEP_STATE, syncBase } from '../lib/sandbox';
 
@@ -108,7 +108,7 @@ async function prepare(ctx: WorkflowStepToolContext, input: { pullRequest?: numb
     // Exit 1 means not an ancestor. Anything else means git could not tell,
     // like a missing commit, which must not be reported as a stale branch.
     const behind = await sandbox.run({ command: `git merge-base --is-ancestor ${base} ${head}` });
-    if (behind.exitCode === 1) throw new Error(`#${input.pullRequest} is behind main. Its branch has to be updated first, or its export would run on another eval set.`);
+    if (behind.exitCode === 1) throw new Error(`#${input.pullRequest} is behind main, so its export would run on another eval set. Rebase its branch onto main as the dashboard skill says, then call sweep again.`);
     if (behind.exitCode !== 0) throw new Error(`Could not compare #${input.pullRequest} with main: ${(behind.stderr || behind.stdout).trim()}`);
     names = (await run(sandbox, `git diff --name-only --diff-filter=A ${base}...${head} -- experiments/`))
       .split('\n').filter(Boolean).map((path) => path.replace(/^experiments\/(.*)\.ts$/, '$1'));
@@ -232,6 +232,6 @@ async function finish(ctx: WorkflowStepToolContext, prepared: Prepared) {
   const staged = await sandbox.run({ command: 'git diff --cached --quiet' });
   if (staged.exitCode === 0) return { committed: null, board, promoted, pushTo: null };
 
-  await run(sandbox, `git -c user.name='nuxt-evals[bot]' -c user.email='nuxt-evals[bot]@users.noreply.github.com' -c core.hooksPath=/dev/null commit -q -m '${message}'`);
+  await run(sandbox, `git -c user.name='${BOT_NAME_IN_COMMITS}' -c user.email='${BOT_EMAIL}' -c core.hooksPath=/dev/null commit -q -m '${message}'`);
   return report({ board, promoted });
 }
