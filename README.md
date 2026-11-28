@@ -104,6 +104,7 @@ npx eve dev                # run the agent locally
 | `kimi-k2.7-code` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k2.7-code` |
 | `kimi-k3` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k3` |
 | `kimi-k3.1-pro` | `vercel-ai-gateway/opencode` | `vercel/moonshotai/kimi-k3.1-pro` |
+| `inkling-2-small` | `vercel-ai-gateway/opencode` | `vercel/thinkingmachines/inkling-2-small` |
 | `minimax-m2.7` | `vercel-ai-gateway/opencode` | `vercel/minimax/minimax-m2.7` |
 | `minimax-m3` | `vercel-ai-gateway/opencode` | `vercel/minimax/minimax-m3` |
 | `muse-spark-open` | `vercel-ai-gateway/opencode` | `vercel/meta/muse-spark-open` |

@@ -91,6 +91,8 @@ export const MODEL_PRICING: Record<string, Pricing | null> = {
   'kimi-k3.1-pro': { input: 2, output: 10, cacheRead: 0.2, cacheWrite: 0 },
   // Matches usage.cost on the probe (24 input, 128 cached, 32 output tokens billed $0.0001852).
   'muse-spark-open': { input: 1.25, output: 4.25, cacheRead: 0.15, cacheWrite: 0 },
+  // Matches usage.cost on the probe (22 input, 45 output tokens billed $0.0000516).
+  'inkling-2-small': { input: 0.3, output: 1, cacheRead: 0.03, cacheWrite: 0 },
   'minimax-m2.7': { input: 0.3, output: 1.2, cacheRead: 0.06, cacheWrite: 0.375 },
   'minimax-m3': { input: 0.3, output: 1.2, cacheRead: 0.06, cacheWrite: 0 },
 };

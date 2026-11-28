@@ -15,6 +15,7 @@ export const TIER_ONE_EXPERIMENTS = [
   'gpt-6.2-astra-high',
   'gpt-6.2-sol-high',
   'grok-4.7',
+  'inkling-2-small',
   'kimi-k3.1-pro',
   'minimax-m3',
   'muse-spark-open',
